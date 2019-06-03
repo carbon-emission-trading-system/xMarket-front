@@ -216,7 +216,7 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        api.JH_news("./QueryStockInformation", prom)
+        api.JH_news("/api/QueryStockInformation", prom)
           .then(res => {
             console.log(res);
             this.basicInfoStok = res.data;
@@ -267,7 +267,7 @@
             tradeStraregy:0,
           }
           console.log(SentstockTrading);
-          api.JH_news("./buyOrSale", SentstockTrading)
+          api.JH_news("/api/buyOrSale", SentstockTrading)
             .then(res => {
               this.msg = res.data.result;
               if (this.msg == 0) {
@@ -306,6 +306,9 @@
       },
       change3() {
         this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+      },
+	  change4() {
+        this.stockTrading.orderAmount = this.stockTrading.canorderAmount 
       },
       /**
        * 重新提交
