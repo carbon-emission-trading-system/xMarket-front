@@ -106,13 +106,13 @@
   Vue.component('selectDate',SelectDate)
 
     export default {
-        name: "HistoryHoldPosition",
+        name: "HistoryHoldPositionInfo",
       components:{
         SelectDate,
       },
       data(){
           return{
-            activeIndex: 'HistoryHoldPosition',
+            activeIndex: 'HistoryHoldPositionInfo',
             tableData:[],
             currentPage:1,
             total:20,

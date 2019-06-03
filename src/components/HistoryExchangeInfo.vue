@@ -164,13 +164,13 @@
 
 
   export default {
-    name: "HistoryHoldPosition",
+    name: "HistoryHoldPositionInfo",
     components:{
       SelectDate
     },
     data(){
       return{
-        activeIndex: 'HistoryExchange',
+        activeIndex: 'HistoryExchangeInfo',
         tableData:[],
         currentPage:1,
         total:20,

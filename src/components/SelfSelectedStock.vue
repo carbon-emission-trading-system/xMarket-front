@@ -56,6 +56,7 @@
             <div style="width: 100%">
               <el-table
                 :data="tableData"
+                @row-click="handle"
                 border
                 style="width:100%">
                 <el-table-column
@@ -156,6 +157,12 @@
       this.ReceiveSelfSelectedStock();
     },
     methods: {
+      handle(row){
+        // console.log(row.stockId)
+        this.$store.commit('stockID',row.stockID)
+        this.$store.commit('stockName',row.stockName)
+        this.$router.push('StockDisplay')
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
