@@ -5,11 +5,10 @@ import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
 export  default new Vuex.Store({
-  plugins: [createPersistedState()],
+ // plugins: [createPersistedState()],
   //定义数据
   state: {
     isLogin:false,
-
     stockList: [],
     //搜索的股票id
     stockID:'',

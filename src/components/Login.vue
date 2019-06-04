@@ -12,17 +12,17 @@
 
         <el-menu-item style = "margin-left: 20%" index="/" >首页</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" @click="warning">股票买卖</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
         <el-submenu style = "margin-left: 5%" >
           <template slot="title" index="1">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item  @click="warning" >当日成交</el-menu-item>
+          <el-menu-item @click="warning">当日委托</el-menu-item>
+          <el-menu-item  @click="warning">历史持仓</el-menu-item>
+          <el-menu-item  @click="warning">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 50px"  @click="warning">个人中心</el-menu-item>
       </el-menu>
     </div>
 
@@ -60,7 +60,8 @@
       <div id="right">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>登录</span>
+            <i class="el-icon-user" style="font-size: 25px"></i>
+            <span style="font-size: 25px">登录</span>
           </div>
           <div id="login">
             <el-form label-position="left" label-width="80px" :model="user"
@@ -125,6 +126,11 @@
       this.refreshCode();//需要触发的函数
     },
     methods: {
+      warning(){
+        this.$alert('请先登录！', {
+          confirmButtonText: '确定',
+        });
+      },
       refreshCode(){
         var self = this;
         Vue.axios.get('/api/validateCode' ,{
