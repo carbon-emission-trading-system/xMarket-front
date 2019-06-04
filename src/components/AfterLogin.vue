@@ -10,6 +10,7 @@
                active-text-color="#ffd04b"
                router="true">
 
+<<<<<<< HEAD
         <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
@@ -21,6 +22,18 @@
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
+=======
+        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style = "margin-left: 5%" >
+          <template slot="title">信息统计</template>
+          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
@@ -169,7 +182,7 @@
     },
     data() {
       return {
-        activeIndex: '/',
+        activeIndex: 'AfterLogin',
         notices: [],
         stock: []
       }

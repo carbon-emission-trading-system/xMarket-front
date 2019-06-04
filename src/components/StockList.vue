@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div id="StockList">
     <div>
       <el-menu :default-active="this.activeIndex"
@@ -34,6 +35,33 @@
           <el-button v-bind:class="{selectOn:this.index===0}" @click="typeList(0)">深A</el-button>
           <el-button v-bind:class="{selectOn:this.index===1}" @click="typeList(1)">沪A</el-button>
         </el-button-group>
+=======
+    <div id="StockList">
+      <div>
+        <el-menu :default-active="this.activeIndex"
+                 class="el-menu-demo"
+                 mode="horizontal"
+                 @select="handleSelect"
+                 background-color="#545c64"
+                 text-color="#fff"
+                 active-text-color="#ffd04b"
+                 router="true">
+
+          <el-menu-item style = "margin-left: 20%" @click="toFirst" >首页</el-menu-item>
+          <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
+          <el-menu-item style = "margin-left: 5%" @click="toRouterOrAlert('BuyAtLimitPrice')" >股票买卖</el-menu-item>
+          <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
+          <el-submenu style = "margin-left: 5%" >
+            <template slot="title">信息统计</template>
+            <el-menu-item @click="toRouterOrAlert('TodayExchange')" >当日成交</el-menu-item>
+            <el-menu-item @click="toRouterOrAlert('TodayOrder')" >当日委托</el-menu-item>
+            <el-menu-item @click="toRouterOrAlert('HistoryHoldPositionInfo')" >历史持仓</el-menu-item>
+            <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')" >历史成交</el-menu-item>
+          </el-submenu>
+
+          <el-menu-item style = "margin-left: 50px" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
+        </el-menu>
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
       </div>
 
       <div id="stock">
@@ -168,6 +196,7 @@
       typeList(index) {
         this.index = index
       },
+<<<<<<< HEAD
       //处理列表点击事件
       handle(row) {
         // console.log(row.stockId)
@@ -189,6 +218,64 @@
           else {
             if (this.tableData[i].type === this.index) {
               list.push(this.tableData[i])
+=======
+      methods:{
+        toFirst(){
+          if(this.isLogin===true){
+            this.$router.push('AfterLogin')
+          }else{
+            this.$router.push('/')
+          }
+        },
+        toRouterOrAlert(index){
+          if(this.isLogin===true){
+            this.$router.push(index)
+          }else{
+            this.$alert('请先登录！', {
+              confirmButtonText: '确定',
+            });
+          }
+        },
+        handleSizeChange(val) {
+          console.log(`每页 ${val} 条`);
+          this.currentPage = 1;
+          this.pageSize = val;
+        },
+        handleCurrentChange(val) {
+          console.log(`当前页: ${val}`);
+          this.currentPage = val;
+        },
+        typeList(index){
+          this.index = index
+        },
+        //处理列表点击事件
+        handle(row){
+         // console.log(row.stockId)
+          this.$store.commit('stockID',row.stockID)
+          this.$store.commit('stockName',row.stockName)
+          this.$router.push('StockDisplay')
+        }
+      },
+      computed:{
+          tableData:function(){
+            return this.$store.state.stockList
+          },
+        isLogin:function () {
+          return this.$store.state.isLogin
+        },
+          list:function () {
+            let list = []
+            for(let i = 0;i<this.tableData.length;i++){
+              if(this.index===2){
+                list.push(this.tableData[i])
+              }
+              else
+              {
+                if(this.tableData[i].type===this.index){
+                  list.push(this.tableData[i])
+                }
+              }
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
             }
           }
         }

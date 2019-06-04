@@ -1,4 +1,4 @@
-<!--委托限价卖出页面----->
+<!--委托限价卖出页面-->
 <template>
   <div>
     <div class="NavigationBar">
@@ -11,6 +11,7 @@
                active-text-color="#ffd04b"
                router>
 
+<<<<<<< HEAD
         <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
@@ -21,6 +22,18 @@
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
+=======
+        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style = "margin-left: 5%" >
+          <template slot="title">信息统计</template>
+          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
@@ -84,7 +97,7 @@
               <div>
                 <el-button @click="reInput()">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>
+                <el-button @click="websocketSubmit()" style="width: 92px;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -131,7 +144,7 @@
       RealTime,
     },
     created() {
-      // this.connect();
+       this.connect();
       // this.firstReturnStockRealtimeInformation();
     },
     methods: {
@@ -156,7 +169,7 @@
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
+        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
@@ -246,7 +259,7 @@
           tradeStraregy: 0,
         }
         console.log(SentstockTrading);
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.Stringify(SentstockTrading));
       },
       /**
        * ajax发送给后台委托单
@@ -308,7 +321,11 @@
       change3() {
         this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
+<<<<<<< HEAD
       change4() {
+=======
+	  change4() {
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
       /**

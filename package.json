@@ -73,5 +73,16 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": ".postcssrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbon-emission-trading-system/xMarket-front.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carbon-emission-trading-system/xMarket-front/issues"
+  },
+  "homepage": "https://github.com/carbon-emission-trading-system/xMarket-front#readme"
 }

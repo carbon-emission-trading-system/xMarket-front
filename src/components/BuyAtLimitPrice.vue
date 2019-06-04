@@ -11,6 +11,7 @@
                active-text-color="#ffd04b"
                router>
 
+<<<<<<< HEAD
         <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
@@ -21,6 +22,18 @@
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
+=======
+        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style = "margin-left: 5%" >
+          <template slot="title">信息统计</template>
+          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
@@ -215,16 +228,39 @@
        *
        * 验证股票代码
        */
-      LimitPrice() {
-        if (this.openPrice * 1.1 < this.stockTrading.orderPrice) {
-          this.alertBox('错误', '超过涨停价');
-        } else if (this.openPrice * 0.9 > this.stockTrading.orderPrice) {
-          this.alertBox('错误', '低于跌停价')
+      verifyStockCode(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入股票代码'))
+          console.log('请输入股票代码')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          this.firstReturnStockRealtimeInformation()
         }
       },
       /**
        *
-       *@since限制输入买入数量
+       * 自定义验证涨跌幅
+       */
+      LimitPrice(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入买入金额'))
+          console.log('请输入买入金额')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.openPrice * 1.1) {
+            callback(new Error('超过涨停价'))
+          } else if (value < this.openPrice * 0.9) {
+            callback(new Error('低于跌停价'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适价格'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
        *
        * 自定义验证买入数量
        */
@@ -379,9 +415,14 @@
           tradeStraregy: 0,
         }
         console.log(SentstockTrading);
+<<<<<<< HEAD
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
       }
       ,
+=======
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.Stringify(SentstockTrading));
+      },
+>>>>>>> 28a10a674d927e598d55e0b38647942a383af0e3
       /**
        * ajax发送给后台委托单
        */

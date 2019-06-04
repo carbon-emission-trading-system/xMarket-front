@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Login from '../components/Login'
 import AfterLogin from '../components/AfterLogin'
 import Search from '../components/Search'
 import StockList from "../components/StockList";
@@ -21,16 +22,27 @@ import BuyAtLimitPrice from "../components/BuyAtLimitPrice";
 import BuyAtMarketPrice from "../components/BuyAtMarketPrice";
 import SellAtLimitPrice from "../components/SellAtLimitPrice";
 import SellAtMarketPrice from "../components/SellAtMarketPrice";
+import Register from "../components/Register";
 
 Vue.use(Router)
 //配置路由
 export default new Router({
+  //把Router的mode修改为history模式,VueRouter默认的模式为HASH模式
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/AfterLogin',
       name:'afterLogin',
       component:AfterLogin
     },{
+      path: '/',
+      name:'login',
+      component:Login
+    },{
+      path: '/Register',
+      name:'register',
+      component:Register
+    }, {
       path:'/Search',
       name:'search',
       component:Search
