@@ -15,7 +15,7 @@
         <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
         <el-menu-item style = "margin-left: 5%" @click="warning">股票买卖</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%"  index="1">
+        <el-submenu style = "margin-left: 5%" index="1">
           <template slot="title" >信息统计</template>
           <el-menu-item  @click="warning" >当日成交</el-menu-item>
           <el-menu-item @click="warning">当日委托</el-menu-item>

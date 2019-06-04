@@ -40,8 +40,8 @@ export  default new Vuex.Store({
     },
     logout(state, payload) {
       state.isLogin = false
-      state.user.username = payload.username
-      state.user.userId = payload.userId
+      state.user.username = ''
+      state.user.userId = ''
     },
     register(state, payload) {
       state.isLogin = true
