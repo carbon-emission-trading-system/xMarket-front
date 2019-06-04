@@ -23,6 +23,9 @@
         </el-submenu>
 
         <el-menu-item style = "margin-left: 50px" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
+        <div id="exit" v-if="this.$store.state.isLogin">
+          <el-link type="primary" @click="exit">退出</el-link>
+        </div>
       </el-menu>
     </div>
 
@@ -145,6 +148,10 @@
     },
 
     methods: {
+      exit(){
+        this.$store.commit('logout')
+        this.$router.push('/')
+      },
       toFirst(){
         if(this.isLogin===true){
           this.$router.push('AfterLogin')
@@ -239,7 +246,9 @@
     margin-top: 5%;
     float: right;
     width: 30%;
-
+  }
+  #exit{
+    margin-top: 1.5%;
   }
 
 </style>
