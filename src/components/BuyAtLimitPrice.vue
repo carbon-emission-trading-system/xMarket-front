@@ -190,7 +190,6 @@
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
 
-
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
 
@@ -232,10 +231,11 @@
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
-        }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          this.firstReturnStockRealtimeInformation()
+        } else {
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            this.firstReturnStockRealtimeInformation()
+          }
         }
       },
       /**
@@ -290,11 +290,9 @@
       /**
        *提交
        */
-
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            //
             // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
             this.websocketSubmit();
           } else {
@@ -349,41 +347,40 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        api.JH_news("/api/QueryStockInformation", prom)
-          .then(res => {
-            console.log(res);
-            this.basicInfoStok = res.data;
-            console.log("this.basicInfoStok)");
-            console.log(this.basicInfoStok);
+        api.http('post',"/api/QueryStockInformation", prom).then(res => {
+          console.log(res);
+          this.basicInfoStok = res.data;
+          console.log("this.basicInfoStok)");
+          console.log(this.basicInfoStok);
 
-            this.openPrice = res.data.openPrice;
+          this.openPrice = res.data.openPrice;
 
-            this.stockTrading.userId = this.basicInfoStok.stockId;
-            this.stockTrading.stockName = this.basicInfoStok.stockName;
-            this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
-            this.stockTrading.tradeMarket = this.basicInfoStok.tradeMarket;
-            console.log(this.basicInfoStok.availableFunds)
-            console.log(this.basicInfoStok.orderPrice);
-            this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.availableFunds, this.basicInfoStok.orderPrice)
-            let allFund = this.basicInfoStok.availableFunds;
-            let price = this.basicInfoStok.orderPrice;
+          this.stockTrading.userId = this.basicInfoStok.stockId;
+          this.stockTrading.stockName = this.basicInfoStok.stockName;
+          this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
+          this.stockTrading.tradeMarket = this.basicInfoStok.tradeMarket;
+          console.log(this.basicInfoStok.availableFunds)
+          console.log(this.basicInfoStok.orderPrice);
+          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.availableFunds, this.basicInfoStok.orderPrice)
+          let allFund = this.basicInfoStok.availableFunds;
+          let price = this.basicInfoStok.orderPrice;
 
-            console.log('allfund' + allFund)
-            console.log('price' + price)
+          console.log('allfund' + allFund)
+          console.log('price' + price)
 
-            if ((Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price) > 166.6) {
-              console.log('if');
-              console.log(allFund / (price * 1.030287 * 100));
-              this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
+          if ((Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price) > 166.6) {
+            console.log('if');
+            console.log(allFund / (price * 1.030287 * 100));
+            this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
+          } else {
+            console.log(Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price);
+            if (Math.floor((allFund - 5) / (price * 1.000287)) < 1) {
+              this.stockTrading.canorderAmount = 0;
             } else {
-              console.log(Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price);
-              if (Math.floor((allFund - 5) / (price * 1.000287)) < 1) {
-                this.stockTrading.canorderAmount = 0;
-              } else {
-                this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
-              }
+              this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
             }
-          })
+          }
+        })
         console.log(this.stockTrading.canorderAmount);
       }
       ,
