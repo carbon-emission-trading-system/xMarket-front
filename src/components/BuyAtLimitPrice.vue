@@ -11,19 +11,19 @@
                active-text-color="#ffd04b"
                router>
 
-        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="1">
+        <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
         <div id="exit">
           <el-link type="primary" @click="exit">退出</el-link>
         </div>
@@ -155,8 +155,8 @@
     created() {
 
     },
-    beforeMount(){
-      if(this.$store.state.isLogin===false){
+    beforeMount() {
+      if (this.$store.state.isLogin === false) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -164,7 +164,7 @@
       }
     },
     methods: {
-      exit(){
+      exit() {
         this.$store.commit('logout')
         this.$router.push('/')
       },
@@ -294,6 +294,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            //
             // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
             this.ajaxSubmit();
           } else {
@@ -507,10 +508,12 @@
     margin-inline-start: 0px;
     margin-inline-end: 0px;
   }
-  #exit{
+
+  #exit {
     margin-top: 1.5%;
     margin-left: 5%;
   }
+
   div {
     float: left;
     display: block;
