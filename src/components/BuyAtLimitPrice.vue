@@ -189,7 +189,7 @@
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        
+
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
@@ -409,7 +409,7 @@
        */
       websocketSubmit() {
         let SentstockTrading = {
-          userId: 1001,
+          userId: this.$store.state.userId,
           stockId: this.stockTrading.stockId,
           type: 0,
           orderAmount: this.stockTrading.orderAmount,

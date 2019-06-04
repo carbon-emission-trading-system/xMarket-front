@@ -342,9 +342,9 @@
       websocketSubmit() {
         // this.firstReturnStockRealtimeInformation()
         let SentstockTrading = {
-          userId: 1001,
+          userId: this.$store.state.userId,
           stockId: this.stockTrading.stockId,
-          type: 0,
+          type: 1,
           orderAmount: this.stockTrading.orderAmount,
           orderPrice: this.stockTrading.orderPrice,
           tradeStraregy: 0,
