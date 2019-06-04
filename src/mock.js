@@ -154,19 +154,17 @@ const produceKlineData = function () {
 
 const QueryStockInformation = function (params) {
   console.log("reald的post请求", params);
-  let data = {
+  let articles = {
     stockId: 123456,
     stockName: "金证股份",
     availableFunds: 100000000,
     tradeMarket: 0,
-    orderPrice: 50,
+    orderPrice: 10,
     availableNumber:500,
     openPrice:52.3,//开盘价
   }
   console.log("zheli you l ");
-  return {
-    data:data
-  };
+  return articles;
 }
 //模拟返回数据
 const search=function(options){
