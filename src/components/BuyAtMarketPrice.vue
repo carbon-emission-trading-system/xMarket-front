@@ -11,19 +11,19 @@
                active-text-color="#ffd04b"
                router>
 
-        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
-        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
-        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
-        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style="margin-left: 5%" index="1">
-          <template slot="title" index="1">信息统计</template>
-          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
+        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style = "margin-left: 5%" >
+          <template slot="title">信息统计</template>
+          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
       </el-menu>
 
     </div>
@@ -134,6 +134,7 @@
         DelegateType: '',
         //规则
         rules: {
+          userName: [],
           orderPrice: [],
           orderAmount: []
         },
@@ -234,6 +235,7 @@
       },
 
 
+
       /**
        * @since ajax发送给后台委托单
        * @date 6.3
@@ -259,9 +261,9 @@
             .then(res => {
               this.msg = res.data.result;
               if (this.msg == 0) {
-                this.alertBox('成功', '提交成功');
+                this.alertBox('成功','提交成功');
               } else {
-                this.alertBox('失败', '提交失败');
+                this.alertBox('失败','提交失败');
               }
             })
         }
@@ -276,7 +278,7 @@
         console.log("zheli chuxian wenti l111 ")
         if (this.stockTrading.orderAmount > this.stockTrading.canorderAmount) {
           console.log("zheli chuxian wenti l ")
-          this.alertBox('错误', '买入数量超过可买数量');
+          this.alertBox('错误','买入数量超过可买数量');
           this.stockTrading.orderAmount = null;
         }
       },
