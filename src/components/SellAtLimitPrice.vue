@@ -11,19 +11,19 @@
                active-text-color="#ffd04b"
                router>
 
-        <el-menu-item style = "margin-left: 20%" index="/" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" >
-          <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
+          <template slot="title" index="1">信息统计</template>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
       </el-menu>
 
 
@@ -102,6 +102,7 @@
   import Stomp from 'stompjs'
   import RealTime from './RealTime'
   import store from '@/store/store'
+
   export default {
     name: "SellAtLimitPrice",
     data() {
@@ -115,7 +116,7 @@
           stockName: '',
           orderPrice: '',
           orderAmount: '',
-          availableNumber:''
+          availableNumber: ''
         },
         msg: 0,
         //规则
@@ -200,7 +201,7 @@
         console.log("zheli chuxian wenti l111 ")
         if (this.stockTrading.orderAmount > this.stockTrading.availableNumber) {
           console.log("zheli chuxian wenti l ");
-          this.alertBox( '错误','卖入数量超过可卖数量');
+          this.alertBox('错误', '卖入数量超过可卖数量');
           this.stockTrading.orderAmount = null;
         }
       },
@@ -264,7 +265,7 @@
             type: 1,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
             orderPrice: this.stockTrading.orderPrice,
-            tradeStraregy:0,
+            tradeStraregy: 0,
           }
           console.log(SentstockTrading);
           api.JH_news("/api/buyOrSale", SentstockTrading)
@@ -307,8 +308,8 @@
       change3() {
         this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
-	  change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount 
+      change4() {
+        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
       /**
        * 重新提交

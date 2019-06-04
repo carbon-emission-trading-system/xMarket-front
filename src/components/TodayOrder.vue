@@ -10,27 +10,27 @@
                active-text-color="#ffd04b"
                router="true">
 
-        <el-menu-item style = "margin-left: 20%" index="/" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" >
-          <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
+          <template slot="title" index="1">信息统计</template>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
       </el-menu>
 
     </div>
 
-<div id="in">
+    <div id="in">
 
       <div id="tag">
-        <el-divider >当日委托</el-divider>
+        <el-divider>当日委托</el-divider>
       </div>
       <div id="stock">
         <el-table
@@ -38,7 +38,7 @@
           border
           @row-click="handle"
           style="width: 100%;font-size: 8px"
-          :default-sort = "{prop: 'orderTime', order: 'descending'}">
+          :default-sort="{prop: 'orderTime', order: 'descending'}">
           <el-table-column
             prop="orderDate"
             label="委托日期"
@@ -115,7 +115,9 @@
 
         </el-table>
         <div class="block" style="margin-top:30px;">
-          <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+          <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                         :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize"
+                         layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
           </el-pagination>
         </div>
       </div>
@@ -138,19 +140,19 @@
       return {
         activeIndex: 'TodayOrder',
         tableData: [],
-        currentPage:1,
-        total:20,
-        pageSize:5
+        currentPage: 1,
+        total: 20,
+        pageSize: 5
       }
     },
     created() {
       this.setTodayOrderApi();
     },
-    methods:{
-      handle(row){
+    methods: {
+      handle(row) {
         // console.log(row.stockId)
-        this.$store.commit('stockID',row.stockID)
-        this.$store.commit('stockName',row.stockName)
+        this.$store.commit('stockID', row.stockID)
+        this.$store.commit('stockName', row.stockName)
         this.$router.push('StockDisplay')
       },
       handleSizeChange(val) {
@@ -162,20 +164,20 @@
         console.log(`当前页: ${val}`);
         this.currentPage = val;
       },
-      setTodayOrderApi:function () {
-        api.JH_news('/api/todayOrder',{
+      setTodayOrderApi: function () {
+        api.JH_news('/api/todayOrder', {
           params: {
             userId: this.$store.state.user.userId
           }
         })
-          .then(res=>{
-            if(res){
+          .then(res => {
+            if (res) {
               console.log('请求成功')
               this.tableData = res.data;
-              setTimeout(()=>{
+              setTimeout(() => {
                 self.setTodayOrderApi()
-              },3000)
-            }else{
+              }, 3000)
+            } else {
               console.log('请求失败')
               return
             }
@@ -187,17 +189,20 @@
 </script>
 
 <style scoped>
-  a{
+  a {
     text-decoration: none;
   }
-  #in{
+
+  #in {
     width: 70%;
     margin: 0 auto;
   }
-  #stock{
+
+  #stock {
     margin-top: 2%;
   }
-  #tag{
+
+  #tag {
     margin-top: 5%;
     margin-bottom: 4%;
   }

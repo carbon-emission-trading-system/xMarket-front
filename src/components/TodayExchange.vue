@@ -10,211 +10,216 @@
                active-text-color="#ffd04b"
                router="true">
 
-        <el-menu-item style = "margin-left: 20%" index="/" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" >
-          <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
+          <template slot="title" index="1">信息统计</template>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
       </el-menu>
     </div>
 
     <div id="in">
       <div id="tag">
-        <el-divider >当日成交</el-divider>
+        <el-divider>当日成交</el-divider>
       </div>
 
       <div id="stock">
-      <el-table
-        :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-        border
-        @row-click="handle"
-        style="width: 100%;font-size: 6px"
-        :default-sort = "{prop: 'exchangeTime', order: 'descending'}">
-        <el-table-column
-          prop="exchangeTime"
-          label="成交时间"
-          width="100"
-          align="center"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="stockID"
-          label="股票代码"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="stockName"
-          label="股票简称"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="operation"
-          label="操作"
-          width="60"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="exchangeAmount"
-          label="成交数量"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="exchangeAveragePrice"
-          label="成交均价"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="exchangePrice"
-          label="成交金额"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="stockBalance"
-          label="股票余额"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="contractNumber"
-          label="合同编号"
-          width="100"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="exchangeNumber"
-          label="成交编号"
-          width="100"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="serviceTax"
-          label="手续费"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="stampTax"
-          label="印花税"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="incidentalCharge"
-          label="其他杂费"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="actualAmount"
-          label="发生金额"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="market"
-          label="交易市场"
-          width="70"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="revokeAmount"
-          label="撤单数量"
-          width="70"
-          align="center">
-        </el-table-column>
+        <el-table
+          :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+          border
+          @row-click="handle"
+          style="width: 100%;font-size: 6px"
+          :default-sort="{prop: 'exchangeTime', order: 'descending'}">
+          <el-table-column
+            prop="exchangeTime"
+            label="成交时间"
+            width="100"
+            align="center"
+            sortable>
+          </el-table-column>
+          <el-table-column
+            prop="stockID"
+            label="股票代码"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="stockName"
+            label="股票简称"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="operation"
+            label="操作"
+            width="60"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="exchangeAmount"
+            label="成交数量"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="exchangeAveragePrice"
+            label="成交均价"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="exchangePrice"
+            label="成交金额"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="stockBalance"
+            label="股票余额"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="contractNumber"
+            label="合同编号"
+            width="100"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="exchangeNumber"
+            label="成交编号"
+            width="100"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="serviceTax"
+            label="手续费"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="stampTax"
+            label="印花税"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="incidentalCharge"
+            label="其他杂费"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="actualAmount"
+            label="发生金额"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="market"
+            label="交易市场"
+            width="70"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="revokeAmount"
+            label="撤单数量"
+            width="70"
+            align="center">
+          </el-table-column>
 
-      </el-table>
+        </el-table>
         <div class="block" style="margin-top:30px;">
-          <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+          <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                         :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize"
+                         layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
           </el-pagination>
         </div>
       </div>
 
     </div>
   </div>
-    
+
 </template>
 
 <script>
   import api from "../api";
 
-    export default {
-        name: "TodayExchange",
-      data() {
-        return {
-          activeIndex: 'TodayExchange',
-          tableData: [],
-          currentPage:1,
-          total:20,
-          pageSize:5
-        }
-      },
-      created() {
-        this.setTodayExchangeApi();
-      },
-      methods:{
-        handle(row){
-          // console.log(row.stockId)
-          this.$store.commit('stockID',row.stockID)
-          this.$store.commit('stockName',row.stockName)
-          this.$router.push('StockDisplay')
-        },
-        handleSizeChange(val) {
-          this.currentPage = 1;
-          this.pageSize = val;
-        },
-        handleCurrentChange(val) {
-          this.currentPage = val;
-        },
-        setTodayExchangeApi:function () {
-          api.JH_news('/api/todayExchange',{
-            params: {
-              userId: this.$store.state.user.userId
-            }
-          })
-            .then(res=>{
-              if(res){
-                console.log('请求成功')
-                this.tableData = res.data;
-                setTimeout(()=>{
-                  self.setTodayExchangeApi()
-                },3000)
-              }else{
-                console.log('请求失败')
-                return
-              }
-
-            });
-        },
+  export default {
+    name: "TodayExchange",
+    data() {
+      return {
+        activeIndex: 'TodayExchange',
+        tableData: [],
+        currentPage: 1,
+        total: 20,
+        pageSize: 5
       }
+    },
+    created() {
+      this.setTodayExchangeApi();
+    },
+    methods: {
+      handle(row) {
+        // console.log(row.stockId)
+        this.$store.commit('stockID', row.stockID)
+        this.$store.commit('stockName', row.stockName)
+        this.$router.push('StockDisplay')
+      },
+      handleSizeChange(val) {
+        this.currentPage = 1;
+        this.pageSize = val;
+      },
+      handleCurrentChange(val) {
+        this.currentPage = val;
+      },
+      setTodayExchangeApi: function () {
+        api.JH_news('/api/todayExchange', {
+          params: {
+            userId: this.$store.state.user.userId
+          }
+        })
+          .then(res => {
+            if (res) {
+              console.log('请求成功')
+              this.tableData = res.data;
+              setTimeout(() => {
+                self.setTodayExchangeApi()
+              }, 3000)
+            } else {
+              console.log('请求失败')
+              return
+            }
+
+          });
+      },
     }
+  }
 </script>
 
 <style scoped>
-  a{
+  a {
     text-decoration: none;
   }
-  #in{
+
+  #in {
     width: 70%;
     margin: 0 auto;
   }
-  #stock{
+
+  #stock {
     margin-top: 2%;
   }
-  #tag{
+
+  #tag {
     margin-top: 5%;
     margin-bottom: 4%;
   }
