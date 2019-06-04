@@ -50,7 +50,7 @@ const produceSelfStockData = function () {
 }
 //模拟股票列表数据
 const produceStockListData = function () {
-  let stockList = [];
+  let data = [];
   for(let i = 0;i<30;i++){
     let newStockListObject = {
       type:Random.integer(0,1),
@@ -68,10 +68,10 @@ const produceStockListData = function () {
       priceToBookRatio:Random.float(1,15,2,2)
 
     }
-    stockList.push(newStockListObject)
+    data.push(newStockListObject)
   }
   return{
-    stockList:stockList
+    data:data
   }
 }
 
@@ -158,7 +158,7 @@ Mock.mock('/api/getNews','post',produceNoticesData);
 Mock.mock('/selfStocks/index','post',produceSelfStockData);
 Mock.mock('/kline/index','post',produceKlineData);
 Mock.mock('/search/index','post',search);
-Mock.mock('/stockList/index','post',produceStockListData);
+Mock.mock('/api/stockList','post',produceStockListData);
 Mock.mock('/todayExchange/index','post',produceTodayExchangeData);
 Mock.mock('/historyHoldPosition/index','post',produceHistoryHoldPositionData);
 

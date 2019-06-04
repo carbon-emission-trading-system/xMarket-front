@@ -52,19 +52,33 @@
     <div class="all">
       <div class="list1">
         <el-card class="card1">
-          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="ruleForm" size="mini">
+          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
             <div style="text-align: center" class="elementInput">
-              <el-form-item label="证券代码" prop="username">
-                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"
-                          @blur.prevent="firstReturnStockRealtimeInformation()"></el-input>
+              <el-form-item label="证券代码"
+                            onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
+                            prop="stockId"
+                            :rules="[{
+                              validator: verifyStockCode, // 自定义验证
+                              trigger: 'blur'
+                            }]">
+                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
+                <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
               </el-form-item>
+
               <el-form-item label="证券名称">
                 <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="买入价格" prop="orderPrice">
-                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格"
-                          @blur.prevent="LimitPrice()"></el-input>
+
+              <el-form-item label="买入价格"
+                            prop="orderPrice"
+                            :rules="[
+                            { validator: LimitPrice, // 自定义验证
+                              trigger: 'blur'
+                            }
+                            ]">
+                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格"></el-input>
+                <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
               <el-form-item label="可买数量">
                 <el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>
@@ -77,14 +91,20 @@
                 <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
               </div>
 
-              <el-form-item label="买入数量" prop="orderAmount">
+              <el-form-item label="买入数量"
+                            prop="orderAmount"
+                            :rules="[
+                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                              trigger: 'blur'
+                            }]">
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"
                           @blur.prevent="DetermineTheNumberOfPurchases()"></el-input>
               </el-form-item>
               <div>
-                <el-button @click="reInput()">重新填写</el-button>
+                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>
+                <!--<el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>-->
+                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -125,19 +145,14 @@
         basicInfoStok: {},
         msg: 0,
         //规则
-        rules: {
-          userName: [],
-          orderPrice: [],
-          orderAmount: []
-        },
       }
     },
     components: {
       RealTime,
     },
     created() {
-      // this.connect();
-      // this.firstReturnStockRealtimeInformation();
+
+
     },
     methods: {
       //导航栏需要
@@ -197,36 +212,117 @@
         console.log("连接结束");
       },
       /**
-       * 限制价格
+       *
+       * 验证股票代码
        */
-      LimitPrice() {
-        if (this.openPrice * 1.1 < this.stockTrading.orderPrice) {
-          this.alertBox('错误', '超过涨停价');
-        } else if (this.openPrice * 0.9 > this.stockTrading.orderPrice) {
-          this.alertBox('错误', '低于跌停价')
+      verifyStockCode(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入股票代码'))
+          console.log('请输入股票代码')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          this.firstReturnStockRealtimeInformation()
         }
       },
+      /**
+       *
+       * 自定义验证涨跌幅
+       */
+      LimitPrice(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入买入金额'))
+          console.log('请输入买入金额')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.openPrice * 1.1) {
+            callback(new Error('超过涨停价'))
+          } else if (value < this.openPrice * 0.9) {
+            callback(new Error('低于跌停价'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适价格'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
+       *
+       * 自定义验证买入数量
+       */
+      DetermineTheNumberOfPurchases(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入买入数量'))
+          console.log('请输入买入数量')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.stockTrading.canorderAmount) {
+            callback(new Error('超出可买数量'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适数量'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
+       * 重新提交
+       */
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+      ,
+      /**
+       *提交
+       */
+
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.ajaxSubmit();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+
+      // /**
+      //  * 限制价格
+      //  */
+      // LimitPrice() {
+      //   if (this.openPrice * 1.1 < this.stockTrading.orderPrice) {
+      //     this.alertBox('错误', '超过涨停价');
+      //   } else if (this.openPrice * 0.9 > this.stockTrading.orderPrice) {
+      //     this.alertBox('错误', '低于跌停价')
+      //   }
+      // }
+      // ,
+
       /**
        *
        *@since限制输入买入数量
        *
        */
-      DetermineTheNumberOfPurchases() {
-        console.log("zheli chuxian wenti l111 ")
-        if (this.stockTrading.orderAmount > this.stockTrading.canorderAmount) {
-          console.log("zheli chuxian wenti l ")
-          this.$alert('买入数量超过可买数量', '错误', {
-            confirmButtonText: '确定',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: `action: ${ action }`
-              });
-            }
-          });
-          this.stockTrading.orderAmount = null;
-        }
-      },
+      // DetermineTheNumberOfPurchases() {
+      //   console.log("zheli chuxian wenti l111 ")
+      //   if (this.stockTrading.orderAmount > this.stockTrading.canorderAmount) {
+      //     console.log("zheli chuxian wenti l ")
+      //     this.$alert('买入数量超过可买数量', '错误', {
+      //       confirmButtonText: '确定',
+      //       callback: action => {
+      //         this.$message({
+      //           type: 'info',
+      //           message: `action: ${ action }`
+      //         });
+      //       }
+      //     });
+      //     this.stockTrading.orderAmount = null;
+      //   }
+      // }
+      // ,
       /**
        * @author 郑科宇
        * @date 05/28
@@ -274,7 +370,8 @@
             }
           })
         console.log(this.stockTrading.canorderAmount);
-      },
+      }
+      ,
 
       /**
        * 计算最多可买多少
@@ -296,7 +393,6 @@
        * websocket发送给后台委托单
        */
       websocketSubmit() {
-        // this.firstReturnStockRealtimeInformation()
         let SentstockTrading = {
           userId: 1001,
           stockId: this.stockTrading.stockId,
@@ -307,7 +403,8 @@
         }
         console.log(SentstockTrading);
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
-      },
+      }
+      ,
       /**
        * ajax发送给后台委托单
        */
@@ -342,7 +439,8 @@
             })
         }
 
-      },
+      }
+      ,
       /**
        *  弹出框
        */
@@ -356,7 +454,8 @@
             });
           }
         });
-      },
+      }
+      ,
 
       //0.25/0.5/0.75计算
       change1() {
@@ -377,16 +476,6 @@
       ,
       change4() {
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount
-      },
-      /**
-       * 重新提交
-       */
-      reInput() {
-        this.stockTrading.stockId = '';
-        this.stockTrading.stockName = '';
-        this.stockTrading.orderPrice = '';
-        this.stockTrading.orderAmount = '';
-        this.stockTrading.canorderAmount = '';
       }
       ,
 

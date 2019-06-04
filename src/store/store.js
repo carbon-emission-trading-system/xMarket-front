@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from "../api";
-import createPersistedState from "vuex-persistedstate"
+//import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
 export  default new Vuex.Store({
  // plugins: [createPersistedState()],
   //定义数据
   state: {
-    isLogin:false,
+    isLogin:true,
     stockList: [],
     //搜索的股票id
     stockID:'',
