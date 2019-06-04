@@ -95,7 +95,7 @@
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"></el-input>
+                <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
               <div>
                 <el-button @click="resetForm('stockTrading')">重新填写</el-button>
@@ -235,8 +235,8 @@
        */
       LimitPrice(rule, value, callback) {
         if (!value) {
-          callback(new Error('请输入买入金额'))
-          console.log('请输入买入金额')
+          callback(new Error('请输入卖出金额'))
+          console.log('请输入卖出金额')
         }
         value = Number(value)
         if (typeof value === 'number' && !isNaN(value)) {
@@ -263,12 +263,12 @@
       },
       /**
        *
-       * 自定义验证买入数量
+       * 自定义验证卖出数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
         if (!value) {
-          callback(new Error('请输入买入数量'))
-          console.log('请输入买入数量')
+          callback(new Error('请输入卖出数量'))
+          console.log('请输入卖出数量')
         }
         value = Number(value)
         if (typeof value === 'number' && !isNaN(value)) {

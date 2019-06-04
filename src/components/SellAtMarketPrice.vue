@@ -11,38 +11,22 @@
                active-text-color="#ffd04b"
                router>
 
-        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="1">
+        <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
       </el-menu>
 
     </div>
-    <!--<div class="Subtitle">-->
-    <!--<el-menu :default-active="activeIndex"-->
-    <!--class="el-menu-demo"-->
-    <!--mode="horizontal"-->
-    <!--@select="handleSelect"-->
-    <!--background-color="#909399"-->
-    <!--text-color="#fff"-->
-    <!--active-text-color="#ffd04b"-->
-    <!--router>-->
-
-    <!--<el-menu-item style="padding-left: 9%; padding-right: 8%" index="/BuyAtLimitPrice">买入</el-menu-item>-->
-    <!--<el-menu-item style="padding-left: 8% ;padding-right: 8%" index="/SellAtLimitPrice">卖出</el-menu-item>-->
-    <!--<el-menu-item style="padding-left: 8% ;padding-right: 8%" index="BuyAtMarketPrice">市价买入</el-menu-item>-->
-    <!--<el-menu-item style="padding-left: 8%; padding-right: 9%" index="/SellAtMarketPrice">市价卖出</el-menu-item>-->
-    <!--</el-menu>-->
-    <!--</div>-->
     <div class="Subtitle">
       <el-menu :default-active="activeIndexBS"
                class="el-menu-demo"
@@ -69,17 +53,27 @@
 
       <div class="list1">
         <el-card class="card1">
-          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="ruleForm" size="mini">
+          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
             <div style="text-align: center" class="elementInput">
-              <el-form-item label="证券代码" prop="username">
-                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"
-                          @blur.prevent="firstReturnStockRealtimeInformation()"></el-input>
+              <el-form-item label="证券代码"
+                            onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
+                            prop="stockId"
+                            :rules="[{
+                              validator: verifyStockCode, // 自定义验证
+                              trigger: 'blur'
+                            }]">
+                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
                 <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="交易策略">
+              <el-form-item label="交易策略"
+                            prop="value"
+                            :rules="[{
+                              validator: tradingStrategyVerification, // 自定义验证
+                              trigger: 'blur'
+                            }]">
                 <el-select v-model="DelegateType" placeholder="请选择委托方案">
                   <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
                              :value="item.value"></el-option>
@@ -97,13 +91,17 @@
                 <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
               </div>
 
-              <el-form-item label="卖出数量" prop="orderAmount">
+              <el-form-item label="卖出数量"
+                            prop="orderAmount"
+                            :rules="[
+                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                              trigger: 'blur'
+                            }]">
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
               <div>
-                <el-button @click="reInput()">重新填写</el-button>
-                <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <el-button @click="ajaxSubmit()" style="width: 92px;">提交</el-button>
+                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
+                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -145,7 +143,8 @@
         allDelegateType: [],
         //规则
         rules: {
-          userName: [],
+          stockId: [],
+          value: [],
           orderPrice: [],
           orderAmount: []
         },
@@ -157,8 +156,8 @@
     created() {
 
     },
-    beforeMount(){
-      if(this.$store.state.isLogin===false){
+    beforeMount() {
+      if (this.$store.state.isLogin === false) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -224,17 +223,92 @@
       },
       /**
        *
-       *@since限制输入买入数量
-       *
+       * 验证股票代码
        */
-      DetermineTheNumberOfPurchases() {
-        console.log("zheli chuxian wenti l111 ")
-        if (this.stockTrading.orderAmount > this.stockTrading.availableNumber) {
-          console.log("zheli chuxian wenti l ");
-          this.alertBox('错误', '卖入数量超过可卖数量');
-          this.stockTrading.orderAmount = null;
+      verifyStockCode(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入股票代码'))
+          console.log('请输入股票代码')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          this.firstReturnStockRealtimeInformation()
         }
       },
+      /**
+       *
+       * 自定义验证涨跌幅
+       */
+      LimitPrice(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入卖出金额'))
+          console.log('请输入卖出金额')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.openPrice * 1.1) {
+            callback(new Error('超过涨停价'))
+          } else if (value < this.openPrice * 0.9) {
+            callback(new Error('低于跌停价'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适价格'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
+       * 验证交易策略
+       *
+       */
+      tradingStrategyVerification(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请选择交易策略'))
+          console.log('请选择交易策略')
+        }
+      },
+      /**
+       *
+       * 自定义验证卖出数量
+       */
+      DetermineTheNumberOfPurchases(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入卖出数量'))
+          console.log('请输入卖出数量')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.stockTrading.canorderAmount) {
+            callback(new Error('超出可买数量'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适数量'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
+       * 重新提交
+       */
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+      ,
+      /**
+       *提交
+       */
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
+            this.ajaxSubmit();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+
       /**
        * @author 郑科宇
        * @date 05/28
@@ -310,20 +384,7 @@
         console.log(SentstockTrading);
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
       },
-      /**
-       *  弹出框
-       */
-      alertBox(title, text) {
-        this.$alert(text, title, {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      },
+
       //0.25/0.5/0.75计算
       change1() {
         console.log("1/4");
@@ -338,21 +399,9 @@
       change3() {
         this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
-	   change4() {
+      change4() {
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
-      /**
-       * 重新提交
-       */
-      reInput() {
-        this.stockTrading.stockId = '';
-        this.stockTrading.stockName = '';
-        this.stockTrading.orderPrice = '';
-        this.stockTrading.orderAmount = '';
-        this.stockTrading.canorderAmount = '';
-      },
-
-
     },
   }
 </script>
