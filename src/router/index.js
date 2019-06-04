@@ -23,6 +23,7 @@ import BuyAtMarketPrice from "../components/BuyAtMarketPrice";
 import SellAtLimitPrice from "../components/SellAtLimitPrice";
 import SellAtMarketPrice from "../components/SellAtMarketPrice";
 import Register from "../components/Register";
+import NotFund from "../components/404";
 
 Vue.use(Router)
 //配置路由
@@ -122,6 +123,14 @@ export default new Router({
       path:'/SellAtMarketPrice',
       name:'sellAtMarketPrice',
       component:SellAtMarketPrice
+    },{
+      path:'/404',
+      name:'notFund',
+      component:NotFund
+    },{
+      path:'*',
+      redirect:'/404'
     }
+
   ]
 })
