@@ -161,7 +161,7 @@
 <script>
   import Vue from 'vue'
   import Search from './Search'
-  import api from './../api/index.js'
+
 
   Vue.component( 'search',Search);
 

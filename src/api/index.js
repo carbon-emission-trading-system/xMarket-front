@@ -34,4 +34,6 @@ function http(type, url, params, contentType) {
   })
 }
 
-export default http
+export default {
+  http
+}
