@@ -125,8 +125,6 @@ const produceHistoryHoldPositionData = function () {
 }
 
 
-
-
 //模拟K线图数据
 const produceKlineData = function () {
   let kline = [];
@@ -151,7 +149,6 @@ const search=function(options){
   let stockId = JSON.parse(options.body).params.stockId;
   console.log("数据获取"+ stockId);
 }
-
 
 //Mock.mock(url,post/get,返回的数据);
 Mock.mock('/api/getNews','post',produceNoticesData);

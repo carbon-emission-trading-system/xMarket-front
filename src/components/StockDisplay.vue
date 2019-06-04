@@ -93,32 +93,33 @@
       RealTime,
     },
     data() {
-      this.kChartSettings={
+      this.kChartSettings = {
         showMA: true,
         showVol: true,
         showDataZoom: true,
         labelMap: {
-          openPrice:'开盘价',
-          closePrice:'收盘价',
-          highestPrice:'最高价',
-          lowestPrice:'最低价',
-          Volume:'成交量'
+          openPrice: '开盘价',
+          closePrice: '收盘价',
+          highestPrice: '最高价',
+          lowestPrice: '最低价',
+          Volume: '成交量'
         },
       }
 
-        this.kColor=['#c23531','#2f4554','#61a0a8', '#d48265']
+      this.kColor = ['#c23531', '#2f4554', '#61a0a8', '#d48265']
       return {
         activeIndex: 'StockList',
         activeName: 'first',
-        chosen:false,     //后端返回该股是否为用户的自选股
-
+        chosen: false,     //后端返回该股是否为用户的自选股
         kChartData: {
           columns: ['date', 'openPrice', 'closePrice', 'lowestPrice', 'highestPrice', 'volume'],
           rows: []
         },
-        timeData:[
-          '2009/6/12 2:00', '2009/6/12 3:00', '2009/6/12 4:00', '2009/6/12 5:00', '2009/6/12 6:00', '2009/6/12 7:00', '2009/6/12 8:00', '2009/6/12 9:00', '2009/6/12 10:00']
-
+        //分时图的横坐标
+        timeData: [],
+        averagePrice: [],
+        latestPrice:[],
+        volume:[]
       }
     },
     created() {
@@ -136,7 +137,7 @@
       },
       stockName:function () {
         return this.$store.state.stockName
-      }
+      },
     },
 
     methods: {
@@ -200,10 +201,10 @@
         })
           .then(res => {
             console.log(res);
-            this.kChartData.rows = res.kline;
+            this.kChartData.rows = res.data;
           });
       },
-      //获取分时图数据
+      //首次获取分时图数据
       setTimeApi:function () {
         api.JH_news('/api/timeSharingDisplay',{
           params: {
@@ -211,18 +212,17 @@
           }
         })
           .then(res => {
-            console.log(res);
-            this.lineChartData.rows = res.data;
-            this.hisChartData.rows = res.data;
+            let data = res.data
+            for(let i =0;i<res.data.length;i++){
+              this.timeData.push(data[i].realtime)
+              this.averagePrice.push(data[i].averagePrice)
+              this.latestPrice.push(data[i].latestPrice)
+              this.volume.push(data[i].volume)
+            }
+
           });
       },
-      //修改日期格式
-      change(){
-        this.timeData = this.timeData.map(function(str){
-          return str.replace('2009/', '');
-        })
 
-      },
       drawLine() {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'))
@@ -236,15 +236,6 @@
           },
           legend: {
             data:['最新价','均价'],
-          },
-          toolbox: {
-            feature: {
-              dataZoom: {
-                yAxisIndex: 'none'
-              },
-              restore: {},
-              saveAsImage: {}
-            }
           },
           axisPointer: {
             link: {xAxisIndex: 'all'}
@@ -311,18 +302,14 @@
               type:'line',
               symbolSize: 8,
               hoverAnimation: false,
-              data:[
-                8.97,7.96,5.96,6.97,10.96,7.96,6.97,10.96,7.96,
-              ]
+              data:this.latestPrice
             },
             {
               name:'均价',
               type:'line',
               symbolSize: 8,
               hoverAnimation: false,
-              data:[
-                6.97,10.96,6.97,10.96,7.96,7.96,5.96,6.97,9.15
-              ]
+              data:this.averagePrice
             },
             {
               name:'成交量',
@@ -332,9 +319,7 @@
               symbolSize: 8,
               barGap:'-100%',
               hoverAnimation: false,
-              data: [
-                1130,1580,1548,1130,1580,1548,1130,1580,1548,
-              ]
+              data: this.volume
             }
           ]
         });
