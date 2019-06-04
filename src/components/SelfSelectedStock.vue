@@ -156,6 +156,14 @@
     created() {
       this.ReceiveSelfSelectedStock();
     },
+    beforeMount(){
+      if(this.$store.state.isLogin===false){
+        this.$alert('请先登录！', {
+          confirmButtonText: '确定',
+        });
+        this.$router.push('/')
+      }
+    },
     methods: {
       handle(row){
         // console.log(row.stockId)

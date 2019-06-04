@@ -183,6 +183,14 @@
       this.setHistoryExchangeApi();
     },
     methods:{
+      beforeMount(){
+        if(this.$store.state.isLogin===false){
+          this.$alert('请先登录！', {
+            confirmButtonText: '确定',
+          });
+          this.$router.push('/')
+        }
+      },
       handle(row){
         // console.log(row.stockId)
         this.$store.commit('stockID',row.stockID)

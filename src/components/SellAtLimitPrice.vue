@@ -133,6 +133,14 @@
       // this.connect();
       // this.firstReturnStockRealtimeInformation();
     },
+    beforeMount(){
+      if(this.$store.state.isLogin===false){
+        this.$alert('请先登录！', {
+          confirmButtonText: '确定',
+        });
+        this.$router.push('/')
+      }
+    },
     methods: {
       //导航栏需要
       handleSelect(key, keyPath) {
