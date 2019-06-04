@@ -191,12 +191,12 @@
         }).then(() => {
           this.$message({
             type: 'success',
-            message: '删除成功!'
-            //删除自选股消息
-            // mess:delectSelfSelectedStock(id),
-            // if(mess =200){
-            //   message: '删除成功!';
-            // },
+            message: '删除成功!',
+            // 删除自选股消息
+            mess:delectSelfSelectedStock(id),
+            if(mess =200){
+              message: '删除成功!';
+            },
           });
         }).catch(() => {
           this.$message({
@@ -236,21 +236,19 @@
        * @param delStock
        * @return {number}
        */
-      // delectSelfSelectedStock(delStock) {
-      //   let params = {
-      //     userID: this.userId,
-      //     stockId: delStock
-      //   }
-      //   api.JH_news("./buyOrSale", params)
-      //     .then(res => {
-      //       console.log(res);
-      //       mess = res.articles;
-      //     })
-      //
-      //   mess = 200;
-      //   console.log(mess);
-      //   return mess;
-      // },
+      delectSelfSelectedStock(delStock) {
+        let params = {
+          userID: this.userId,
+          stockId: delStock
+        }
+        this.$api.http('get',"./api/delectSelfSelectedStock", params).then(res => {
+            console.log(res);
+            mess = res.articles;
+          })
+
+        console.log(mess);
+        return mess;
+      },
     },
   }
 </script>
