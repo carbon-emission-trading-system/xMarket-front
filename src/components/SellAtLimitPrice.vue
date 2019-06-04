@@ -56,9 +56,15 @@
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="ruleForm" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
             <div style="text-align: center" class="elementInput">
-              <el-form-item label="证券代码" prop="username">
+              <el-form-item label="证券代码"
+                            onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
+                            prop="stockId"
+                            :rules="[{
+                              validator: verifyStockCode, // 自定义验证
+                              trigger: 'blur'
+                            }]">
                 <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"
-                          @blur.prevent="firstReturnStockRealtimeInformation()"></el-input>
+                         ></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
                 <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
