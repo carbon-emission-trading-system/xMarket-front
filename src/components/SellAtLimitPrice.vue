@@ -1,4 +1,4 @@
-<!--委托限价卖出页面----->
+<!--委托限价卖出页面-->
 <template>
   <div>
     <div class="NavigationBar">
@@ -186,7 +186,6 @@
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
@@ -302,7 +301,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-            this.ajaxSubmit();
+            this.websocketSubmit();
           } else {
             console.log('error submit!!');
             return false;
@@ -351,7 +350,7 @@
           tradeStraregy: 0,
         }
         console.log(SentstockTrading);
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.stringify(SentstockTrading));
       },
       /**
        * ajax发送给后台委托单
