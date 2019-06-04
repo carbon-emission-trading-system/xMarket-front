@@ -10,7 +10,7 @@
                  active-text-color="#ffd04b"
                  router="true">
 
-          <el-menu-item style = "margin-left: 20%" index="/" >首页</el-menu-item>
+          <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
           <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
           <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
           <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
@@ -89,6 +89,7 @@
                 <el-table
                   :data="tableData"
                   border
+                  @row-click="handle"
                   style="width:100%">
                   <el-table-column
                     prop="stockID"
@@ -189,6 +190,12 @@
       this.ReceiveAccountInformation();
     },
     methods: {
+      handle(row){
+        // console.log(row.stockId)
+        this.$store.commit('stockID',row.stockID)
+        this.$store.commit('stockName',row.stockName)
+        this.$router.push('StockDisplay')
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },

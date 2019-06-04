@@ -1,0 +1,218 @@
+<template>
+  <div>
+    <div>
+      <el-menu :default-active="this.activeIndex"
+               class="el-menu-demo"
+               mode="horizontal"
+               @select="handleSelect"
+               background-color="#545c64"
+               text-color="#fff"
+               active-text-color="#ffd04b"
+               router="true">
+
+        <el-menu-item style = "margin-left: 20%" index="/" >首页</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" @click="warning">股票买卖</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style = "margin-left: 5%" >
+          <template slot="title" index="1">信息统计</template>
+          <el-menu-item  @click="warning" >当日成交</el-menu-item>
+          <el-menu-item @click="warning">当日委托</el-menu-item>
+          <el-menu-item  @click="warning">历史持仓</el-menu-item>
+          <el-menu-item  @click="warning">历史成交</el-menu-item>
+        </el-submenu>
+
+        <el-menu-item style = "margin-left: 50px"  @click="warning">个人中心</el-menu-item>
+      </el-menu>
+    </div>
+
+    <div id="in">
+      <!--公告-->
+      <div id="left">
+        <el-card class="box-card" style="height: 350px;">
+          <div slot="header" class="clearfix">
+            <i class="el-icon-postcard" style="font-size: 25px"></i>
+            <span style="font-size: 25px">公告</span>
+            <router-link to="/Notices">
+              <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
+            </router-link>
+          </div>
+
+          <el-table
+            :data="notices"
+            style="width: 100%">
+            <el-table-column
+              prop="title"
+              label="标题"
+              width="280">
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="日期"
+            >
+            </el-table-column>
+          </el-table>
+
+        </el-card>
+
+      </div>
+      <!--自选股-->
+      <div id="right">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <i class="el-icon-user" style="font-size: 25px"></i>
+            <span style="font-size: 25px">登录</span>
+          </div>
+          <div id="login">
+            <el-form label-position="left" label-width="80px" :model="user"
+                     :rules="rules" ref="ruleForm">
+              <el-form-item label="用户名" prop="username">
+                <el-input v-model="user.username" placeholder="请输入用户名  "></el-input>
+              </el-form-item>
+              <el-form-item label="密码" prop="loginPassword">
+                <el-input type="password" v-model="user.loginPassword" placeholder="请输入密码  "></el-input>
+              </el-form-item>
+              <el-form-item label="验证码" prop="validateCode">
+
+                <el-col :span="14">
+                  <el-input  v-model="user.validateCode" placeholder="请输验证码 "></el-input>
+                </el-col>
+                <el-col class="line" :span="2"> &nbsp  </el-col>
+                <el-col :span="6">
+
+                  <img style="width: 100px; height: 30px" :src="imgCodeUrl"  @click="refreshCode()"></img>
+
+                </el-col>
+
+              </el-form-item>
+              <el-button class="submit-btn" type="primary" @click="login('ruleForm')">登录</el-button>
+            </el-form>
+            <router-link to="/register"><el-button type="text" icon="el-icon-edit">去注册页</el-button></router-link>
+          </div>
+        </el-card>
+
+      </div>
+    </div>
+
+
+  </div>
+</template>
+
+<script>
+  import Vue from 'vue'
+  export default {
+    name: 'login',
+    data () {
+      return {
+        activeIndex:'/',
+        user: {
+          username: '',
+          loginPassword: '',
+          validateCode: ''
+        },
+        msg: 'Welcome to Your Vue.js App',
+        imgCodeUrl:"",
+        rules: {
+          username: [
+            { required: true, message: '请输入用户名', trigger: 'blur' }
+          ],
+          loginPassword: [
+            { required: true, message: '请输入密码 ', trigger: 'blur' }
+          ]
+        }
+      }
+    },
+    mounted:function(){
+      this.refreshCode();//需要触发的函数
+    },
+    methods: {
+      warning(){
+        this.$alert('请先登录！', {
+          confirmButtonText: '确定',
+        });
+      },
+      refreshCode(){
+        var self = this;
+        Vue.axios.get('/api/validateCode' ,{
+          responseType: "arraybuffer",
+        }).then(function (response) {
+          //将从后台获取的图片流进行转换
+          return 'data:image/png;base64,' + btoa(
+            new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          );
+        }).then(function (data) {
+          //接收转换后的Base64图片
+          self.imgCodeUrl = data;
+        }).catch(function (err) {
+        })
+      },
+      login(formName) {
+        var self = this;
+        self.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert(JSON.stringify(self.user))
+            self.$store.dispatch('login', {username: self.user.username, loginPassword: self.user.loginPassword,validateCode: self.user.validateCode})
+              .then((response) => {
+                self.$message.success(response.data.message)
+                self.$router.push('/afterLogin');
+              })
+              .catch((response) => {
+                self.$message.error(response.data.message)
+              })
+          }
+        });
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
+
+  #in{
+    display: inline-block;
+    width: 70%;
+    margin: 0 auto;
+  }
+  #left{
+    margin-top: 5%;
+    float:left;
+    width:45%;
+    height: 50%
+  }
+  #right{
+    margin-top: 5%;
+    float: right;
+    width: 45%;
+    height: 50%
+  }
+
+  a{
+    text-decoration: none;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 100%;
+  }
+
+  .el-aside {
+    color: #333;
+  }
+  .code {
+    margin: 400px auto;
+    width: 114px;
+    height: 40px;
+    border: 1px solid red;
+  }
+  .in{
+    margin-top: 200px;
+  }
+
+</style>
