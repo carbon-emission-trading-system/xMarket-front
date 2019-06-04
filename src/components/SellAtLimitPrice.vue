@@ -229,11 +229,13 @@
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
+        }else {
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            this.firstReturnStockRealtimeInformation()
+          }
         }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          this.firstReturnStockRealtimeInformation()
-        }
+
       },
       /**
        *
@@ -243,17 +245,18 @@
         if (!value) {
           callback(new Error('请输入卖出金额'))
           console.log('请输入卖出金额')
-        }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          if (value > this.openPrice * 1.1) {
-            callback(new Error('超过涨停价'))
-          } else if (value < this.openPrice * 0.9) {
-            callback(new Error('低于跌停价'))
-          } else if (value < 0) {
-            callback(new Error('请输入合适价格'))
-          } else {
-            callback()
+        } else{
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (value > this.openPrice * 1.1) {
+              callback(new Error('超过涨停价'))
+            } else if (value < this.openPrice * 0.9) {
+              callback(new Error('低于跌停价'))
+            } else if (value < 0) {
+              callback(new Error('请输入合适价格'))
+            } else {
+              callback()
+            }
           }
         }
       },
@@ -275,15 +278,16 @@
         if (!value) {
           callback(new Error('请输入卖出数量'))
           console.log('请输入卖出数量')
-        }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          if (value > this.stockTrading.canorderAmount) {
-            callback(new Error('超出可买数量'))
-          } else if (value < 0) {
-            callback(new Error('请输入合适数量'))
-          } else {
-            callback()
+        } else {
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (value > this.stockTrading.canorderAmount) {
+              callback(new Error('超出可买数量'))
+            } else if (value < 0) {
+              callback(new Error('请输入合适数量'))
+            } else {
+              callback()
+            }
           }
         }
       },

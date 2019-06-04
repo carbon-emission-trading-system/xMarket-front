@@ -232,11 +232,13 @@
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
+        }else {
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            this.firstReturnStockRealtimeInformation()
+          }
         }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          this.firstReturnStockRealtimeInformation()
-        }
+
       },
       /**
        *
@@ -246,17 +248,18 @@
         if (!value) {
           callback(new Error('请输入买入金额'))
           console.log('请输入买入金额')
-        }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          if (value > this.openPrice * 1.1) {
-            callback(new Error('超过涨停价'))
-          } else if (value < this.openPrice * 0.9) {
-            callback(new Error('低于跌停价'))
-          } else if (value < 0) {
-            callback(new Error('请输入合适价格'))
-          } else {
-            callback()
+        }else {
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (value > this.openPrice * 1.1) {
+              callback(new Error('超过涨停价'))
+            } else if (value < this.openPrice * 0.9) {
+              callback(new Error('低于跌停价'))
+            } else if (value < 0) {
+              callback(new Error('请输入合适价格'))
+            } else {
+              callback()
+            }
           }
         }
       },
@@ -268,15 +271,16 @@
         if (!value) {
           callback(new Error('请输入买入数量'))
           console.log('请输入买入数量')
-        }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          if (value > this.stockTrading.canorderAmount) {
-            callback(new Error('超出可买数量'))
-          } else if (value < 0) {
-            callback(new Error('请输入合适数量'))
-          } else {
-            callback()
+        } else {
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (value > this.stockTrading.canorderAmount) {
+              callback(new Error('超出可买数量'))
+            } else if (value < 0) {
+              callback(new Error('请输入合适数量'))
+            } else {
+              callback()
+            }
           }
         }
       },
@@ -304,40 +308,6 @@
         });
       },
 
-      // /**
-      //  * 限制价格
-      //  */
-      // LimitPrice() {
-      //   if (this.openPrice * 1.1 < this.stockTrading.orderPrice) {
-      //     this.alertBox('错误', '超过涨停价');
-      //   } else if (this.openPrice * 0.9 > this.stockTrading.orderPrice) {
-      //     this.alertBox('错误', '低于跌停价')
-      //   }
-      // }
-      // ,
-
-      /**
-       *
-       *@since限制输入买入数量
-       *
-       */
-      // DetermineTheNumberOfPurchases() {
-      //   console.log("zheli chuxian wenti l111 ")
-      //   if (this.stockTrading.orderAmount > this.stockTrading.canorderAmount) {
-      //     console.log("zheli chuxian wenti l ")
-      //     this.$alert('买入数量超过可买数量', '错误', {
-      //       confirmButtonText: '确定',
-      //       callback: action => {
-      //         this.$message({
-      //           type: 'info',
-      //           message: `action: ${ action }`
-      //         });
-      //       }
-      //     });
-      //     this.stockTrading.orderAmount = null;
-      //   }
-      // }
-      // ,
       /**
        * @author 郑科宇
        * @date 05/28
@@ -349,8 +319,7 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        api.JH_news("/api/QueryStockInformation", prom)
-          .then(res => {
+        api.http('get',"/api/QueryStockInformation", prom).then(res => {
             console.log(res);
             this.basicInfoStok = res.data;
             console.log("this.basicInfoStok)");
