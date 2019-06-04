@@ -306,7 +306,7 @@
           tradeStraregy: 0,
         }
         console.log(SentstockTrading);
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.Stringify(SentstockTrading));
       },
       /**
        * ajax发送给后台委托单

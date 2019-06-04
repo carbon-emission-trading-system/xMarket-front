@@ -1,4 +1,4 @@
-<!--委托限价卖出页面----->
+<!--委托限价卖出页面-->
 <template>
   <div>
     <div class="NavigationBar">
@@ -84,7 +84,7 @@
               <div>
                 <el-button @click="reInput()">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>
+                <el-button @click="websocketSubmit()" style="width: 92px;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -130,7 +130,7 @@
       RealTime,
     },
     created() {
-      // this.connect();
+       this.connect();
       // this.firstReturnStockRealtimeInformation();
     },
     methods: {
@@ -155,7 +155,7 @@
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
+        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
@@ -245,7 +245,7 @@
           tradeStraregy: 0,
         }
         console.log(SentstockTrading);
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.Stringify(SentstockTrading));
       },
       /**
        * ajax发送给后台委托单
@@ -308,7 +308,7 @@
         this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
 	  change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount 
+        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
       /**
        * 重新提交
