@@ -10,26 +10,26 @@
                active-text-color="#ffd04b"
                router="true">
 
-        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" >
-          <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
+          <template slot="title" index="1">信息统计</template>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
       </el-menu>
     </div>
     <div>
       <selectDate v-on:select="select"></selectDate>
       <div id="in">
         <div id="tag">
-          <el-divider >历史持仓</el-divider>
+          <el-divider>历史持仓</el-divider>
         </div>
 
         <div id="stock">
@@ -38,7 +38,7 @@
             @row-click="handle"
             border
             style="width: 100%"
-            :default-sort = "{prop: 'buildPositionDate', order: 'descending'}">
+            :default-sort="{prop: 'buildPositionDate', order: 'descending'}">
             <el-table-column
               prop="stockID"
               label="股票代码"
@@ -83,12 +83,14 @@
               prop="profitAndLossRatio"
               label="盈亏比例"
               align="center"
-              >
+            >
             </el-table-column>
 
           </el-table>
           <div class="block" style="margin-top:30px;">
-            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                           :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize"
+                           layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
             </el-pagination>
           </div>
         </div>
@@ -103,110 +105,113 @@
   import SelectDate from './SelectDate'
   import Vue from 'vue'
   import api from "../api";
-  Vue.component('selectDate',SelectDate)
 
-    export default {
-        name: "HistoryHoldPositionInfo",
-      components:{
-        SelectDate,
-      },
-      data(){
-          return{
-            activeIndex: 'HistoryHoldPositionInfo',
-            tableData:[],
-            currentPage:1,
-            total:20,
-            pageSize:5,
-            beginDate:'',
-            endDate:''
-          }
-      },
-      created() {
-        this.setHistoryHoldPositionApi();
-      },
-      methods:{
-        handle(row){
-          // console.log(row.stockId)
-          this.$store.commit('stockID',row.stockID)
-          this.$store.commit('stockName',row.stockName)
-          this.$router.push('StockDisplay')
-        },
-          //日期筛选
-        select:function(data){
+  Vue.component('selectDate', SelectDate)
 
-          //数据预处理
-          this.beginDate=data[0]
-          this.endDate=data[1]
-          console.log(this.beginDate)
-          let date1=new Date(this.beginDate)
-          let begin,year1,month1,day1
-          year1 =date1.getFullYear()
-          month1=date1.getMonth()+1
-          day1=date1.getDate()
-          begin=year1.toString() + (month1>9?month1:'0'+month1) + (day1>9?day1:'0'+day1)
-          begin = parseInt(begin)
-          console.log(begin)
-
-          console.log(this.endDate)
-          let date2=new Date(this.endDate)
-          let end,year2,month2,day2
-          year2 =date2.getFullYear()
-          month2=date2.getMonth()+1
-          day2=date2.getDate()
-          end=year2.toString() + (month2>9?month2:'0'+month2) + (day2>9?day2:'0'+day2)
-          end = parseInt(end)
-          console.log(end)
-
-          let list = []
-          for(let i = 0;i<this.tableData.length;i++){
-            let date=new Date(this.tableData[i].buildPositionDate)
-         //   console.log(date)
-            let theDate,year,month,day
-            year =date.getFullYear()
-            month=date.getMonth()+1
-            day=date.getDate()
-            theDate=year.toString() + (month>9?month:'0'+month) + (day>9?day:'0'+day)
-            theDate = parseInt(theDate)
-
-            //日期范围筛选
-            if(theDate>=begin &&theDate<=end){
-              list.push(this.tableData[i])
-            }
-          }
-            this.tableData = list
-
-        },
-        handleSizeChange(val) {
-          this.currentPage = 1;
-          this.pageSize = val;
-        },
-        handleCurrentChange(val) {
-          this.currentPage = val;
-        },
-        setHistoryHoldPositionApi: function () {
-          api.JH_news('/api/historyHoldPositionInfo',{
-            params: {
-              userId: this.$store.state.user.userId
-            }
-          })
-            .then(res => {
-              console.log(res);
-              this.tableData = res.data;
-            });
-        },
+  export default {
+    name: "HistoryHoldPosition",
+    components: {
+      SelectDate,
+    },
+    data() {
+      return {
+        activeIndex: 'HistoryHoldPosition',
+        tableData: [],
+        currentPage: 1,
+        total: 20,
+        pageSize: 5,
+        beginDate: '',
+        endDate: ''
       }
+    },
+    created() {
+      this.setHistoryHoldPositionApi();
+    },
+    methods: {
+      handle(row) {
+        // console.log(row.stockId)
+        this.$store.commit('stockID', row.stockID)
+        this.$store.commit('stockName', row.stockName)
+        this.$router.push('StockDisplay')
+      },
+      //日期筛选
+      select: function (data) {
+
+        //数据预处理
+        this.beginDate = data[0]
+        this.endDate = data[1]
+        console.log(this.beginDate)
+        let date1 = new Date(this.beginDate)
+        let begin, year1, month1, day1
+        year1 = date1.getFullYear()
+        month1 = date1.getMonth() + 1
+        day1 = date1.getDate()
+        begin = year1.toString() + (month1 > 9 ? month1 : '0' + month1) + (day1 > 9 ? day1 : '0' + day1)
+        begin = parseInt(begin)
+        console.log(begin)
+
+        console.log(this.endDate)
+        let date2 = new Date(this.endDate)
+        let end, year2, month2, day2
+        year2 = date2.getFullYear()
+        month2 = date2.getMonth() + 1
+        day2 = date2.getDate()
+        end = year2.toString() + (month2 > 9 ? month2 : '0' + month2) + (day2 > 9 ? day2 : '0' + day2)
+        end = parseInt(end)
+        console.log(end)
+
+        let list = []
+        for (let i = 0; i < this.tableData.length; i++) {
+          let date = new Date(this.tableData[i].buildPositionDate)
+          //   console.log(date)
+          let theDate, year, month, day
+          year = date.getFullYear()
+          month = date.getMonth() + 1
+          day = date.getDate()
+          theDate = year.toString() + (month > 9 ? month : '0' + month) + (day > 9 ? day : '0' + day)
+          theDate = parseInt(theDate)
+
+          //日期范围筛选
+          if (theDate >= begin && theDate <= end) {
+            list.push(this.tableData[i])
+          }
+        }
+        this.tableData = list
+
+      },
+      handleSizeChange(val) {
+        this.currentPage = 1;
+        this.pageSize = val;
+      },
+      handleCurrentChange(val) {
+        this.currentPage = val;
+      },
+      setHistoryHoldPositionApi: function () {
+        api.JH_news('/api/historyHoldPositionInfo', {
+          params: {
+            userId: this.$store.state.user.userId
+          }
+        })
+          .then(res => {
+            console.log(res);
+            this.tableData = res.data;
+          });
+      },
     }
+  }
 </script>
 
 <style scoped>
-  #in{
+  #in {
     width: 70%;
     margin: 0 auto;
   }
-  #stock{
+
+  #stock {
     margin-top: 5%;
   }
-  #tag{
+
+  #tag {
     margin-top: 5%;
     margin-bottom: 4%;
   }

@@ -22,7 +22,7 @@
           <el-menu-item  @click="warning">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" @click="warning">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 50px"  @click="warning">个人中心</el-menu-item>
       </el-menu>
     </div>
 
