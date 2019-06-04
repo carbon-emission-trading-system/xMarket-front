@@ -189,7 +189,7 @@
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
+        
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
@@ -296,7 +296,7 @@
           if (valid) {
             //
             // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-            this.ajaxSubmit();
+            this.websocketSubmit();
           } else {
             console.log('error submit!!');
             return false;
@@ -417,7 +417,7 @@
           tradeStraregy: 0,
         }
         console.log(SentstockTrading);
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.stringify(SentstockTrading));
       }
       ,
       /**
