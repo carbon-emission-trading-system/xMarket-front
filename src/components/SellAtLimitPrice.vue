@@ -53,7 +53,7 @@
 
       <div class="list1">
         <el-card class="card1">
-          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="ruleForm" size="mini">
+          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
             <div style="text-align: center" class="elementInput">
               <el-form-item label="证券代码"
@@ -69,12 +69,17 @@
               <el-form-item label="证券名称">
                 <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="卖出价格" prop="orderPrice">
-                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格"></el-input>
+              <el-form-item label="卖出价格"
+                            prop="orderPrice"
+                            :rules="[
+                            { validator: LimitPrice, // 自定义验证
+                              trigger: 'blur'
+                            }
+                            ]">
+                <el-input v-model="stockTrading.orderPrice" placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量">
-                <el-input v-model="stockTrading.availableNumber" placeholder="可买数量" :disabled="true"
-                          @blur.prevent="DetermineTheNumberOfPurchases()"></el-input>
+                <el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>
               </el-form-item>
 
               <div class="proportion">
@@ -84,13 +89,18 @@
                 <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
               </div>
 
-              <el-form-item label="卖出数量" prop="orderAmount">
+              <el-form-item label="卖出数量"
+                            prop="orderAmount"
+                            :rules="[
+                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                              trigger: 'blur'
+                            }]">
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"></el-input>
               </el-form-item>
               <div>
-                <el-button @click="reInput()">重新填写</el-button>
+                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>
+                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -126,7 +136,7 @@
         msg: 0,
         //规则
         rules: {
-          userName: [],
+          stockId: [],
           orderPrice: [],
           orderAmount: []
         },
@@ -207,17 +217,92 @@
 
       /**
        *
-       *@since限制输入买入数量
-       *
+       * 验证股票代码
        */
-      DetermineTheNumberOfPurchases() {
-        console.log("zheli chuxian wenti l111 ")
-        if (this.stockTrading.orderAmount > this.stockTrading.availableNumber) {
-          console.log("zheli chuxian wenti l ");
-          this.alertBox( '错误','卖入数量超过可卖数量');
-          this.stockTrading.orderAmount = null;
+      verifyStockCode(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入股票代码'))
+          console.log('请输入股票代码')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          this.firstReturnStockRealtimeInformation()
         }
       },
+      /**
+       *
+       * 自定义验证涨跌幅
+       */
+      LimitPrice(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入买入金额'))
+          console.log('请输入买入金额')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.openPrice * 1.1) {
+            callback(new Error('超过涨停价'))
+          } else if (value < this.openPrice * 0.9) {
+            callback(new Error('低于跌停价'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适价格'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
+       * 验证交易策略
+       *
+       */
+      tradingStrategyVerification(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请选择交易策略'))
+          console.log('请选择交易策略')
+        }
+      },
+      /**
+       *
+       * 自定义验证买入数量
+       */
+      DetermineTheNumberOfPurchases(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请输入买入数量'))
+          console.log('请输入买入数量')
+        }
+        value = Number(value)
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value > this.stockTrading.canorderAmount) {
+            callback(new Error('超出可买数量'))
+          } else if (value < 0) {
+            callback(new Error('请输入合适数量'))
+          } else {
+            callback()
+          }
+        }
+      },
+      /**
+       * 重新提交
+       */
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+      ,
+      /**
+       *提交
+       */
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
+            this.ajaxSubmit();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+
 
       /**
        * @author 郑科宇
@@ -293,20 +378,7 @@
         }
 
       },
-      /**
-       *  弹出框
-       */
-      alertBox(title, text) {
-        this.$alert(text, title, {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      },
+
       //0.25/0.5/0.75计算
       change1() {
         console.log("1/4");
@@ -324,18 +396,6 @@
 	  change4() {
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
-      /**
-       * 重新提交
-       */
-      reInput() {
-        this.stockTrading.stockId = '';
-        this.stockTrading.stockName = '';
-        this.stockTrading.orderPrice = '';
-        this.stockTrading.orderAmount = '';
-        this.stockTrading.canorderAmount = '';
-      },
-
-
     },
   }
 </script>
