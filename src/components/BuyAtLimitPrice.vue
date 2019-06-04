@@ -97,8 +97,7 @@
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"
-                          @blur.prevent="DetermineTheNumberOfPurchases()"></el-input>
+                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"></el-input>
               </el-form-item>
               <div>
                 <el-button @click="resetForm('stockTrading')">重新填写</el-button>
@@ -281,6 +280,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
             this.ajaxSubmit();
           } else {
             console.log('error submit!!');
