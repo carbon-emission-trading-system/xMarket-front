@@ -157,6 +157,11 @@
           this.$store.dispatch('stockList')
       },
       methods:{
+        //导航栏需要
+        handleSelect(key, keyPath) {
+          console.log(key, keyPath);
+        },
+
         exit(){
           this.$store.commit('logout')
           this.$router.push('/')

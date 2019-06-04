@@ -144,6 +144,28 @@ const produceKlineData = function () {
   }
 }
 
+/**
+ * 查询买入基本信息
+ * 用户输入 用户id 与股票id
+ * 返回：股票id 股票名字 用户资金 深市沪市
+ * @param params
+ * @return {{articles: {stockId: number, stockName: string, availableFunds: number, soh: number}}}
+ */
+
+const QueryStockInformation = function (params) {
+  console.log("reald的post请求", params);
+  let articles = {
+    stockId: 123456,
+    stockName: "金证股份",
+    availableFunds: 100000000,
+    tradeMarket: 0,
+    orderPrice: 10,
+    availableNumber:500,
+    openPrice:52.3,//开盘价
+  }
+  console.log("zheli you l ");
+  return articles;
+}
 //模拟返回数据
 const search=function(options){
   let stockId = JSON.parse(options.body).params.stockId;
@@ -158,4 +180,6 @@ Mock.mock('/search/index','post',search);
 Mock.mock('/api/stockList','post',produceStockListData);
 Mock.mock('/todayExchange/index','post',produceTodayExchangeData);
 Mock.mock('/historyHoldPosition/index','post',produceHistoryHoldPositionData);
+
+Mock.mock('/api/QueryStockInformation','post',QueryStockInformation)
 
