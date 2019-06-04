@@ -26,7 +26,6 @@ export  default new Vuex.Store({
     getStockList(state) {
       return state.stockList
     },
-
     getUsername(state) {
       return state.user.username
     }
@@ -37,11 +36,17 @@ export  default new Vuex.Store({
       state.isLogin = true
       state.user.username = payload.username
       state.user.userId = payload.userId
+      sessionStorage.setItem("isLogin",true)
+      sessionStorage.setItem("username",payload.username)
+      sessionStorage.setItem("userId",payload.userId)
     },
     logout(state) {
       state.isLogin = false
       state.user.username = ''
       state.user.userId = ''
+      sessionStorage.removeItem("username"); //移除sessionStorage
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("isLogin");
     },
     register(state, payload) {
       state.isLogin = true
