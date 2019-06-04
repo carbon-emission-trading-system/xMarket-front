@@ -319,7 +319,7 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        api.http('get',"/api/QueryStockInformation", prom).then(res => {
+        this.$api.http('get',"/api/QueryStockInformation", prom).then(res => {
             console.log(res);
             this.basicInfoStok = res.data;
             console.log("this.basicInfoStok)");
@@ -410,8 +410,7 @@
             tradeStraregy: 0,
           }
           console.log(SentstockTrading);
-          api.JH_news("/api/buyOrSale", SentstockTrading)
-            .then(res => {
+          this.$api.http('post',"/api/buyOrSale", SentstockTrading).then(res => {
               this.msg = res.data.result;
               if (this.msg == 0) {
                 if (this.msg == 0) {

@@ -341,8 +341,7 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        api.JH_news("/api/QueryStockInformation", prom)
-          .then(res => {
+        this.$api.http('get',"/api/QueryStockInformation", prom).then(res => {
             console.log(res);
             this.stockTrading = res.data;
             this.openPrice = res.data.openPrice;
@@ -378,8 +377,7 @@
             tradeStraregy: this.DelegateType,
           }
           console.log(SentstockTrading);
-          api.JH_news("/api/buyOrSale", SentstockTrading)
-            .then(res => {
+          this.$api.http('post',"/api/buyOrSale", SentstockTrading).then(res => {
               this.msg = res.data.result;
               if (this.msg == 0) {
                 this.alertBox('成功','提交成功');

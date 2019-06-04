@@ -188,9 +188,9 @@
         tableData: []
       }
     },
-
     created() {
       this.ReceiveAccountInformation();
+      this.ReceiveSelfHoldStock();
     },
     beforeMount(){
       if(this.$store.state.isLogin===false){
@@ -225,12 +225,32 @@
        */
       ReceiveAccountInformation() {
         console.log(this.userId);
-        api.JH_news("/api/selfSelectedStock", this.userI)
-          .then(res => {
+        let poem={
+          userId: this.userId
+        }
+        this.$api.http('get',"/api/getFunds",poem).then(res => {
             console.log(res);
             console.log('到这里了');
-            this.UserFundsInformation = res.data.UserFundsInformation;
-            this.tableData = res.data.tableData
+            this.UserFundsInformation = res.data;
+          })
+      },
+      /**
+       * @author
+       * @date
+       * @since 接收持仓股
+       * @version
+       * @param
+       * @return
+       */
+      ReceiveSelfHoldStock() {
+        console.log(this.userId);
+        let poem={
+          userId: this.userId
+        }
+        this.$api.http('get',"/api/presentHoldPositionInfo",poem).then(res => {
+            console.log(res);
+            console.log('到这里了');
+            this.tableData = res.data;
             console.log(this.tableData)
           })
       },

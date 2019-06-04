@@ -216,7 +216,10 @@
        */
       ReceiveSelfSelectedStock() {
         console.log(this.userId);
-        api.JH_news("/api /getFunds", this.userID)
+        let poem={
+          userId: this.userId
+        }
+        this.$api.http('get',"/api/selfSelectedStock",poem)
           .then(res => {
             console.log(res);
             console.log('到这里了');
