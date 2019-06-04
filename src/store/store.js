@@ -8,7 +8,7 @@ export  default new Vuex.Store({
  // plugins: [createPersistedState()],
   //定义数据
   state: {
-    isLogin:false,
+    isLogin:true,
     stockList: [],
     //搜索的股票id
     stockID:'',
@@ -38,7 +38,7 @@ export  default new Vuex.Store({
       state.user.username = payload.username
       state.user.userId = payload.userId
     },
-    logout(state, payload) {
+    logout(state) {
       state.isLogin = false
       state.user.username = ''
       state.user.userId = ''

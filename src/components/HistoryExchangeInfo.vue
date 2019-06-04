@@ -23,6 +23,9 @@
         </el-submenu>
 
         <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <div id="exit">
+          <el-link type="primary" @click="exit">退出</el-link>
+        </div>
       </el-menu>
     </div>
     <div>
@@ -183,6 +186,10 @@
       this.setHistoryExchangeApi();
     },
     methods:{
+      exit(){
+        this.$store.commit('logout')
+        this.$router.push('/')
+      },
       beforeMount(){
         if(this.$store.state.isLogin===false){
           this.$alert('请先登录！', {
@@ -273,6 +280,10 @@
   #tag{
     margin-top: 5%;
     margin-bottom: 5%;
+  }
+  #exit{
+    margin-top: 1.5%;
+    margin-left: 3%;
   }
 
 </style>

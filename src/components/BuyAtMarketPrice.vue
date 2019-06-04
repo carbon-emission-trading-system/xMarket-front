@@ -24,6 +24,9 @@
         </el-submenu>
 
         <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <div id="exit">
+          <el-link type="primary" @click="exit">退出</el-link>
+        </div>
       </el-menu>
 
     </div>
@@ -170,6 +173,10 @@
       }
     },
     methods: {
+      exit(){
+        this.$store.commit('logout')
+        this.$router.push('/')
+      },
       //导航栏需要
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
@@ -427,6 +434,10 @@
     margin-inline-end: 0px;
   }
 
+  #exit{
+    margin-top: 1.5%;
+    margin-left: 5%;
+  }
   div {
     float: left;
     display: block;

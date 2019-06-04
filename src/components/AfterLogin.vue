@@ -23,6 +23,9 @@
         </el-submenu>
 
         <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <div id="exit">
+        <el-link type="primary" @click="exit">退出</el-link>
+        </div>
 
       </el-menu>
     </div>
@@ -186,6 +189,10 @@
       }
     },
     methods: {
+      exit(){
+        this.$store.commit('logout')
+        this.$router.push('/')
+      },
       handle(row){
         // console.log(row.stockId)
         this.$store.commit('stockID',row.stockID)
@@ -231,6 +238,9 @@
     float: right;
     width: 45%;
     height: 50%
+  }
+  #exit{
+    margin-top: 1.5%;
   }
 
   a{
