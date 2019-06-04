@@ -57,10 +57,7 @@
           </el-tab-pane>
 
           <el-tab-pane label="分时" name="second">
-            <ve-line :data="lineChartData"  width="600px" height="430px" :settings="lineChartSettings" :colors="lColor"></ve-line>
-            <div style="margin-top: -5%">
-              <ve-histogram :data="hisChartData" width="600px" height="50px" :yAxis="{show:false}"  :height="'50%'" :legend-visible="false"  ></ve-histogram>
-            </div>
+            <div id="myChart" style="width: 600px;height: 450px"></div>
           </el-tab-pane>
         </el-tabs>
 
@@ -82,15 +79,14 @@
 <script>
   import api from './../api/index.js'
   import VCharts from 'v-charts'
-  import Vue from 'vue'
   import RealTime from './SelfRealTime'
+  import echarts from 'echarts' //引入echarts
+  import Vue from 'vue'
+  Vue.prototype.$echarts = echarts //引入组件
 
 
   Vue.use(VCharts)
   Vue.component( 'realTime',RealTime);
-
-  //import echarts from 'echarts'
-  //Vue.use(echarts)
 
   export default {
     components:{
@@ -109,11 +105,8 @@
           Volume:'成交量'
         },
       }
-        this.lineChartSettings={
-          scale:[true,true],
-        }
+
         this.kColor=['#c23531','#2f4554','#61a0a8', '#d48265']
-        this.lColor=['#c23531','#2f4554']
       return {
         activeIndex: 'StockList',
         activeName: 'first',
@@ -123,20 +116,19 @@
           columns: ['date', 'openPrice', 'closePrice', 'lowestPrice', 'highestPrice', 'volume'],
           rows: []
         },
-        lineChartData:{
-          columns:['realTime','latestPrice','averagePrice'],
-          rows: []
-        },
-        hisChartData:{
-          columns:['realTime','volume'],
-          rows:[]
-        }
+        timeData:[
+          '2009/6/12 2:00', '2009/6/12 3:00', '2009/6/12 4:00', '2009/6/12 5:00', '2009/6/12 6:00', '2009/6/12 7:00', '2009/6/12 8:00', '2009/6/12 9:00', '2009/6/12 10:00']
+
       }
     },
     created() {
       this.setKlineApi();
       this.setTimeApi();
       this.setSelfApi()
+    },
+    mounted() {
+      this.change()
+      this.drawLine();
     },
     computed:{
       isLogin:function () {
@@ -186,6 +178,7 @@
           center: true
         });
       },
+      //查看该股票是否为自选股
       setSelfApi:function(){
         api.JH_news('/api/SelfStockValue',{
           params: {
@@ -198,6 +191,7 @@
             this.chosen = res.data;
           });
       },
+      //获取k线图数据
       setKlineApi: function () {
         api.JH_news('/api/KlineDiagramDisplay',{
           params: {
@@ -206,9 +200,10 @@
         })
           .then(res => {
             console.log(res);
-            this.kChartData.rows = res.data;
+            this.kChartData.rows = res.kline;
           });
       },
+      //获取分时图数据
       setTimeApi:function () {
         api.JH_news('/api/timeSharingDisplay',{
           params: {
@@ -220,6 +215,129 @@
             this.lineChartData.rows = res.data;
             this.hisChartData.rows = res.data;
           });
+      },
+      //修改日期格式
+      change(){
+        this.timeData = this.timeData.map(function(str){
+          return str.replace('2009/', '');
+        })
+
+      },
+      drawLine() {
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        // 绘制图表
+        myChart.setOption({
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              animation: false
+            }
+          },
+          legend: {
+            data:['最新价','均价'],
+          },
+          toolbox: {
+            feature: {
+              dataZoom: {
+                yAxisIndex: 'none'
+              },
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          axisPointer: {
+            link: {xAxisIndex: 'all'}
+          },
+          dataZoom: [
+            {
+              show: true,
+              realtime: true,
+              start: 30,
+              end: 70,
+              xAxisIndex: [0, 1]
+            },
+            {
+              type: 'inside',
+              realtime: true,
+              start: 30,
+              end: 70,
+              xAxisIndex: [0, 1]
+            }
+          ],
+          grid: [{
+
+            height: '45%'
+          }, {
+
+            top: '60%',
+            height: '20%'
+          }],
+          xAxis : [
+            {
+              type : 'category',
+              boundaryGap : false,
+              axisLine: {onZero: true},
+              data: this.timeData
+            },
+            {
+              gridIndex: 1,
+              show:false,
+              type : 'category',
+              boundaryGap : false,
+              axisLine: {onZero: true},
+              splitLine: {
+                "show": false
+              },
+              data: this.timeData,
+            }
+          ],
+          yAxis : [
+            {
+              type : 'value',
+            },
+            {
+              gridIndex: 1,
+              show:false,
+              type : 'value',
+              splitLine: {     //网格线
+                "show": false
+              }
+            }
+          ],
+          series : [
+            {
+              name:'最新价',
+              type:'line',
+              symbolSize: 8,
+              hoverAnimation: false,
+              data:[
+                8.97,7.96,5.96,6.97,10.96,7.96,6.97,10.96,7.96,
+              ]
+            },
+            {
+              name:'均价',
+              type:'line',
+              symbolSize: 8,
+              hoverAnimation: false,
+              data:[
+                6.97,10.96,6.97,10.96,7.96,7.96,5.96,6.97,9.15
+              ]
+            },
+            {
+              name:'成交量',
+              type:'bar',
+              xAxisIndex: 1,
+              yAxisIndex: 1,
+              symbolSize: 8,
+              barGap:'-100%',
+              hoverAnimation: false,
+              data: [
+                1130,1580,1548,1130,1580,1548,1130,1580,1548,
+              ]
+            }
+          ]
+        });
       }
       }
 
@@ -229,7 +347,6 @@
   #bread{
     margin-top: 3%;
     margin-left: 15%;
-
   }
   #both{
     display: inline-block;

@@ -156,7 +156,7 @@ const search=function(options){
 //Mock.mock(url,post/get,返回的数据);
 Mock.mock('/api/getNews','post',produceNoticesData);
 Mock.mock('/selfStocks/index','post',produceSelfStockData);
-Mock.mock('/kline/index','post',produceKlineData);
+Mock.mock('/api/KlineDiagramDisplay','post',produceKlineData);
 Mock.mock('/search/index','post',search);
 Mock.mock('/api/stockList','post',produceStockListData);
 Mock.mock('/todayExchange/index','post',produceTodayExchangeData);
