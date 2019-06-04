@@ -195,12 +195,10 @@
           this.currentPage = val;
         },
         setTodayExchangeApi:function () {
-          api.JH_news('/api/todayExchange',{
-            params: {
-              userId: this.$store.state.user.userId
-            }
-          })
-            .then(res=>{
+          let params={
+            userId: this.$store.state.user.userId
+          }
+          this.$api.http('get','/api/todayExchange',params).then(res=>{
               if(res){
                 console.log('请求成功')
                 this.tableData = res.data;

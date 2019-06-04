@@ -178,12 +178,10 @@
         this.currentPage = val;
       },
       setTodayOrderApi:function () {
-        api.JH_news('/api/todayOrder',{
-          params: {
-            userId: this.$store.state.user.userId
-          }
-        })
-          .then(res=>{
+        let params={
+          userId: this.$store.state.user.userId
+        }
+        this.$api.http('get','/api/todayOrder',params).then(res=>{
             if(res){
               console.log('请求成功')
               this.tableData = res.data;

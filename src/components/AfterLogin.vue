@@ -208,17 +208,18 @@
         this.$store.commit('stockName',row.stockName)
         this.$router.push('StockDisplay')
       },
+      //获取公告
       setNoticesApi:function () {
-        api.http('post','/api/getNews')
-          .then(res=>{
+        this.$api.http('post','/api/getNews').then(res=>{
             this.notices = res.data;
           });
       },
+      //获取自选股
       setStocksApi:function () {
         let  params={
           userId: this.$store.state.user.userId
         }
-        api.http('post','/api/selfSelectedStock',params).then(res=>{
+        this.$api.http('get','/api/selfSelectedStock',params).then(res=>{
             console.log(res);
             this.stock=res.data
           })

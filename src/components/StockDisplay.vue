@@ -84,7 +84,6 @@
   import Vue from 'vue'
   Vue.prototype.$echarts = echarts //引入组件
 
-
   Vue.use(VCharts)
   Vue.component( 'realTime',RealTime);
 
@@ -186,37 +185,31 @@
       },
       //查看该股票是否为自选股
       setSelfApi:function(){
-        api.JH_news('/api/SelfStockValue',{
-          params: {
-            stockID: this.$store.state.stockID,
-            userId:this.$store.state.userId
-          }
-        })
-          .then(res => {
+        let params={
+          stockID: this.$store.state.stockID,
+          userId:this.$store.state.userId
+        }
+        this.$api.http('get','/api/SelfStockValue',params).then(res => {
             console.log(res);
             this.chosen = res.data;
           });
       },
       //获取k线图数据
       setKlineApi: function () {
-        api.JH_news('/api/KlineDiagramDisplay',{
-          params: {
-            stockID: this.$store.state.stockID
-          }
-        })
-          .then(res => {
+        let params={
+          stockID: this.$store.state.stockID
+        }
+        this.$api.http('get','/api/KlineDiagramDisplay',params).then(res => {
             console.log(res);
             this.kChartData.rows = res.data;
           });
       },
       //首次获取分时图数据
       setTimeApi:function () {
-        api.JH_news('/api/timeSharingDisplay',{
-          params: {
-            stockID: this.$store.state.stockID
-          }
-        })
-          .then(res => {
+        let params={
+          stockID: this.$store.state.stockID
+        }
+        this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
             let data = res.data
             for(let i =0;i<res.data.length;i++){
               this.timeData.push(data[i].realtime)

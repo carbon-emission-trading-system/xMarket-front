@@ -199,12 +199,10 @@
           this.currentPage = val;
         },
         setHistoryHoldPositionApi: function () {
-          api.JH_news('/api/historyHoldPositionInfo',{
-            params: {
-              userId: this.$store.state.user.userId
-            }
-          })
-            .then(res => {
+          let params={
+            userId: this.$store.state.user.userId
+          }
+          this.$api.http('get','/api/historyHoldPositionInfo',params).then(res => {
               console.log(res);
               this.tableData = res.data;
             });

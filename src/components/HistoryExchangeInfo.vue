@@ -257,12 +257,10 @@
         this.currentPage = val;
       },
       setHistoryExchangeApi: function () {
-        api.JH_news('/api/historyExchangeInfo',{
-          params: {
-            userId: this.$store.state.user.userId
-          }
-        })
-          .then(res => {
+        let params={
+          userId: this.$store.state.user.userId
+        }
+        this.$api.http('get','/api/historyExchangeInfo',params).then(res => {
             console.log(res);
             this.tableData = res.data;
           });

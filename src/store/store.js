@@ -121,7 +121,7 @@ export  default new Vuex.Store({
 
 
     stockList(context, payload) {
-      api.JH_news('/api/stockList')
+      this.$api.http('get','/api/stockList')
         .then(res => {
           payload = res.data
           context.commit('stockList', payload)
