@@ -10,133 +10,144 @@
         placeholder="请输入股票简称或代码"
         :trigger-on-focus="false"
         @select="handleSelect"
-      style="width: 100%;">
+        style="width: 100%;">
       </el-autocomplete>
     </div>
-    <div id ="sRight">
-        <el-button type="primary" icon="el-icon-search" @click="find">搜索</el-button>
+    <div id="sRight">
+      <el-button type="primary" icon="el-icon-search" @click="find">搜索</el-button>
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "Search",
-      data(){
-          return{
-            input:'',
-          }
-      },
-      created() {
-    //    this.find();
-      },
-      mounted(){
-        //this.$store.dispatch('stockList')
-      },
-      computed:{
-          //生成搜索提示  stockId：stockName
-        stocks:function(){
-          let theStocks = this.$store.state.stockList
-          let theStocksList = [];
-          for(let i=0;i<theStocks.length;i++){
-            let id = theStocks[i].stockID
-            let theStock=id+":"+theStocks[i].stockName
-            let stock={value:theStock}
-            theStocksList.push(stock)
-          }
-          return theStocksList
+  export default {
+    name: "Search",
+    data() {
+      return {
+        input: '',
+      }
+    },
+    created() {
+      //    this.find();
+    },
+    mounted() {
+      //this.$store.dispatch('stockList')
+    },
+    computed: {
+      //生成搜索提示  stockId：stockName
+      stocks: function () {
+        let theStocks = this.$store.state.stockList
+        let theStocksList = [];
+        for (let i = 0; i < theStocks.length; i++) {
+          let id = theStocks[i].stockID
+          let theStock = id + ":" + theStocks[i].stockName
+          let stock = {value: theStock}
+          theStocksList.push(stock)
         }
+        return theStocksList
+      }
+    },
+    methods: {
+      /**
+       * @since 导航栏需要
+       * @param key
+       * @param keyPath
+       */
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
       },
-      methods: {
-          //向store传递input的stockId值
-          find () {
-            let input = this.input
-            let stockList = this.$store.state.stockList
-            //如果用户未按搜索建议
-            if(input.indexOf(":")===-1){
-              console.log("用户未按搜索建议")
-              let stockIDs =[]
-              let stockNames=[]
-              for(let i=0;i<stockList.length;i++){
-                let stockID = stockList[i].stockID
-                stockID = stockID.toString()
-                let stockName=stockList[i].stockName
-                stockIDs.push(stockID)
-                stockNames.push(stockName)
-              }
-              console.log(stockNames)
-              //判断是否存在该股票
 
-              if(stockIDs.indexOf(input)!==-1 || stockNames.indexOf(input)!==-1) {
-                //如果用户输入的是股票简称
-                if(input.indexOf("6")===-1){
-                  this.$store.commit('stockName',input)
-                  let index = stockNames.indexOf(input)
-                  let stockID=stockIDs[index]
-                  this.$store.commit('stockID',stockID)
-                  console.log(this.$store.state.stockID)
-                  console.log(this.$store.state.stockName)
-                }//如果用户输入的是股票代码
-                else{
-                  this.$store.commit('stockID',input)
-                  let index=stockIDs.indexOf(input)
-                  let stockName = stockNames[index]
-                  this.$store.commit('stockName',stockName)
-                  console.log(this.$store.state.stockID)
-                  console.log(this.$store.state.stockName)
-                }
-                this.$router.push('StockDisplay')
-              }else{ //不存在则提示
-                this.$alert('该股票不存在，请重新输入', '搜索失败', {
-                  confirmButtonText: '确定',
-                });
-              }
-            }else{//如果用户按搜索建议
-              let stockID=this.input.split(":")[0]
-              let stockName = this.input.split(":")[1]
-              this.$store.commit('stockID',stockID)
-              this.$store.commit('stockName',stockName)
-              this.$router.push('StockDisplay')
+      //向store传递input的stockId值
+      find() {
+        let input = this.input
+        let stockList = this.$store.state.stockList
+        //如果用户未按搜索建议
+        if (input.indexOf(":") === -1) {
+          console.log("用户未按搜索建议")
+          let stockIDs = []
+          let stockNames = []
+          for (let i = 0; i < stockList.length; i++) {
+            let stockID = stockList[i].stockID
+            stockID = stockID.toString()
+            let stockName = stockList[i].stockName
+            stockIDs.push(stockID)
+            stockNames.push(stockName)
+          }
+          console.log(stockNames)
+          //判断是否存在该股票
+
+          if (stockIDs.indexOf(input) !== -1 || stockNames.indexOf(input) !== -1) {
+            //如果用户输入的是股票简称
+            if (input.indexOf("6") === -1) {
+              this.$store.commit('stockName', input)
+              let index = stockNames.indexOf(input)
+              let stockID = stockIDs[index]
+              this.$store.commit('stockID', stockID)
+              console.log(this.$store.state.stockID)
+              console.log(this.$store.state.stockName)
+            }//如果用户输入的是股票代码
+            else {
+              this.$store.commit('stockID', input)
+              let index = stockIDs.indexOf(input)
+              let stockName = stockNames[index]
+              this.$store.commit('stockName', stockName)
+              console.log(this.$store.state.stockID)
+              console.log(this.$store.state.stockName)
             }
-
-          },
-
-        //搜索提示
-        querySearch(queryString, cb) {
-          let stocks = this.stocks
-          let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks
-          // 调用 callback 返回建议列表的数据
-          cb(results);
-        },
-        createFilter(queryString) {
-          return (stocks) => {
-            //所有包含关键字的都作为提醒内容
-            return(stocks.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
-          };
-        },
+            this.$router.push('StockDisplay')
+          } else { //不存在则提示
+            this.$alert('该股票不存在，请重新输入', '搜索失败', {
+              confirmButtonText: '确定',
+            });
+          }
+        } else {//如果用户按搜索建议
+          let stockID = this.input.split(":")[0]
+          let stockName = this.input.split(":")[1]
+          this.$store.commit('stockID', stockID)
+          this.$store.commit('stockName', stockName)
+          this.$router.push('StockDisplay')
+        }
 
       },
-    }
+
+      //搜索提示
+      querySearch(queryString, cb) {
+        let stocks = this.stocks
+        let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (stocks) => {
+          //所有包含关键字的都作为提醒内容
+          return (stocks.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+        };
+      },
+
+    },
+  }
 </script>
 
 <style scoped>
-  a{
+  a {
     text-decoration: none;
   }
+
   #sin {
     display: inline-block;
     width: 40%;
     margin: 0 auto;
   }
-  #sLeft{
+
+  #sLeft {
     margin-top: 7%;
-    float:left;
-    width:60%;
+    float: left;
+    width: 60%;
   }
 
-  #sRight{
+  #sRight {
     margin-top: 7%;
-    float:right;
-    width:35%;
+    float: right;
+    width: 35%;
   }
 </style>

@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               router="true">
+               v-bind:router= true>
 
         <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
@@ -189,6 +189,15 @@
       }
     },
     methods: {
+      /**
+       * @since 导航栏需要
+       * @param key
+       * @param keyPath
+       */
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      },
+
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')
