@@ -1,36 +1,37 @@
 import axios from 'axios'
-import vue from 'vue'
+import Qs from 'qs'
+import { Message } from 'element-ui';
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+//设置全局axios默认值
+axios.defaults.timeout = 5000; //5秒的超时验证
+axios.defaults.withCredentials = true;//跨域带cookie
 
-// 请求拦截器
-axios.interceptors.request.use(function(config) {
-  return config;
-}, function(error) {
-  return Promise.reject(error);
-})
-// 响应拦截器
-axios.interceptors.response.use(function(response) {
-  return response;
-}, function(error) {
-  return Promise.reject(error);
-})
 
-// 封装axios的post请求
-export function fetch(url, params) {
+function http(type, url, params, contentType) {
+  let contentTypeUse = contentType === 'json' ? 'application/json' : 'application/x-www-form-urlencoded';
+  let paramsUse = contentType === 'json' ? params : Qs.stringify(params);
+
+  let obj = {
+    url,
+  };
+  if (type === 'get') {
+    obj.method = 'get';
+    obj.params = params;
+
+  } else {
+    obj.method = 'post';
+    obj.headers = { 'Content-Type': contentTypeUse };
+    obj.data = paramsUse;
+  }
+
   return new Promise((resolve, reject) => {
-    axios.post(url, params)
-      .then(response => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      })
+    axios(obj).then((res) => {
+      resolve(res.data);
+    }).catch((err) => {
+      Message.error("出错了...待会再试试吧 ~");
+      reject(err)
+    })
   })
 }
 
-export default {
-  JH_news(url, params) {
-    return fetch(url, params);
-  }
-}
+export default http

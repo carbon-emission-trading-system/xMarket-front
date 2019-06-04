@@ -209,18 +209,16 @@
         this.$router.push('StockDisplay')
       },
       setNoticesApi:function () {
-        api.JH_news('/api/getNews')
+        api.http('post','/api/getNews')
           .then(res=>{
             this.notices = res.data;
           });
       },
       setStocksApi:function () {
-        api.JH_news('/api/selfSelectedStock',{
-          params: {
-            userId: this.$store.state.user.userId
-          }
-        })
-          .then(res=>{
+        let  params={
+          userId: this.$store.state.user.userId
+        }
+        api.http('post','/api/selfSelectedStock',params).then(res=>{
             console.log(res);
             this.stock=res.data
           })
