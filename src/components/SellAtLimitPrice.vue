@@ -308,7 +308,7 @@
         this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
 	  change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount 
+        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
       /**
        * 重新提交
