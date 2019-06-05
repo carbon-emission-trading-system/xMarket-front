@@ -88,10 +88,10 @@
               </el-form-item>
 
               <div class="proportion">
-                <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
-                <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
-                <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
-                <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
+                <el-button type="text" @click="change1()" class="TxTbutton">1/4</el-button>
+                <el-button type="text" @click="change2()" class="TxTbutton">1/2</el-button>
+                <el-button type="text" @click="change3()" class="TxTbutton">3/4</el-button>
+                <el-button type="text" @click="change4()" class="TxTbutton">全部</el-button>
               </div>
 
               <el-form-item label="卖出数量"
@@ -137,7 +137,8 @@
           stockName: '',
           orderPrice: '',
           orderAmount: '',
-          availableNumber: ''
+          availableNumber: '',
+          tradeMarket: '',
         },
         //开盘价
         openPrice: '',
@@ -168,7 +169,7 @@
       }
     },
     methods: {
-      exit(){
+      exit() {
         this.$store.commit('logout')
         this.$router.push('/')
       },
@@ -234,12 +235,14 @@
        */
       verifyStockCode(rule, value, callback) {
         if (!value) {
-          callback(new Error('请输入股票代码'))
+          callback(new Error('请输入股票代码'));
           console.log('请输入股票代码')
-        }else {
-          value = Number(value)
+        } else {
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             this.firstReturnStockRealtimeInformation()
+          } else {
+            callback("请输入数字")
           }
         }
 
@@ -250,10 +253,10 @@
        */
       LimitPrice(rule, value, callback) {
         if (!value) {
-          callback(new Error('请输入卖出金额'))
+          callback(new Error('请输入卖出金额'));
           console.log('请输入卖出金额')
-        }else {
-          value = Number(value)
+        } else {
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
@@ -264,6 +267,8 @@
             } else {
               callback()
             }
+          } else {
+            callback("请输入数字")
           }
         }
 
@@ -274,7 +279,7 @@
        */
       tradingStrategyVerification(rule, value, callback) {
         if (!value) {
-          callback(new Error('请选择交易策略'))
+          callback(new Error('请选择交易策略'));
           console.log('请选择交易策略')
         }
       },
@@ -283,137 +288,162 @@
        * 自定义验证卖出数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
+
+        //判断输入值小数
+        let SV = value - (Math.floor(value / 100) * 100);
+        let SA = this.stockTrading.availableNumber - (Math.floor(this.stockTrading.availableNumber / 100) * 100);
+
         if (!value) {
-          callback(new Error('请输入卖出数量'))
+          callback(new Error('请输入卖出数量'));
           console.log('请输入卖出数量')
-        }else {
-          value = Number(value)
+        } else {
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.stockTrading.canorderAmount) {
+            if (value > this.stockTrading.availableNumber) {
               callback(new Error('超出可买数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
+              ///判断卖出 数量是否是100的倍数
+            } else if (SV !== 0) {
+              if (SV === SA) {
+                callback()
+              } else {
+                callback('请卖出不足100的股票')
+              }
             } else {
               callback()
             }
-          }
-        }
-
-      },
-      /**
-       * 重新提交
-       */
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
-      ,
-      /**
-       *提交
-       */
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-            this.ajaxSubmit();
           } else {
-            console.log('error submit!!');
-            return false;
+            callback("请输入数字")
           }
-        });
-      },
-
-      /**
-       * @author 郑科宇
-       * @date 05/28
-       * @param 1.0
-       * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
-       */
-      firstReturnStockRealtimeInformation() {
-        let prom = {
-          stockId: this.stockTrading.stockId,
-          userId: store.state.user.userId
         }
-        this.$api.http('get',"/api/QueryStockInformation", prom).then(res => {
-            console.log(res);
-            this.stockTrading = res.data;
-            this.openPrice = res.data.openPrice;
-            if (res.articles.tradeMarket == 0) {
-              this.allDelegateType = store.state.SDelegateType;
-            } else {
-              this.allDelegateType = store.state.HDelegateType;
-            }
-          })
-        console.log(this.stockTrading.canorderAmount);
-      },
-      /**
-       * ajax发送给后台委托单
-       */
-      ajaxSubmit() {
+      }
+    }
+    ,
 
-        if (store.state.user.userId == null) {
-          this.alertBox('错误', '用户未登陆');
-        } else if (this.stockTrading.stockId == null
-          || this.stockTrading.orderPrice == null
-          || this.stockTrading.orderAmount == null
-          || this.DelegateType == null) {
-          this.alertBox('错误', '有东西未输入');
+    /**
+     * 重新提交
+     */
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
+    ,
+    /**
+     *提交
+     */
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //
+          // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
+          this.ajaxSubmit();
         } else {
-          let SentstockTrading = {
-            userId: store.state.user.userId,
-            stockId: this.stockTrading.stockId,
-            type: 0,//买卖标识
-            orderAmount: this.stockTrading.orderAmount,
-            orderPrice: this.stockTrading.orderPrice,
-            tradeStraregy: this.DelegateType,
-          }
-          console.log(SentstockTrading);
-          this.$api.http('post',"/api/buyOrSale", SentstockTrading).then(res => {
-              this.msg = res.data.result;
-              if (this.msg == 0) {
-                this.alertBox('成功', '提交成功');
-              } else {
-                this.alertBox('失败', '提交失败');
-              }
-            })
+          console.log('error submit!!');
+          return false;
         }
-        // this.firstReturnStockRealtimeInformation()
+      });
+    }
+    ,
 
-      },
-      /**
-       * websocket发送给后台委托单
-       */
-      websocketSubmit() {
-        // this.firstReturnStockRealtimeInformation()
+    /**
+     * @author 郑科宇
+     * @date 05/28
+     * @param 1.0
+     * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
+     */
+    firstReturnStockRealtimeInformation() {
+      let prom = {
+        stockId: this.stockTrading.stockId,
+        userId: store.state.user.userId
+      };
+      this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+        console.log(res);
+        this.stockTrading = res.data;
+        this.openPrice = res.data.openPrice;
+        this.stockTrading.tradeMarket = res.data.tradeMarket;
+        if (this.stockTrading.tradeMarket === 0) {
+          this.allDelegateType = store.state.SDelegateType;
+        } else {
+          this.allDelegateType = store.state.HDelegateType;
+        }
+      });
+
+      console.log(this.stockTrading.availableNumber);
+    }
+    ,
+    /**
+     * ajax发送给后台委托单
+     */
+    ajaxSubmit() {
+
+      if (store.state.user.userId == null) {
+        this.alertBox('错误', '用户未登陆');
+      } else if (this.stockTrading.stockId == null
+        || this.stockTrading.orderPrice == null
+        || this.stockTrading.orderAmount == null
+        || this.DelegateType == null) {
+        this.alertBox('错误', '有东西未输入');
+      } else {
         let SentstockTrading = {
-          userId: this.$store.state.userId,
+          userId: store.state.user.userId,
           stockId: this.stockTrading.stockId,
-          type: 1,
+          type: 0,//买卖标识
           orderAmount: this.stockTrading.orderAmount,
           orderPrice: this.stockTrading.orderPrice,
           tradeStraregy: this.DelegateType,
-        }
+        };
         console.log(SentstockTrading);
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
-      },
+        this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+          this.msg = res.data.result;
+          if (this.msg === 0) {
+            this.alertBox('成功', '提交成功');
+          } else {
+            this.alertBox('失败', '提交失败');
+          }
+        })
+      }
+      // this.firstReturnStockRealtimeInformation()
 
-      //0.25/0.5/0.75计算
-      change1() {
-        console.log("1/4");
-        console.log(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
-      },
-      change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
-      },
-      change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
-      },
-      change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
-      },
-    },
+    }
+    ,
+    /**
+     * websocket发送给后台委托单
+     */
+    websocketSubmit() {
+      // this.firstReturnStockRealtimeInformation()
+      let SentstockTrading = {
+        userId: this.$store.state.userId,
+        stockId: this.stockTrading.stockId,
+        type: 1,
+        orderAmount: this.stockTrading.orderAmount,
+        orderPrice: this.stockTrading.orderPrice,
+        tradeStraregy: this.DelegateType,
+      };
+      console.log(SentstockTrading);
+      this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
+    }
+    ,
+
+    //0.25/0.5/0.75计算
+    change1() {
+      console.log("1/4");
+      console.log(this.stockTrading.availableNumber * 0.25);
+      console.log(this.stockTrading);
+      this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25);
+      console.log(this.stockTrading);
+    }
+    ,
+    change2() {
+      this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5)
+    }
+    ,
+    change3() {
+      this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75)
+    }
+    ,
+    change4() {
+      this.stockTrading.orderAmount = this.stockTrading.availableNumber
+    }
   }
 </script>
 
@@ -434,7 +464,8 @@
   .NavigationBar {
     width: 100%;
   }
-  #exit{
+
+  #exit {
     margin-top: 1.5%;
     margin-left: 5%;
   }

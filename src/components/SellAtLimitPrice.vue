@@ -86,10 +86,10 @@
               </el-form-item>
 
               <div class="proportion">
-                <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
-                <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
-                <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
-                <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
+                <el-button type="text" @click="change1()" class="TxTbutton">1/4</el-button>
+                <el-button type="text" @click="change2()" class="TxTbutton">1/2</el-button>
+                <el-button type="text" @click="change3()" class="TxTbutton">3/4</el-button>
+                <el-button type="text" @click="change4()" class="TxTbutton">全部</el-button>
               </div>
 
               <el-form-item label="卖出数量"
@@ -129,12 +129,15 @@
         activeIndex: 'BuyAtLimitPrice',
         buyOrSell: '卖出股票',
         client: null,
+        openPrice: '',
         stockTrading: {
           stockId: '',
           stockName: '',
           orderPrice: '',
           orderAmount: '',
-          availableNumber:''
+          //账户可用股票
+          availableNumber:'',
+          tradeMarket:'',
         },
         msg: 0,
         //规则
@@ -162,7 +165,7 @@
     },
     methods: {
       exit(){
-        this.$store.commit('logout')
+        this.$store.commit('logout');
         this.$router.push('/')
       },
       //导航栏需要
@@ -209,7 +212,7 @@
       },
       connect() {
         console.log("开始连接");
-        this.client = Stomp.client("ws://localhost:15674/ws")
+        this.client = Stomp.client("ws://localhost:15674/ws");
         console.log("创建");
         var headers = {
           "login": "guest",
@@ -227,12 +230,14 @@
        */
       verifyStockCode(rule, value, callback) {
         if (!value) {
-          callback(new Error('请输入股票代码'))
+          callback(new Error('请输入股票代码'));
           console.log('请输入股票代码')
         }else {
-          value = Number(value)
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             this.firstReturnStockRealtimeInformation()
+          }else {
+            callback("请输入数字")
           }
         }
 
@@ -243,10 +248,10 @@
        */
       LimitPrice(rule, value, callback) {
         if (!value) {
-          callback(new Error('请输入卖出金额'))
+          callback(new Error('请输入卖出金额'));
           console.log('请输入卖出金额')
         } else{
-          value = Number(value)
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
@@ -257,6 +262,8 @@
             } else {
               callback()
             }
+          }else {
+            callback("请输入数字")
           }
         }
       },
@@ -266,7 +273,7 @@
        */
       tradingStrategyVerification(rule, value, callback) {
         if (!value) {
-          callback(new Error('请选择交易策略'))
+          callback(new Error('请选择交易策略'));
           console.log('请选择交易策略')
         }
       },
@@ -275,19 +282,31 @@
        * 自定义验证卖出数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
+
+        let SV = value - (Math.floor(value / 100) * 100);
+        let SA = this.stockTrading.availableNumber - (Math.floor(this.stockTrading.availableNumber / 100) * 100);
+
         if (!value) {
-          callback(new Error('请输入卖出数量'))
+          callback(new Error('请输入卖出数量'));
           console.log('请输入卖出数量')
         } else {
-          value = Number(value)
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.stockTrading.canorderAmount) {
               callback(new Error('超出可买数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
+            } else if (SV !== 0) {
+              if (SV === SA) {
+                callback()
+              } else {
+                callback('请卖出不足100的股票')
+              }
             } else {
-              callback()
+              callback();
             }
+          } else {
+            callback("请输入数字")
           }
         }
       },
@@ -337,7 +356,6 @@
             this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
           })
       },
-
 
       /**
        * websocket发送给后台委托单
