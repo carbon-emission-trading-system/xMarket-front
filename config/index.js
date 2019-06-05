@@ -12,8 +12,8 @@ module.exports = {
     //配置代理
     proxyTable: {
       '/api':{
-        target:'http://localhost:8090',
-        changeOrigin:true,
+        target:'http://192.168.137.1:8090',
+        hangeOrigin:true,
         pathRewrite:{
           '^/api':'/api'
         }
@@ -27,7 +27,7 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-    
+
     /**
      * Source Maps
      */
