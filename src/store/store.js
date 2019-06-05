@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from "../api";
+
+import qs from 'qs'
+import api from "../api"
+
 //import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
@@ -72,15 +75,41 @@ export  default new Vuex.Store({
   //在actions中提交mutations的方法达到改变state的目的 .commit()
   actions: {
     login(context, payload) {
-      api.http('post','/api/login',payload).then(res => {
-        context.commit('login',payload)
-      })
+
+      let p =new Promise((resolve, reject) => {
+              alert(JSON.stringify(payload))
+              api.http('post','/api/login',payload).then(res => {
+                //context.commit('login',payload)
+                resolve(res)
+              })
+              .catch(err => {
+                reject(err)
+              });
+
+          })
+
+return p;
+
+
 
     },
     register(context, payload) {
-        api.http('post','/api/register',payload).then(res => {
-          context.commit('register',payload)
-        })
+
+        let p =new Promise((resolve, reject) => {
+                alert(JSON.stringify(payload))
+                api.http('post','/api/register',payload).then(res => {
+                  //context.commit('login',payload)
+                  alert("store发送resolve:"+JSON.stringify(res))
+                  resolve(res)
+                })
+                .catch(err => {
+                  alert("store发送reject："+JSON.stringify(err))
+                  reject(err)
+                });
+
+            })
+
+        return p;
     },
 
 
@@ -94,4 +123,3 @@ export  default new Vuex.Store({
   }
 
 })
-

@@ -11,19 +11,19 @@
                active-text-color="#ffd04b"
                router>
 
-        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="1">
+        <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
         <div id="exit">
           <el-link type="primary" @click="exit">退出</el-link>
         </div>
@@ -135,7 +135,7 @@
         activeIndexBS: 'BuyAtMarketPrice',
         buyOrSell: '市价买入',
         client: null,
-        balance:'',
+
         //输入股票id后传入的相关信息
         stockTrading: {
           stockId: '',
@@ -143,10 +143,11 @@
           orderPrice: '',
           canorderAmount: '',
           orderAmount: '',
-          tradeMarket:'',
+          tradeMarket: '',
+          balance: '',
+          //开盘价
+          openPrice: '',
         },
-        //开盘价
-        openPrice: '',
         //委托规则
         allDelegateType: [],
         msg: 0,
@@ -155,7 +156,7 @@
         //规则
         rules: {
           stockId: [],
-          value:[],
+          value: [],
           orderPrice: [],
           orderAmount: []
         },
@@ -167,8 +168,8 @@
     created() {
 
     },
-    beforeMount(){
-      if(this.$store.state.isLogin===false){
+    beforeMount() {
+      if (this.$store.state.isLogin === false) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -176,7 +177,7 @@
       }
     },
     methods: {
-      exit(){
+      exit() {
         this.$store.commit('logout')
         this.$router.push('/')
       },
@@ -250,11 +251,11 @@
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
-        }else {
+        } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
             this.firstReturnStockRealtimeInformation()
-          }else {
+          } else {
             callback("请输入数字")
           }
         }
@@ -268,20 +269,20 @@
         if (!value) {
           callback(new Error('请输入买入金额'))
           console.log('请输入买入金额')
-        } else{
+        } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.openPrice * 1.1) {
+            if (value > this.stockTrading.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
-            } else if (value < this.openPrice * 0.9) {
+            } else if (value < this.stockTrading.openPrice * 0.9) {
               callback(new Error('低于跌停价'))
             } else if (value < 0) {
               callback(new Error('请输入合适价格'))
             } else {
               callback()
-              this.stockTrading.canorderAmount = this.CalculatingTax(this.balance, value)
+              this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value)
             }
-          }else {
+          } else {
             callback("请输入数字")
           }
         }
@@ -311,12 +312,12 @@
             callback(new Error('超出可买数量'))
           } else if (value < 0) {
             callback(new Error('请输入合适数量'))
-          } else if (Math.floor(value/100)*100 != value){
+          } else if (Math.floor(value / 100) * 100 != value) {
             callback('请输入100的整数倍')
           } else {
             callback()
           }
-        }else {
+        } else {
           callback("请输入数字")
         }
       },
@@ -333,7 +334,8 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
+            //
+            // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
             this.ajaxSubmit();
           } else {
             console.log('error submit!!');
@@ -353,20 +355,19 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        this.$api.http('get',"/api/QueryStockInformation", prom).then(res => {
-            console.log(res);
-            this.stockTrading = res.data;
-            this.openPrice = res.data.openPrice;
-            this.balance = res.data.balance;
+        this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          console.log(res);
+          this.stockTrading = res.data;
+          this.stockTrading.openPrice = res.data.openPrice;
+          this.stockTrading.balance = res.data.balance;
 
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.balance,this.orderPrice)
-            // this.stockTrading.canorderAmount = Math.floor(res.data.balance / (this.openPrice * 1.1 * 100)) * 100;
-            if (this.tradeMarket == 0) {
-              this.allDelegateType = store.state.SDelegateType;
-            } else {
-              this.allDelegateType = store.state.HDelegateType;
-            }
-          })
+          this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.orderPrice)
+          if (this.tradeMarket === 0) {
+            this.allDelegateType = store.state.SDelegateType;
+          } else {
+            this.allDelegateType = store.state.HDelegateType;
+          }
+        })
       },
 
       /**
@@ -407,14 +408,14 @@
             tradeStraregy: this.DelegateType,
           }
           console.log(SentstockTrading);
-          this.$api.http('post',"/api/buyOrSale", SentstockTrading).then(res => {
-              this.msg = res.data.result;
-              if (this.msg == 0) {
-                this.alertBox('成功','提交成功');
-              } else {
-                this.alertBox('失败','提交失败');
-              }
-            })
+          this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+            this.msg = res.data.result;
+            if (this.msg == 0) {
+              this.alertBox('成功', '提交成功');
+            } else {
+              this.alertBox('失败', '提交失败');
+            }
+          })
         }
       },
 
@@ -440,16 +441,16 @@
         console.log("1/4");
         console.log(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.25,this.stockTrading.orderPrice)
+        this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
       },
       change2() {
-        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
+        this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
       },
       change3() {
-        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
+        this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.2575, this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
       change4() {
@@ -468,10 +469,11 @@
     margin-inline-end: 0px;
   }
 
-  #exit{
+  #exit {
     margin-top: 1.5%;
     margin-left: 5%;
   }
+
   div {
     float: left;
     display: block;

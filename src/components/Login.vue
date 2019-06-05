@@ -147,7 +147,8 @@
         // let params= {{
         //   responseType: "arraybuffer",
         // }}
-        this.$api.http('get',"./api/validateCode").then(res => {
+        this.$api.http('get',"/api/validateCode").then(res => {
+          self.imgCodeUrl =res.data
           console.log(res);
         })
       },
@@ -174,8 +175,12 @@
         var self = this;
         self.$refs[formName].validate((valid) => {
           if (valid) {
-            alert(JSON.stringify(self.user))
-            self.$store.dispatch('login', {username: self.user.username, loginPassword: self.user.loginPassword,validateCode: self.user.validateCode})
+            let payload = {
+              username: self.user.username,
+              loginPassword: self.user.loginPassword,
+              validateCode: self.user.validateCode
+            }
+            self.$store.dispatch('login', payload)
               .then((response) => {
                 self.$message.success(response.data.message)
                 self.$router.push('/afterLogin');
