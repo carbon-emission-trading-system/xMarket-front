@@ -28,6 +28,12 @@ export  default new Vuex.Store({
     },
     getUsername(state) {
       return state.user.username
+    },
+    isLogin(state){
+   //   if(state.user.username){
+    //    state.username=sessionStorage.getItem('username')
+    //  }
+      return state.user.username
     }
   },
   //定义改变数据的方法
@@ -36,17 +42,13 @@ export  default new Vuex.Store({
       state.isLogin = true
       state.user.username = payload.username
       state.user.userId = payload.userId
-      sessionStorage.setItem("isLogin",true)
-      sessionStorage.setItem("username",payload.username)
-      sessionStorage.setItem("userId",payload.userId)
+   //   sessionStorage.setItem("username",payload.username)
     },
     logout(state) {
       state.isLogin = false
       state.user.username = ''
       state.user.userId = ''
-      sessionStorage.removeItem("username"); //移除sessionStorage
-      sessionStorage.removeItem("userId");
-      sessionStorage.removeItem("isLogin");
+   //   sessionStorage.removeItem("username");
     },
     register(state, payload) {
       state.isLogin = true
@@ -70,53 +72,16 @@ export  default new Vuex.Store({
   //在actions中提交mutations的方法达到改变state的目的 .commit()
   actions: {
     login(context, payload) {
-      return new Promise((resolve, reject) => {
-        alert(JSON.stringify(payload));
-        Vue.axios.post('/api/login', qs.stringify(payload))
-          .then(function (response) {
-            var result = response.data;
-            if (result.code == 200) {
-              context.commit('login', payload)
-              resolve(response)
-            } else {
-              reject(response)
-            }
-          })
-          .catch(function (error) {
-            var errorData = {
-              message: '系统出错'
-            }
-            error.data = errorData
-            reject(error)
-          });
-
+      this.$api.http('post','/api/login',payload).then(res => {
+        context.commit('login',payload)
       })
+
 
     },
     register(context, payload) {
-
-      return new Promise((resolve, reject) => {
-
-        Vue.axios.post('/api/register', qs.stringify(payload))
-          .then(function (response) {
-            var result = response.data;
-            if (result.code == 200) {
-              context.commit('register', payload)
-              resolve(response)
-            } else {
-              reject(response)
-            }
-          })
-          .catch(function (error) {
-            var errorData = {
-              message: '系统出错'
-            }
-            error.data = errorData
-            reject(error)
-          });
-
-      })
-
+        this.$api.http('post','/api/register',payload).then(res => {
+          context.commit('register',payload)
+        })
     },
 
 
