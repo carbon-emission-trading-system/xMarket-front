@@ -28,8 +28,6 @@ function http(type, url, params, contentType) {
     axios(obj).then((res) => {
       let result = res.data;
       if (result.code === 200) {
-      alert(JSON.stringify(result))
-      if (result.code === 200) {
           resolve(result)
       } else {
           reject(result)
