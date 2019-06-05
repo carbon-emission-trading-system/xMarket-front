@@ -279,7 +279,7 @@
               callback(new Error('请输入合适价格'))
             } else {
               callback()
-              CalculatingTax(this.balance,value)
+              this.stockTrading.canorderAmount = this.CalculatingTax(this.balance, value)
             }
           }else {
             callback("请输入数字")
