@@ -135,12 +135,15 @@
         activeIndexBS: 'BuyAtMarketPrice',
         buyOrSell: '市价买入',
         client: null,
+        balance:'',
         //输入股票id后传入的相关信息
         stockTrading: {
           stockId: '',
           stockName: '',
+          orderPrice: '',
           canorderAmount: '',
           orderAmount: '',
+          tradeMarket:'',
         },
         //开盘价
         openPrice: '',
@@ -274,6 +277,7 @@
               callback(new Error('请输入合适价格'))
             } else {
               callback()
+              CalculatingTax(this.balance,value)
             }
           }
         }
@@ -345,8 +349,11 @@
             console.log(res);
             this.stockTrading = res.data;
             this.openPrice = res.data.openPrice;
-            this.stockTrading.canorderAmount = Math.floor(res.data.availableFunds / (this.openPrice * 1.1 * 100)) * 100;
-            if (res.data.tradeMarket == 0) {
+            this.balance = res.data.balance;
+
+          this.stockTrading.canorderAmount = this.CalculatingTax(this.balance,this.orderPrice)
+            // this.stockTrading.canorderAmount = Math.floor(res.data.balance / (this.openPrice * 1.1 * 100)) * 100;
+            if (this.tradeMarket == 0) {
               this.allDelegateType = store.state.SDelegateType;
             } else {
               this.allDelegateType = store.state.HDelegateType;
@@ -354,6 +361,21 @@
           })
       },
 
+      /**
+       * 计算最多可买多少
+       * @param params
+       * @return {{articles: {stockId: number, stockName: string, orderPrice: number, canorderAmount: number, soh: number}}}
+       */
+      CalculatingTax(allFund, price) {
+        if (Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price > 166.6) {
+          console.log('if');
+          console.log(allFund / (price * 1.030287 * 100));
+          return Math.floor(allFund / (price * 1.030287 * 100)) * 100;
+        } else {
+          return Math.floor((allFund - 5) / (price * 1.000287)) * 100;
+        }
+      }
+      ,
 
 
       /**

@@ -338,7 +338,6 @@
             console.log(this.basicInfoStok.orderPrice);
             this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
 
-
           // let allFund = this.basicInfoStok.balance;
           //   let price = this.basicInfoStok.orderPrice;
           //
