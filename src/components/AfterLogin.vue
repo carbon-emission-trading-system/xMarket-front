@@ -181,6 +181,7 @@
       this.setStocksApi();
     },
     beforeMount(){
+     // console.log(this.$store.getters.isLogin)
       if(this.$store.state.isLogin===false){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
@@ -212,7 +213,9 @@
       setNoticesApi:function () {
         this.$api.http('post','/api/getNews').then(res=>{
             this.notices = res.data;
-          });
+          }).catch((error)=>{
+
+        })
       },
       //获取自选股
       setStocksApi:function () {

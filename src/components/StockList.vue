@@ -46,7 +46,7 @@
             @row-click="handle"
             style="width: 100%;font-size: 6px">
             <el-table-column
-              prop="stockID"
+              prop="stockId"
               label="股票代码"
               width="85"
               align="center">
@@ -83,7 +83,7 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="todayOpenPrice"
+              prop="openPrice"
               label="今开盘"
               width="70"
               align="center">
@@ -95,25 +95,25 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="turnover"
+              prop="tradeAmount"
               label="成交额"
               width="70"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="marketValue"
+              prop="totalMarketCapitalization"
               label="市值"
               width="70"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="priceEarningsRatio"
+              prop="peRatio"
               label="市盈率"
               width="70"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="priceToBookRatio"
+              prop="pbRatio"
               label="市净率"
               align="center"
             >
@@ -217,7 +217,7 @@
               }
               else
               {
-                if(this.tableData[i].type===this.index){
+                if(this.tableData[i].tradeMarket===this.index){
                   list.push(this.tableData[i])
                 }
               }
