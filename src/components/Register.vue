@@ -165,7 +165,7 @@ import qs from 'qs'
             })
               .then((response) => {
                 self.$message.success(response.data.message)
-                //self.$router.push('/home/course/list');
+                self.$router.push('/');
               })
               .catch((response) => {
                 self.$message.error(response.data.message)
@@ -179,7 +179,6 @@ import qs from 'qs'
         }
         this.$api.http('get', "/api/getMailCode", params).then(res => {
           console.log(res);
-
         })
       }
     }

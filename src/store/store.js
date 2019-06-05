@@ -76,7 +76,6 @@ export  default new Vuex.Store({
         context.commit('login',payload)
       })
 
-
     },
     register(context, payload) {
         this.$api.http('post','/api/register',payload).then(res => {
