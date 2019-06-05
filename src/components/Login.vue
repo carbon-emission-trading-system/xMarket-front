@@ -126,6 +126,14 @@
       this.refreshCode();//需要触发的函数
     },
     methods: {
+      /**
+       * @since 导航栏需要
+       * @param key
+       * @param keyPath
+       */
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      },
       warning(){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
