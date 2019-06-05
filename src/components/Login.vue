@@ -144,20 +144,26 @@
         });
       },
       refreshCode(){
-        var self = this;
-        Vue.axios.get('/api/validateCode' ,{
-          responseType: "arraybuffer",
-        }).then(function (response) {
-          //将从后台获取的图片流进行转换
-          return 'data:image/png;base64,' + btoa(
-            new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
-          );
-        }).then(function (data) {
-          //接收转换后的Base64图片
-          self.imgCodeUrl = data;
-        }).catch(function (err) {
+        // let params= {{
+        //   responseType: "arraybuffer",
+        // }}
+        this.$api.http('get',"./api/validateCode").then(res => {
+          console.log(res);
         })
       },
+        // Vue.axios.get('/api/validateCode' ,{
+        //   responseType: "arraybuffer",
+        // }).then(function (response) {
+        //   //将从后台获取的图片流进行转换
+        //   return 'data:image/png;base64,' + btoa(
+        //     new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+        //   );
+        // }).then(function (data) {
+        //   //接收转换后的Base64图片
+        //   self.imgCodeUrl = data;
+        // }).catch(function (err) {
+        // })
+      // },
       //获取公告
       setNoticesApi:function () {
         this.$api.http('post','/api/getNews').then(res=>{
