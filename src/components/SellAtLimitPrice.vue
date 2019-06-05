@@ -129,7 +129,6 @@
         activeIndex: 'BuyAtLimitPrice',
         buyOrSell: '卖出股票',
         client: null,
-        openPrice: '',
         stockTrading: {
           stockId: '',
           stockName: '',
@@ -137,6 +136,7 @@
           orderAmount: '',
           //账户可用股票
           availableNumber:'',
+          openPrice: '',
           tradeMarket:'',
         },
         bz:'',
@@ -259,9 +259,9 @@
         } else{
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.openPrice * 1.1) {
+            if (value > this.stockTrading.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
-            } else if (value < this.openPrice * 0.9) {
+            } else if (value < this.stockTrading.openPrice * 0.9) {
               callback(new Error('低于跌停价'))
             } else if (value < 0) {
               callback(new Error('请输入合适价格'))
