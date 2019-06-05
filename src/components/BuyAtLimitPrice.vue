@@ -135,16 +135,16 @@
         client: null,
         bz: '',
         //用户可用金额
-        balance: '',
         stockTrading: {
+          balance: '',
           stockId: '',
           stockName: '',
           orderPrice: '',
+          openPrice:'',
           canorderAmount: '',
           orderAmount: '',
           tradeMarket: '',
         },
-        openPrice: '',
         basicInfoStok: {},
         msg: 0,
         //规则
@@ -246,7 +246,6 @@
             callback("请输入数字")
           }
         }
-
       },
       /**
        *
@@ -259,20 +258,23 @@
         } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.openPrice * 1.1) {
+            if (value > this.stockTrading.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
-            } else if (value < this.openPrice * 0.9) {
+            } else if (value < this.stockTrading.openPrice * 0.9) {
               callback(new Error('低于跌停价'))
-            } else if (value < 0) {
+            } else if (value <= 0) {
               callback(new Error('请输入合适价格'))
             } else {
               callback(),
-                this.stockTrading.canorderAmount = this.CalculatingTax(this.balance, value)
+                this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value)
             }
           } else {
             callback("请输入数字")
           }
+
         }
+
+        console.log(this.stockTrading.canorderAmount)
       },
       /**
        *
@@ -304,6 +306,7 @@
        */
       resetForm(formName) {
         this.$refs[formName].resetFields();
+        this.stockTrading.canorderAmount=null;
       }
       ,
       /**
@@ -332,40 +335,18 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
+
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.basicInfoStok = res.data;
           console.log("this.basicInfoStok)");
           console.log(this.basicInfoStok);
 
-          this.openPrice = res.data.openPrice;
+          this.stockTrading = res.data;
+          this.stockTrading.openPrice = res.data.openPrice;
 
-          this.stockTrading.userId = this.basicInfoStok.stockId;
-          this.stockTrading.stockName = this.basicInfoStok.stockName;
-          this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
-          this.stockTrading.tradeMarket = this.basicInfoStok.tradeMarket;
-          console.log(this.basicInfoStok.balance)
-          console.log(this.basicInfoStok.orderPrice);
           this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
 
-          // let allFund = this.basicInfoStok.balance;
-          //   let price = this.basicInfoStok.orderPrice;
-          //
-          //   console.log('allfund' + allFund)
-          //   console.log('price' + price)
-          //
-          //   if ((Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price) > 166.6) {
-          //     console.log('if');
-          //     console.log(allFund / (price * 1.030287 * 100));
-          //     this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
-          //   } else {
-          //     console.log(Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price);
-          //     if (Math.floor((allFund - 5) / (price * 1.000287)) < 1) {
-          //       this.stockTrading.canorderAmount = 0;
-          //     } else {
-          //       this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
-          //     }
-          //   }
         })
         console.log(this.stockTrading.canorderAmount);
       }
@@ -438,37 +419,24 @@
 
       }
       ,
-      /**
-       *  弹出框
-       */
-      alertBox(title, text) {
-        this.$alert(text, title, {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      }
-      ,
+
 
       //0.25/0.5/0.75计算
       change1() {
-        console.log("1/4");
-        console.log(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.25,this.stockTrading.orderPrice)
+        console.log("1/4");
+        // console.log(this.stockTrading.canorderAmount * 0.25);
+
+        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance*0.25,this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
       },
       change2() {
-        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
+        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance*0.5,this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
       },
       change3() {
-        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
+        this.stockTrading.orderAmount = this. CalculatingTax(this.stockTrading.balance*0.75,this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
       change4() {
