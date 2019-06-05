@@ -347,24 +347,6 @@
 
           this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
 
-          // let allFund = this.basicInfoStok.balance;
-          //   let price = this.basicInfoStok.orderPrice;
-          //
-          //   console.log('allfund' + allFund)
-          //   console.log('price' + price)
-          //
-          //   if ((Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price) > 166.6) {
-          //     console.log('if');
-          //     console.log(allFund / (price * 1.030287 * 100));
-          //     this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
-          //   } else {
-          //     console.log(Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price);
-          //     if (Math.floor((allFund - 5) / (price * 1.000287)) < 1) {
-          //       this.stockTrading.canorderAmount = 0;
-          //     } else {
-          //       this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
-          //     }
-          //   }
         })
         console.log(this.stockTrading.canorderAmount);
       }
