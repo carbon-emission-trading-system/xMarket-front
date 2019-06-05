@@ -214,7 +214,7 @@
       //获取k线图数据
       setKlineApi: function () {
         let params={
-          stockID: this.$store.state.stockID
+          stockId: this.$store.state.stockId
         }
         this.$api.http('get','/api/KlineDiagramDisplay',params).then(res => {
             console.log(res);

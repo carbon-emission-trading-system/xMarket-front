@@ -39,7 +39,7 @@
         let theStocks = this.$store.state.stockList
         let theStocksList = [];
         for (let i = 0; i < theStocks.length; i++) {
-          let id = theStocks[i].stockID
+          let id = theStocks[i].stockId
           let theStock = id + ":" + theStocks[i].stockName
           let stock = {value: theStock}
           theStocksList.push(stock)
