@@ -173,51 +173,11 @@
         //   buyFivePrice:5,
         //   buyFiveCount:5,
         // }
-        realTimeData: {
-          /**
-           * 买卖十个价格
-           */
-          buyonePrice: 121,
-          buyoneCount: 121,
-          buyTwoPrice: 51,
-          buyTwoCount: 54,
-          buyThreePrice: 54,
-          buyThreeCount: 56,
-          buyFourPrice: 95,
-          buyFourCount: 45,
-          buyFivePrice: 5,
-          buyFiveCount: 5,
-          sellonePrice: 121,
-          selloneCount: 121,
-          sellTwoPrice: 51,
-          sellTwoCount: 54,
-          sellThreePrice: 54,
-          sellThreeCount: 56,
-          sellFourPrice: 95,
-          sellFourCount: 45,
-          sellFivePrice: 5,
-          sellFiveCount: 5,
-
-          openPrice: 2.3,//开盘价
-          highestPrice: 2.3,//最高价
-          lowestPrice: 2.3,//最低价
-          latestPrice: 2.3,//最新价
-          upsAndDowns: 2.3,//涨跌
-          increase: 2.3,//涨幅
-          outMarket: 2.3,//外盘
-          inMarket: 2.3,//内盘
-          conversionHand: 2.3,//换手
-          totalMarketCapitalization: 2.3,//总市值
-          staticPERatio: 2.3,//静态市盈率
-          dailyLimit: 2.3,//涨停价
-          downLimitBoard: 2.3,//跌停价
-          cityNet: 2.3,//市净值
-
-        }
+        realTimeData: {}
       }
     },
     created() {
-      // this.realTimeDataDisplay();
+      this.realTimeDataDisplay();
       // this.connect();
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
@@ -225,22 +185,15 @@
       }
       ;
     },
-    //
-    // computed: {
-    //   realTimeData: function () {
-    //     return message;
-    //   }
-    // },
+
     methods: {
       realTimeDataDisplay() {
-        var self = this;
-        Vue.axios.get('/api/realTimeDataDisplay')
-          .then(function (response) {
-            self.$message.success(response.data)
-          })
-          .catch(function (error) {
-            self.$message.error(response.data)
-          });
+        let params={
+          stockId:this.$store.state.stockID
+        }
+        this.$api.http('get','/api/realTimeInfo',params).then(res=>{
+          this.realTimeData=res.data
+        })
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
@@ -262,19 +215,6 @@
       },
       onmessage(message) {
         console.log("得到消息");
-        message = {
-          buyonePrice: 121,
-          buyoneCount: 121,
-          buyTwoPrice: 51,
-          buyTwoPrice: 54,
-          buyThreePrice: 54,
-          buyThreeCount: 56,
-          buyFourPrice: 95,
-          buyFourCount: 45,
-          buyFivePrice: 5,
-          buyFiveCount: 5,
-        };
-
         this.realTimeData = message;
       },
       responseCallback(frame) {

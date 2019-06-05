@@ -114,7 +114,7 @@ return p;
 
 
     stockList(context, payload) {
-      this.$api.http('get','/api/stockList')
+      api.http('get','/api/stockList')
         .then(res => {
           payload = res.data
           context.commit('stockList', payload)

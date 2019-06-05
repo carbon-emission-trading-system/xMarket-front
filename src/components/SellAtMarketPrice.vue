@@ -158,7 +158,7 @@
       RealTime,
     },
     created() {
-
+      this.firstReturnStockRealtimeInformation()
     },
     beforeMount() {
       if (this.$store.state.isLogin === false) {
@@ -245,7 +245,6 @@
             callback("请输入数字")
           }
         }
-
       },
       /**
        *
@@ -318,153 +317,155 @@
           }
         }
       }
-    }
-    ,
+      ,
 
-    /**
-     * 重新提交
-     */
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
-    ,
-    /**
-     *提交
-     */
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          //
-          // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-          this.ajaxSubmit();
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-    }
-    ,
+      /**
+       * 重新提交
+       */
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+      ,
+      /**
+       *提交
+       */
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
 
-    /**
-     * @author 郑科宇
-     * @date 05/28
-     * @param 1.0
-     * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
-     */
-    firstReturnStockRealtimeInformation() {
-      let prom = {
-        stockId: this.stockTrading.stockId,
-        userId: store.state.user.userId
-      };
-      this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
-        console.log(res);
-        this.stockTrading = res.data;
-        this.openPrice = res.data.openPrice;
-        this.stockTrading.tradeMarket = res.data.tradeMarket;
-        if (this.stockTrading.tradeMarket === 0) {
-          this.allDelegateType = store.state.SDelegateType;
-        } else {
-          this.allDelegateType = store.state.HDelegateType;
-        }
-      });
 
-      console.log(this.stockTrading.availableNumber);
-    }
-    ,
-    /**
-     * ajax发送给后台委托单
-     */
-    ajaxSubmit() {
+            this.ajaxSubmit();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      }
+      ,
 
-      if (store.state.user.userId == null) {
-        this.alertBox('错误', '用户未登陆');
-      } else if (this.stockTrading.stockId == null
-        || this.stockTrading.orderPrice == null
-        || this.stockTrading.orderAmount == null
-        || this.DelegateType == null) {
-        this.alertBox('错误', '有东西未输入');
-      } else {
-        let SentstockTrading = {
-          userId: store.state.user.userId,
+      /**
+       * @author 郑科宇
+       * @date 05/28
+       * @param 1.0
+       * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
+       */
+      firstReturnStockRealtimeInformation() {
+        console.log("a")
+        let prom = {
           stockId: this.stockTrading.stockId,
-          type: 0,//买卖标识
+          userId: store.state.user.userId
+        };
+        this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          console.log(res);
+          this.stockTrading = res.data;
+          this.openPrice = res.data.openPrice;
+          this.stockTrading.tradeMarket = res.data.tradeMarket;
+          if (this.stockTrading.tradeMarket === 0) {
+            this.allDelegateType = store.state.SDelegateType;
+          } else {
+            this.allDelegateType = store.state.HDelegateType;
+          }
+        });
+      }
+      ,
+
+
+      /**
+       * ajax发送给后台委托单
+       */
+      ajaxSubmit() {
+
+        if (store.state.user.userId == null) {
+          this.alertBox('错误', '用户未登陆');
+        } else if (this.stockTrading.stockId == null
+          || this.stockTrading.orderPrice == null
+          || this.stockTrading.orderAmount == null
+          || this.DelegateType == null) {
+          this.alertBox('错误', '有东西未输入');
+        } else {
+          let SentstockTrading = {
+            userId: store.state.user.userId,
+            stockId: this.stockTrading.stockId,
+            type: 0,//买卖标识
+            orderAmount: this.stockTrading.orderAmount,
+            orderPrice: this.stockTrading.orderPrice,
+            tradeStraregy: this.DelegateType,
+          };
+          console.log(SentstockTrading);
+          this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+            this.msg = res.data.result;
+            if (this.msg === 0) {
+              this.alertBox('成功', '提交成功');
+            } else {
+              this.alertBox('失败', '提交失败');
+            }
+          })
+        }
+        // this.firstReturnStockRealtimeInformation()
+
+      }
+      ,
+      /**
+       * websocket发送给后台委托单
+       */
+      websocketSubmit() {
+        // this.firstReturnStockRealtimeInformation()
+        let SentstockTrading = {
+          userId: this.$store.state.userId,
+          stockId: this.stockTrading.stockId,
+          type: 1,
           orderAmount: this.stockTrading.orderAmount,
           orderPrice: this.stockTrading.orderPrice,
           tradeStraregy: this.DelegateType,
         };
         console.log(SentstockTrading);
-        this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
-          this.msg = res.data.result;
-          if (this.msg === 0) {
-            this.alertBox('成功', '提交成功');
-          } else {
-            this.alertBox('失败', '提交失败');
-          }
-        })
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
       }
-      // this.firstReturnStockRealtimeInformation()
+      ,
 
+      //0.25/0.5/0.75计算
+      change1() {
+        console.log("1/4");
+        console.log(this.stockTrading.canorderAmount * 0.25);
+        console.log(this.stockTrading);
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
+        console.log(this.stockTrading);
+      },
+      change2() {
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+        // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+      },
+      change3() {
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
+        // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+      },
+      change4() {
+        this.stockTrading.orderAmount = this.stockTrading.availableNumber;
+      },
+      // change1() {
+      //   console.log("1/4");
+      //   console.log(this.stockTrading.availableNumber * 0.25);
+      //   console.log(this.stockTrading);
+      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25);
+      //   console.log(this.stockTrading);
+      // }
+      // ,
+      // change2() {
+      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5)
+      // }
+      // ,
+      // change3() {
+      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75)
+      // }
+      // ,
+      // change4() {
+      //   this.stockTrading.orderAmount = this.stockTrading.availableNumber
+      // }
     }
-    ,
-    /**
-     * websocket发送给后台委托单
-     */
-    websocketSubmit() {
-      // this.firstReturnStockRealtimeInformation()
-      let SentstockTrading = {
-        userId: this.$store.state.userId,
-        stockId: this.stockTrading.stockId,
-        type: 1,
-        orderAmount: this.stockTrading.orderAmount,
-        orderPrice: this.stockTrading.orderPrice,
-        tradeStraregy: this.DelegateType,
-      };
-      console.log(SentstockTrading);
-      this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
-    }
-    ,
-
-    //0.25/0.5/0.75计算
-    change1() {
-      console.log("1/4");
-      console.log(this.stockTrading.canorderAmount * 0.25);
-      console.log(this.stockTrading);
-      this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.25/100)*100;
-      // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
-      console.log(this.stockTrading);
-    },
-    change2() {
-      this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.5/100)*100;
-      // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
-      // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
-    },
-    change3() {
-      this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.75/100)*100;
-      // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
-      // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
-    },
-    change4() {
-      this.stockTrading.orderAmount = this.stockTrading.availableNumber;
-    },
-    // change1() {
-    //   console.log("1/4");
-    //   console.log(this.stockTrading.availableNumber * 0.25);
-    //   console.log(this.stockTrading);
-    //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25);
-    //   console.log(this.stockTrading);
-    // }
-    // ,
-    // change2() {
-    //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5)
-    // }
-    // ,
-    // change3() {
-    //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75)
-    // }
-    // ,
-    // change4() {
-    //   this.stockTrading.orderAmount = this.stockTrading.availableNumber
-    // }
   }
 </script>
 

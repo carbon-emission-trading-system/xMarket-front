@@ -18,7 +18,7 @@ Vue.prototype.$api = api
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-require('./mock.js')
+//require('./mock.js')
 
 /* eslint-disable no-new */
 new Vue({
