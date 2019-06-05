@@ -193,7 +193,7 @@
             type: 'success',
             message: '删除成功!',
             // 删除自选股消息
-            mess:delectSelfSelectedStock(id),
+            mess:this.deleteSelfSelectStock(id),
             if(mess =200){
               message: '删除成功!';
             },
@@ -236,18 +236,17 @@
        * @param delStock
        * @return {number}
        */
-      delectSelfSelectedStock(delStock) {
+      deleteSelfSelectStock(delStock) {
         let params = {
           userID: this.userId,
           stockId: delStock
         }
-        this.$api.http('get',"./api/delectSelfSelectStock", params).then(res => {
+        this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {
             console.log(res);
-            mess = res.articles;
+            let mess = res.data;
+          return mess;
           })
 
-        console.log(mess);
-        return mess;
       },
     },
   }
