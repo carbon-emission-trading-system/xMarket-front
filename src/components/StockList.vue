@@ -48,13 +48,13 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="85"
+              width="90"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="85"
+              width="90"
               align="center">
             </el-table-column>
             <el-table-column
@@ -73,49 +73,50 @@
             <el-table-column
               prop="highestPrice"
               label="最高价"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="lowestPrice"
               label="最低价"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="openPrice"
               label="今开盘"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="yesterdayOpenPrice"
               label="昨开盘"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="tradeAmount"
               label="成交额"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="totalMarketCapitalization"
               label="市值"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="peRatio"
               label="市盈率"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="pbRatio"
               label="市净率"
               align="center"
+
             >
             </el-table-column>
 

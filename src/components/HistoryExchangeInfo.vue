@@ -162,7 +162,6 @@
 <script>
   import SelectDate from './SelectDate'
   import Vue from 'vue'
-  import api from "../api";
   Vue.component('selectDate',SelectDate)
 
 
