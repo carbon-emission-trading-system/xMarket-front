@@ -168,20 +168,37 @@
       //添加自选股
       add(){
         this.chosen = true
-        this.$message({
-          message: '自选股添加成功！',
-          type: 'success',
-          center: true
-        });
+        let params = {
+          userID: this.$store.state.user.userId,
+          stockId: this.$store.state.stockID
+        }
+        this.$api.http('post',"/api/addSelfSelectStock", params).then(res => {
+          if(res.code===200){
+            this.$message({
+              message: '自选股添加成功！',
+              type: 'success',
+              center: true
+            });
+          }
+        })
+
       },
       //删除自选股
       remove(){
         this.chosen = false
-        this.$message({
-          message: '自选股删除成功！',
-          type: 'success',
-          center: true
-        });
+        let params = {
+          userID: this.$store.state.user.userId,
+          stockId: this.$store.state.stockID
+        }
+        this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {
+          if(res.code===200){
+            this.$message({
+              message: '自选股删除成功！',
+              type: 'success',
+              center: true
+            });
+          }
+        })
       },
       //查看该股票是否为自选股
       setSelfApi:function(){
@@ -217,7 +234,6 @@
               this.latestPrice.push(data[i].latestPrice)
               this.volume.push(data[i].volume)
             }
-
           });
       },
 

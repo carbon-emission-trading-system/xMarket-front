@@ -72,20 +72,20 @@ export  default new Vuex.Store({
   //在actions中提交mutations的方法达到改变state的目的 .commit()
   actions: {
     login(context, payload) {
-      this.$api.http('post','/api/login',payload).then(res => {
+      api.http('post','/api/login',payload).then(res => {
         context.commit('login',payload)
       })
 
     },
     register(context, payload) {
-        this.$api.http('post','/api/register',payload).then(res => {
+        api.http('post','/api/register',payload).then(res => {
           context.commit('register',payload)
         })
     },
 
 
     stockList(context, payload) {
-      this.$api.http('get','/api/stockList')
+      api.http('get','/api/stockList')
         .then(res => {
           payload = res.data
           context.commit('stockList', payload)

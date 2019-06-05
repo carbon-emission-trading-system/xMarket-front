@@ -144,6 +144,7 @@
 </template>
 <script>
   import Vue from 'vue'
+  import Stomp from 'stompjs'
 
   export default {
     name: 'messageNotice',
@@ -151,51 +152,11 @@
     data() {
       return {
         client: null,
-        realTimeData: {
-          /**
-           * 买卖十个价格
-           */
-          buyonePrice:121,
-          buyoneCount:121,
-          buyTwoPrice:51,
-          buyTwoCount:54,
-          buyThreePrice:54,
-          buyThreeCount:56,
-          buyFourPrice:95,
-          buyFourCount:45,
-          buyFivePrice:5,
-          buyFiveCount:5,
-          sellonePrice:121,
-          selloneCount:121,
-          sellTwoPrice:51,
-          sellTwoCount:54,
-          sellThreePrice:54,
-          sellThreeCount:56,
-          sellFourPrice:95,
-          sellFourCount:45,
-          sellFivePrice:5,
-          sellFiveCount:5,
-
-          openPrice:2.3,//开盘价
-          highestPrice:2.3,//最高价
-          lowestPrice:2.3,//最低价
-          latestPrice:2.3,//最新价
-          upsAndDowns:2.3,//涨跌
-          increase:2.3,//涨幅
-          outMarket:2.3,//外盘
-          inMarket:2.3,//内盘
-          conversionHand:2.3,//换手
-          totalMarketCapitalization:2.3,//总市值
-          staticPERatio:2.3,//静态市盈率
-          dailyLimit:2.3,//涨停价
-          downLimitBoard:2.3,//跌停价
-          cityNet:2.3,//市净值
-
-        }
+        realTimeData: {}
       }
     },
     created() {
-
+      this.realTimeDataDisplay()
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
@@ -204,32 +165,53 @@
 
     methods: {
       realTimeDataDisplay() {
-        var self = this;
-        Vue.axios.get('/api/realTimeDataDisplay')
-          .then(function (response) {
-            self.$message.success(response.data)
-          })
-          .catch(function (error) {
-            self.$message.error(response.data)
-          });
+        let params={
+          stockId:this.$store.state.stockID
+        }
+        this.$api.http('get','/api/realTimeInfo',params).then(res=>{
+          this.realTimeData=res.data
+        })
       },
 
+      onConnected(frame) {
+        console.log("Connected: " + frame);
+        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
+        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
+
+        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
+
+        var subscription = this.client.subscribe(exchange1, this.onmessage);
+        console.log(subscription);
+
+        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
+        console.log(subscription3);
+      },
+      onFailed(frame) {
+        console.log("Failed: " + frame.body);
+        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
+
+      },
       onmessage(message) {
         console.log("得到消息");
-        message={
-          buyonePrice:121,
-          buyoneCount:121,
-          buyTwoPrice:51,
-          buyTwoPrice:54,
-          buyThreePrice:54,
-          buyThreeCount:56,
-          buyFourPrice:95,
-          buyFourCount:45,
-          buyFivePrice:5,
-          buyFiveCount:5,
-        };
-
         this.realTimeData = message;
+      },
+      responseCallback(frame) {
+        console.log("得到的消息 msg=>" + frame.body);
+        //接收到服务器推送消息，向服务器发送确认消息
+        // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
+      },
+      connect() {
+        console.log("开始连接");
+        this.client = Stomp.client("ws://localhost:15674/ws")
+        console.log("创建");
+        var headers = {
+          "login": "guest",
+          "passcode": "guest",
+          //虚拟主机，默认“/”
+          "heart-beat": "0,0"
+        };
+        this.client.connect(headers, this.onConnected, this.onFailed);
+        console.log("连接结束");
       },
 
     }
