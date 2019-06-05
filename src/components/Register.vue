@@ -144,7 +144,7 @@ import qs from 'qs'
       }
     },
     methods: {
-      warning(){
+      warning() {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -154,7 +154,15 @@ import qs from 'qs'
         self.$refs[formName].validate((valid) => {
           if (valid) {
 
-            self.$store.dispatch('register', {username: self.user.username, loginPassword: self.user.loginPassword,loginRepassword: self.user.loginRepassword,transactionPassword: self.user.transactionPassword,transactionRepassword: self.user.transactionRepassword,email: self.user.email,mailCode: self.user.mailCode})
+            self.$store.dispatch('register', {
+              username: self.user.username,
+              loginPassword: self.user.loginPassword,
+              loginRepassword: self.user.loginRepassword,
+              transactionPassword: self.user.transactionPassword,
+              transactionRepassword: self.user.transactionRepassword,
+              email: self.user.email,
+              mailCode: self.user.mailCode
+            })
               .then((response) => {
                 self.$message.success(response.data.message)
                 //self.$router.push('/home/course/list');
@@ -165,17 +173,18 @@ import qs from 'qs'
           }
         });
       },
-      getMailCode(email){
-        var self = this;
-        Vue.axios.get('/api/getMailCode?mailAdress='+self.user.email)
-          .then(function (response) {
-            self.$message.success(response.data.message)
-          })
-          .catch(function (error) {
-            self.$message.error(response.data.message)
-          });
+      getMailCode(email) {
+        let params = {
+          mailAdress: this.user.email
+        }
+        this.$api.http('get', "/api/getMailCode", params).then(res => {
+          console.log(res);
+
+        })
       }
     }
+
+
   }
 </script>
 
