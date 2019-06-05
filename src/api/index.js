@@ -24,11 +24,11 @@ function http(type, url, params, contentType) {
     obj.data = paramsUse;
   }
 
-  return new Promise((resolve, reject) => {
+  let p= new Promise((resolve, reject) => {
     axios(obj).then((res) => {
       let result = res.data;
       alert(JSON.stringify(result))
-      if (result.code == 200) {
+      if (result.code === 200) {
           resolve(result)
       } else {
           reject(result)
@@ -41,7 +41,11 @@ function http(type, url, params, contentType) {
       reject(err.data)
     })
   })
+
+return p
 }
+
+
 
 export default {
   http

@@ -80,36 +80,34 @@ export  default new Vuex.Store({
               alert(JSON.stringify(payload))
               api.http('post','/api/login',payload).then(res => {
                 //context.commit('login',payload)
-                resolve(res)
+              resolve(res)
               })
               .catch(err => {
-                reject(err)
+            reject(err)
               });
 
           })
 
-return p;
+          return p;
 
 
 
     },
     register(context, payload) {
 
-        let p =new Promise((resolve, reject) => {
+         let p =new Promise((resolve, reject) => {
                 alert(JSON.stringify(payload))
                 api.http('post','/api/register',payload).then(res => {
                   //context.commit('login',payload)
-                  alert("store发送resolve:"+JSON.stringify(res))
-                  resolve(res)
+                   resolve(res)
                 })
                 .catch(err => {
-                  alert("store发送reject："+JSON.stringify(err))
-                  reject(err)
+                 reject(err)
                 });
 
-            })
+             })
 
-        return p;
+         return p;
     },
 
 

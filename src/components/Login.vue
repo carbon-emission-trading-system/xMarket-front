@@ -182,11 +182,11 @@
             }
             self.$store.dispatch('login', payload)
               .then((response) => {
-                self.$message.success(response.data.message)
+                self.$message.success(response.message)
                 self.$router.push('/afterLogin');
               })
               .catch((response) => {
-                self.$message.error(response.data.message)
+                self.$message.error(response.message)
               })
           }
         });
