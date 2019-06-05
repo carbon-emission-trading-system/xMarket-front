@@ -410,18 +410,39 @@
         console.log("1/4");
         console.log(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.25/100)*100;
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
       },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.5/100)*100;
+        // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
       },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.75/100)*100;
+        // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
-	  change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
+      change4() {
+        this.stockTrading.orderAmount = this.stockTrading.availableNumber;
       },
+      // change1() {
+      //   console.log("1/4");
+      //   console.log(this.stockTrading.canorderAmount * 0.25);
+      //   console.log(this.stockTrading);
+      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
+      //   console.log(this.stockTrading);
+      // },
+      // change2() {
+      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+      // },
+      // change3() {
+      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+      // },
+      // change4() {
+      //   this.stockTrading.orderAmount = this.stockTrading.canorderAmount
+      // },
     },
   }
 </script>
