@@ -236,6 +236,8 @@
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
             this.firstReturnStockRealtimeInformation()
+          }else {
+            callback("请输入数字")
           }
         }
 
@@ -281,9 +283,13 @@
               callback(new Error('超出可买数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
+            } else if (Math.floor(value/100)*100 != value){
+              callback('请输入100的整数倍')
             } else {
               callback()
             }
+          }else {
+            callback("请输入数字")
           }
         }
       },

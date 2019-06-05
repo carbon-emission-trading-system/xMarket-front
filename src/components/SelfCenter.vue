@@ -64,7 +64,7 @@
                       持仓盈亏: {{this.UserFundsInformation.holdPosProAndLos}}
                     </td>
                     <td style="padding-bottom: 2%">
-                      可用资金: {{ this.UserFundsInformation.availableFunds}}
+                      可用资金: {{ this.UserFundsInformation.balance}}
                     </td>
                   </tr>
                   <tr>
@@ -75,7 +75,7 @@
                       当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}
                     </td>
                     <td>
-                      冻结资金: {{ this.UserFundsInformation.freezFunds}}
+                      冻结资金: {{ this.UserFundsInformation.frozenAmount}}
                     </td>
                   </tr>
                 </table>
@@ -179,10 +179,10 @@
         UserFundsInformation: {
           totalFunds:'',//总资产
           holdPosProAndLos: '',//持仓盈亏
-          availableFunds: '',//可用资金
+          balance: '',//可用资金
           totalMarketValue: '',//总市值
           todayProAndLos: '',//当日盈亏
-          freezFunds: '',//冻结资金
+          frozenAmount: '',//冻结资金
         },
         //持仓信息
         tableData: []
