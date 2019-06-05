@@ -74,7 +74,7 @@
           style="width: 100%;font-size: 6px"
           height="250">
           <el-table-column
-            prop="stockID"
+            prop="stockId"
             label="股票代码"
             width="85"
             align="center">

@@ -14,7 +14,7 @@ export  default new Vuex.Store({
     isLogin:true,
     stockList: [],
     //搜索的股票id
-    stockID:'',
+    stockId:'',
     //搜索的股票Name
     stockName:'',
     //用于查看详情的公告title
@@ -61,8 +61,8 @@ export  default new Vuex.Store({
     stockList: (state, payload) => {
       state.stockList = payload
     },
-    stockID:(state,payload)=>{
-      state.stockID=payload
+    stockId:(state,payload)=>{
+      state.stockId=payload
     },
     stockName:(state,payload)=>{
       state.stockName=payload

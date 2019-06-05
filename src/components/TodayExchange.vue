@@ -49,7 +49,7 @@
           sortable>
         </el-table-column>
         <el-table-column
-          prop="stockID"
+          prop="stockId"
           label="股票代码"
           width="70"
           align="center">
@@ -183,7 +183,7 @@
         },
         handle(row){
           // console.log(row.stockId)
-          this.$store.commit('stockID',row.stockID)
+          this.$store.commit('stockId',row.stockId)
           this.$store.commit('stockName',row.stockName)
           this.$router.push('StockDisplay')
         },

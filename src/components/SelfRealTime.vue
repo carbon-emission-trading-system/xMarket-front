@@ -166,7 +166,7 @@
     methods: {
       realTimeDataDisplay() {
         let params={
-          stockId:this.$store.state.stockID
+          stockId:this.$store.state.stockId
         }
         this.$api.http('get','/api/realTimeInfo',params).then(res=>{
           this.realTimeData=res.data

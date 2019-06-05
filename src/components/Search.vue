@@ -64,34 +64,34 @@
         //如果用户未按搜索建议
         if (input.indexOf(":") === -1) {
           console.log("用户未按搜索建议")
-          let stockIDs = []
+          let stockIds = []
           let stockNames = []
           for (let i = 0; i < stockList.length; i++) {
-            let stockID = stockList[i].stockID
-            stockID = stockID.toString()
+            let stockId = stockList[i].stockId
+            stockId = stockId.toString()
             let stockName = stockList[i].stockName
-            stockIDs.push(stockID)
+            stockIds.push(stockId)
             stockNames.push(stockName)
           }
           console.log(stockNames)
           //判断是否存在该股票
 
-          if (stockIDs.indexOf(input) !== -1 || stockNames.indexOf(input) !== -1) {
+          if (stockIds.indexOf(input) !== -1 || stockNames.indexOf(input) !== -1) {
             //如果用户输入的是股票简称
             if (input.indexOf("6") === -1) {
               this.$store.commit('stockName', input)
               let index = stockNames.indexOf(input)
-              let stockID = stockIDs[index]
-              this.$store.commit('stockID', stockID)
-              console.log(this.$store.state.stockID)
+              let stockId = stockIds[index]
+              this.$store.commit('stockId', stockId)
+              console.log(this.$store.state.stockId)
               console.log(this.$store.state.stockName)
             }//如果用户输入的是股票代码
             else {
-              this.$store.commit('stockID', input)
-              let index = stockIDs.indexOf(input)
+              this.$store.commit('stockId', input)
+              let index = stockIds.indexOf(input)
               let stockName = stockNames[index]
               this.$store.commit('stockName', stockName)
-              console.log(this.$store.state.stockID)
+              console.log(this.$store.state.stockId)
               console.log(this.$store.state.stockName)
             }
             this.$router.push('StockDisplay')
@@ -101,9 +101,9 @@
             });
           }
         } else {//如果用户按搜索建议
-          let stockID = this.input.split(":")[0]
+          let stockId = this.input.split(":")[0]
           let stockName = this.input.split(":")[1]
-          this.$store.commit('stockID', stockID)
+          this.$store.commit('stockId', stockId)
           this.$store.commit('stockName', stockName)
           this.$router.push('StockDisplay')
         }
