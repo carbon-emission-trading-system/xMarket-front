@@ -26,9 +26,17 @@ function http(type, url, params, contentType) {
 
   return new Promise((resolve, reject) => {
     axios(obj).then((res) => {
-      resolve(res.data);
+      var result = res.data;
+      if (result.code == 200) {
+          resolve(res)
+      } else {
+          reject(res)
+      }
     }).catch((err) => {
-      Message.error("出错了...待会再试试吧 ~");
+      var errorData = {
+          message: '系统出错'
+      }
+      err.data = errorData
       reject(err)
     })
   })
