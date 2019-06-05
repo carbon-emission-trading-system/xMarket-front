@@ -154,26 +154,13 @@ import qs from 'qs'
         self.$refs[formName].validate((valid) => {
           if (valid) {
 
-let payload=
-            {
-              username: self.user.username,
-              loginPassword: self.user.loginPassword,
-              loginRepassword: self.user.loginRepassword,
-              transactionPassword: self.user.transactionPassword,
-              transactionRepassword: self.user.transactionRepassword,
-              email: self.user.email,
-              mailCode: self.user.mailCode
-            }
-
             self.$store.dispatch('register', this.user)
               .then((response) => {
-                alert("reg接受resolve："+response.data.message)
-                self.$message.success(response.data.message)
+                self.$message.success(response.message)
                 self.$router.push('/');
               })
               .catch((response) => {
-                  alert("reg接受reject："+JSON.stringify(response))
-              //  self.$message.error(response.data.message)
+                self.$message.error(response.message)
               })
           }
         });
