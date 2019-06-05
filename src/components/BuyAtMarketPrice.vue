@@ -148,6 +148,7 @@
           //开盘价
           openPrice: '',
         },
+        bz:'',
         //委托规则
         allDelegateType: [],
         msg: 0,
@@ -254,7 +255,12 @@
         } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            this.firstReturnStockRealtimeInformation()
+            if (this.bz === this.stockTrading.stockId) {
+              callback()
+            } else {
+              this.bz = this.stockTrading.stockId;
+              this.firstReturnStockRealtimeInformation()
+            }
           } else {
             callback("请输入数字")
           }

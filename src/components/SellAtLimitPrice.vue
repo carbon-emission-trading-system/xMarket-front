@@ -139,6 +139,7 @@
           availableNumber:'',
           tradeMarket:'',
         },
+        bz:'',
         msg: 0,
         //规则
         rules: {
@@ -235,7 +236,12 @@
         }else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
-            this.firstReturnStockRealtimeInformation()
+            if (this.bz === this.stockTrading.stockId) {
+              callback()
+            } else {
+              this.bz = this.stockTrading.stockId;
+              this.firstReturnStockRealtimeInformation()
+            }
           }else {
             callback("请输入数字")
           }

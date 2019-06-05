@@ -139,9 +139,10 @@
           orderAmount: '',
           availableNumber: '',
           tradeMarket: '',
+          //开盘价
+          openPrice: '',
         },
-        //开盘价
-        openPrice: '',
+        bz:'',
         msg: 0,
         DelegateType: '',
         allDelegateType: [],
@@ -239,8 +240,14 @@
           console.log('请输入股票代码')
         } else {
           value = Number(value);
+
           if (typeof value === 'number' && !isNaN(value)) {
-            this.firstReturnStockRealtimeInformation()
+            if (this.bz === this.stockTrading.stockId) {
+              callback()
+            } else {
+              this.bz = this.stockTrading.stockId;
+              this.firstReturnStockRealtimeInformation()
+            }
           } else {
             callback("请输入数字")
           }
@@ -257,9 +264,9 @@
         } else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.openPrice * 1.1) {
+            if (value > this.stockTrading.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
-            } else if (value < this.openPrice * 0.9) {
+            } else if (value < this.stockTrading.openPrice * 0.9) {
               callback(new Error('低于跌停价'))
             } else if (value < 0) {
               callback(new Error('请输入合适价格'))
@@ -359,7 +366,7 @@
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.stockTrading = res.data;
-          this.openPrice = res.data.openPrice;
+          this.stockTrading.openPrice = res.data.openPrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
           if (this.stockTrading.tradeMarket === 0) {
             this.allDelegateType = store.state.SDelegateType;
