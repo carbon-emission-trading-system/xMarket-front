@@ -105,6 +105,7 @@
     data () {
       return {
         activeIndex:'/',
+        notices: [],
         user: {
           username: '',
           loginPassword: '',
@@ -124,6 +125,9 @@
     },
     mounted:function(){
       this.refreshCode();//需要触发的函数
+    },
+    created() {
+      this.setNoticesApi();
     },
     methods: {
       warning(){
@@ -145,6 +149,12 @@
           self.imgCodeUrl = data;
         }).catch(function (err) {
         })
+      },
+      //获取公告
+      setNoticesApi:function () {
+        this.$api.http('post','/api/getNews').then(res=>{
+          this.notices = res.data;
+        });
       },
       login(formName) {
         var self = this;
