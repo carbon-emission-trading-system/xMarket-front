@@ -241,7 +241,7 @@
           userID: this.userId,
           stockId: delStock
         }
-        this.$api.http('get',"./api/delectSelfSelectedStock", params).then(res => {
+        this.$api.http('get',"./api/delectSelfSelectStock", params).then(res => {
             console.log(res);
             mess = res.articles;
           })
