@@ -279,7 +279,7 @@
               callback(new Error('请输入合适价格'))
             } else {
               callback()
-              CalculatingTax(this.balance,value)
+              this.stockTrading.canorderAmount = this.CalculatingTax(this.balance, value)
             }
           }else {
             callback("请输入数字")
@@ -440,14 +440,17 @@
         console.log("1/4");
         console.log(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
+        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.25,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
       },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
       },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
       change4() {
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount

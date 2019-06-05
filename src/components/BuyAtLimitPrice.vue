@@ -133,6 +133,7 @@
         activeIndexBS: 'BuyAtLimitPrice',
         buyOrSell: '买入股票',
         client: null,
+        bz: '',
         //用户可用金额
         balance: '',
         stockTrading: {
@@ -190,7 +191,6 @@
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
 
-
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
 
@@ -232,11 +232,17 @@
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
-        }else {
+        } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            this.firstReturnStockRealtimeInformation()
-          }else {
+
+            if (this.bz === this.stockTrading.stockId) {
+              callback()
+            } else {
+              this.bz = this.stockTrading.stockId;
+              this.firstReturnStockRealtimeInformation()
+            }
+          } else {
             callback("请输入数字")
           }
         }
@@ -250,7 +256,7 @@
         if (!value) {
           callback(new Error('请输入买入金额'))
           console.log('请输入买入金额')
-        }else {
+        } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.openPrice * 1.1) {
@@ -261,9 +267,9 @@
               callback(new Error('请输入合适价格'))
             } else {
               callback(),
-              CalculatingTax(this.balance,value)
+                this.stockTrading.canorderAmount = this.CalculatingTax(this.balance, value)
             }
-          }else {
+          } else {
             callback("请输入数字")
           }
         }
@@ -283,12 +289,12 @@
               callback(new Error('超出可买数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
-            } else if (Math.floor(value/100)*100 != value){
+            } else if (Math.floor(value / 100) * 100 != value) {
               callback('请输入100的整数倍')
             } else {
               callback()
             }
-          }else {
+          } else {
             callback("请输入数字")
           }
         }
@@ -307,8 +313,6 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            //
-            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
             this.ajaxSubmit();
           } else {
             console.log('error submit!!');
@@ -328,21 +332,21 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        api.http('get',"/api/QueryStockInformation", prom).then(res => {
-            console.log(res);
-            this.basicInfoStok = res.data;
-            console.log("this.basicInfoStok)");
-            console.log(this.basicInfoStok);
+        api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          console.log(res);
+          this.basicInfoStok = res.data;
+          console.log("this.basicInfoStok)");
+          console.log(this.basicInfoStok);
 
-            this.openPrice = res.data.openPrice;
+          this.openPrice = res.data.openPrice;
 
-            this.stockTrading.userId = this.basicInfoStok.stockId;
-            this.stockTrading.stockName = this.basicInfoStok.stockName;
-            this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
-            this.stockTrading.tradeMarket = this.basicInfoStok.tradeMarket;
-            console.log(this.basicInfoStok.balance)
-            console.log(this.basicInfoStok.orderPrice);
-            this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
+          this.stockTrading.userId = this.basicInfoStok.stockId;
+          this.stockTrading.stockName = this.basicInfoStok.stockName;
+          this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
+          this.stockTrading.tradeMarket = this.basicInfoStok.tradeMarket;
+          console.log(this.basicInfoStok.balance)
+          console.log(this.basicInfoStok.orderPrice);
+          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
 
           // let allFund = this.basicInfoStok.balance;
           //   let price = this.basicInfoStok.orderPrice;
@@ -362,7 +366,7 @@
           //       this.stockTrading.canorderAmount = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
           //     }
           //   }
-          })
+        })
         console.log(this.stockTrading.canorderAmount);
       }
       ,
@@ -420,16 +424,16 @@
             tradeStraregy: 0,
           }
           console.log(SentstockTrading);
-          this.$api.http('post',"/api/buyOrSale", SentstockTrading).then(res => {
-              this.msg = res.data.result;
+          this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+            this.msg = res.data.result;
+            if (this.msg == 0) {
               if (this.msg == 0) {
-                if (this.msg == 0) {
-                  this.alertBox('成功', '提交成功');
-                } else {
-                  this.alertBox('失败', '提交失败');
-                }
+                this.alertBox('成功', '提交成功');
+              } else {
+                this.alertBox('失败', '提交失败');
               }
-            })
+            }
+          })
         }
 
       }
@@ -455,24 +459,21 @@
         console.log("1/4");
         console.log(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
+        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.25,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-      }
-      ,
+      },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
-      }
-      ,
+        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+      },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
-      }
-      ,
+        this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+      },
       change4() {
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount
-      }
-      ,
-
-
+      },
     },
   }
 
