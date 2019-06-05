@@ -26,18 +26,18 @@ function http(type, url, params, contentType) {
 
   return new Promise((resolve, reject) => {
     axios(obj).then((res) => {
-      var result = res.data;
+      let result = res.data;
       if (result.code == 200) {
-          resolve(res)
+          resolve(result)
       } else {
-          reject(res)
+          reject(result)
       }
     }).catch((err) => {
-      var errorData = {
+      let errorData = {
           message: '系统出错'
       }
       err.data = errorData
-      reject(err)
+      reject(err.data)
     })
   })
 }
