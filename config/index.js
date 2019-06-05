@@ -12,7 +12,7 @@ module.exports = {
     //配置代理
     proxyTable: {
       '/api':{
-        target:'http://localhost:8090',
+        target:'http://192.168.137.1:8090',
         changeOrigin:true,
         pathRewrite:{
           '^/api':'/api'
