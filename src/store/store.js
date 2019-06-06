@@ -1,17 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-import qs from 'qs'
 import api from "../api"
 
-//import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
 export  default new Vuex.Store({
- // plugins: [createPersistedState()],
   //定义数据
   state: {
-    isLogin:true,
+    isLogin:false,
     stockList: [],
     //搜索的股票id
     stockId:'',
@@ -32,10 +28,11 @@ export  default new Vuex.Store({
     getUsername(state) {
       return state.user.username
     },
+    //路由跳转时判断当前用户权限
     isLogin(state){
-   //   if(state.user.username){
-    //    state.username=sessionStorage.getItem('username')
-    //  }
+      if(!state.user.username){
+        state.user.username=sessionStorage.getItem('username')
+      }
       return state.user.username
     }
   },
@@ -45,18 +42,19 @@ export  default new Vuex.Store({
       state.isLogin = true
       state.user.username = payload.username
       state.user.userId = payload.userId
-   //   sessionStorage.setItem("username",payload.username)
+      sessionStorage.setItem("username",payload.username)
     },
     logout(state) {
       state.isLogin = false
       state.user.username = ''
       state.user.userId = ''
-   //   sessionStorage.removeItem("username");
+      sessionStorage.removeItem("username");
+      console.log("logout被调用")
     },
     register(state, payload) {
-      state.isLogin = true
-      state.user.username = payload.username
-      state.user.userId = payload.userId
+      // state.isLogin = true
+      // state.user.username = payload.username
+      // state.user.userId = payload.userId
     },
     stockList: (state, payload) => {
       state.stockList = payload
@@ -79,26 +77,26 @@ export  default new Vuex.Store({
       let p =new Promise((resolve, reject) => {
               alert(JSON.stringify(payload))
               api.http('post','/api/login',payload).then(res => {
-                //context.commit('login',payload)
+                payload.userId=res.data
+                console.log(payload)
+             //   payload.push(temp)
+                context.commit('login',payload)
               resolve(res)
               })
               .catch(err => {
             reject(err)
               });
-
           })
 
           return p;
 
 
-
     },
     register(context, payload) {
-
          let p =new Promise((resolve, reject) => {
                 alert(JSON.stringify(payload))
                 api.http('post','/api/register',payload).then(res => {
-                  //context.commit('login',payload)
+                  context.commit('register',payload)
                    resolve(res)
                 })
                 .catch(err => {

@@ -181,8 +181,8 @@
       this.setStocksApi();
     },
     beforeMount(){
-      console.log(this.$store.state.isLogin)
-      if(this.$store.state.isLogin===false){
+      let isLogin=this.$store.getters.isLogin
+      if(!isLogin){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -205,7 +205,7 @@
       },
       handle(row){
         // console.log(row.stockId)
-        this.$store.commit('stockID',row.stockID)
+        this.$store.commit('stockId',row.stockId)
         this.$store.commit('stockName',row.stockName)
         this.$router.push('StockDisplay')
       },

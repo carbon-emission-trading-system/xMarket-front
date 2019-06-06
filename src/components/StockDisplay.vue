@@ -42,8 +42,8 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>{{this.stockName}}</span>
-        <i class="el-icon-circle-plus-outline" v-if="this.chosen==false" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="add()"></i>
-        <i class="el-icon-remove-outline" v-if="this.chosen==true" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="remove()"></i>
+        <i class="el-icon-circle-plus-outline" v-if="this.chosen===false" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="add()"></i>
+        <i class="el-icon-remove-outline" v-if="this.chosen===true" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="remove()"></i>
         <router-link to="SellAtLimitPrice"><el-button style="float: right; padding: 1% 3%" type="text" >卖出</el-button></router-link>
         <router-link to="BuyAtLimitPrice"><el-button style="float: right; padding: 1% 0" type="text">买入</el-button></router-link>
 
@@ -77,7 +77,6 @@
 </template>
 
 <script>
-  import api from './../api/index.js'
   import VCharts from 'v-charts'
   import RealTime from './SelfRealTime'
   import echarts from 'echarts' //引入echarts
@@ -170,7 +169,7 @@
         this.chosen = true
         let params = {
           userID: this.$store.state.user.userId,
-          stockId: this.$store.state.stockID
+          stockId: this.$store.state.stockId
         }
         this.$api.http('post',"/api/addSelfSelectStock", params).then(res => {
           if(res.code===200){
@@ -188,7 +187,7 @@
         this.chosen = false
         let params = {
           userID: this.$store.state.user.userId,
-          stockId: this.$store.state.stockID
+          stockId: this.$store.state.stockId
         }
         this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {
           if(res.code===200){
