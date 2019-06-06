@@ -194,32 +194,52 @@ import qs from 'qs'
           confirmButtonText: '确定',
         });
       },
-      register(formName) {
-        var self = this;
 
-        self.$refs[formName].validate((valid) => {
+
+      register(formName) {
+        alert('sf')
+        this.$refs[formName].validate((valid) => {
+          alert('sf')
           if (valid) {
-            self.$store.dispatch('register', this.user).then((response) => {
-              self.$message.success(response.message);
-              self.$router.push('/');
-            })
-              .catch((response) => {
-                self.$message.error(response.message)
-              })
+            alert('23324234')
+          } else {
+            console.log('error submit!!');
+            return false;
           }
-        });
+        })
       },
+      // register(formName) {
+      //   var self = this;
+      //   console.log(self);
+      //   console.log('2221');
+      //
+      //   self.$refs[formName].validate((valid) => {
+      //     alert('xzsadsdsadassadsadsaddas')
+      //     if (valid) {
+      //       console.log('1')
+      //       self.$store.dispatch('register', this.user).then((response) => {
+      //         console.log('注册成功')
+      //         self.$message.success(response.message);
+      //         self.$router.push('/');
+      //       }).catch((response) => {
+      //           self.$message.error(response.message)
+      //         })
+      //     }else {
+      //       console.log('error submit!!');
+      //       return false;
+      //     }
+      //   });
+      // },
       getMailCode(email) {
-        if (this.flag === 0) {
+        if (this.flag === 2) {
           alert("邮箱已被注册")
         } else {
           let params = {
             mailAdress: this.user.email
           };
           this.$api.http('get', "/api/getMailCode", params).then(res => {
-            this.flag = 1;
           }).catch((error) => {
-            this.$message.error(res.message)
+            this.$message.error(error.message)
           })
           this.getCode();
         }
@@ -257,8 +277,8 @@ import qs from 'qs'
           this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
             this.flag = 1;
           }).catch((error) => {
-            this.flag = 0,
-              callBank(res.message)
+            this.flag = 2,
+              callBank(error.message)
           })
         }
       }
@@ -281,7 +301,7 @@ import qs from 'qs'
           this.$api.http('get', "/api/determineIfUserNameExists", prom).then(res => {
             callBank()
           }).catch((error)=>{
-              callBank(res.message)
+              callBank(error.message)
           })
         }
       }
