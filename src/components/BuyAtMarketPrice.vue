@@ -368,7 +368,7 @@
           this.stockTrading.openPrice = res.data.openPrice;
           this.stockTrading.balance = res.data.balance;
           this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.orderPrice)
-        }).catch((error)=> {
+        }).catch((res)=> {
           this.$message.error(res.message)
         })
         if (this.tradeMarket === 0) {
@@ -418,7 +418,7 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((error)=> {
+          }).catch((res)=> {
             this.$message.error(res.message)
           })
         }

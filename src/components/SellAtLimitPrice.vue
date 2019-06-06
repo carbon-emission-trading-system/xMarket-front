@@ -362,7 +362,7 @@
           this.stockTrading.stockName = this.basicInfoStok.stockName;
           this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
           this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
-        }).catch((error)=> {
+        }).catch((res)=> {
           this.$message.error(res.message)
         })
       },
@@ -405,7 +405,7 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((error)=> {
+          }).catch((res)=> {
             this.$message.error(res.message)
           })
         }

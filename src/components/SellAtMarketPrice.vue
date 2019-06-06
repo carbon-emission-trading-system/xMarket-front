@@ -374,7 +374,7 @@
           } else {
             this.allDelegateType = store.state.HDelegateType;
           }
-        }).catch((error)=> {
+        }).catch((res)=> {
           this.$message.error(res.message)
         });
       }
@@ -405,7 +405,7 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((error)=> {
+          }).catch((res)=> {
             this.$message.error(res.message)
           })
         }
