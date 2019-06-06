@@ -63,7 +63,7 @@
                 border
                 style="width:100%">
                 <el-table-column
-                  prop="stockID"
+                  prop="stockId"
                   label="股票代码"
                   align="center">
                 </el-table-column>
