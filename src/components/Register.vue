@@ -43,11 +43,14 @@
           <el-form-item label="验证码" prop="mailCode">
 
             <el-col :span="14">
-              <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码  "></el-input>
+              <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"></el-input>
             </el-col>
-            <el-col class="line" :span="2"> -</el-col>
+            <el-col class="line" :span="2">-</el-col>
             <el-col :span="6">
-              <el-button class="submit-btn" type="primary" @click="getMailCode('email')">获取验证码</el-button>
+              <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
+              <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
+
+              <!--<span v-show="!show" class="count">{{count}} s</span>-->
             </el-col>
           </el-form-item>
           <el-form-item label="用户名"
@@ -103,8 +106,11 @@ import qs from 'qs'
           transactionRepassword: '',
           mailCode: ''
         },
-        flag: 0,
+        show: true,
+        flag: 1,
         msg: 'Welcome to Your Vue.js App',
+        count: 26516,
+        timer: null,
         rules: {
           email: [
             {required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -174,6 +180,7 @@ import qs from 'qs'
       }
     },
     methods: {
+
       /**
        * @since 导航栏需要
        * @param key
@@ -190,15 +197,12 @@ import qs from 'qs'
       register(formName) {
         var self = this;
 
-        console.log('4')
         self.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log('3')
-            self.$store.dispatch('register', this.user)
-              .then((response) => {
-                self.$message.success(response.message)
-                self.$router.push('/');
-              })
+            self.$store.dispatch('register', this.user).then((response) => {
+              self.$message.success(response.message);
+              self.$router.push('/');
+            })
               .catch((response) => {
                 self.$message.error(response.message)
               })
@@ -206,17 +210,35 @@ import qs from 'qs'
         });
       },
       getMailCode(email) {
-        if (this.flag === 0) {
+            if (this.flag === 0) {
           alert("邮箱已被注册")
         } else {
-          console.log("111")
           let params = {
             mailAdress: this.user.email
-          }
-          console.log("dao")
+          };
           this.$api.http('get', "/api/getMailCode", params).then(res => {
-            console.log(res);
+            this.flag = 1;
+          }).catch((err) => {
+            console.log('xitong')
           })
+          this.getCode();
+        }
+
+      },
+      getCode() {
+        const TIME_COUNT = 60;
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000)
         }
       },
       /**
@@ -226,23 +248,21 @@ import qs from 'qs'
        * @constructor
        */
       DetermineIfmailExists(rule, value, callBank) {
-        this.flag=0;
+        this.flag = 0;
         let prom = {
           mailAdress: this.user.email,
         }
         if (value === '') {
           callBank(new Error('请输入账户邮箱'));
         } else {
-          console.log('这里')
-          console.log(prom)
+
           this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
             // this.$api.http('get', "/api/determineIfMailExists", prom).then(res => {
-            console.log('sdasd');
             if (res.code === 200) {
               callBank();
               this.flag = 1;
-              console.log("www")
             } else {
+              this.flag = 0;
               callBank(res.message)
             }
           })
@@ -259,23 +279,23 @@ import qs from 'qs'
       DetermineIfUserNameExists(rule, value, callBank) {
 
         let prom = {
-          e: this.user.username,
-        }
+          userName: this.user.username,
+        };
         if (value === '') {
           callBank(new Error('请输入账户名'));
         } else {
-          this.$api.http('get', "/api/DetermineIfUserNameExists", prom).then(res => {
+          this.$api.http('get', "/api/determineIfUserNameExists", prom).then(res => {
             if (res.code === 200) {
               callBank()
             } else {
-              callBank(res.message)
+              callBank(res.message);
+              // callBank('用户名已注册')
             }
           })
         }
       }
     }
-      ,
-
+    ,
   }
 
 
