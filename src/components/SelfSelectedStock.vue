@@ -56,7 +56,7 @@
             <div slot="header">
               <span style="float: left">自选股</span>
             </div>
-            <div style="width: 100%">
+            <div style="width: 100%;font-size: 6px">
               <el-table
                 :data="tableData"
                 @row-click="handle"
@@ -238,7 +238,7 @@
        */
       deleteSelfSelectStock(delStock) {
         let params = {
-          userID: this.userId,
+          userId: this.userId,
           stockId: delStock
         }
         this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {

@@ -88,12 +88,12 @@
             <div slot="header">
               <span style="float: left">持仓信息</span>
             </div>
-            <div style="width: 100%">
+            <div style="width: 100%;">
               <el-table
                 :data="tableData"
                 border
                 @row-click="handle"
-                style="width:100%">
+                style="width:100%;font-size: 6px">
                 <el-table-column
                   prop="stockID"
                   label="股票代码"
