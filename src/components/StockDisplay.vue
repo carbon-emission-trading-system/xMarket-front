@@ -168,7 +168,7 @@
       add(){
         this.chosen = true
         let params = {
-          userID: this.$store.state.user.userId,
+          userId: this.$store.state.user.userId,
           stockId: this.$store.state.stockId
         }
         this.$api.http('post',"/api/addSelfSelectStock", params).then(res => {
