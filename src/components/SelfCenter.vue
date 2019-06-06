@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div>
@@ -15,7 +14,7 @@
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style="margin-left: 5%" index="1" >
+        <el-submenu style="margin-left: 5%" index="1">
           <template slot="title" index="1">信息统计</template>
           <el-menu-item index="TodayExchange">当日成交</el-menu-item>
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
@@ -98,6 +97,7 @@
                 <el-table-column
                   prop="stockID"
                   label="股票代码"
+                  sortable
                   align="center">
                 </el-table-column>
                 <el-table-column
@@ -114,22 +114,26 @@
                 <el-table-column
                   prop="costPrice"
                   label="成本价"
+                  sortable
                   align="center">
                 </el-table-column>
                 <el-table-column
                   prop="actualAmont"
                   label="实际数量"
+                  sortable
                   align="center">
                 </el-table-column>
 
                 <el-table-column
                   prop="todayProfitAndLoss"
                   label="当日盈亏"
+                  sortable
                   align="center">
                 </el-table-column>
                 <el-table-column
                   prop="totalProfitAndLoss"
                   label="总盈亏"
+                  sortable
                   align="center">
                 </el-table-column>
 
@@ -141,11 +145,13 @@
                 <el-table-column
                   prop="marketValue"
                   label="市值"
+                  sortable
                   align="center">
                 </el-table-column>
                 <el-table-column
                   prop="positionRatio"
                   label="仓位占比"
+                  sortable
                   align="center">
                 </el-table-column>
 
@@ -268,7 +274,7 @@
   }
 
   td {
-    padding-left: 10%;
+    padding-right: 5%;
   }
 
   .rightCard {
