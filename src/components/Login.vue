@@ -179,11 +179,21 @@
         });
       },
       login(formName) {
-        var self = this;
+        let self = this;
+        let userId
         self.$refs[formName].validate((valid) => {
           if (valid) {
+            // let params ={
+            //   username:this.user.username
+            // }
+            // //获取用户Id
+            // this.$api.http('get','/api/getUserId',params).then(res=>{
+            //   console.log(res);
+            //   userId=res.data.userId
+            // })
             let payload = {
               username: self.user.username,
+           //   userId:userId,
               loginPassword: self.user.loginPassword,
               validateCode: self.user.validateCode
             }

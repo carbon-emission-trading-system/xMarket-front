@@ -150,7 +150,8 @@
       this.setTodayOrderApi();
     },
     beforeMount(){
-      if(this.$store.state.isLogin===false){
+      let isLogin=this.$store.getters.isLogin
+      if(!isLogin){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -179,12 +180,13 @@
       },
       setTodayOrderApi:function () {
         let params={
-          userId: this.$store.state.user.userId
+          userId: 1001
         }
         this.$api.http('get','/api/todayOrder',params).then(res=>{
             if(res){
               console.log('请求成功')
               this.tableData = res.data;
+              alert(JSON.stringify(this.tableData))
               setTimeout(()=>{
                 self.setTodayOrderApi()
               },3000)

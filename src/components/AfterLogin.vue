@@ -66,7 +66,7 @@
         <div slot="header" class="clearfix">
           <i class="el-icon-setting" style="font-size: 25px"></i>
           <span style="font-size: 25px">自选股</span>
-          <el-button style="float: right; padding: 3px 0" type="text">管理自选</el-button>
+          <router-link to="/SelfSelectedStock"><el-button style="float: right; padding: 3px 0" type="text">管理自选</el-button></router-link>
         </div>
         <el-table
           :data="stock"
@@ -181,8 +181,8 @@
       this.setStocksApi();
     },
     beforeMount(){
-     // console.log(this.$store.getters.isLogin)
-      if(this.$store.state.isLogin===false){
+      let isLogin=this.$store.getters.isLogin
+      if(!isLogin){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
