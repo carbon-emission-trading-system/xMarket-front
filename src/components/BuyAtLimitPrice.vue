@@ -75,6 +75,11 @@
 
               <el-form-item label="买入价格"
                             prop="orderPrice"
+                            :rules="[
+                            { validator: LimitPrice, // 自定义验证
+                              trigger: 'blur'
+                            }
+                            ]">
                             >
                 <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格"></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
@@ -92,6 +97,10 @@
 
               <el-form-item label="买入数量"
                             prop="orderAmount"
+                            :rules="[
+                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                              trigger: 'blur'
+                            }]"
                           >
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"></el-input>
               </el-form-item>
@@ -326,8 +335,8 @@
        */
       firstReturnStockRealtimeInformation() {
         let prom = {
-          stockId: 600446,
-          userId: 1001
+          stockId: this.stockTrading.stockId,
+          userId: store.state.user.userId
         }
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
@@ -382,16 +391,16 @@
        * ajax发送给后台委托单
        */
       ajaxSubmit() {
-        // if (store.state.user.userId == null) {
-        //   this.alertBox('错误', '用户未登陆');
-        // } else if (this.stockTrading.stockId == null
-        //   || this.stockTrading.orderPrice == null
-        //   || this.stockTrading.orderAmount == null) {
-        //   this.alertBox('错误', '有东西未输入');
-        // } else {
-          // this.firstReturnStockRealtimeInformation()
+        if (store.state.user.userId == null) {
+          this.alertBox('错误', '用户未登陆');
+        } else if (this.stockTrading.stockId == null
+          || this.stockTrading.orderPrice == null
+          || this.stockTrading.orderAmount == null) {
+          this.alertBox('错误', '有东西未输入');
+        } else {
+          this.firstReturnStockRealtimeInformation()
           let SentstockTrading = {
-            userId: 1001,
+            userId: store.state.user.userId,
             stockId: this.stockTrading.stockId,
             type: 0,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
@@ -409,8 +418,7 @@
               }
             }
           })
-        // }
-
+        }
       }
       ,
 
