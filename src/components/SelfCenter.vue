@@ -95,7 +95,7 @@
                 @row-click="handle"
                 style="width:100%;font-size: 6px">
                 <el-table-column
-                  prop="stockID"
+                  prop="stockId"
                   label="股票代码"
                   sortable
                   align="center">
@@ -208,7 +208,7 @@
       },
       handle(row) {
         // console.log(row.stockId)
-        this.$store.commit('stockID', row.stockID)
+        this.$store.commit('stockId', row.stockId)
         this.$store.commit('stockName', row.stockName)
         this.$router.push('StockDisplay')
       },
