@@ -180,7 +180,7 @@
       },
       setTodayOrderApi:function () {
         let params={
-          userId: 1001
+          userId: this.$store.state.user.userId
         }
         this.$api.http('get','/api/todayOrder',params).then(res=>{
             if(res){
