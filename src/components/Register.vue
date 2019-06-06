@@ -210,7 +210,7 @@ import qs from 'qs'
         });
       },
       getMailCode(email) {
-            if (this.flag === 0) {
+        if (this.flag === 0) {
           alert("邮箱已被注册")
         } else {
           let params = {
@@ -219,11 +219,10 @@ import qs from 'qs'
           this.$api.http('get', "/api/getMailCode", params).then(res => {
             this.flag = 1;
           }).catch((err) => {
-            console.log('xitong')
+            alert(res.message)
           })
           this.getCode();
         }
-
       },
       getCode() {
         const TIME_COUNT = 60;
@@ -249,23 +248,20 @@ import qs from 'qs'
        */
       DetermineIfmailExists(rule, value, callBank) {
         this.flag = 0;
+        alert('1')
         let prom = {
           mailAdress: this.user.email,
         }
         if (value === '') {
           callBank(new Error('请输入账户邮箱'));
         } else {
-
           this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
-            // this.$api.http('get', "/api/determineIfMailExists", prom).then(res => {
-            if (res.code === 200) {
-              callBank();
               this.flag = 1;
-            } else {
-              this.flag = 0;
-              callBank(res.message)
             }
-          })
+          ).catch(
+            this.flag = 0,
+            callBank(res.message)
+          )
         }
       }
       ,
@@ -285,13 +281,10 @@ import qs from 'qs'
           callBank(new Error('请输入账户名'));
         } else {
           this.$api.http('get', "/api/determineIfUserNameExists", prom).then(res => {
-            if (res.code === 200) {
-              callBank()
-            } else {
-              callBank(res.message);
-              // callBank('用户名已注册')
-            }
-          })
+            callBank()
+          }).catch(
+            callBank(res.message)
+          )
         }
       }
     }
