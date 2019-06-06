@@ -193,7 +193,8 @@
       this.ReceiveSelfHoldStock();
     },
     beforeMount(){
-      if(this.$store.state.isLogin===false){
+      let isLogin=this.$store.getters.isLogin
+      if(!isLogin){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
