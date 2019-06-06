@@ -11,19 +11,19 @@
                active-text-color="#ffd04b"
                router>
 
-        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="1">
+        <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
         <div id="exit">
           <el-link type="primary" @click="exit">退出</el-link>
         </div>
@@ -67,18 +67,18 @@
                               trigger: 'blur'
                             }]">
                 <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"
-                         ></el-input>
+                ></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
                 <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="卖出价格"
                             prop="orderPrice">
-                            <!-- :rules="[
-                            { validator: LimitPrice, // 自定义验证
-                              trigger: 'blur'
-                            }
-                            ]" -->
+                <!-- :rules="[
+                { validator: LimitPrice, // 自定义验证
+                  trigger: 'blur'
+                }
+                ]" -->
                 <el-input v-model="stockTrading.orderPrice" placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量">
@@ -94,10 +94,10 @@
 
               <el-form-item label="卖出数量"
                             prop="orderAmount">
-                            <!-- :rules="[
-                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                              trigger: 'blur'
-                            }]" -->
+                <!-- :rules="[
+                 { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                  trigger: 'blur'
+                }]" -->
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
               <div>
@@ -121,6 +121,7 @@
   import Stomp from 'stompjs'
   import RealTime from './RealTime'
   import store from '@/store/store'
+
   export default {
     name: "SellAtLimitPrice",
     data() {
@@ -135,11 +136,11 @@
           orderPrice: '',
           orderAmount: '',
           //账户可用股票
-          availableNumber:'',
+          availableNumber: '',
           openPrice: '',
-          tradeMarket:'',
+          tradeMarket: '',
         },
-        bz:'',
+        bz: '',
         msg: 0,
         //规则
         rules: {
@@ -156,9 +157,9 @@
       // this.connect();
       // this.firstReturnStockRealtimeInformation();
     },
-    beforeMount(){
-      let isLogin=this.$store.getters.isLogin
-      if(!isLogin){
+    beforeMount() {
+      let isLogin = this.$store.getters.isLogin
+      if (!isLogin) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -166,7 +167,7 @@
       }
     },
     methods: {
-      exit(){
+      exit() {
         this.$store.commit('logout');
         this.$router.push('/')
       },
@@ -234,7 +235,7 @@
         if (!value) {
           callback(new Error('请输入股票代码'));
           console.log('请输入股票代码')
-        }else {
+        } else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (this.bz === this.stockTrading.stockId) {
@@ -243,7 +244,7 @@
               this.bz = this.stockTrading.stockId;
               this.firstReturnStockRealtimeInformation()
             }
-          }else {
+          } else {
             callback("请输入数字")
           }
         }
@@ -257,7 +258,7 @@
         if (!value) {
           callback(new Error('请输入卖出金额'));
           console.log('请输入卖出金额')
-        } else{
+        } else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.stockTrading.openPrice * 1.1) {
@@ -269,7 +270,7 @@
             } else {
               callback()
             }
-          }else {
+          } else {
             callback("请输入数字")
           }
         }
@@ -330,7 +331,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
+            //ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
             this.ajaxSubmit();
           } else {
             console.log('error submit!!');
@@ -351,17 +352,19 @@
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
         }
-        this.$api.http('get',"/api/QueryStockInformation", prom).then(res => {
-            console.log(res);
-            this.basicInfoStok = res.data;
-            console.log("this.basicInfoStok)");
-            console.log(this.basicInfoStok);
+        this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          console.log(res);
+          this.basicInfoStok = res.data;
+          console.log("this.basicInfoStok)");
+          console.log(this.basicInfoStok);
 
-            this.stockTrading.userId = this.basicInfoStok.stockId;
-            this.stockTrading.stockName = this.basicInfoStok.stockName;
-            this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
-            this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
-          })
+          this.stockTrading.userId = this.basicInfoStok.stockId;
+          this.stockTrading.stockName = this.basicInfoStok.stockName;
+          this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
+          this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
+        }).catch(
+          this.$message.error(res.message),
+        )
       },
 
       /**
@@ -384,72 +387,45 @@
        * ajax发送给后台委托单
        */
       ajaxSubmit() {
-        // if (store.state.user.userId == null) {
-        //   this.alertBox('错误', '用户未登陆');
-        // } else if (this.stockTrading.stockId == null
-        //   || this.stockTrading.orderPrice == null
-        //   || this.stockTrading.orderAmount == null) {
-        //   this.alertBox('错误', '有东西未输入');
-        // } else {
+        if (store.state.user.userId == null) {
+          this.alertBox('错误', '用户未登陆');
+        } else if (this.stockTrading.stockId == null
+          || this.stockTrading.orderPrice == null
+          || this.stockTrading.orderAmount == null) {
+          this.alertBox('错误', '有东西未输入');
+        } else {
           let SentstockTrading = {
             userId: 1001,
             stockId: this.stockTrading.stockId,
             type: 1,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
             orderPrice: this.stockTrading.orderPrice,
-            tradeStraregy:0,
+            tradeStraregy: 0,
           }
           console.log(SentstockTrading);
-          this.$api.http('post',"/api/buyOrSale", SentstockTrading).then(res => {
-              this.msg = res.data.result;
-              if (this.msg == 0) {
-                this.alertBox('成功', '提交成功');
-              } else {
-                this.alertBox('失败', '提交失败');
-              }
-            })
-        // }
-
+          this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+            this.$message.success('提交成功')
+          }).catch(
+            this.$message.error(res.message),
+          )
+        }
       },
 
       //0.25/0.5/0.75计算
       change1() {
-        console.log("1/4");
-        console.log(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.25/100)*100;
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
       },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.5/100)*100;
-        // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.5,this.stockTrading.orderPrice)
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+
       },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber*0.75/100)*100;
-        // this.stockTrading.orderAmount = CalculatingTax(this.balance*0.2575,this.stockTrading.orderPrice)
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
+
       },
       change4() {
         this.stockTrading.orderAmount = this.stockTrading.availableNumber;
       },
-      // change1() {
-      //   console.log("1/4");
-      //   console.log(this.stockTrading.canorderAmount * 0.25);
-      //   console.log(this.stockTrading);
-      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
-      //   console.log(this.stockTrading);
-      // },
-      // change2() {
-      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
-      // },
-      // change3() {
-      //   this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
-      // },
-      // change4() {
-      //   this.stockTrading.orderAmount = this.stockTrading.canorderAmount
-      // },
     },
   }
 </script>
@@ -463,10 +439,11 @@
     margin-inline-end: 0px;
   }
 
-  #exit{
+  #exit {
     margin-top: 1.5%;
     margin-left: 5%;
   }
+
   div {
     float: left;
     display: block;
