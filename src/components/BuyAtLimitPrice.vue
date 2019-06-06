@@ -344,9 +344,9 @@
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
           this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
-        }).catch(
-          this.$message.error(res.message),
-        );
+        }).catch((error)=> {
+          this.$message.error(res.message)
+        })
         console.log(this.stockTrading.canorderAmount);
       }
       ,
@@ -406,9 +406,9 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch(
-            this.$message.error(res.message),
-          )
+          }).catch((error)=> {
+            this.$message.error(res.message)
+          })
         }
       }
       ,
