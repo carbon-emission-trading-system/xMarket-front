@@ -232,9 +232,9 @@
           console.log(res);
           console.log('到这里了');
           this.UserFundsInformation = res.data;
-        }).catch(
-          this.$message.error(res.message),
-        )
+        }).catch((error)=> {
+          this.$message.error(res.message)
+        })
       },
 
       /**
@@ -254,9 +254,9 @@
           console.log('到这里了');
           this.tableData = res.data;
           console.log(this.tableData)
-        }).catch(
-          this.$message.error(res.message),
-        )
+        }).catch((error)=> {
+          this.$message.error(res.message)
+        })
       },
     },
   }

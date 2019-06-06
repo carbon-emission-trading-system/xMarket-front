@@ -218,7 +218,7 @@ import qs from 'qs'
           };
           this.$api.http('get', "/api/getMailCode", params).then(res => {
             this.flag = 1;
-          }).catch((err) => {
+          }).catch((error) => {
             this.$message.error(res.message)
           })
           this.getCode();
@@ -255,12 +255,11 @@ import qs from 'qs'
           callBank(new Error('请输入账户邮箱'));
         } else {
           this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
-              this.flag = 1;
-            }
-          ).catch(
+            this.flag = 1;
+          }).catch((error) => {
             this.flag = 0,
-            callBank(res.message),
-          )
+              callBank(res.message)
+          })
         }
       }
       ,
@@ -281,9 +280,9 @@ import qs from 'qs'
         } else {
           this.$api.http('get', "/api/determineIfUserNameExists", prom).then(res => {
             callBank()
-          }).catch(
-            callBank(res.message)
-          )
+          }).catch((error)=>{
+              callBank(res.message)
+          })
         }
       }
     }

@@ -350,8 +350,10 @@
       firstReturnStockRealtimeInformation() {
         let prom = {
           stockId: this.stockTrading.stockId,
-          userId: store.state.user.userId
+          // userId: store.state.user.userId
+          userId: this.$store.getters.getUserId
         }
+
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.basicInfoStok = res.data;
@@ -362,9 +364,9 @@
           this.stockTrading.stockName = this.basicInfoStok.stockName;
           this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
           this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
-        }).catch(
-          this.$message.error(res.message),
-        )
+        }).catch((res)=> {
+          this.$message.error(res.message)
+        })
       },
 
       /**
@@ -373,7 +375,7 @@
       websocketSubmit() {
         // this.firstReturnStockRealtimeInformation()
         let SentstockTrading = {
-          userId: 1001,
+          userId: this.$store.getters.getUserId,
           stockId: this.stockTrading.stockId,
           type: 1,
           orderAmount: this.stockTrading.orderAmount,
@@ -387,7 +389,7 @@
        * ajax发送给后台委托单
        */
       ajaxSubmit() {
-        if (store.state.user.userId == null) {
+        if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
         } else if (this.stockTrading.stockId == null
           || this.stockTrading.orderPrice == null
@@ -395,7 +397,7 @@
           this.alertBox('错误', '有东西未输入');
         } else {
           let SentstockTrading = {
-            userId: 1001,
+            userId: this.$store.getters.getUserId,
             stockId: this.stockTrading.stockId,
             type: 1,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
@@ -405,9 +407,9 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch(
-            this.$message.error(res.message),
-          )
+          }).catch((res)=> {
+            this.$message.error(res.message)
+          })
         }
       },
 
