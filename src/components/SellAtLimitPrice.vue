@@ -392,7 +392,7 @@
         //   this.alertBox('错误', '有东西未输入');
         // } else {
           let SentstockTrading = {
-            userId: store.state.user.userId,
+            userId: 1001,
             stockId: this.stockTrading.stockId,
             type: 1,//买卖标识
             orderAmount: this.stockTrading.orderAmount,

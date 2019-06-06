@@ -205,7 +205,7 @@
       },
       handle(row){
         // console.log(row.stockId)
-        this.$store.commit('stockID',row.stockID)
+        this.$store.commit('stockId',row.stockId)
         this.$store.commit('stockName',row.stockName)
         this.$router.push('StockDisplay')
       },
