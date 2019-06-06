@@ -208,8 +208,8 @@
       },
       handle(row) {
         // console.log(row.stockId)
-        this.$store.commit('stockId', row.stockId)
-        this.$store.commit('stockName', row.stockName)
+        this.$store.commit('stockId', row.stockId);
+        this.$store.commit('stockName', row.stockName);
         this.$router.push('StockDisplay')
       },
       handleSelect(key, keyPath) {
@@ -221,27 +221,28 @@
        * @date
        * @since 接收用户账户信息
        * @version
-       * @param
        * @return
        */
       ReceiveAccountInformation() {
         console.log(this.userId);
         let poem = {
           userId: this.userId
-        }
+        };
         this.$api.http('get', "/api/getFunds", poem).then(res => {
           console.log(res);
           console.log('到这里了');
           this.UserFundsInformation = res.data;
-        })
+        }).catch(
+          this.$message.error(res.message),
+        )
       },
+
       /**
        * @author
        * @date
        * @since 接收持仓股
        * @version
-       * @param
-       * @return
+       * @constructor
        */
       ReceiveSelfHoldStock() {
         console.log(this.userId);
@@ -253,7 +254,9 @@
           console.log('到这里了');
           this.tableData = res.data;
           console.log(this.tableData)
-        })
+        }).catch(
+          this.$message.error(res.message),
+        )
       },
     },
   }
