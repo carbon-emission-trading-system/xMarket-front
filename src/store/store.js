@@ -25,6 +25,18 @@ export  default new Vuex.Store({
     getStockList(state) {
       return state.stockList
     },
+    getStockId(state){
+      if(!state.stockId){
+        state.stockId=sessionStorage.getItem('stockId')
+      }
+      return state.stockId
+    },
+    getStockName(state){
+      if(!state.stockName){
+        state.stockName=sessionStorage.getItem('stockName')
+      }
+      return state.stockName
+    },
     getUsername(state) {
       if(!state.user.username){
         state.user.username=sessionStorage.getItem('username')
@@ -72,9 +84,11 @@ export  default new Vuex.Store({
     },
     stockId:(state,payload)=>{
       state.stockId=payload
+      sessionStorage.setItem("stockId",payload)
     },
     stockName:(state,payload)=>{
       state.stockName=payload
+      sessionStorage.setItem("stockName",payload)
     },
     title:(state,payload)=>{
       state.title=payload

@@ -148,7 +148,7 @@
     name: "SelfSelectedStock",
     data() {
       return {
-        userId: this.$store.state.user.userId,
+        userId: this.$store.getters.getUserId,
         activeIndex: 'SelfCenter',
         activeIndexSelfCenter: 'SelfSelectedStock',
         //持仓信息

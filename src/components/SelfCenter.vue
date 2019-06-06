@@ -173,7 +173,7 @@
 
     data() {
       return {
-        userI: this.$store.state.user.userId,
+        userId: this.$store.getters.getUserId,
         activeIndex: 'SelfCenter',
         activeIndexSelfCenter: 'SelfCenter',
         UserFundsInformation: {
