@@ -70,9 +70,13 @@
             <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
           </el-form-item>
           <router-link to="/">
-            <el-button class="submit-btn" type="primary">登录</el-button>
+            <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
           </router-link>
-           <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
+
+          <!--<router-link to="/">-->
+          <!--<el-button class="submit-btn" type="primary">登录</el-button>-->
+          <!--</router-link>-->
+          <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
         </el-form>
 
 
@@ -185,9 +189,11 @@ import qs from 'qs'
       },
       register(formName) {
         var self = this;
+
+        console.log('4')
         self.$refs[formName].validate((valid) => {
           if (valid) {
-
+            console.log('3')
             self.$store.dispatch('register', this.user)
               .then((response) => {
                 self.$message.success(response.message)
@@ -203,9 +209,11 @@ import qs from 'qs'
         if (this.flag === 0) {
           alert("邮箱已被注册")
         } else {
+          console.log("111")
           let params = {
             mailAdress: this.user.email
           }
+          console.log("dao")
           this.$api.http('get', "/api/getMailCode", params).then(res => {
             console.log(res);
           })
@@ -218,24 +226,29 @@ import qs from 'qs'
        * @constructor
        */
       DetermineIfmailExists(rule, value, callBank) {
-        this.flag = 0;
+        this.flag=0;
         let prom = {
-          e: this.user.email,
+          mailAdress: this.user.email,
         }
         if (value === '') {
           callBank(new Error('请输入账户邮箱'));
         } else {
-          this.$api.http('get', "/api/DetermineIfmailExists", prom).then(res => {
+          console.log('这里')
+          console.log(prom)
+          this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
+            // this.$api.http('get', "/api/determineIfMailExists", prom).then(res => {
+            console.log('sdasd');
             if (res.code === 200) {
               callBank();
               this.flag = 1;
+              console.log("www")
             } else {
               callBank(res.message)
             }
           })
         }
-      },
-
+      }
+      ,
       /**
        * 判断userName是否存在
        * @param rule
@@ -244,12 +257,13 @@ import qs from 'qs'
        * @constructor
        */
       DetermineIfUserNameExists(rule, value, callBank) {
+
         let prom = {
           e: this.user.username,
         }
         if (value === '') {
-          callBank(new Error('请输入账户邮箱'));
-        }else {
+          callBank(new Error('请输入账户名'));
+        } else {
           this.$api.http('get', "/api/DetermineIfUserNameExists", prom).then(res => {
             if (res.code === 200) {
               callBank()
@@ -258,8 +272,10 @@ import qs from 'qs'
             }
           })
         }
-      },
+      }
     }
+      ,
+
   }
 
 
