@@ -215,7 +215,9 @@ import qs from 'qs'
           }
           console.log("dao")
           this.$api.http('get', "/api/getMailCode", params).then(res => {
-            console.log(res);
+            console.log(res.message);
+          }).catch((response) => {
+            alert(response.message)
           })
         }
       },

@@ -3,7 +3,7 @@ import Qs from 'qs'
 import { Message } from 'element-ui';
 
 //设置全局axios默认值
-axios.defaults.timeout = 5000; //5秒的超时验证
+axios.defaults.timeout = 10000; //5秒的超时验证
 axios.defaults.withCredentials = true;//跨域带cookie
 
 
