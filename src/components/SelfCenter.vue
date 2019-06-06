@@ -105,39 +105,42 @@
                     align="center">
                   </el-table-column>
                   <el-table-column
-                    prop="lastTradePrice"
-                    label="最新价"
-                    align="center">
-                  </el-table-column>
-                  <el-table-column
                     prop="increase"
-                    label="涨幅"
+                    label="本日涨幅"
                     sortable
                     align="center">
                   </el-table-column>
                   <el-table-column
-                    prop="lowestPrice"
-                    label="最低价"
+                    prop="presentPrice"
+                    label="现价"
+                    sortable
                     align="center">
                   </el-table-column>
                   <el-table-column
-                    prop="highestPrice"
-                    label="最高价"
+                    prop="costPrice"
+                    label="成本价"
                     align="center">
                   </el-table-column>
                   <el-table-column
-                    prop="yesterdayOpenPrice"
-                    label="昨开盘"
+                    prop="actualAmont"
+                    label="实际数量"
+                    align="center">
+                  </el-table-column>
+
+                  <el-table-column
+                    prop="todayProfitAndLoss"
+                    label="当日盈亏"
                     align="center">
                   </el-table-column>
                   <el-table-column
-                    prop="todayOpenPrice"
-                    label="今开盘"
+                    prop="totalProfitAndLoss"
+                    label="总盈亏"
                     align="center">
                   </el-table-column>
+
                   <el-table-column
-                    prop="turnover"
-                    label="成交额"
+                    prop="profitAndLossRatio"
+                    label="盈亏比例"
                     align="center">
                   </el-table-column>
                   <el-table-column
@@ -146,15 +149,11 @@
                     align="center">
                   </el-table-column>
                   <el-table-column
-                    prop="priceEarningsRatio"
-                    label="市盈率"
-                    align="center">
-                  </el-table-column>
-                  <el-table-column
-                    prop="priceToBookRatio"
-                    label="市净率"
-                    align="center">
-                  </el-table-column>
+                  prop="positionRatio"
+                  label="市值"
+                  align="仓位占比">
+                </el-table-column>
+
                 </el-table>
               </div>
             </el-card>
