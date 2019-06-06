@@ -222,7 +222,7 @@
         let  params={
           userId: this.$store.state.user.userId
         }
-        this.$api.http('get','/api/selfSelectedStock',params).then(res=>{
+        this.$api.http('get','/api/selfSelectStockList',params).then(res=>{
             console.log(res);
             this.stock=res.data
           })

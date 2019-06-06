@@ -144,12 +144,11 @@
 </template>
 
 <script>
-  import api from './../api/index.js'
   export default {
     name: "SelfSelectedStock",
     data() {
       return {
-        userID: this.$store.state.user.userId,
+        userId: this.$store.state.user.userId,
         activeIndex: 'SelfCenter',
         activeIndexSelfCenter: 'SelfSelectedStock',
         //持仓信息
@@ -220,7 +219,7 @@
         let poem={
           userId: this.userId
         }
-        this.$api.http('get',"/api/selfSelectedStock",poem)
+        this.$api.http('get',"/api/selfSelectStockList",poem)
           .then(res => {
             console.log(res);
             console.log('到这里了');
