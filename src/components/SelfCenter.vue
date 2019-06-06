@@ -193,7 +193,7 @@
       this.ReceiveSelfHoldStock();
     },
     beforeMount() {
-      let isLogin = this.$store.getters.isLogin
+      let isLogin = this.$store.getters.isLogin;
       if (!isLogin) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
@@ -203,7 +203,7 @@
     },
     methods: {
       exit() {
-        this.$store.commit('logout')
+        this.$store.commit('logout');
         this.$router.push('/')
       },
       handle(row) {
@@ -248,7 +248,7 @@
         console.log(this.userId);
         let poem = {
           userId: this.userId
-        }
+        };
         this.$api.http('get', "/api/presentHoldPositionInfo", poem).then(res => {
           console.log(res);
           console.log('到这里了');
@@ -290,9 +290,6 @@
     align: "center"
   }
 
-  /*.weigh_el-table-column {*/
-  /**/
-  /*}*/
   #select {
     margin-top: 50px;
     float: right;
