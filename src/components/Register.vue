@@ -219,7 +219,7 @@ import qs from 'qs'
           this.$api.http('get', "/api/getMailCode", params).then(res => {
             this.flag = 1;
           }).catch((err) => {
-            alert(res.message)
+            this.$message.error(res.message)
           })
           this.getCode();
         }
@@ -248,7 +248,6 @@ import qs from 'qs'
        */
       DetermineIfmailExists(rule, value, callBank) {
         this.flag = 0;
-        alert('1')
         let prom = {
           mailAdress: this.user.email,
         }
@@ -260,7 +259,7 @@ import qs from 'qs'
             }
           ).catch(
             this.flag = 0,
-            callBank(res.message)
+            callBank(res.message),
           )
         }
       }

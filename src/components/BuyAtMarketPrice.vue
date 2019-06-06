@@ -148,7 +148,7 @@
           //开盘价
           openPrice: '',
         },
-        bz:'',
+        bz: '',
         //委托规则
         allDelegateType: [],
         msg: 0,
@@ -169,9 +169,9 @@
     created() {
 
     },
-    beforeMount(){
-      let isLogin=this.$store.getters.isLogin
-      if(!isLogin){
+    beforeMount() {
+      let isLogin = this.$store.getters.isLogin
+      if (!isLogin) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -361,20 +361,21 @@
         let prom = {
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
-        }
+        };
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
           this.stockTrading.balance = res.data.balance;
-
           this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.orderPrice)
-          if (this.tradeMarket === 0) {
-            this.allDelegateType = store.state.SDelegateType;
-          } else {
-            this.allDelegateType = store.state.HDelegateType;
-          }
-        })
+        }).catch(
+          this.$message.error(res.message),
+        );
+        if (this.tradeMarket === 0) {
+          this.allDelegateType = store.state.SDelegateType;
+        } else {
+          this.allDelegateType = store.state.HDelegateType;
+        }
       },
 
       /**
@@ -416,13 +417,10 @@
           }
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
-            this.msg = res.data.result;
-            if (this.msg == 0) {
-              this.alertBox('成功', '提交成功');
-            } else {
-              this.alertBox('失败', '提交失败');
-            }
-          })
+            this.$message.success('提交成功')
+          }).catch(
+            this.$message.error(res.message),
+          )
         }
       },
 

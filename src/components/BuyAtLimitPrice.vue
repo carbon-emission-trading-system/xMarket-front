@@ -336,20 +336,17 @@
         let prom = {
           stockId: this.stockTrading.stockId,
           userId: store.state.user.userId
-        }
+        };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-          console.log(res);
-          this.basicInfoStok = res.data;
-          console.log("this.basicInfoStok)");
-          console.log(this.basicInfoStok);
 
+          this.basicInfoStok = res.data;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
-
           this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
-
-        })
+        }).catch(
+          this.$message.error(res.message),
+        );
         console.log(this.stockTrading.canorderAmount);
       }
       ,
@@ -381,7 +378,7 @@
           orderAmount: this.stockTrading.orderAmount,
           orderPrice: this.stockTrading.orderPrice,
           tradeStraregy: 0,
-        }
+        };
         console.log(SentstockTrading);
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, JSON.stringify(SentstockTrading));
       }
@@ -405,18 +402,13 @@
             orderAmount: this.stockTrading.orderAmount,
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
-          }
+          };
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
-            this.msg = res.data.result;
-            if (this.msg == 0) {
-              if (this.msg == 0) {
-                this.alertBox('成功', '提交成功');
-              } else {
-                this.alertBox('失败', '提交失败');
-              }
-            }
-          })
+            this.$message.success('提交成功')
+          }).catch(
+            this.$message.error(res.message),
+          )
         }
       }
       ,

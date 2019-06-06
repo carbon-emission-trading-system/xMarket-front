@@ -402,13 +402,10 @@
           };
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
-            this.msg = res.data.result;
-            if (this.msg === 0) {
-              this.alertBox('成功', '提交成功');
-            } else {
-              this.alertBox('失败', '提交失败');
-            }
-          })
+            this.$message.success('提交成功')
+          }).catch(
+            this.$message.error(res.message),
+          )
         }
         // this.firstReturnStockRealtimeInformation()
 
