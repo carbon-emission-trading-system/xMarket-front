@@ -16,7 +16,7 @@
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
         <el-submenu style="margin-left: 5%" index="1">
-          <template slot="title">信息统计</template>
+          <template slot="title" index="1">信息统计</template>
           <el-menu-item index="TodayExchange">当日成交</el-menu-item>
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
@@ -80,7 +80,6 @@
                               trigger: 'blur'
                             }
                             ]">
-                            >
                 <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格"></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
