@@ -26,6 +26,7 @@
       </el-menu>
     </div>
 
+    <search></search>
     <div id="in">
       <!--公告-->
       <div id="left">
@@ -58,7 +59,7 @@
       </div>
       <!--自选股-->
       <div id="right">
-        <el-card class="box-card">
+        <el-card class="box-card" style="height: 350px">
           <div slot="header" class="clearfix">
             <i class="el-icon-user" style="font-size: 25px"></i>
             <span style="font-size: 25px">登录</span>
@@ -87,7 +88,7 @@
               </el-form-item>
               <el-button class="submit-btn" type="primary" @click="login('ruleForm')">登录</el-button>
             </el-form>
-            <router-link to="/register"><el-button type="text" icon="el-icon-edit">去注册页</el-button></router-link>
+            <router-link to="/register"><el-button type="text" icon="el-icon-edit" style="float: right">去注册页</el-button></router-link>
           </div>
         </el-card>
 
@@ -100,8 +101,14 @@
 
 <script>
   import Vue from 'vue'
+  import Search from './Search'
+  Vue.component( 'search',Search);
+
   export default {
     name: 'login',
+    components: {
+      Search,
+    },
     data () {
       return {
         activeIndex:'/',
@@ -206,13 +213,13 @@
     margin-top: 5%;
     float:left;
     width:45%;
-    height: 50%
+    height: 45%
   }
   #right{
     margin-top: 5%;
     float: right;
     width: 45%;
-    height: 50%
+    height: 45%
   }
 
   a{
