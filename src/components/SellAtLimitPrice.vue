@@ -73,12 +73,12 @@
                 <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="卖出价格"
-                            prop="orderPrice"
-                            :rules="[
+                            prop="orderPrice">
+                            <!-- :rules="[
                             { validator: LimitPrice, // 自定义验证
                               trigger: 'blur'
                             }
-                            ]">
+                            ]" -->
                 <el-input v-model="stockTrading.orderPrice" placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量">
@@ -93,11 +93,11 @@
               </div>
 
               <el-form-item label="卖出数量"
-                            prop="orderAmount"
-                            :rules="[
+                            prop="orderAmount">
+                            <!-- :rules="[
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'blur'
-                            }]">
+                            }]" -->
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
               <div>
@@ -331,7 +331,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-            this.websocketSubmit();
+            this.ajaxSubmit();
           } else {
             console.log('error submit!!');
             return false;
@@ -370,7 +370,7 @@
       websocketSubmit() {
         // this.firstReturnStockRealtimeInformation()
         let SentstockTrading = {
-          userId: this.$store.state.userId,
+          userId: 1001,
           stockId: this.stockTrading.stockId,
           type: 1,
           orderAmount: this.stockTrading.orderAmount,
@@ -384,13 +384,13 @@
        * ajax发送给后台委托单
        */
       ajaxSubmit() {
-        if (store.state.user.userId == null) {
-          this.alertBox('错误', '用户未登陆');
-        } else if (this.stockTrading.stockId == null
-          || this.stockTrading.orderPrice == null
-          || this.stockTrading.orderAmount == null) {
-          this.alertBox('错误', '有东西未输入');
-        } else {
+        // if (store.state.user.userId == null) {
+        //   this.alertBox('错误', '用户未登陆');
+        // } else if (this.stockTrading.stockId == null
+        //   || this.stockTrading.orderPrice == null
+        //   || this.stockTrading.orderAmount == null) {
+        //   this.alertBox('错误', '有东西未输入');
+        // } else {
           let SentstockTrading = {
             userId: store.state.user.userId,
             stockId: this.stockTrading.stockId,
@@ -408,7 +408,7 @@
                 this.alertBox('失败', '提交失败');
               }
             })
-        }
+        // }
 
       },
 

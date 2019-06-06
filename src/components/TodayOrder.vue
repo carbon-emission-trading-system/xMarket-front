@@ -180,12 +180,13 @@
       },
       setTodayOrderApi:function () {
         let params={
-          userId: this.$store.state.user.userId
+          userId: 1001
         }
         this.$api.http('get','/api/todayOrder',params).then(res=>{
             if(res){
               console.log('请求成功')
               this.tableData = res.data;
+              alert(JSON.stringify(this.tableData))
               setTimeout(()=>{
                 self.setTodayOrderApi()
               },3000)
