@@ -42,7 +42,7 @@
         style="width: 100%;font-size: 6px"
         :default-sort = "{prop: 'exchangeTime', order: 'descending'}">
         <el-table-column
-          prop="exchangeTime"
+          prop="time"
           label="成交时间"
           width="100"
           align="center"
@@ -61,7 +61,7 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="operation"
+          prop="type"
           label="操作"
           width="70"
           align="center">
@@ -73,13 +73,13 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="exchangeAveragePrice"
-          label="成交均价"
+          prop="tradePrice"
+          label="成交价"
           width="80"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="exchangePrice"
+          prop="totalExchangeMoney"
           label="成交金额"
           width="80"
           align="center">
@@ -91,13 +91,13 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="contractNumber"
+          prop="orderId"
           label="合同编号"
           width="100"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="exchangeNumber"
+          prop="transactionOrderId"
           label="成交编号"
           width="100"
           align="center">
@@ -115,7 +115,7 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="incidentalCharge"
+          prop="otherFee"
           label="其他杂费"
           width="80"
           align="center">
@@ -127,7 +127,7 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="market"
+          prop="tradeMarket"
           label="交易市场"
           width="80"
           align="center">
@@ -200,7 +200,7 @@
           }
           this.$api.http('get','/api/todayExchange',params).then(res=>{
               if(res){
-                console.log('请求成功')
+                console.log(res.data)
                 this.tableData = res.data;
                 setTimeout(()=>{
                   self.setTodayExchangeApi()

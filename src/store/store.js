@@ -26,7 +26,16 @@ export  default new Vuex.Store({
       return state.stockList
     },
     getUsername(state) {
+      if(!state.user.username){
+        state.user.username=sessionStorage.getItem('username')
+      }
       return state.user.username
+    },
+    getUserId(state){
+      if(!state.user.userId){
+        state.user.userId=sessionStorage.getItem('userId')
+      }
+      return state.user.userId
     },
     //路由跳转时判断当前用户权限
     isLogin(state){
@@ -43,12 +52,14 @@ export  default new Vuex.Store({
       state.user.username = payload.username
       state.user.userId = payload.userId
       sessionStorage.setItem("username",payload.username)
+      sessionStorage.setItem("userId",payload.userId)
     },
     logout(state) {
       state.isLogin = false
       state.user.username = ''
       state.user.userId = ''
       sessionStorage.removeItem("username");
+      sessionStorage.removeItem("userId");
       console.log("logout被调用")
     },
     register(state, payload) {
