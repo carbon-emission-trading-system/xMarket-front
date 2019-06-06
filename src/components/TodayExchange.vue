@@ -196,7 +196,7 @@
         },
         setTodayExchangeApi:function () {
           let params={
-            userId: this.$store.state.user.userId
+            userId: this.$store.getters.getUserId
           }
           this.$api.http('get','/api/todayExchange',params).then(res=>{
               if(res){

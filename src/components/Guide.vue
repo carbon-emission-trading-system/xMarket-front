@@ -24,7 +24,7 @@
           </el-submenu>
 
           <el-menu-item style = "margin-left: 50px" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-          <div id="exit" v-if="this.$store.state.isLogin">
+          <div id="exit" v-if="!this.$store.getters.isLogin">
             <el-link type="primary" @click="exit">退出</el-link>
           </div>
         </el-menu>
@@ -52,16 +52,14 @@
           this.$router.push('/')
         },
           toFirst(){
-            console.log(this.$store.state.isLogin)
-            console.log(this.isLogin)
-            if(this.isLogin===true){
+            if(this.$store.getters.isLogin){
               this.$router.push('AfterLogin')
             }else{
               this.$router.push('/')
             }
           },
         toRouterOrAlert(index){
-            if(this.isLogin===true){
+            if(this.$store.getters.isLogin){
               this.$router.push(index)
             }else{
               this.$alert('请先登录！', {

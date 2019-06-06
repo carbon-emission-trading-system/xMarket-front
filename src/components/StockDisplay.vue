@@ -23,7 +23,7 @@
         </el-submenu>
 
         <el-menu-item style = "margin-left: 50px" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <div id="exit" v-if="this.$store.state.isLogin">
+        <div id="exit" v-if="this.$store.getters.isLogin">
           <el-link type="primary" @click="exit">退出</el-link>
         </div>
       </el-menu>
@@ -134,7 +134,7 @@
         return this.$store.state.isLogin
       },
       stockName:function () {
-        return this.$store.state.stockName
+        return this.$store.getters.getStockName
       },
     },
 
@@ -149,14 +149,14 @@
         this.$router.push('/')
       },
       toFirst(){
-        if(this.isLogin===true){
+        if(this.$store.getters.isLogin){
           this.$router.push('AfterLogin')
         }else{
           this.$router.push('/')
         }
       },
       toRouterOrAlert(index){
-        if(this.isLogin===true){
+        if(this.$store.getters.isLogin){
           this.$router.push(index)
         }else{
           this.$alert('请先登录！', {
@@ -168,8 +168,8 @@
       add(){
         this.chosen = true
         let params = {
-          userId: this.$store.state.user.userId,
-          stockId: this.$store.state.stockId
+          userId: this.$store.getters.getUserId,
+          stockId: this.$store.getters.getStockId
         }
         this.$api.http('post',"/api/addSelfSelectStock", params).then(res => {
           if(res.code===200){
@@ -186,8 +186,8 @@
       remove(){
         this.chosen = false
         let params = {
-          userID: this.$store.state.user.userId,
-          stockId: this.$store.state.stockId
+          userID: this.$store.getters.getUserId,
+          stockId: this.$store.getters.getStockId
         }
         this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {
           if(res.code===200){
@@ -202,8 +202,8 @@
       //查看该股票是否为自选股
       setSelfApi:function(){
         let params={
-          stockID: this.$store.state.stockID,
-          userId:this.$store.state.userId
+          stockID: this.$store.getters.getStockId,
+          userId:this.$store.getters.getUserId
         }
         this.$api.http('get','/api/SelfStockValue',params).then(res => {
             console.log(res);
@@ -213,8 +213,10 @@
       //获取k线图数据
       setKlineApi: function () {
         let params={
-          stockId: this.$store.state.stockId
+          stockId: this.$store.getters.getStockId
         }
+        console.log("dawe")
+        console.log(this.$store.getters.getStockId)
         this.$api.http('get','/api/KlineDiagramDisplay',params).then(res => {
             console.log(res);
             this.kChartData.rows = res.data;
@@ -223,8 +225,9 @@
       //首次获取分时图数据
       setTimeApi:function () {
         let params={
-          stockID: this.$store.state.stockID
+          stockId: this.$store.getters.getStockId
         }
+
         this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
             let data = res.data
             for(let i =0;i<res.data.length;i++){

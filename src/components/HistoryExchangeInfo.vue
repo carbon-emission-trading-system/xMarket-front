@@ -257,7 +257,7 @@
       },
       setHistoryExchangeApi: function () {
         let params={
-          userId: this.$store.state.user.userId
+          userId: this.$store.getters.getUserId
         }
         this.$api.http('get','/api/historyExchangeInfo',params).then(res => {
             console.log(res);
