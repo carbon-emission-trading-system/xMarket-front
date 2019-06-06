@@ -43,13 +43,13 @@
           style="width: 100%;font-size: 8px"
           :default-sort = "{prop: 'orderTime', order: 'descending'}">
           <el-table-column
-            prop="orderDate"
+            prop="date"
             label="委托日期"
             width="100"
             align="center">
           </el-table-column>
           <el-table-column
-            prop="orderTime"
+            prop="time"
             label="委托时间"
             width="100"
             sortable
@@ -68,7 +68,7 @@
             align="center">
           </el-table-column>
           <el-table-column
-            prop="operation"
+            prop="type"
             label="操作"
             width="80"
             align="center">
@@ -98,13 +98,13 @@
             align="center">
           </el-table-column>
           <el-table-column
-            prop="revokeAmount"
+            prop="cancelNumber"
             label="撤单数量"
             width="80"
             align="center">
           </el-table-column>
           <el-table-column
-            prop="orderType"
+            prop="tradeStraregy"
             label="订单类型"
             width="85"
             align="center">
