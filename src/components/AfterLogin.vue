@@ -66,7 +66,7 @@
         <div slot="header" class="clearfix">
           <i class="el-icon-setting" style="font-size: 25px"></i>
           <span style="font-size: 25px">自选股</span>
-          <el-button style="float: right; padding: 3px 0" type="text">管理自选</el-button>
+          <router-link to="/SelfSelectedStock"><el-button style="float: right; padding: 3px 0" type="text">管理自选</el-button></router-link>
         </div>
         <el-table
           :data="stock"
@@ -74,7 +74,7 @@
           style="width: 100%;font-size: 6px"
           height="250">
           <el-table-column
-            prop="stockID"
+            prop="stockId"
             label="股票代码"
             width="85"
             align="center">
@@ -181,6 +181,7 @@
       this.setStocksApi();
     },
     beforeMount(){
+      console.log(this.$store.state.isLogin)
       if(this.$store.state.isLogin===false){
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
@@ -212,7 +213,9 @@
       setNoticesApi:function () {
         this.$api.http('post','/api/getNews').then(res=>{
             this.notices = res.data;
-          });
+          }).catch((error)=>{
+
+        })
       },
       //获取自选股
       setStocksApi:function () {

@@ -52,49 +52,49 @@
             <el-table-column
               prop="exchangeTime"
               label="成交时间"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="stockID"
+              prop="stockId"
               label="股票代码"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="operation"
               label="操作"
-              width="60"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
               prop="exchangeAmount"
               label="成交数量"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="exchangeAveragePrice"
               label="成交均价"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="exchangePrice"
               label="成交金额"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockBalance"
               label="股票余额"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
@@ -112,7 +112,7 @@
             <el-table-column
               prop="serviceTax"
               label="手续费"
-              width="70"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
@@ -124,25 +124,25 @@
               <el-table-column
                 prop="incidentalCharge"
                 label="其他杂费"
-                width="70"
+                width="80"
                 align="center">
             </el-table-column>
             <el-table-column
               prop="actualAmount"
               label="发生金额"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="market"
               label="交易市场"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="revokeAmount"
               label="撤单数量"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
 
@@ -162,7 +162,6 @@
 <script>
   import SelectDate from './SelectDate'
   import Vue from 'vue'
-  import api from "../api";
   Vue.component('selectDate',SelectDate)
 
 
@@ -202,7 +201,7 @@
 
       handle(row){
         // console.log(row.stockId)
-        this.$store.commit('stockID',row.stockID)
+        this.$store.commit('stockId',row.stockId)
         this.$store.commit('stockName',row.stockName)
         this.$router.push('StockDisplay')
       },

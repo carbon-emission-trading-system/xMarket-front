@@ -46,15 +46,15 @@
             @row-click="handle"
             style="width: 100%;font-size: 6px">
             <el-table-column
-              prop="stockID"
+              prop="stockId"
               label="股票代码"
-              width="85"
+              width="90"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="85"
+              width="90"
               align="center">
             </el-table-column>
             <el-table-column
@@ -73,49 +73,50 @@
             <el-table-column
               prop="highestPrice"
               label="最高价"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="lowestPrice"
               label="最低价"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="todayOpenPrice"
+              prop="openPrice"
               label="今开盘"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="yesterdayOpenPrice"
               label="昨开盘"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="turnover"
+              prop="tradeAmount"
               label="成交额"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="marketValue"
+              prop="totalMarketCapitalization"
               label="市值"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="priceEarningsRatio"
+              prop="peRatio"
               label="市盈率"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="priceToBookRatio"
+              prop="pbRatio"
               label="市净率"
               align="center"
+
             >
             </el-table-column>
 
@@ -197,7 +198,7 @@
         //处理列表点击事件
         handle(row){
          // console.log(row.stockId)
-          this.$store.commit('stockID',row.stockID)
+          this.$store.commit('stockId',row.stockId)
           this.$store.commit('stockName',row.stockName)
           this.$router.push('StockDisplay')
         }
@@ -217,7 +218,7 @@
               }
               else
               {
-                if(this.tableData[i].type===this.index){
+                if(this.tableData[i].tradeMarket===this.index){
                   list.push(this.tableData[i])
                 }
               }

@@ -30,11 +30,13 @@
     <div id="register">
       <el-card class="box-card" style="margin-top: 5%">
         <el-form label-position="left" label-width="120px" :model="user"
-                 :rules="rules" ref="ruleForm">
+                 :rules="rules" ref="user">
           <el-form-item label="邮箱"
                         prop="email"
                         :rules="[{
-                          required:true,validator: DetermineIfmailExists, trigger: 'blur'
+                        required: true,
+                        validator: DetermineIfmailExists,
+                        trigger: 'blur'
                         }]">
             <el-input v-model="user.email" placeholder="请输电子邮箱  "></el-input>
           </el-form-item>
@@ -67,13 +69,17 @@
           <el-form-item label="确认交易密码" prop="transactionRepassword">
             <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
           </el-form-item>
+          <router-link to="/">
+            <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
+          </router-link>
 
-          <el-button class="submit-btn" type="primary" @click="register('ruleForm')">注册</el-button>
+          <!--<router-link to="/">-->
+          <!--<el-button class="submit-btn" type="primary">登录</el-button>-->
+          <!--</router-link>-->
+          <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
         </el-form>
 
-        <router-link to="/">
-          <el-button type="text" icon="el-icon-edit">去登录页</el-button>
-        </router-link>
+
       </el-card>
     </div>
   </div>
@@ -85,16 +91,7 @@ import qs from 'qs'
   import Vue from 'vue'
 
   export default {
-
     data() {
-      let validCode = (rule, value, callback) => {
-        let reg = /[0-9a-zA-Z]{4,9}/
-        if (!reg.test(value)) {
-          callback(new Error('学号必须是由4-9位数字和字母组合'))
-        } else {
-          callback()
-        }
-      };
       return {
         activeIndex: '/',
         user: {
@@ -106,8 +103,8 @@ import qs from 'qs'
           transactionRepassword: '',
           mailCode: ''
         },
+        flag: 0,
         msg: 'Welcome to Your Vue.js App',
-
         rules: {
           email: [
             {required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -116,6 +113,7 @@ import qs from 'qs'
               message: '邮箱格式错误',
               trigger: 'blur'
             },
+
           ],
           username: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -141,7 +139,8 @@ import qs from 'qs'
                 } else {
                   callback();
                 }
-              }, trigger: 'blur'
+              },
+              trigger: 'blur',
             }
           ],
 
@@ -158,7 +157,19 @@ import qs from 'qs'
                 }
               }, trigger: 'blur'
             }
-          ]
+          ],
+          mailCode: [
+            {required: true, message: '请输入验证码 ', trigger: 'blur'},
+            {
+              validator: (rule, value, callback) => {
+                if (value === '') {
+                  callback(new Error('请输入验证码'));
+                } else {
+                  callback();
+                }
+              }, trigger: 'blur'
+            }
+          ],
         }
       }
     },
@@ -178,9 +189,11 @@ import qs from 'qs'
       },
       register(formName) {
         var self = this;
+
+        console.log('4')
         self.$refs[formName].validate((valid) => {
           if (valid) {
-
+            console.log('3')
             self.$store.dispatch('register', this.user)
               .then((response) => {
                 self.$message.success(response.message)
@@ -193,12 +206,18 @@ import qs from 'qs'
         });
       },
       getMailCode(email) {
-        let params = {
-          mailAdress: this.user.email
+        if (this.flag === 0) {
+          alert("邮箱已被注册")
+        } else {
+          console.log("111")
+          let params = {
+            mailAdress: this.user.email
+          }
+          console.log("dao")
+          this.$api.http('get', "/api/getMailCode", params).then(res => {
+            console.log(res);
+          })
         }
-        this.$api.http('get', "/api/getMailCode", params).then(res => {
-          console.log(res);
-        })
       },
       /**
        *
@@ -207,17 +226,29 @@ import qs from 'qs'
        * @constructor
        */
       DetermineIfmailExists(rule, value, callBank) {
+        this.flag=0;
         let prom = {
-          e: this.user.email,
+          mailAdress: this.user.email,
         }
-        this.$api.http('get', "/api/DetermineIfmailExists", prom).then(res => {
-          if (res.code === 200) {
-            callBank()
-          } else {
-            callBank(res.message)
-          }
-        })
-      },
+        if (value === '') {
+          callBank(new Error('请输入账户邮箱'));
+        } else {
+          console.log('这里')
+          console.log(prom)
+          this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
+            // this.$api.http('get', "/api/determineIfMailExists", prom).then(res => {
+            console.log('sdasd');
+            if (res.code === 200) {
+              callBank();
+              this.flag = 1;
+              console.log("www")
+            } else {
+              callBank(res.message)
+            }
+          })
+        }
+      }
+      ,
       /**
        * 判断userName是否存在
        * @param rule
@@ -225,22 +256,29 @@ import qs from 'qs'
        * @param callBank
        * @constructor
        */
-      DetermineIfUserNameExists(rule, value, callBank){
+      DetermineIfUserNameExists(rule, value, callBank) {
+
         let prom = {
           e: this.user.username,
         }
-        this.$api.http('get', "/api/DetermineIfUserNameExists", prom).then(res => {
-          if (res.code === 200) {
-            callBank()
-          } else {
-            callBank(res.message)
-          }
-        })
-      },
+        if (value === '') {
+          callBank(new Error('请输入账户名'));
+        } else {
+          this.$api.http('get', "/api/DetermineIfUserNameExists", prom).then(res => {
+            if (res.code === 200) {
+              callBank()
+            } else {
+              callBank(res.message)
+            }
+          })
+        }
+      }
     }
-
+      ,
 
   }
+
+
 </script>
 
 <style lang="scss">
@@ -248,7 +286,6 @@ import qs from 'qs'
     margin: auto;
     width: 40%;
     height: 40%;
-
   }
 
   .box-card {

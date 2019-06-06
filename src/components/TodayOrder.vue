@@ -56,39 +56,39 @@
             align="center">
           </el-table-column>
           <el-table-column
-            prop="stockID"
+            prop="stockId"
             label="股票代码"
-            width="70"
+            width="85"
             align="center">
           </el-table-column>
           <el-table-column
             prop="stockName"
             label="股票简称"
-            width="70"
+            width="85"
             align="center">
           </el-table-column>
           <el-table-column
             prop="operation"
             label="操作"
-            width="70"
+            width="80"
             align="center">
           </el-table-column>
           <el-table-column
             prop="orderAmount"
             label="委托数量"
-            width="70"
+            width="85"
             align="center">
           </el-table-column>
           <el-table-column
             prop="exchangeAmount"
             label="成交数量"
-            width="70"
+            width="80"
             align="center">
           </el-table-column>
           <el-table-column
             prop="exchangeAveragePrice"
             label="成交均价"
-            width="70"
+            width="80"
             align="center">
           </el-table-column>
           <el-table-column
@@ -106,7 +106,7 @@
           <el-table-column
             prop="orderType"
             label="订单类型"
-            width="80"
+            width="85"
             align="center">
           </el-table-column>
           <el-table-column
@@ -164,7 +164,7 @@
       },
       handle(row){
         // console.log(row.stockId)
-        this.$store.commit('stockID',row.stockID)
+        this.$store.commit('stockId',row.stockId)
         this.$store.commit('stockName',row.stockName)
         this.$router.push('StockDisplay')
       },
