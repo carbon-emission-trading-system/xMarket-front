@@ -335,7 +335,8 @@
       firstReturnStockRealtimeInformation() {
         let prom = {
           stockId: this.stockTrading.stockId,
-          userId: store.state.user.userId
+          // userId: store.state.user.userId
+          userId: this.$store.getters.getUserId
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
@@ -372,7 +373,7 @@
        */
       websocketSubmit() {
         let SentstockTrading = {
-          userId: this.$store.state.userId,
+          userId: this.$store.getters.getUserId,
           stockId: this.stockTrading.stockId,
           type: 0,
           orderAmount: this.stockTrading.orderAmount,
@@ -387,7 +388,7 @@
        * ajax发送给后台委托单
        */
       ajaxSubmit() {
-        if (store.state.user.userId == null) {
+        if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
         } else if (this.stockTrading.stockId == null
           || this.stockTrading.orderPrice == null
@@ -396,7 +397,8 @@
         } else {
           this.firstReturnStockRealtimeInformation()
           let SentstockTrading = {
-            userId: store.state.user.userId,
+            // userId: store.state.user.userId,
+            userId: this.$store.getters.getUserId,
             stockId: this.stockTrading.stockId,
             type: 0,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
