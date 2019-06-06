@@ -99,27 +99,27 @@
                   align="center">
                 </el-table-column>
                 <el-table-column
-                  prop="todayOpenPrice"
+                  prop="openPrice"
                   label="今开盘"
                   align="center">
                 </el-table-column>
                 <el-table-column
-                  prop="turnover"
+                  prop="tradeAmount"
                   label="成交额"
                   align="center">
                 </el-table-column>
                 <el-table-column
-                  prop="marketValue"
+                  prop="totalMarketCapitalization"
                   label="市值"
                   align="center">
                 </el-table-column>
                 <el-table-column
-                  prop="priceEarningsRatio"
+                  prop="peRatio"
                   label="市盈率"
                   align="center">
                 </el-table-column>
                 <el-table-column
-                  prop="priceToBookRatio"
+                  prop="pbRatio"
                   label="市净率"
                   align="center">
                 </el-table-column>
