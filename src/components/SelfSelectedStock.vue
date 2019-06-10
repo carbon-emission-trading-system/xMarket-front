@@ -4,7 +4,6 @@
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
@@ -37,7 +36,6 @@
         <el-container style="height: 500px; border: 1px solid #eee">
           <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-active="activeIndexSelfCenter"
-                     @select="handleSelect"
                      router>
               <el-menu-item index="SelfCenter">资产信息</el-menu-item>
               <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
@@ -180,9 +178,7 @@
         this.$store.commit('stockName', row.stockName)
         this.$router.push('StockDisplay')
       },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
+
       handleClick(id, name) {
 
         let x = '此操作将永久删除“' + id + name + '”股票, 是否继续?'

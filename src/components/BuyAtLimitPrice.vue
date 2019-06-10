@@ -5,7 +5,6 @@
       <el-menu :default-active="activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
@@ -35,7 +34,6 @@
       <el-menu :default-active="activeIndexBS"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#909399"
                text-color="#fff"
                active-text-color="#ffd04b"
@@ -172,11 +170,6 @@
         this.$store.commit('logout')
         this.$router.push('/')
       },
-      //导航栏需要
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-
       realTimeDataDisplay() {
         var self = this;
         Vue.axios.get('/api/realTimeDataDisplay')
