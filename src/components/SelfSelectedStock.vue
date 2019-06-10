@@ -221,7 +221,7 @@
           this.tableData = res.data;
           console.log(this.tableData)
         }).catch((error) => {
-          this.$message.error(res.message)
+          this.$message.error(error.message)
         })
       },
 
@@ -241,9 +241,10 @@
         this.$api.http('post', "/api/deleteSelfSelectStock", params).then(res => {
           console.log(res);
           let mess = res.code;
+          this.ReceiveSelfSelectedStock()
           return mess;
         }).catch((error) => {
-          this.$message.error(res.message)
+          this.$message.error(error.message)
         })
       },
     },
