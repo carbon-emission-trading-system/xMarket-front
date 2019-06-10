@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               router="true">
+               v-bind:router= true>
 
         <el-menu-item style = "margin-left: 15%" index="AfterLogin" >首页</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
@@ -24,7 +24,7 @@
 
         <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
         <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
