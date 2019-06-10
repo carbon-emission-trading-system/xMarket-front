@@ -181,7 +181,7 @@
       remove(){
         this.chosen = false
         let params = {
-          userID: this.$store.getters.getUserId,
+          userId: this.$store.getters.getUserId,
           stockId: this.$store.getters.getStockId
         }
         this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {
