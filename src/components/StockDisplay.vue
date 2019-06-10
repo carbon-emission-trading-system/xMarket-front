@@ -4,7 +4,6 @@
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
@@ -140,11 +139,6 @@
     },
 
     methods: {
-      //导航栏需要
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')
@@ -187,7 +181,7 @@
       remove(){
         this.chosen = false
         let params = {
-          userID: this.$store.getters.getUserId,
+          userId: this.$store.getters.getUserId,
           stockId: this.$store.getters.getStockId
         }
         this.$api.http('post',"/api/deleteSelfSelectStock", params).then(res => {

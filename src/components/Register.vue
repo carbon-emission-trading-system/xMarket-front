@@ -5,7 +5,6 @@
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
@@ -179,14 +178,6 @@ import qs from 'qs'
     },
     methods: {
 
-      /**
-       * @since 导航栏需要
-       * @param key
-       * @param keyPath
-       */
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
       warning() {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',

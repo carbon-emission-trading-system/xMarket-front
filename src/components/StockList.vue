@@ -4,7 +4,6 @@
         <el-menu :default-active="this.activeIndex"
                  class="el-menu-demo"
                  mode="horizontal"
-                 @select="handleSelect"
                  background-color="#545c64"
                  text-color="#fff"
                  active-text-color="#ffd04b"
@@ -159,11 +158,6 @@
           this.$store.dispatch('stockList')
       },
       methods:{
-        //导航栏需要
-        handleSelect(key, keyPath) {
-          console.log(key, keyPath);
-        },
-
         exit(){
           this.$store.commit('logout')
           this.$router.push('/')
