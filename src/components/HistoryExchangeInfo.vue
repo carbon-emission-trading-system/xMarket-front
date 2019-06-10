@@ -40,7 +40,7 @@
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
             style="width: 100%;font-size: 6px"
-            @row-click="handle"
+            @row-dblclick="handle"
             :default-sort = "{prop: 'exchangeDate', order: 'descending'}">
             <el-table-column
               prop="date"

@@ -38,7 +38,7 @@
       <el-table
         :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
         border
-        @row-click="handle"
+        @row-dblclick="handle"
         style="width: 100%;font-size: 6px"
         :default-sort = "{prop: 'exchangeTime', order: 'descending'}">
         <el-table-column

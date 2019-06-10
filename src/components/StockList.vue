@@ -43,7 +43,7 @@
           <el-table
             :data="list.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
-            @row-click="handle"
+            @row-dblclick="handle"
             style="width: 100%;font-size: 6px">
             <el-table-column
               prop="stockId"

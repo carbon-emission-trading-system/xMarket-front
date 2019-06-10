@@ -92,67 +92,76 @@
               <el-table
                 :data="tableData"
                 border
-                @row-click="handle"
+                @row-dblclick="handle"
                 style="width:100%;font-size: 6px">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
                   sortable
-                  align="center">
+                  align="center"
+                width="100">
                 </el-table-column>
                 <el-table-column
                   prop="stockName"
                   label="股票简称"
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="presentPrice"
                   label="现价"
                   sortable
-                  align="center">
+                  align="center"
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="costPrice"
                   label="成本价"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="actualAmont"
                   label="实际数量"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
-
                 <el-table-column
                   prop="todayProfitAndLoss"
                   label="当日盈亏"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="totalProfitAndLoss"
                   label="总盈亏"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
 
                 <el-table-column
                   prop="profitAndLossRatio"
                   label="盈亏比例"
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="marketValue"
                   label="市值"
                   sortable
-                  align="center">
+                  align="center"
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="positionRatio"
                   label="仓位占比"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
 
               </el-table>
@@ -285,10 +294,6 @@
     margin-right: 10%;
   }
 
-  el-table-column {
-    width: 8%;
-    align: "center"
-  }
 
   #select {
     margin-top: 50px;

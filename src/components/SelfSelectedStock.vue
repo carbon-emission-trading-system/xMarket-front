@@ -59,9 +59,9 @@
           <div style="width: 100%;font-size: 6px">
             <el-table
               :data="tableData"
-              @row-click="handle"
+              @row-dblclick="handle"
               border
-              style="width:100%">
+              style="width:100%;font-size: 6px">
               <el-table-column
                 prop="stockId"
                 label="股票代码"
@@ -125,8 +125,9 @@
               </el-table-column>
               <el-table-column
                 fixed="right"
-                label="清除"
-                width="100">
+                label="操作"
+                width="70"
+                align="center">
                 <template slot-scope="scope">
                   <el-button @click="handleClick(scope.row.stockId,scope.row.stockName)" type="text" size="small">删除
                   </el-button>
@@ -193,7 +194,7 @@
             type: 'success',
             message: '删除成功!',
             // 删除自选股消息
-            // mess:this.deleteSelfSelectStock(id),
+            mess:this.deleteSelfSelectStock(id),
             if(mess = 200) {
               message: '删除成功!';
             },
@@ -291,10 +292,6 @@
     margin: 0 auto;
   }
 
-  el-table-column {
-    width: 8%;
-    align: "center"
-  }
 
   /*.weigh_el-table-column {*/
   /**/

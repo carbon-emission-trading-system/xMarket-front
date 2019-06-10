@@ -38,7 +38,7 @@
         <div id="stock">
           <el-table
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-            @row-click="handle"
+            @row-dblclick="handle"
             border
             style="width: 90%;font-size: 6px"
             :default-sort = "{prop: 'buildPositionDate', order: 'descending'}">
