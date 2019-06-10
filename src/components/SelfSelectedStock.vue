@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               router="true">
+               v-bind:router= true>
 
         <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -194,10 +194,10 @@
             type: 'success',
             message: '删除成功!',
             // 删除自选股消息
-            mess:this.deleteSelfSelectStock(id),
+              mess:this.deleteSelfSelectStock(id),
             if(mess = 200) {
               message: '删除成功!';
-            },
+            }
           });
         }).catch(() => {
           this.$message({
@@ -243,7 +243,7 @@
         }
         this.$api.http('post', "/api/deleteSelfSelectStock", params).then(res => {
           console.log(res);
-          let mess = res.data;
+          let mess = res.code;
           return mess;
         }).catch((error) => {
           this.$message.error(res.message)

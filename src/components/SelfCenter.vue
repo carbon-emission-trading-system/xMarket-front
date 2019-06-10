@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               router="true">
+               v-bind:router= true>
 
         <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -55,26 +55,26 @@
               <span style="float: left">资金信息</span>
             </div>
             <div class="text item">
-              <table>
+              <table style="align-content: left">
                 <tr>
-                  <td style="padding-bottom: 2%">
+                  <td style="padding-bottom: 2%; padding-left: 5%;">
                     总资产: {{ this.UserFundsInformation.totalFunds}}
                   </td>
-                  <td style="padding-bottom: 2%">
+                  <td style="padding-bottom: 2%;">
                     持仓盈亏: {{this.UserFundsInformation.holdPosProAndLos}}
                   </td>
-                  <td style="padding-bottom: 2%">
+                  <td style="padding-bottom: 2%;">
                     可用资金: {{ this.UserFundsInformation.balance}}
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td style="align-content: left;padding-left: 5%;">
                     总市值: {{ this.UserFundsInformation.totalMarketValue}}
                   </td>
-                  <td>
+                  <td style="align-content: left">
                     当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}
                   </td>
-                  <td>
+                  <td style="align-content: left">
                     冻结资金: {{ this.UserFundsInformation.frozenAmount}}
                   </td>
                 </tr>
@@ -287,6 +287,7 @@
 
   td {
     padding-right: 5%;
+    text-align: left;
   }
 
   .rightCard {
