@@ -5,13 +5,12 @@
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
                v-bind:router=true>
 
-        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 15%" index="/">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" @click="warning">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
@@ -29,8 +28,10 @@
 
     <div id="register">
       <el-card class="box-card" style="margin-top: 5%">
-        <el-form label-position="left" label-width="120px" :model="user"
-                 :rules="rules" ref="user">
+        <el-form label-position="left" label-width="120px"
+                 :model="user"
+                 :rules="rules"
+                 ref="user">
           <el-form-item label="邮箱"
                         prop="email"
                         :rules="[{
@@ -38,10 +39,9 @@
                         validator: DetermineIfmailExists,
                         trigger: 'blur'
                         }]">
-            <el-input v-model="user.email" placeholder="请输电子邮箱  "></el-input>
+            <el-input v-model="user.email" placeholder="请输电子邮箱"></el-input>
           </el-form-item>
           <el-form-item label="验证码" prop="mailCode">
-
             <el-col :span="14">
               <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"></el-input>
             </el-col>
@@ -49,8 +49,6 @@
             <el-col :span="6">
               <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
               <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
-
-              <!--<span v-show="!show" class="count">{{count}} s</span>-->
             </el-col>
           </el-form-item>
           <el-form-item label="用户名"
@@ -75,10 +73,6 @@
           <router-link to="/">
             <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
           </router-link>
-
-          <!--<router-link to="/">-->
-          <!--<el-button class="submit-btn" type="primary">登录</el-button>-->
-          <!--</router-link>-->
           <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
         </el-form>
 
@@ -118,12 +112,12 @@ import qs from 'qs'
               pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
               message: '邮箱格式错误',
               trigger: 'blur'
-            },
+            }
 
           ],
           username: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
-            {pattern: /^([a-zA-Z0-9|_|\_|\.])*$/, message: '只能输入字母，数字，下划线和“.”', trigger: 'blur'}
+            {pattern: /^([a-zA-Z0-9|_|\_|\.])*$/, message: '只能输入字母，数字，下划线和“.”', trigger: 'blur'},
           ],
           loginPassword: [
             {required: true, message: '请输入密码 ', trigger: 'blur'},
@@ -181,70 +175,74 @@ import qs from 'qs'
     },
     methods: {
 
-      /**
-       * @since 导航栏需要
-       * @param key
-       * @param keyPath
-       */
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
       warning() {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
       },
 
-
+      /**
+       * @Description: 注册按钮
+       * @Param:
+       * @return:
+       * @Author: zky
+       * @Date:
+       */
       register(formName) {
-        alert('sf')
+        alert(this.$refs[formName]);
+        console.log(this.$refs[formName]);
         this.$refs[formName].validate((valid) => {
-          alert('sf')
           if (valid) {
-            alert('23324234')
+            this.$store.dispatch('register', this.user).then((response) => {
+              console.log('注册成功');
+              this.$message.success(response.message);
+              this.$router.push('/');
+            }).catch((response) => {
+              this.$message.error(response.message)
+            })
           } else {
             console.log('error submit!!');
             return false;
           }
         })
       },
-      // register(formName) {
-      //   var self = this;
-      //   console.log(self);
-      //   console.log('2221');
-      //
-      //   self.$refs[formName].validate((valid) => {
-      //     alert('xzsadsdsadassadsadsaddas')
-      //     if (valid) {
-      //       console.log('1')
-      //       self.$store.dispatch('register', this.user).then((response) => {
-      //         console.log('注册成功')
-      //         self.$message.success(response.message);
-      //         self.$router.push('/');
-      //       }).catch((response) => {
-      //           self.$message.error(response.message)
-      //         })
-      //     }else {
-      //       console.log('error submit!!');
-      //       return false;
-      //     }
-      //   });
-      // },
+      /**
+       * @Description: 获取验证码按钮
+       * @Param:
+       * @return:
+       * @Author: zky
+       * @Date:
+       */
       getMailCode(email) {
-        if (this.flag === 2) {
-          alert("邮箱已被注册")
-        } else {
+        if (this.flag === 0) {
+          alert('请输入邮箱');
+        } else if (this.flag === 2) {
+          alert("邮箱已被注册");
+        } else if (this.flag === 1) {
           let params = {
             mailAdress: this.user.email
           };
           this.$api.http('get', "/api/getMailCode", params).then(res => {
           }).catch((error) => {
             this.$message.error(error.message)
-          })
+          });
           this.getCode();
+        } else {
+          alert('未知错误')
         }
       },
+      /**
+       * @Description: 倒计时60秒
+       * @Param:
+       * @return:
+       * @Author: zky
+       * @Date:
+       */
       getCode() {
+        /**
+         * 倒计时时间
+         * @type {number}
+         */
         const TIME_COUNT = 60;
         if (!this.timer) {
           this.count = TIME_COUNT;
@@ -268,16 +266,18 @@ import qs from 'qs'
        */
       DetermineIfmailExists(rule, value, callBank) {
         this.flag = 0;
-        let prom = {
+        let params = {
           mailAdress: this.user.email,
-        }
+        };
         if (value === '') {
           callBank(new Error('请输入账户邮箱'));
         } else {
-          this.$api.http('get', '/api/determineIfMailExists', prom).then(res => {
+          this.$api.http('get', '/api/determineIfMailExists', params).then(res => {
             this.flag = 1;
+            callBank()
           }).catch((error) => {
-            this.flag = 2,
+            console.log(error);
+            this.flag = 2;
               callBank(error.message)
           })
         }
@@ -291,7 +291,6 @@ import qs from 'qs'
        * @constructor
        */
       DetermineIfUserNameExists(rule, value, callBank) {
-
         let prom = {
           userName: this.user.username,
         };
@@ -300,15 +299,14 @@ import qs from 'qs'
         } else {
           this.$api.http('get', "/api/determineIfUserNameExists", prom).then(res => {
             callBank()
-          }).catch((error)=>{
-              callBank(error.message)
+          }).catch((error) => {
+            callBank(error.message)
           })
         }
       }
     }
     ,
   }
-
 
 </script>
 

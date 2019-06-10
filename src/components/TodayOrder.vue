@@ -4,13 +4,12 @@
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               router="true">
+               v-bind:router= true>
 
-        <el-menu-item style = "margin-left: 20%" index="AfterLogin" >首页</el-menu-item>
+        <el-menu-item style = "margin-left: 15%" index="AfterLogin" >首页</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
@@ -23,9 +22,10 @@
         </el-submenu>
 
         <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <div id="exit">
-          <el-link type="primary" @click="exit">退出</el-link>
-        </div>
+        <el-submenu style = "margin-left: 5%" index="2">
+          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+          <el-menu-item @click="exit">退出</el-menu-item>
+        </el-submenu>
       </el-menu>
 
     </div>
@@ -39,7 +39,7 @@
         <el-table
           :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
           border
-          @row-click="handle"
+          @row-dblclick="handle"
           style="width: 100%;font-size: 8px"
           :default-sort = "{prop: 'orderTime', order: 'descending'}">
           <el-table-column

@@ -4,13 +4,12 @@
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               @select="handleSelect"
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               router="true">
+               v-bind:router= true>
 
-        <el-menu-item style="margin-left: 20%" index="AfterLogin">首页</el-menu-item>
+        <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
@@ -23,9 +22,10 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <div id="exit">
-          <el-link type="primary" @click="exit">退出</el-link>
-        </div>
+        <el-submenu style = "margin-left: 5%" index="2">
+          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+          <el-menu-item @click="exit">退出</el-menu-item>
+        </el-submenu>
       </el-menu>
     </div>
 
@@ -35,7 +35,6 @@
         <el-container style="height: 500px; border: 1px solid #eee">
           <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-active="activeIndexSelfCenter"
-                     @select="handleSelect"
                      router>
               <el-menu-item index="SelfCenter">资产信息</el-menu-item>
               <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
@@ -55,26 +54,26 @@
               <span style="float: left">资金信息</span>
             </div>
             <div class="text item">
-              <table>
+              <table style="align-content: left">
                 <tr>
-                  <td style="padding-bottom: 2%">
+                  <td style="padding-bottom: 2%; padding-left: 5%;">
                     总资产: {{ this.UserFundsInformation.totalFunds}}
                   </td>
-                  <td style="padding-bottom: 2%">
+                  <td style="padding-bottom: 2%;">
                     持仓盈亏: {{this.UserFundsInformation.holdPosProAndLos}}
                   </td>
-                  <td style="padding-bottom: 2%">
+                  <td style="padding-bottom: 2%;">
                     可用资金: {{ this.UserFundsInformation.balance}}
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td style="align-content: left;padding-left: 5%;">
                     总市值: {{ this.UserFundsInformation.totalMarketValue}}
                   </td>
-                  <td>
+                  <td style="align-content: left">
                     当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}
                   </td>
-                  <td>
+                  <td style="align-content: left">
                     冻结资金: {{ this.UserFundsInformation.frozenAmount}}
                   </td>
                 </tr>
@@ -92,67 +91,76 @@
               <el-table
                 :data="tableData"
                 border
-                @row-click="handle"
+                @row-dblclick="handle"
                 style="width:100%;font-size: 6px">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
                   sortable
-                  align="center">
+                  align="center"
+                width="100">
                 </el-table-column>
                 <el-table-column
                   prop="stockName"
                   label="股票简称"
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="presentPrice"
                   label="现价"
                   sortable
-                  align="center">
+                  align="center"
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="costPrice"
                   label="成本价"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="actualAmont"
                   label="实际数量"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
-
                 <el-table-column
                   prop="todayProfitAndLoss"
                   label="当日盈亏"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="totalProfitAndLoss"
                   label="总盈亏"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
 
                 <el-table-column
                   prop="profitAndLossRatio"
                   label="盈亏比例"
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="marketValue"
                   label="市值"
                   sortable
-                  align="center">
+                  align="center"
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="positionRatio"
                   label="仓位占比"
                   sortable
-                  align="center">
+                  align="center"
+                  width="100">
                 </el-table-column>
 
               </el-table>
@@ -212,9 +220,7 @@
         this.$store.commit('stockName', row.stockName);
         this.$router.push('StockDisplay')
       },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
+
 
       /**
        * @author zky
@@ -255,7 +261,7 @@
           this.tableData = res.data;
           console.log(this.tableData)
         }).catch((error)=> {
-          this.$message.error(res.message)
+          this.$message.error(error.message)
         })
       },
     },
@@ -278,6 +284,7 @@
 
   td {
     padding-right: 5%;
+    text-align: left;
   }
 
   .rightCard {
@@ -285,10 +292,6 @@
     margin-right: 10%;
   }
 
-  el-table-column {
-    width: 8%;
-    align: "center"
-  }
 
   #select {
     margin-top: 50px;
