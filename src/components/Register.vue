@@ -11,7 +11,7 @@
                active-text-color="#ffd04b"
                v-bind:router=true>
 
-        <el-menu-item style="margin-left: 20%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 15%" index="/">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" @click="warning">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
