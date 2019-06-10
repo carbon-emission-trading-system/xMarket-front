@@ -70,7 +70,7 @@
         </div>
         <el-table
           :data="stock"
-          @row-click="handle"
+          @row-dblclick="handle"
           style="width: 100%;font-size: 6px"
           height="250">
           <el-table-column

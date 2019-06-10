@@ -202,10 +202,10 @@
       //查看该股票是否为自选股
       setSelfApi:function(){
         let params={
-          stockID: this.$store.getters.getStockId,
+          stockId: this.$store.getters.getStockId,
           userId:this.$store.getters.getUserId
         }
-        this.$api.http('get','/api/SelfStockValue',params).then(res => {
+        this.$api.http('get','/api/isSelfSelectStock',params).then(res => {
             console.log(res);
             this.chosen = res.data;
           });
