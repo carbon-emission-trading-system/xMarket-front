@@ -54,19 +54,22 @@
           </el-form-item>
           <el-form-item label="用户名"
                         prop="username"
-                        :rules="[{
+                        :rules="[
+                        {
                           required:true, validator: DetermineIfUserNameExists, trigger: 'blur'
-                        }]">
-            <el-input v-model="user.username" placeholder="请输用户名  "></el-input>
+                        },
+                        {pattern: /^([a-zA-Z0-9|_|\_|\.]{0,16})$/, message: '请输入8-16位字母,数字,下划线和“.” ', trigger: 'blur'},
+                        ]">
+            <el-input v-model="user.username" placeholder="请输入最多16位用户名 "></el-input>
           </el-form-item>
           <el-form-item label="登录密码" prop="loginPassword">
-            <el-input type="password" v-model="user.loginPassword" placeholder="请输入登录密码  "></el-input>
+            <el-input type="password" v-model="user.loginPassword" placeholder="请输入8-16位密码 "></el-input>
           </el-form-item>
           <el-form-item label="确认登录密码" prop="loginRepassword">
             <el-input type="password" v-model="user.loginRepassword" placeholder="请确认登录密码  "></el-input>
           </el-form-item>
           <el-form-item label="交易密码" prop="transactionPassword">
-            <el-input type="password" v-model="user.transactionPassword" placeholder="请输入交易密码  "></el-input>
+            <el-input type="password" v-model="user.transactionPassword" placeholder="只能输入6位数字  "></el-input>
           </el-form-item>
           <el-form-item label="确认交易密码" prop="transactionRepassword">
             <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
@@ -118,11 +121,11 @@ import qs from 'qs'
           ],
           username: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
-            {pattern: /^([a-zA-Z0-9|_|\_|\.])*$/, message: '只能输入字母，数字，下划线和“.”', trigger: 'blur'},
+            // {pattern: /^([a-zA-Z0-9|_|\_|\.]{2,13})$/, message: '只能输入字母，数字，下划线和“.”', trigger: 'blur'},
           ],
           loginPassword: [
             {required: true, message: '请输入密码 ', trigger: 'blur'},
-            {pattern: /^([a-zA-Z0-9|_|\_|\.]{8,16})$/, message: '只能输入字母，数字，下划线和“.”', trigger: 'blur'}
+            {pattern: /^([a-zA-Z0-9|_|\_|\.]{8,16})$/, message: '请输入8-16位字母,数字,下划线和“.” ', trigger: 'blur'}
           ],
           transactionPassword: [
             {required: true, message: '请输入交易密码 ', trigger: 'blur'},
@@ -287,7 +290,7 @@ import qs from 'qs'
           }).catch((error) => {
             console.log(error);
             this.flag = 2;
-              callBank(error.message)
+            callBank(error.message)
           })
         }
       }

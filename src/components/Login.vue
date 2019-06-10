@@ -8,21 +8,21 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
-        <el-menu-item style = "margin-left: 15%" index="/" >首页</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="StockList" >股票列表</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" @click="warning">股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="1">
-          <template slot="title" >信息统计</template>
-          <el-menu-item  @click="warning" >当日成交</el-menu-item>
+        <el-menu-item style="margin-left: 15%" index="/">首页</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
+        <el-menu-item style="margin-left: 5%" @click="warning">股票买卖</el-menu-item>
+        <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="margin-left: 5%" index="1">
+          <template slot="title">信息统计</template>
+          <el-menu-item @click="warning">当日成交</el-menu-item>
           <el-menu-item @click="warning">当日委托</el-menu-item>
-          <el-menu-item  @click="warning">历史持仓</el-menu-item>
-          <el-menu-item  @click="warning">历史成交</el-menu-item>
+          <el-menu-item @click="warning">历史持仓</el-menu-item>
+          <el-menu-item @click="warning">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" @click="warning">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 50px" @click="warning">个人中心</el-menu-item>
       </el-menu>
     </div>
 
@@ -76,19 +76,21 @@
               <el-form-item label="验证码" prop="validateCode">
 
                 <el-col :span="14">
-                  <el-input  v-model="user.validateCode" placeholder="请输验证码 "></el-input>
+                  <el-input v-model="user.validateCode" placeholder="请输验证码 "></el-input>
                 </el-col>
-                <el-col class="line" :span="2"> &nbsp  </el-col>
+                <el-col class="line" :span="2"> &nbsp</el-col>
                 <el-col :span="6">
 
-                  <img style="width: 100px; height: 30px" :src="imgCodeUrl"  @click="refreshCode()"></img>
+                  <img style="width: 100px; height: 30px" :src="imgCodeUrl" @click="refreshCode()"></img>
 
                 </el-col>
 
               </el-form-item>
               <el-button class="submit-btn" type="primary" @click="login('ruleForm')">登录</el-button>
             </el-form>
-            <router-link to="/register"><el-button type="text" icon="el-icon-edit" style="float: right">去注册页</el-button></router-link>
+            <router-link to="/register">
+              <el-button type="text" icon="el-icon-edit" style="float: right">去注册页</el-button>
+            </router-link>
           </div>
         </el-card>
 
@@ -102,16 +104,18 @@
 <script>
   import Vue from 'vue'
   import Search from './Search'
-  Vue.component( 'search',Search);
+  import axios from 'axios'
+
+  Vue.component('search', Search);
 
   export default {
     name: 'login',
     components: {
       Search,
     },
-    data () {
+    data() {
       return {
-        activeIndex:'/',
+        activeIndex: '/',
         notices: [],
         user: {
           username: '',
@@ -119,18 +123,18 @@
           validateCode: ''
         },
         msg: 'Welcome to Your Vue.js App',
-        imgCodeUrl:"",
+        imgCodeUrl: "",
         rules: {
           username: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
+            {required: true, message: '请输入用户名', trigger: 'blur'}
           ],
           loginPassword: [
-            { required: true, message: '请输入密码 ', trigger: 'blur' }
+            {required: true, message: '请输入密码 ', trigger: 'blur'}
           ]
         }
       }
     },
-    mounted:function(){
+    mounted: function () {
       this.refreshCode();//需要触发的函数
     },
     created() {
@@ -145,101 +149,104 @@
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-      warning(){
+      warning() {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
       },
+
       refreshCode(){
-        // let params= {{
-        //   responseType: "arraybuffer",
-        // }}
-        this.$api.http('get',"/api/validateCode").then(res => {
-          self.imgCodeUrl =res.data
-          console.log(res);
+        let self =this;
+        axios.get('/api/validateCode' ,{
+          responseType: "arraybuffer",
+        }).then(function (response) {
+          //将从后台获取的图片流进行转换
+          return 'data:image/png;base64,' + btoa(
+            new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          );
+        }).then(function (data) {
+          //接收转换后的Base64图片
+          self.imgCodeUrl = data;
+
+        }).catch(function (err) {
         })
       },
-        // Vue.axios.get('/api/validateCode' ,{
-        //   responseType: "arraybuffer",
-        // }).then(function (response) {
-        //   //将从后台获取的图片流进行转换
-        //   return 'data:image/png;base64,' + btoa(
-        //     new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
-        //   );
-        // }).then(function (data) {
-        //   //接收转换后的Base64图片
-        //   self.imgCodeUrl = data;
-        // }).catch(function (err) {
-        // })
-      // },
-      //获取公告
-      setNoticesApi:function () {
-        this.$api.http('post','/api/getNews').then(res=>{
-          this.notices = res.data;
-        });
-      },
-      login(formName) {
-        let self = this;
-        let userId
-        self.$refs[formName].validate((valid) => {
-          if (valid) {
-            // let params ={
-            //   username:this.user.username
-            // }
-            // //获取用户Id
-            // this.$api.http('get','/api/getUserId',params).then(res=>{
-            //   console.log(res);
-            //   userId=res.data.userId
-            // })
-            let payload = {
-              username: self.user.username,
-           //   userId:userId,
-              loginPassword: self.user.loginPassword,
-              validateCode: self.user.validateCode
-            }
-            self.$store.dispatch('login', payload)
-              .then((response) => {
-                self.$message.success(response.message)
-                self.$router.push('/afterLogin');
-              })
-              .catch((response) => {
-                self.$message.error(response.message)
-              })
+
+
+    //获取公告
+
+
+    setNoticesApi: function () {
+      this.$api.http('post', '/api/getNews').then(res => {
+        this.notices = res.data;
+      });
+    },
+    login(formName) {
+      let self = this;
+      let userId
+      self.$refs[formName].validate((valid) => {
+        if (valid) {
+          // let params ={
+          //   username:this.user.username
+          // }
+          // //获取用户Id
+          // this.$api.http('get','/api/getUserId',params).then(res=>{
+          //   console.log(res);
+          //   userId=res.data.userId
+          // })
+          let payload = {
+            username: self.user.username,
+            //   userId:userId,
+            loginPassword: self.user.loginPassword,
+            validateCode: self.user.validateCode
           }
-        });
-      }
+          self.$store.dispatch('login', payload)
+            .then((response) => {
+              self.$message.success(response.message)
+              self.$router.push('/afterLogin');
+            })
+            .catch((response) => {
+              self.$message.error(response.message)
+            })
+        }
+      });
     }
+  }
   }
 </script>
 
 <style lang="scss">
 
-  #in{
+  #in {
     display: inline-block;
     width: 70%;
     margin: 0 auto;
   }
-  #left{
+
+  #left {
     margin-top: 5%;
-    float:left;
-    width:45%;
+    float: left;
+    width: 45%;
     height: 45%
   }
-  #right{
+
+  #right {
     margin-top: 5%;
     float: right;
     width: 45%;
     height: 45%
   }
 
-  a{
+  a {
     text-decoration: none;
   }
+
   .clearfix:before,
   .clearfix:after {
     display: table;
     content: "";
   }
+
   .clearfix:after {
     clear: both
   }
@@ -251,13 +258,15 @@
   .el-aside {
     color: #333;
   }
+
   .code {
     margin: 400px auto;
     width: 114px;
     height: 40px;
     border: 1px solid red;
   }
-  .in{
+
+  .in {
     margin-top: 200px;
   }
 
