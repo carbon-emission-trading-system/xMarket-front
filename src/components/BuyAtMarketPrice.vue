@@ -342,14 +342,13 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            //
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
             this.ajaxSubmit();
           } else {
             console.log('error submit!!');
             return false;
           }
-        });
+        })
       },
 
       /**
