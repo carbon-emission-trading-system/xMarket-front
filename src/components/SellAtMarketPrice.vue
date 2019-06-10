@@ -68,7 +68,8 @@
                 <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
-                <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
+                {{ stockTrading.stockName}}
+                <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
               <el-form-item label="交易策略"
                             prop="value"
@@ -82,8 +83,8 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="可卖数量">
-                <el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"
-                          @blur.prevent="DetermineTheNumberOfPurchases()"></el-input>
+                {{ stockTrading.availableNumber }}
+                <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
               </el-form-item>
 
               <div class="proportion">
@@ -365,10 +366,14 @@
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
+          console.log(res.data.tradeMarket)
           if (this.stockTrading.tradeMarket === 0) {
             this.allDelegateType = store.state.SDelegateType;
+            console.log(this.allDelegateType)
           } else {
             this.allDelegateType = store.state.HDelegateType;
+            console.log('sada')
+            console.log(this.allDelegateType)
           }
         }).catch((res)=> {
           this.$message.error(res.message)

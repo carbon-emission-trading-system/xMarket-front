@@ -67,8 +67,10 @@
                             }]">
                 <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
               </el-form-item>
+
               <el-form-item label="证券名称">
-                <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
+                {{ stockTrading.stockName }}
+                <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
 
               <!---->
@@ -83,9 +85,10 @@
                              :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
-
               <el-form-item label="可买数量">
-                <el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>
+                {{ stockTrading.canorderAmount }}
+
+                <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
               </el-form-item>
 
               <div class="proportion">

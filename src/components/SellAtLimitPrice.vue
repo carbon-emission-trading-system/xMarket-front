@@ -69,7 +69,8 @@
                 ></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
-                <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
+                {{stockTrading.stockName}}
+                <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
               <el-form-item label="卖出价格"
                             prop="orderPrice">
@@ -81,7 +82,8 @@
                 <el-input v-model="stockTrading.orderPrice" placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量">
-                <el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>
+                {{stockTrading.availableNumber}}
+                <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
               </el-form-item>
 
               <div class="proportion">
