@@ -182,8 +182,8 @@
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
-      }
-      ;
+      };
+      this.connect();
     },
 
     methods: {
@@ -197,13 +197,14 @@
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
-        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
+        let exchange = "/exchange/realTimeExchange/stock.SZSE."+this.stockTrading.stockId;
 
-        var subscription = this.client.subscribe(exchange1, this.onmessage);
+
+        var subscription = this.client.subscribe(exchange, this.onmessage);
         console.log(subscription);
+        this.realTimeData=subscription;
 
         var subscription3 = this.client.subscribe(exchange3, this.onmessage);
         console.log(subscription3);

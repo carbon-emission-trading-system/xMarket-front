@@ -191,15 +191,13 @@
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
-        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
-        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
+        let exchange = "/exchange/realTimeExchange/stock.SZSE."+this.stockTrading.stockId;
 
 
-        var subscription = this.client.subscribe(exchange1, this.onmessage);
+        let subscription = this.client.subscribe(exchange, this.onmessage);
         console.log(subscription);
 
-        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        console.log(subscription3);
+
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -371,6 +369,7 @@
           this.basicInfoStok = res.data;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
+<<<<<<< HEAD
           this.orderPrice = 100;
           this.stockTrading.openPrice = 100;
 
@@ -381,6 +380,14 @@
           this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
 
         }).catch((res) => {
+=======
+          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
+
+          this.connect()
+
+
+        }).catch((res)=> {
+>>>>>>> e8389c9230a17e24ecca4a1a7706a7b72df8265c
           this.$message.error(res.message)
         });
 
