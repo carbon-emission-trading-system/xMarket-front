@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -23,8 +23,9 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -69,7 +70,7 @@
               </el-form-item>
 
               <el-form-item label="证券名称">
-              {{ stockTrading.stockName }}
+                {{ stockTrading.stockName }}
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
 
@@ -77,10 +78,10 @@
                             prop="orderPrice"
                             :rules="[
                             { validator: LimitPrice, // 自定义验证
-                              trigger: 'blur'
+                              trigger: 'blur',
                             }
                             ]">
-                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格"></el-input>
+                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格" clearable></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
               <el-form-item label="可买数量">
@@ -100,10 +101,10 @@
                             prop="orderAmount"
                             :rules="[
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                              trigger: 'blur'
+                              trigger: 'change'
                             }]"
-                          >
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数"></el-input>
+              >
+                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" clearable></el-input>
               </el-form-item>
               <div>
                 <el-button @click="resetForm('stockTrading')">重新填写</el-button>
@@ -127,6 +128,7 @@
   import Stomp from 'stompjs'
   import RealTime from './RealTime'
   import store from '@/store/store'
+  import Vue from 'vue'
 
   export default {
     name: "BuyAtLimitPrice",
@@ -143,7 +145,7 @@
           stockId: '',
           stockName: '',
           orderPrice: '',
-          openPrice:'',
+          openPrice: '',
           canorderAmount: '',
           orderAmount: '',
           tradeMarket: '',
@@ -159,9 +161,9 @@
     created() {
 
     },
-    beforeMount(){
-      let isLogin=this.$store.getters.isLogin
-      if(!isLogin){
+    beforeMount() {
+      let isLogin = this.$store.getters.isLogin;
+      if (!isLogin) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -170,7 +172,7 @@
     },
     methods: {
       exit() {
-        this.$store.commit('logout')
+        this.$store.commit('logout');
         this.$router.push('/')
       },
       realTimeDataDisplay() {
@@ -184,6 +186,9 @@
           });
       },
 
+      updataStock() {
+        this.stockTrading = this.stockTrading;
+      },
       onConnected(frame) {
         console.log("Connected: " + frame);
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
@@ -228,14 +233,21 @@
        * 验证股票代码
        */
       verifyStockCode(rule, value, callback) {
+
+        console.log('----');
+        this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
+            console.log('++++++', value);
 
+            //
+            // <!------------------------------------------------------------------------------------->
             if (this.bz === this.stockTrading.stockId) {
+              console.log('000000', this.bz);
               callback()
             } else {
               this.bz = this.stockTrading.stockId;
@@ -248,14 +260,16 @@
       },
       /**
        *
-       * 自定义验证涨跌幅
+       * 自定义验证涨
+       * 跌幅
        */
       LimitPrice(rule, value, callback) {
+        this.$forceUpdate();
         if (!value) {
-          callback(new Error('请输入买入金额'))
+          callback(new Error('请输入买入金额'));
           console.log('请输入买入金额')
         } else {
-          value = Number(value)
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.stockTrading.openPrice * 1.1) {
               callback(new Error('超过涨停价'))
@@ -264,22 +278,28 @@
             } else if (value < 0) {
               callback(new Error('请输入合适价格'))
             } else {
-              callback(),
-                this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value)
+              callback();
+              this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value);
+              this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+              // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
+              this.$forceUpdate();
+              // this.updataStock()
             }
           } else {
             callback("请输入数字")
           }
-
         }
-
         console.log(this.stockTrading.canorderAmount)
       },
       /**
-       *
        * 自定义验证买入数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
+        console.log('value'),
+          console.log(value)
+        // this.stockTrading.orderAmount = value;
+        console.log(value)
+        this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入买入数量'))
           console.log('请输入买入数量')
@@ -293,7 +313,9 @@
             } else if (Math.floor(value / 100) * 100 != value) {
               callback('请输入100的整数倍')
             } else {
-              callback()
+              callback();
+              this.$forceUpdate();
+              // Vue.set(this.stockTrading, this.stockTrading.orderPrice, this.stockTrading.orderPrice);
             }
           } else {
             callback("请输入数字")
@@ -305,7 +327,12 @@
        */
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.stockTrading.canorderAmount=null;
+        console.log('asd');
+        this.stockTrading.stockId = null;
+        this.stockTrading.orderPrice = null;
+        this.stockTrading.canorderAmount = null;
+        this.stockTrading.orderAmount = null;
+        this.stockTrading.stockName = null;
       }
       ,
       /**
@@ -317,6 +344,7 @@
           if (valid) {
             this.ajaxSubmit();
           } else {
+            alert('error submit!!');
             console.log('error submit!!');
             return false;
           }
@@ -337,16 +365,24 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          // alert('yes')
           console.log('res.data')
           console.log(res.data)
           this.basicInfoStok = res.data;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
-        }).catch((res)=> {
+          this.orderPrice = 100;
+          this.stockTrading.openPrice = 100;
+
+          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice);
+          // Vue.set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice));
+          this.$forceUpdate();
+          console.log(this.stockTrading.canorderAmount);
+          this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+
+        }).catch((res) => {
           this.$message.error(res.message)
         });
-
 
 
         // console.log('st'+this.basicInfoStok)
@@ -359,13 +395,15 @@
        * @return {{articles: {stockId: number, stockName: string, orderPrice: number, canorderAmount: number, soh: number}}}
        */
       CalculatingTax(allFund, price) {
+        let res = '';
         if (Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price > 166.6) {
           console.log('if');
           console.log(allFund / (price * 1.030287 * 100));
-          return Math.floor(allFund / (price * 1.030287 * 100)) * 100;
+          res = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
         } else {
-          return Math.floor((allFund - 5) / (price * 1.000287)) * 100;
+          res = Math.floor((allFund - 5) / (price * 1.000287)) * 100;
         }
+        return res;
       }
       ,
 
@@ -396,7 +434,7 @@
           || this.stockTrading.orderAmount == null) {
           this.alertBox('错误', '有东西未输入');
         } else {
-          this.firstReturnStockRealtimeInformation()
+          this.firstReturnStockRealtimeInformation();
           let SentstockTrading = {
             // userId: store.state.user.userId,
             userId: this.$store.getters.getUserId,
@@ -406,11 +444,11 @@
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
           };
-          console.log('SentstockTrading')
+          console.log('SentstockTrading');
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((res)=> {
+          }).catch((res) => {
             this.$message.error(res.message)
           })
         }
@@ -420,24 +458,27 @@
 
       //0.25/0.5/0.75计算
       change1() {
-        console.log(this.stockTrading);
-        console.log("1/4");
-        // console.log(this.stockTrading.canorderAmount * 0.25);
-
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance*0.25,this.stockTrading.orderPrice)
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
+        // this.$set(this.stockTrading, 'orderAmount', 9);
+        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
+        this.$forceUpdate();
+        console.log(this.stockTrading.orderAmount);
       },
       change2() {
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance*0.5,this.stockTrading.orderPrice)
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
+        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
+        this.$forceUpdate();
+        console.log(this.stockTrading)
       },
       change3() {
-        this.stockTrading.orderAmount = this. CalculatingTax(this.stockTrading.balance*0.75,this.stockTrading.orderPrice)
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
+        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice)
+        this.$forceUpdate();
       },
       change4() {
         this.stockTrading.orderAmount = this.stockTrading.canorderAmount
+        this.$forceUpdate();
+      },
+      change() {
+        console.log('orderAmount')
+        console.log(this.stockTrading.orderAmount)
       },
     },
   }
