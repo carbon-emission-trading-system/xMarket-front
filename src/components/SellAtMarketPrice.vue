@@ -364,7 +364,7 @@
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.stockTrading = res.data;
-          this.stockTrading.openPrice = res.data.openPrice;
+          this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
           console.log(res.data.tradeMarket)
           if (this.stockTrading.tradeMarket === 0) {
@@ -380,8 +380,6 @@
         });
       }
       ,
-
-
       /**
        * ajax发送给后台委托单
        */

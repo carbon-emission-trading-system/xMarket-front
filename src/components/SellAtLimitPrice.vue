@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -23,8 +23,9 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -356,12 +357,12 @@
           this.basicInfoStok = res.data;
           console.log("this.basicInfoStok)");
           console.log(this.basicInfoStok);
-
+          this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.userId = this.basicInfoStok.stockId;
           this.stockTrading.stockName = this.basicInfoStok.stockName;
           this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
           this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
-        }).catch((res)=> {
+        }).catch((res) => {
           this.$message.error(res.message)
         })
       },
@@ -404,7 +405,7 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((res)=> {
+          }).catch((res) => {
             this.$message.error(res.message)
           })
         }

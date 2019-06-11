@@ -147,7 +147,7 @@
           orderAmount: '',
           tradeMarket: '',
           balance: '',
-          //开盘价
+          //昨日收盘价
           openPrice: '',
         },
         bz: '',
@@ -363,7 +363,7 @@
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.stockTrading = res.data;
-          this.stockTrading.openPrice = res.data.openPrice;
+          this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.balance = res.data.balance;
           this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.orderPrice)
         }).catch((res)=> {
