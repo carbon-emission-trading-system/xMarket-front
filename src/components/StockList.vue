@@ -48,13 +48,13 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="90"
+              width="85"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="90"
+              width="85"
               align="center">
             </el-table-column>
             <el-table-column
@@ -66,50 +66,50 @@
             <el-table-column
               prop="increase"
               label="今日涨幅"
-              width="100"
+              width="95"
               sortable
               align="center">
             </el-table-column>
             <el-table-column
               prop="highestPrice"
               label="最高价"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
               prop="lowestPrice"
               label="最低价"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
               prop="openPrice"
               label="今开盘"
-              width="80"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
               prop="yesterdayOpenPrice"
               label="昨开盘"
-              width="80"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
               prop="tradeAmount"
               label="成交额"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
               prop="totalMarketCapitalization"
               label="市值"
-              width="80"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
               prop="peRatio"
               label="市盈率"
-              width="80"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
