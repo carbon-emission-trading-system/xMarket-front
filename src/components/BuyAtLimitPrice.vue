@@ -369,7 +369,6 @@
           this.basicInfoStok = res.data;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
-<<<<<<< HEAD
           this.orderPrice = 100;
           this.stockTrading.openPrice = 100;
 
@@ -379,15 +378,12 @@
           console.log(this.stockTrading.canorderAmount);
           this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
 
-        }).catch((res) => {
-=======
           this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
 
           this.connect()
 
 
         }).catch((res)=> {
->>>>>>> e8389c9230a17e24ecca4a1a7706a7b72df8265c
           this.$message.error(res.message)
         });
 
