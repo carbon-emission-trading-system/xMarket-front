@@ -69,7 +69,8 @@
               </el-form-item>
 
               <el-form-item label="证券名称">
-                <el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>
+              {{ stockTrading.stockName }}
+                <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
 
               <el-form-item label="买入价格"
@@ -83,7 +84,9 @@
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
               <el-form-item label="可买数量">
-                <el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>
+                {{ stockTrading.canorderAmount }}
+
+                <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
               </el-form-item>
 
               <div class="proportion">
@@ -258,7 +261,7 @@
               callback(new Error('超过涨停价'))
             } else if (value < this.stockTrading.openPrice * 0.9) {
               callback(new Error('低于跌停价'))
-            } else if (value <= 0) {
+            } else if (value < 0) {
               callback(new Error('请输入合适价格'))
             } else {
               callback(),
@@ -334,15 +337,19 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-
+          console.log('res.data')
+          console.log(res.data)
           this.basicInfoStok = res.data;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.openPrice;
           this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
         }).catch((res)=> {
           this.$message.error(res.message)
-        })
-        console.log(this.stockTrading.canorderAmount);
+        });
+
+
+
+        // console.log('st'+this.basicInfoStok)
       }
       ,
 
@@ -399,6 +406,7 @@
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
           };
+          console.log('SentstockTrading')
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
