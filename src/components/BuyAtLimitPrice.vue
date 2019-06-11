@@ -152,14 +152,18 @@
         },
         basicInfoStok: {},
         msg: 0,
-        //规则
+        realTimeData: {}
       }
     },
     components: {
       RealTime,
     },
     created() {
-
+      this.styleObject = this.tableStyle;
+      if (this.showByRow !== undefined) {
+        this.s_showByRow = this.showByRow;
+      }
+      ;
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -191,13 +195,15 @@
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
-        let exchange = "/exchange/realTimeExchange/stock.SZSE."+this.stockTrading.stockId;
+        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
+        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
 
-        let subscription = this.client.subscribe(exchange, this.onmessage);
+        var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
 
-
+        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
+        console.log(subscription3);
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -240,17 +246,15 @@
         } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            console.log('++++++', value);
-
-            //
-            // <!------------------------------------------------------------------------------------->
-            if (this.bz === this.stockTrading.stockId) {
-              console.log('000000', this.bz);
-              callback()
-            } else {
-              this.bz = this.stockTrading.stockId;
-              this.firstReturnStockRealtimeInformation()
-            }
+            this.firstReturnStockRealtimeInformation();
+            callback();
+            // if (this.bz === this.stockTrading.stockId) {
+            //   console.log('000000', this.bz);
+            //   callback()
+            // } else {
+            //   this.bz = this.stockTrading.stockId;
+            //   this.firstReturnStockRealtimeInformation()
+            // }
           } else {
             callback("请输入数字")
           }
@@ -364,30 +368,28 @@
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
           // alert('yes')
-          console.log('res.data')
-          console.log(res.data)
+
           this.basicInfoStok = res.data;
           this.stockTrading = res.data;
-          this.stockTrading.openPrice = res.data.openPrice;
-<<<<<<< HEAD
-          this.orderPrice = 100;
-          this.stockTrading.openPrice = 100;
+          // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
+          this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
 
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice);
+          this.$set(this.stockTrading, 'orderPrice', '100');
+          this.$set(this.stockTrading, 'openPrice', '100');
+          this.$set(this.stockTrading, 'balance', '100000');
+
+          // this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice)
           // Vue.set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice));
           this.$forceUpdate();
-          console.log(this.stockTrading.canorderAmount);
-          this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+
+          this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice));
+          // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+          this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
+
+
+          this.connect();
 
         }).catch((res) => {
-=======
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
-
-          this.connect()
-
-
-        }).catch((res)=> {
->>>>>>> e8389c9230a17e24ecca4a1a7706a7b72df8265c
           this.$message.error(res.message)
         });
 
@@ -466,21 +468,25 @@
       //0.25/0.5/0.75计算
       change1() {
         // this.$set(this.stockTrading, 'orderAmount', 9);
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice));
+        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
         this.$forceUpdate();
         console.log(this.stockTrading.orderAmount);
       },
       change2() {
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice));
+        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
         this.$forceUpdate();
         console.log(this.stockTrading)
       },
       change3() {
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice));
+        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice)
         this.$forceUpdate();
       },
       change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
+        this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
+        // this.stockTrading.orderAmount = this.stockTrading.canorderAmount
         this.$forceUpdate();
       },
       change() {
@@ -604,5 +610,50 @@
 
   .card1 {
     height: 95%;
+  }
+
+  .mailTable, .mailTable tr, .mailTable tr td {
+    border: 1px solid #E6EAEE;
+  }
+
+  .mailTable {
+    font-size: 12px;
+    color: #71787E;
+  }
+
+  .mailTable tr td {
+    border: 1px solid #E6EAEE;
+    width: 150px;
+    height: 35px;
+    line-height: 35px;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+
+  .mailTable tr td.column {
+    background-color: #EFF3F6;
+    color: #393C3E;
+  }
+
+  .all {
+    height: 900px;
+  }
+
+  .listA {
+    width: 50%;
+    float: left;
+    height: 95%;
+    text-align: center;
+  }
+
+  .listB {
+    width: 40%;
+    float: left;
+    height: 95%;
+    text-align: center;
+  }
+
+  .column {
+    width: 5%;
   }
 </style>
