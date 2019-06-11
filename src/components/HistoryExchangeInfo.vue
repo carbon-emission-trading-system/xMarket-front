@@ -232,7 +232,7 @@
 
         let list = []
         for(let i = 0;i<this.tableData.length;i++){
-          let date=new Date(this.tableData[i].buildPositionDate)
+          let date=new Date(this.tableData[i].date)
           //   console.log(date)
           let theDate,year,month,day
           year =date.getFullYear()
