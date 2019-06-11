@@ -10,58 +10,58 @@
         </tr>
 
         <tr>
-          <td class="column">买一</td>
-          <td>{{this.realTimeData.buyonePrice}}</td>
-          <td>{{this.realTimeData.buyoneCount}}</td>
+          <td class="column">卖五</td>
+          <td v-if="this.realTimeData.sellOneToFive[4].price>=0">{{this.realTimeData.sellOneToFive[4].price}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">{{this.realTimeData.sellOneToFive[4].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">买二</td>
-          <td>{{this.realTimeData.buyTwoPrice}}</td>
-          <td>{{this.realTimeData.buyTwoCount}}</td>
+          <td class="column">卖四</td>
+          <td v-if="this.realTimeData.sellOneToFive[3].price>=0">{{this.realTimeData.sellOneToFive[3].price}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">{{this.realTimeData.sellOneToFive[3].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">买三</td>
-          <td>{{this.realTimeData.buyThreePrice}}</td>
-          <td>{{this.realTimeData.buyThreeCount}}</td>
+          <td class="column">卖三</td>
+          <td v-if="this.realTimeData.sellOneToFive[2].price>=0">{{this.realTimeData.sellOneToFive[2].price}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">{{this.realTimeData.sellOneToFive[2].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">买四</td>
-          <td>{{this.realTimeData.buyFourPrice}}</td>
-          <td>{{this.realTimeData.buyFourCount}}</td>
+          <td class="column">卖二</td>
+          <td v-if="this.realTimeData.sellOneToFive[1].price>=0">{{this.realTimeData.sellOneToFive[1].price}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">{{this.realTimeData.sellOneToFive[1].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">买五</td>
-          <td>{{this.realTimeData.buyFivePrice}}</td>
-          <td>{{this.realTimeData.buyFiveCount}}</td>
+          <td class="column">卖一</td>
+          <td v-if="this.realTimeData.sellOneToFive[0].price>=0">{{this.realTimeData.sellOneToFive[0].price}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">{{this.realTimeData.sellOneToFive[0].quantity}}</td>
         </tr>
       </table>
 
       <table class="mailTable" :style="styleObject">
         <!--卖一-->
         <tr>
-          <td class="column">卖一</td>
-          <td>{{this.realTimeData.sellonePrice}}</td>
-          <td>{{this.realTimeData.selloneCount}}</td>
+          <td class="column">买一</td>
+          <td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td>
+          <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">{{this.realTimeData.buyOneToFive[0].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">卖二</td>
-          <td>{{this.realTimeData.sellTwoPrice}}</td>
-          <td>{{this.realTimeData.sellTwoCount}}</td>
+          <td class="column">买二</td>
+          <td v-if="this.realTimeData.buyOneToFive[1].price>=0">{{this.realTimeData.buyOneToFive[1].price}}</td>
+          <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">{{this.realTimeData.buyOneToFive[1].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">卖三</td>
-          <td>{{this.realTimeData.sellThreePrice}}</td>
-          <td>{{this.realTimeData.sellThreeCount}}</td>
+          <td class="column">买三</td>
+          <td v-if="this.realTimeData.buyOneToFive[2].price>=0">{{this.realTimeData.buyOneToFive[2].price}}</td>
+          <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">{{this.realTimeData.buyOneToFive[2].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">卖四</td>
-          <td>{{this.realTimeData.sellFourPrice}}</td>
-          <td>{{this.realTimeData.sellFourCount}}</td>
+          <td class="column">买四</td>
+          <td v-if="this.realTimeData.buyOneToFive[3].price>=0">{{this.realTimeData.buyOneToFive[3].price}}</td>
+          <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">{{this.realTimeData.buyOneToFive[3].quantity}}</td>
         </tr>
         <tr>
-          <td class="column">卖五</td>
-          <td>{{this.realTimeData.sellFivePrice}}</td>
-          <td>{{this.realTimeData.sellFiveCount}}</td>
+          <td class="column">买五</td>
+          <td v-if="this.realTimeData.buyOneToFive[4].price>=0">{{this.realTimeData.buyOneToFive[4].price}}</td>
+          <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">{{this.realTimeData.buyOneToFive[4].quantity}}</td>
         </tr>
       </table>
 
@@ -130,12 +130,12 @@
         <tr>
           <!--//静态市盈率-->
           <td class="column">市盈率</td>
-          <td>{{this.realTimeData.staticPERatio}}</td>
+          <td>{{this.realTimeData.peRatio}}</td>
         </tr>
 
         <tr>
-          <td class="column">市净值</td>
-          <td>{{this.realTimeData.cityNet	}}</td>
+          <td class="column">市净率</td>
+          <td>{{this.realTimeData.pbRatio	}}</td>
         </tr>
 
       </table>
@@ -169,6 +169,7 @@
           stockId:this.$store.state.stockId
         }
         this.$api.http('get','/api/realTimeInfo',params).then(res=>{
+          console.log(res.data)
           this.realTimeData=res.data
         })
       },
