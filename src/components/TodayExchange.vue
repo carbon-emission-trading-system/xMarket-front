@@ -202,9 +202,9 @@
               if(res){
                 console.log(res.data)
                 this.tableData = res.data;
-                setTimeout(()=>{
-                  this.setTodayExchangeApi()
-                },3000)
+                // setTimeout(()=>{
+                //   this.setTodayExchangeApi()
+                // },3000)
               }else{
                 console.log('请求失败')
                 return
