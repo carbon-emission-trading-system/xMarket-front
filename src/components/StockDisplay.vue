@@ -53,11 +53,11 @@
       <div>
         <el-tabs v-model="activeName" >
           <el-tab-pane label="日K" name="first">
-            <ve-candle :data="kChartData" width="450px" height="450px" :settings="kChartSettings" :colors="kColor" ></ve-candle>
+            <ve-candle :data="kChartData" width="600px" height="450px" :settings="kChartSettings" :colors="kColor" ></ve-candle>
           </el-tab-pane>
 
           <el-tab-pane label="分时" name="second" >
-            <div id="myChart" style="width: 450px;height: 450px"></div>
+            <div id="myChart" style="width: 600px;height: 450px"></div>
           </el-tab-pane>
         </el-tabs>
 
@@ -229,11 +229,11 @@
             this.latestPrice.push(data[i].latestPrice)
             this.volume.push(data[i].volume)
           }
+          this.drawLine()
           });
       },
 
       drawLine() {
-        console.log("drawLine")
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'))
         // 绘制图表
