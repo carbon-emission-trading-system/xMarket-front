@@ -200,8 +200,6 @@
                   this.tableData[i].tradeMarket="沪市"
                 }
               }
-
-        //      alert(JSON.stringify(this.tableData))
               setTimeout(()=>{
                 this.setTodayOrderApi()
               },3000)
