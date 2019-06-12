@@ -93,8 +93,8 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="yesterdayOpenPrice"
-              label="昨开盘"
+              prop="yesterdayClosePrice"
+              label="昨收盘"
               width="70"
               align="center">
             </el-table-column>
