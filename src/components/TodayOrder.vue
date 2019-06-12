@@ -200,7 +200,8 @@
                   this.tableData[i].tradeMarket="沪市"
                 }
               }
-              let timer = setInterval(()=>{
+
+              let timer = setTimeout(()=>{
                 this.setTodayOrderApi()
               },3000)
               this.$once('hook:beforeDestroy',()=>{
