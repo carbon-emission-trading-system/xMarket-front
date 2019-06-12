@@ -257,25 +257,26 @@
        * 验证股票代码
        */
       verifyStockCode(rule, value, callback) {
+        console.log('verifyStockCode');
+        this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          value = Number(value)
-          if (typeof value === 'number' && !isNaN(value)) {
-            this.firstReturnStockRealtimeInformation();
-            callback();
-            // if (this.bz === this.stockTrading.stockId) {
-            //   callback()
-            // } else {
-            //   this.bz = this.stockTrading.stockId;
-            //   this.firstReturnStockRealtimeInformation()
-            // }
+          if (this.msg === 1) {
+            callback()
           } else {
-            callback("请输入数字")
+            value = Number(value)
+            this.msg = 0;
+            if (typeof value === 'number' && !isNaN(value)) {
+              this.msg = 1;
+              this.firstReturnStockRealtimeInformation();
+              callback();
+            } else {
+              callback("请输入数字")
+            }
           }
         }
-
       },
       /**
        *

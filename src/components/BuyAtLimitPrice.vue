@@ -246,7 +246,6 @@
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          console.log('msg      ' + this.msg)
           if (this.msg === 1) {
             callback()
           } else {
