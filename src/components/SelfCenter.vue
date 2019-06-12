@@ -97,7 +97,6 @@
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
-                  sortable
                   align="center"
                   width="100">
                 </el-table-column>
@@ -132,51 +131,49 @@
                 <el-table-column
                   prop="availableNumber"
                   label="可用数量"
-                  sortable
                   align="center"
                   width="100">
                 </el-table-column>
                 <el-table-column
                   prop="frozenNumber"
                   label="冻结数量"
-                  sortable
                   align="center"
                   width="100">
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--prop="todayProfitAndLoss"-->
-                <!--label="当日盈亏"-->
-                <!--sortable-->
-                <!--align="center"-->
-                <!--width="100">-->
-                <!--</el-table-column>-->
                 <el-table-column
                   prop="totalProfitAndLoss"
                   label="总盈亏"
                   sortable
                   align="center"
                   width="100">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.totalProfitAndLoss>=0" style="color: firebrick" >{{scope.row.totalProfitAndLoss}}</span>
+                    <span v-else style="color: forestgreen">{{scope.row.totalProfitAndLoss}}</span>
+                  </template>
                 </el-table-column>
-
                 <el-table-column
                   prop="profitAndLossRatio"
-                  label="盈亏比例"
+                  label="盈亏比例%"
                   align="center"
                   width="100">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.profitAndLossRatio>=0" style="color: firebrick" >{{scope.row.profitAndLossRatio}}</span>
+                    <span v-else style="color: forestgreen">{{scope.row.profitAndLossRatio}}</span>
+                  </template>
                 </el-table-column>
                 <el-table-column
                   prop="marketValue"
                   label="市值"
                   sortable
                   align="center"
-                  width="80">
+                  width="75">
                 </el-table-column>
                 <el-table-column
                   prop="positionRatio"
-                  label="仓位占比"
+                  label="仓位占比%"
                   sortable
                   align="center"
-                  width="100">
+                  width="105">
                 </el-table-column>
 
               </el-table>

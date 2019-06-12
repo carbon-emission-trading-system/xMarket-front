@@ -96,14 +96,18 @@
                 align="center">
               </el-table-column>
               <el-table-column
-                prop="yesterdayOpenPrice"
-                label="昨开盘"
+                prop="yesterdayClosePrice"
+                label="昨收盘"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="openPrice"
                 label="今开盘"
                 align="center">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.openPrice}}</span>
+                  <span v-else style="color: forestgreen">{{scope.row.openPrice}}</span>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="tradeAmount"
