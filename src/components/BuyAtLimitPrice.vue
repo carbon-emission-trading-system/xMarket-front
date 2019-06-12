@@ -95,8 +95,7 @@
                 <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
               </el-form-item>
 
-              <div class="proportion"
-                   style=" float: left; width: 100%; margin-left: 0px; align-content: left">
+              <div class="proportion">
                 <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
                 <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
                 <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
@@ -504,8 +503,6 @@
     width: 100%;
     margin-bottom: 2%;
 
-    /*margin-left: 27%;*/
-    /*margin-right: 30%;*/
   }
 
   .breadC {
@@ -518,6 +515,7 @@
     width: 100%;
     height: 100%;
     display: block;
+    float: left;
   }
 
   .miniButton {
@@ -542,6 +540,10 @@
   .proportion {
     margin-left: 20%;
     margin-bottom: 3%;
+    float: left;
+    width: 100%;
+    margin-left: 0px;
+    align-content: left
   }
 
   .input_table {
@@ -583,9 +585,7 @@
     clear: both
   }
 
-  .all {
-    float: left;
-  }
+
 
   .card1 {
     height: 95%;

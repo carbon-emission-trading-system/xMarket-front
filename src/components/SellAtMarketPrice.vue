@@ -58,28 +58,31 @@
         <el-card class="card1">
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center" class="elementInput">
+            <div style="text-align: center;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
+                            style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                             prop="stockId"
                             :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
+                <el-input v-model.number="stockTrading.stockId" type="number"class="dx"  placeholder="请输入证券代码"></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
                 {{ stockTrading.stockName}}
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
               <el-form-item label="交易策略"
-                            prop="value">
-                <el-select v-model="stockTrading.DelegateType" placeholder="请选择委托方案">
+                            prop="value"
+                            style="float: left;width: 100%">
+                <el-select v-model="stockTrading.DelegateType" placeholder="请选择委托方案" class="dx">
                   <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
                              :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="可卖数量">
+              <el-form-item label="可卖数量"
+                            style="float: left">
                 {{ stockTrading.availableNumber }}
                 <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
               </el-form-item>
@@ -92,16 +95,17 @@
               </div>
 
               <el-form-item label="卖出数量"
+                            style="float: left;width: 100%"
                             prop="orderAmount"
                             :rules="[
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
+                <el-input v-model="stockTrading.orderAmount" class="dx" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
-              <div>
-                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
-                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
+              <div style="float: left;width: 60%;margin-top: 5%">
+                <el-button @click="resetForm('stockTrading')" style="width:50%;">重新填写</el-button>
+                <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -501,6 +505,10 @@
   .proportion {
     margin-left: 20%;
     margin-bottom: 3%;
+    float: left;
+    width: 100%;
+    margin-left: 0px;
+    align-content: left
   }
 
   .input_table {
@@ -549,5 +557,8 @@
   .card1 {
     height: 95%;
 
+  }
+  .dx {
+    width: 60%;
   }
 </style>

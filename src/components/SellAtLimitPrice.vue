@@ -57,8 +57,8 @@
       <div class="list1">
         <el-card class="card1">
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-            <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center" class="elementInput">
+            <p style="font-size: 30px; margin-top:10% ;"> {{ buyOrSell }} </p>
+            <div style="text-align: center ;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
                             style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
@@ -85,7 +85,7 @@
                 <el-input v-model="stockTrading.orderPrice" class="dx"  placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量"
-                            style="float: left;width: 100%">
+                            style="float: left">
                 {{stockTrading.availableNumber}}
                 <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
               </el-form-item>
@@ -102,7 +102,7 @@
                             prop="orderAmount"
                             :rules="[
                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                            trigger: 'blur'
+                            trigger: 'change'
                               }]"
                               style="float: left;width: 100%" >
                 <el-input v-model="stockTrading.orderAmount"  class="dx" placeholder="请输入卖出股数" clearable></el-input>
@@ -468,9 +468,7 @@
   }
 
   .Subtitle {
-    /*width: 30%;*/
-    /*margin-left: 27%;*/
-    /*margin-right: 30%;*/
+
     width: 100%;
     margin-bottom: 2%;
 
@@ -486,6 +484,7 @@
     width: 100%;
     height: 100%;
     display: block;
+    float: left;
   }
 
   .miniButton {
@@ -510,6 +509,10 @@
   .proportion {
     margin-left: 20%;
     margin-bottom: 3%;
+    float: left;
+    width: 100%;
+    margin-left: 0px;
+    align-content: left
   }
 
   .input_table {
@@ -551,9 +554,6 @@
     clear: both
   }
 
-  .all {
-    float: left;
-  }
 
   .card1 {
     height: 95%;
