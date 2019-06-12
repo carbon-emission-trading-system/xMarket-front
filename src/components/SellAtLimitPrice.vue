@@ -57,8 +57,8 @@
       <div class="list1">
         <el-card class="card1">
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-            <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center" class="elementInput">
+            <p style="font-size: 30px; margin-top:10% ;"> {{ buyOrSell }} </p>
+            <div style="text-align: center ;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
                             style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
@@ -85,7 +85,7 @@
                 <el-input v-model="stockTrading.orderPrice" class="dx"  placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量"
-                            style="float: left;width: 100%">
+                            style="float: left">
                 {{stockTrading.availableNumber}}
                 <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
               </el-form-item>
@@ -102,7 +102,7 @@
                             prop="orderAmount"
                             :rules="[
                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                            trigger: 'blur'
+                            trigger: 'change'
                               }]"
                               style="float: left;width: 100%" >
                 <el-input v-model="stockTrading.orderAmount"  class="dx" placeholder="请输入卖出股数" clearable></el-input>
@@ -178,57 +178,57 @@
         this.$store.commit('logout');
         this.$router.push('/')
       },
-
-      realTimeDataDisplay() {
-        var self = this;
-        Vue.axios.get('/api/realTimeDataDisplay')
-          .then(function (response) {
-            self.$message.success(response.data)
-          })
-          .catch(function (error) {
-            self.$message.error(response.data)
-          });
-      },
-
-      onConnected(frame) {
-        console.log("Connected: " + frame);
-        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
-        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
-
-
-        var subscription = this.client.subscribe(exchange1, this.onmessage);
-        console.log(subscription);
-
-        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        console.log(subscription3);
-      },
-      onFailed(frame) {
-        console.log("Failed: " + frame.body);
-        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-
-      },
-      onmessage(message) {
-        console.log("得到消息");
-      },
-
-      responseCallback(frame) {
-        console.log("得到的消息 msg=>" + frame.body);
-        //接收到服务器推送消息，向服务器发送确认消息
-        // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      },
-      connect() {
-        console.log("开始连接");
-        this.client = Stomp.client("ws://localhost:15674/ws");
-        console.log("创建");
-        var headers = {
-          "login": "guest",
-          "passcode": "guest",
-          //虚拟主机，默认“/”
-          "heart-beat": "0,0"
-        };
-        this.client.connect(headers, this.onConnected, this.onFailed);
-        console.log("连接结束");
-      },
+      //
+      // realTimeDataDisplay() {
+      //   var self = this;
+      //   Vue.axios.get('/api/realTimeDataDisplay')
+      //     .then(function (response) {
+      //       self.$message.success(response.data)
+      //     })
+      //     .catch(function (error) {
+      //       self.$message.error(response.data)
+      //     });
+      // },
+      //
+      // onConnected(frame) {
+      //   console.log("Connected: " + frame);
+      //   var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
+      //   var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
+      //
+      //
+      //   var subscription = this.client.subscribe(exchange1, this.onmessage);
+      //   console.log(subscription);
+      //
+      //   var subscription3 = this.client.subscribe(exchange3, this.onmessage);
+      //   console.log(subscription3);
+      // },
+      // onFailed(frame) {
+      //   console.log("Failed: " + frame.body);
+      //   //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
+      //
+      // },
+      // onmessage(message) {
+      //   console.log("得到消息");
+      // },
+      //
+      // responseCallback(frame) {
+      //   console.log("得到的消息 msg=>" + frame.body);
+      //   //接收到服务器推送消息，向服务器发送确认消息
+      //   // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
+      // },
+      // connect() {
+      //   console.log("开始连接");
+      //   this.client = Stomp.client("ws://localhost:15674/ws");
+      //   console.log("创建");
+      //   var headers = {
+      //     "login": "guest",
+      //     "passcode": "guest",
+      //     //虚拟主机，默认“/”
+      //     "heart-beat": "0,0"
+      //   };
+      //   this.client.connect(headers, this.onConnected, this.onFailed);
+      //   console.log("连接结束");
+      // },
 
       /**
        *
@@ -363,6 +363,8 @@
           console.log("this.basicInfoStok)");
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
 
+          this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
+
           // this.stockTrading.userId = this.basicInfoStok.stockId;
           // this.stockTrading.stockName = this.basicInfoStok.stockName;
           // this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
@@ -466,9 +468,7 @@
   }
 
   .Subtitle {
-    /*width: 30%;*/
-    /*margin-left: 27%;*/
-    /*margin-right: 30%;*/
+
     width: 100%;
     margin-bottom: 2%;
 
@@ -484,6 +484,7 @@
     width: 100%;
     height: 100%;
     display: block;
+    float: left;
   }
 
   .miniButton {
@@ -508,6 +509,10 @@
   .proportion {
     margin-left: 20%;
     margin-bottom: 3%;
+    float: left;
+    width: 100%;
+    margin-left: 0px;
+    align-content: left
   }
 
   .input_table {
@@ -549,9 +554,6 @@
     clear: both
   }
 
-  .all {
-    float: left;
-  }
 
   .card1 {
     height: 95%;

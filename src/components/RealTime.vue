@@ -1,14 +1,13 @@
 <template>
-  <div class="all">
+  <div class="allRealTime">
 
-    <el-card class="list1">
+    <el-card class="list1RealTime">
       <table class="mailTable" :style="styleObject">
         <tr>
           <td class="column"></td>
           <td class="column">价格</td>
           <td class="column">数量</td>
         </tr>
-
         <tr>
           <td class="column">买一</td>
           <td>{{this.realTimeData.buyonePrice}}</td>
@@ -35,7 +34,6 @@
           <td>{{this.realTimeData.buyFiveCount}}</td>
         </tr>
       </table>
-
       <table class="mailTable" :style="styleObject">
         <tr>
           <td class="column">涨停</td>
@@ -44,7 +42,6 @@
           <td class="column">{{this.realTimeData.downLimitBoard }}</td>
         </tr>
       </table>
-
       <table class="mailTable" :style="styleObject">
         <!--卖一-->
         <tr>
@@ -73,7 +70,6 @@
           <td>{{this.realTimeData.sellFiveCount}}</td>
         </tr>
       </table>
-
       <table class="mailTable" :style="styleObject">
         <tr>
           <td class="column">开盘价</td>
@@ -81,8 +77,14 @@
         </tr>
         <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
       </table>
+      <p style="display:none">
+        {{ this.$store.state.buyOrSellStock}}
+
+      </p>
+
+
     </el-card>
-    <el-card class="list2">
+    <el-card class="list2RealTime">
       <table class="mailTable" :style="styleObject">
         <tr>
           <td class="column"></td>
@@ -147,6 +149,7 @@
         </tr>
         <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
       </table>
+
     </el-card>
 
   </div>
@@ -159,52 +162,64 @@
     name: 'messageNotice',
 
     data() {
+      demo:this.$store.state.buyOrSellStock;
       return {
         client: null,
-        // message: {
-        //   buyonePrice:121,
-        //   buyoneCount:121,
-        //   buyTwoPrice:51,
-        //   buyTwoPrice:54,
-        //   buyThreePrice:54,
-        //   buyThreeCount:56,
-        //   buyFourPrice:95,
-        //   buyFourCount:45,
-        //   buyFivePrice:5,
-        //   buyFiveCount:5,
-        // }
-        realTimeData: {}
+        realTimeData: {},
+        buyOrSellStock: '',
+        x: '',
       }
     },
+
     created() {
-      this.realTimeDataDisplay();
-      // this.connect();
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
-      };
-      this.connect();
+      }
+      ;
+      // this.connect();
     },
+    updated() {
+      console.log('update')
+      this.buyOrSellStock = this.$store.state.buyOrSellStock;
+      this.x = '';
+      if (this.buyOrSellStock === this.x) {
 
+      } else {
+        this.x = this.buyOrSellStock;
+        console.log(this.buyOrSellStock + 2);
+        this.realTimeDataDisplay();
+        this.connect();
+      }
+    },
     methods: {
+      /**
+       * @Description: 初次请求实时信息
+       * @Param:
+       * @return:
+       * @Author: zky
+       * @Date:
+       */
       realTimeDataDisplay() {
-        let params={
-          stockId:this.$store.state.stockId
+        let params = {
+          stockId: this.buyOrSellStock,
         }
-        this.$api.http('get','/api/realTimeInfo',params).then(res=>{
-          this.realTimeData=res.data
+        this.$api.http('get', '/api/realTimeInfo', params).then(res => {
+          this.realTimeData = res.data
+        }).catch((res) => {
+          this.$message.error(res.message)
         })
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        let exchange = "/exchange/realTimeExchange/stock.SZSE."+'600446'
+        let exchange = "/exchange/realTimeExchange/stock.SZSE." + buyOrSellStock
 
 
         var subscription = this.client.subscribe(exchange, this.onmessage);
         console.log(subscription);
-        this.realTimeData=subscription;
+        this.realTimeData = subscription;
 
         var subscription3 = this.client.subscribe(exchange3, this.onmessage);
         console.log(subscription3);
@@ -264,18 +279,18 @@
     color: #393C3E;
   }
 
-  .all {
+  .allRealTime {
     height: 100%;
   }
 
-  .list1 {
+  .list1RealTime {
     width: 50%;
     float: left;
     height: 95%;
     text-align: center;
   }
 
-  .list2 {
+  .list2RealTime {
     width: 40%;
     float: left;
     height: 95%;
@@ -285,5 +300,4 @@
   .column {
     width: 5%;
   }
-
 </style>

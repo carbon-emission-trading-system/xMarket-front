@@ -117,6 +117,9 @@ export default new Vuex.Store({
       title: (state, payload) => {
         state.title = payload
       },
+      buyOrSellStock:(state,payload)=>{
+        state.buyOrSellStock = payload
+      }
 
     },
     //在actions中提交mutations的方法达到改变state的目的 .commit()
