@@ -51,7 +51,7 @@
       </div>
 
       <div>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs v-model="activeName" >
           <el-tab-pane label="日K" name="first">
             <ve-candle :data="kChartData" width="100%" height="450px" :settings="kChartSettings" :colors="kColor" ></ve-candle>
           </el-tab-pane>

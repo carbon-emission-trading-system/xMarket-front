@@ -64,11 +64,15 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="increase"
               label="今日涨幅"
-              width="95"
-              sortable
-              align="center">
+               prop="increase"
+               width="95"
+               sortable
+               align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.increase>=0" style="color: firebrick" >{{scope.row.increase}}</span>
+                <span v-else style="color: forestgreen">{{scope.row.increase}}</span>
+              </template>
             </el-table-column>
             <el-table-column
               prop="highestPrice"
@@ -83,17 +87,22 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="openPrice"
-              label="今开盘"
+              prop="yesterdayClosePrice"
+              label="昨收盘"
               width="70"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="yesterdayOpenPrice"
-              label="昨开盘"
+              prop="openPrice"
+              label="今开盘"
               width="70"
               align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.openPrice}}</span>
+                <span v-else style="color: forestgreen">{{scope.row.openPrice}}</span>
+              </template>
             </el-table-column>
+
             <el-table-column
               prop="tradeAmount"
               label="成交额"

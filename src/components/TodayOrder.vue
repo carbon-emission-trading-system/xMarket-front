@@ -41,7 +41,7 @@
           border
           @row-dblclick="handle"
           style="width: 100%;font-size: 8px"
-          :default-sort = "{prop: 'orderTime', order: 'descending'}">
+          :default-sort = "{prop: 'time', order: 'descending'}">
           <el-table-column
             prop="date"
             label="委托日期"
@@ -200,11 +200,12 @@
                   this.tableData[i].tradeMarket="沪市"
                 }
               }
-
-        //      alert(JSON.stringify(this.tableData))
-              setTimeout(()=>{
+              let timer = setInterval(()=>{
                 this.setTodayOrderApi()
               },3000)
+              this.$once('hook:beforeDestroy',()=>{
+                clearInterval(timer)
+              })
             }else{
               console.log('请求失败')
               return

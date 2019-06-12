@@ -40,7 +40,7 @@
         border
         @row-dblclick="handle"
         style="width: 100%;font-size: 6px"
-        :default-sort = "{prop: 'exchangeTime', order: 'descending'}">
+        :default-sort = "{prop: 'time', order: 'descending'}">
         <el-table-column
           prop="time"
           label="成交时间"
