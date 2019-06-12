@@ -171,13 +171,21 @@
       }
     },
 
+    destroyed(){
+      if(this.client!=null) {
+        this.client.disconnect(
+          function () {
+            console.log("断开连接");
+          });
+      };
+    },
+
     created() {
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
       }
       ;
-      // this.connect();
     },
     /**
     * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
@@ -197,7 +205,7 @@
         console.log(this.x)
         console.log(this.buyOrSellStock)
         this.realTimeDataDisplay();
-        this.connect();
+      this.connect();
       }
     },
     methods: {
@@ -220,17 +228,13 @@
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
-        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        let exchange = "/exchange/realTimeExchange/stock.SZSE." + buyOrSellStock
+        let exchange = "/exchange/realTimeExchange/stock.SZSE." + this.buyOrSellStock;
 
+        this.client.subscribe(exchange, this.onmessage);
+        //alert(JSON.parse(subscription.body));
+      // this.realTimeData = subscription.body;
 
-        var subscription = this.client.subscribe(exchange, this.onmessage);
-        console.log(subscription);
-        this.realTimeData = subscription;
-
-        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        console.log(subscription3);
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -238,8 +242,10 @@
 
       },
       onmessage(message) {
-        console.log("得到消息");
-        this.realTimeData = message;
+        console.log("得到消息msg=>" + message.body);
+       // alert("haha"+message.body);
+        //alert("wowo"+this.realTimeData);
+        this.realTimeData = message.body;
       },
       responseCallback(frame) {
         console.log("得到的消息 msg=>" + frame.body);
@@ -251,8 +257,8 @@
         this.client = Stomp.client("ws://192.168.137.1:15674/ws")
         console.log("创建");
         var headers = {
-          "login": "guest",
-          "passcode": "guest",
+          "login": "zhang",
+          "passcode": "648810",
           //虚拟主机，默认“/”
           "heart-beat": "0,0"
         };

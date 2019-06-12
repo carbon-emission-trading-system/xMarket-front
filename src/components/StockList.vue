@@ -44,7 +44,8 @@
             :data="list.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
             @row-dblclick="handle"
-            style="width: 100%;font-size: 6px">
+            style="width: 100%;font-size: 6px"
+            :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
               prop="stockId"
               label="股票代码"
