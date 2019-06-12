@@ -110,9 +110,10 @@
             align="center">
           </el-table-column>
           <el-table-column
-            prop="contractNumber"
+            prop="orderId"
             label="合同编号"
             align="center"
+            width="100"
           >
           </el-table-column>
 
@@ -184,12 +185,25 @@
         }
         this.$api.http('get','/api/todayOrder',params).then(res=>{
             if(res){
-
               console.log('请求成功')
               this.tableData = res.data;
+              for(let i =0;i<this.tableData.length;i++) {
+                if (this.tableData[i].type === 0) {
+                  this.tableData[i].type = "买入"
+                } else {
+                  this.tableData[i].type = "卖出"
+                }
+                if(this.tableData[i].tradeMarket===0){
+                  this.tableData[i].tradeMarket="深市"
+                }
+                else{
+                  this.tableData[i].tradeMarket="沪市"
+                }
+              }
+
         //      alert(JSON.stringify(this.tableData))
               setTimeout(()=>{
-                self.setTodayOrderApi()
+                this.setTodayOrderApi()
               },3000)
             }else{
               console.log('请求失败')
