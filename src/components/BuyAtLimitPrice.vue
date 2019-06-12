@@ -57,40 +57,49 @@
         <el-card class="card1">
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center" class="elementInput">
+            <div style="text-align: center;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
+                            style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                             prop="stockId"
                             :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
-                            }]">
-                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
+                            }]"
+
+              >
+                <el-input v-model.number="stockTrading.stockId" type="number" class="dx" placeholder="请输入证券代码"></el-input>
                 <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
               </el-form-item>
 
-              <el-form-item label="证券名称">
+              <el-form-item label="证券名称"  >
                 {{ stockTrading.stockName }}
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
 
               <el-form-item label="买入价格"
+                            style="float: left;width: 100%"
                             prop="orderPrice"
+
                             :rules="[
                             { validator: LimitPrice, // 自定义验证
                               trigger: 'blur',
                             }
-                            ]">
-                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格" clearable></el-input>
+                            ]"
+                          >
+                <el-input v-model="stockTrading.orderPrice"   class="dx" placeholder="请输入买入价格" clearable></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
-              <el-form-item label="可买数量">
+              <el-form-item label="可买数量"
+                            style="float: left;"
+                           >
                 {{ stockTrading.canorderAmount }}
 
                 <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
               </el-form-item>
 
-              <div class="proportion">
+              <div class="proportion"
+                   style=" float: left; width: 100%; margin-left: 0px; align-content: left">
                 <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
                 <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
                 <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
@@ -103,14 +112,15 @@
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'change'
                             }]"
+                            style="float: left;width: 100%"
               >
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" clearable></el-input>
+                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" class="dx" clearable></el-input>
               </el-form-item>
-              <div>
-                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
+              <div  style="float: left;width: 60%;margin-top: 5%">
+                <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
                 <!--<el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>-->
-                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
+                <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -150,16 +160,19 @@
           orderAmount: '',
           tradeMarket: '',
         },
-        basicInfoStok: {},
         msg: 0,
-        //规则
+        realTimeData: {}
       }
     },
     components: {
       RealTime,
     },
     created() {
-
+      this.styleObject = this.tableStyle;
+      if (this.showByRow !== undefined) {
+        this.s_showByRow = this.showByRow;
+      }
+      ;
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -191,13 +204,15 @@
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
-        let exchange = "/exchange/realTimeExchange/stock.SZSE."+this.stockTrading.stockId;
+        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
+        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
 
-        let subscription = this.client.subscribe(exchange, this.onmessage);
+        var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
 
-
+        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
+        console.log(subscription3);
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -240,17 +255,15 @@
         } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            console.log('++++++', value);
-
-            //
-            // <!------------------------------------------------------------------------------------->
-            if (this.bz === this.stockTrading.stockId) {
-              console.log('000000', this.bz);
-              callback()
-            } else {
-              this.bz = this.stockTrading.stockId;
-              this.firstReturnStockRealtimeInformation()
-            }
+            this.firstReturnStockRealtimeInformation();
+            callback();
+            // if (this.bz === this.stockTrading.stockId) {
+            //   console.log('000000', this.bz);
+            //   callback()
+            // } else {
+            //   this.bz = this.stockTrading.stockId;
+            //   this.firstReturnStockRealtimeInformation()
+            // }
           } else {
             callback("请输入数字")
           }
@@ -293,7 +306,6 @@
        * 自定义验证买入数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
-        console.log('value'),
           console.log(value)
         // this.stockTrading.orderAmount = value;
         console.log(value)
@@ -363,31 +375,26 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-          // alert('yes')
-          console.log('res.data')
-          console.log(res.data)
-          this.basicInfoStok = res.data;
-          this.stockTrading = res.data;
-          this.stockTrading.openPrice = res.data.openPrice;
-<<<<<<< HEAD
-          this.orderPrice = 100;
-          this.stockTrading.openPrice = 100;
+          alert('yes')
 
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice);
+          this.stockTrading = res.data;
+          // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
+          this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
+
+          console.log(this.stockTrading.orderPrice)
+
+          // this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice)
           // Vue.set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice));
           this.$forceUpdate();
-          console.log(this.stockTrading.canorderAmount);
-          this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+
+          this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice));
+          // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+          this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
+
+
+          this.connect();
 
         }).catch((res) => {
-=======
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice)
-
-          this.connect()
-
-
-        }).catch((res)=> {
->>>>>>> e8389c9230a17e24ecca4a1a7706a7b72df8265c
           this.$message.error(res.message)
         });
 
@@ -466,21 +473,25 @@
       //0.25/0.5/0.75计算
       change1() {
         // this.$set(this.stockTrading, 'orderAmount', 9);
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice));
+        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
         this.$forceUpdate();
         console.log(this.stockTrading.orderAmount);
       },
       change2() {
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice));
+        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
         this.$forceUpdate();
         console.log(this.stockTrading)
       },
       change3() {
-        this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice));
+        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice)
         this.$forceUpdate();
       },
       change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
+        this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
+        // this.stockTrading.orderAmount = this.stockTrading.canorderAmount
         this.$forceUpdate();
       },
       change() {
@@ -605,4 +616,31 @@
   .card1 {
     height: 95%;
   }
+
+  .mailTable, .mailTable tr, .mailTable tr td {
+    border: 1px solid #E6EAEE;
+  }
+
+  .mailTable {
+    font-size: 12px;
+    color: #71787E;
+  }
+
+  .mailTable tr td {
+    border: 1px solid #E6EAEE;
+    width: 150px;
+    height: 35px;
+    line-height: 35px;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+
+  .mailTable tr td.column {
+    background-color: #EFF3F6;
+    color: #393C3E;
+  }
+  .dx{
+    width: 60%;
+  }
+
 </style>

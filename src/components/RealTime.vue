@@ -199,7 +199,7 @@
         console.log("Connected: " + frame);
         var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        let exchange = "/exchange/realTimeExchange/stock.SZSE."+this.stockTrading.stockId;
+        let exchange = "/exchange/realTimeExchange/stock.SZSE."+'600446'
 
 
         var subscription = this.client.subscribe(exchange, this.onmessage);
@@ -225,7 +225,7 @@
       },
       connect() {
         console.log("开始连接");
-        this.client = Stomp.client("ws://localhost:15674/ws")
+        this.client = Stomp.client("ws://192.168.137.1:15674/ws")
         console.log("创建");
         var headers = {
           "login": "guest",
@@ -265,7 +265,7 @@
   }
 
   .all {
-    height: 900px;
+    height: 100%;
   }
 
   .list1 {

@@ -202,6 +202,20 @@
               if(res){
                 console.log(res.data)
                 this.tableData = res.data;
+                for(let i =0;i<this.tableData.length;i++){
+                  if(this.tableData[i].type===0){
+                    this.tableData[i].type="买入"
+                  }
+                  else{
+                    this.tableData[i].type="卖出"
+                  }
+                  if(this.tableData[i].tradeMarket===0){
+                    this.tableData[i].tradeMarket="深市"
+                  }
+                  else{
+                    this.tableData[i].tradeMarket="沪市"
+                  }
+                }
                 // setTimeout(()=>{
                 //   this.setTodayExchangeApi()
                 // },3000)

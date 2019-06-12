@@ -91,11 +91,15 @@
             align="center">
           </el-table-column>
           <el-table-column
-            prop="increase"
             label="今日涨幅"
+            prop="increase"
             width="100"
             sortable
             align="center">
+            <template slot-scope="scope">
+              <span v-if="scope.row.increase>=0" style="color: firebrick" >{{scope.row.increase}}</span>
+              <span v-else style="color: forestgreen">{{scope.row.increase}}</span>
+            </template>
           </el-table-column>
           <el-table-column
             prop="highestPrice"

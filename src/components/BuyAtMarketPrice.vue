@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -23,8 +23,9 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -75,12 +76,12 @@
 
               <!---->
               <el-form-item label="交易策略"
-                            prop="value"
-                            :rules="[{
-                              validator: tradingStrategyVerification, // 自定义验证
-                              trigger: 'blur'
-                            }]">
-                <el-select v-model="DelegateType" placeholder="请选择委托方案">
+                            prop="value">
+                            <!--:rules="[{-->
+                              <!--validator: tradingStrategyVerification, // 自定义验证-->
+                              <!--trigger: 'blur'-->
+                            <!--}]">-->
+                <el-select v-model="stockTrading.DelegateType" @change="changeSelect" placeholder="请选择委托方案">
                   <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
                              :value="item.value"></el-option>
                 </el-select>
@@ -147,15 +148,15 @@
           orderAmount: '',
           tradeMarket: '',
           balance: '',
-          //开盘价
+          //昨日收盘价
           openPrice: '',
+          DelegateType: '',
         },
-        bz: '',
         //委托规则
         allDelegateType: [],
         msg: 0,
         //市价委托策略
-        DelegateType: '',
+
         //规则
         rules: {
           stockId: [],
@@ -181,6 +182,10 @@
       }
     },
     methods: {
+      changeSelect(id) {
+        this.$set(this.stockTrading,'DelegateType',id);
+        console.log(this.stockTrading.DelegateType)
+      },
       exit() {
         this.$store.commit('logout')
         this.$router.push('/')
@@ -254,53 +259,19 @@
         } else {
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
-            if (this.bz === this.stockTrading.stockId) {
-              callback()
-            } else {
-              this.bz = this.stockTrading.stockId;
-              this.firstReturnStockRealtimeInformation()
-            }
+            this.firstReturnStockRealtimeInformation();
+            callback();
+            // if (this.bz === this.stockTrading.stockId) {
+            //   callback()
+            // } else {
+            //   this.bz = this.stockTrading.stockId;
+            //   this.firstReturnStockRealtimeInformation()
+            // }
           } else {
             callback("请输入数字")
           }
         }
 
-      },
-      /**
-       *
-       * 自定义验证涨跌幅
-       */
-      LimitPrice(rule, value, callback) {
-        if (!value) {
-          callback(new Error('请输入买入金额'))
-          console.log('请输入买入金额')
-        } else {
-          value = Number(value)
-          if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.stockTrading.openPrice * 1.1) {
-              callback(new Error('超过涨停价'))
-            } else if (value < this.stockTrading.openPrice * 0.9) {
-              callback(new Error('低于跌停价'))
-            } else if (value < 0) {
-              callback(new Error('请输入合适价格'))
-            } else {
-              callback()
-              this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value)
-            }
-          } else {
-            callback("请输入数字")
-          }
-        }
-      },
-      /**
-       * 验证交易策略
-       *
-       */
-      tradingStrategyVerification(rule, value, callback) {
-        if (!value) {
-          callback(new Error('请选择交易策略'))
-          console.log('请选择交易策略')
-        }
       },
       /**
        *
@@ -331,16 +302,19 @@
        */
       resetForm(formName) {
         this.$refs[formName].resetFields();
+        this.stockTrading.DelegateType =''
       }
       ,
       /**
        *提交
        */
       submitForm(formName) {
+      console.log(this.stockTrading.DelegateType)
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
             this.ajaxSubmit();
+            this.stockTrading.DelegateType='';
           } else {
             console.log('error submit!!');
             return false;
@@ -355,18 +329,20 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
+
         let prom = {
           stockId: this.stockTrading.stockId,
           // userId: store.state.user.userId
-          userId:this.$store.getters.getUserId
+          userId: this.$store.getters.getUserId
         };
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.stockTrading = res.data;
-          this.stockTrading.openPrice = res.data.openPrice;
+          this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.balance = res.data.balance;
-          this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.orderPrice)
-        }).catch((res)=> {
+          this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice*1.1));
+
+        }).catch((res) => {
           this.$message.error(res.message)
         })
         if (this.tradeMarket === 0) {
@@ -399,25 +375,29 @@
        */
       ajaxSubmit() {
         // this.firstReturnStockRealtimeInformation()
+        console.log('***********************')
+        console.log(this.stockTrading.stockId ,this.stockTrading.orderAmount ,this.stockTrading.DelegateType)
         if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
-        } else if (this.stockTrading.stockId == null
-          || this.stockTrading.orderAmount == null
-          || this.DelegateType == null) {
-          this.alertBox('错误', '有东西未输入');
+        } else if (this.stockTrading.stockId === null
+          || this.stockTrading.orderAmount === null
+          || this.stockTrading.DelegateType === ''
+          || this.stockTrading.DelegateType === undefined) {
+          this.stockTrading.DelegateType ='',
+          alert('错误');
         } else {
           let SentstockTrading = {
             // userId: store.state.user.userId,
-            userId:this.$store.getters.getUserId,
+            userId: this.$store.getters.getUserId,
             stockId: this.stockTrading.stockId,
             type: 0,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
-            tradeStraregy: this.DelegateType,
+            tradeStraregy: this.stockTrading.DelegateType,
           }
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((res)=> {
+          }).catch((res) => {
             this.$message.error(res.message)
           })
         }
@@ -430,36 +410,40 @@
         // this.firstReturnStockRealtimeInformation()
         let SentstockTrading = {
           // userId: store.state.user.userId,
-          userId:this.$store.getters.getUserId,
+          userId: this.$store.getters.getUserId,
           stockId: this.stockTrading.stockId,
           type: 0,//买卖标识
           orderAmount: this.stockTrading.orderAmount,
           orderPrice: this.stockTrading.orderPrice,
-          tradeStraregy: this.DelegateType,
+          tradeStraregy: this.stockTrading.DelegateType,
         }
         console.log(SentstockTrading);
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
       },
-
       //0.25/0.5/0.75计算
       change1() {
-        console.log("1/4");
-        console.log(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
-        this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
-        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.25);
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.25,  this.stockTrading.openPrice*1.1));
+        this.$forceUpdate();
+        // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
         console.log(this.stockTrading);
       },
       change2() {
-        this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.openPrice*1.1));
+
+        // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
+        this.$forceUpdate();
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
       },
       change3() {
-        this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.2575, this.stockTrading.orderPrice)
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.openPrice*1.1));
+        this.$forceUpdate();
+        // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.2575, this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
       },
       change4() {
-        this.stockTrading.orderAmount = this.stockTrading.canorderAmount
+        this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
+        this.$forceUpdate();
+        // this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
     },
   }

@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -23,8 +23,9 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -72,12 +73,8 @@
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
               <el-form-item label="交易策略"
-                            prop="value"
-                            :rules="[{
-                              validator: tradingStrategyVerification, // 自定义验证
-                              trigger: 'blur'
-                            }]">
-                <el-select v-model="DelegateType" placeholder="请选择委托方案">
+                            prop="value">
+                <el-select v-model="stockTrading.DelegateType" placeholder="请选择委托方案">
                   <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
                              :value="item.value"></el-option>
                 </el-select>
@@ -141,10 +138,10 @@
           tradeMarket: '',
           //开盘价
           openPrice: '',
+          DelegateType: '',
         },
-        bz:'',
+        bz: '',
         msg: 0,
-        DelegateType: '',
         allDelegateType: [],
         //规则
         rules: {
@@ -159,11 +156,11 @@
       RealTime,
     },
     created() {
-      this.firstReturnStockRealtimeInformation()
+      
     },
-    beforeMount(){
-      let isLogin=this.$store.getters.isLogin
-      if(!isLogin){
+    beforeMount() {
+      let isLogin = this.$store.getters.isLogin
+      if (!isLogin) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
@@ -171,6 +168,10 @@
       }
     },
     methods: {
+      changeSelect(id) {
+        this.$set(this.stockTrading, 'DelegateType', id);
+        console.log(this.stockTrading.DelegateType)
+      },
       exit() {
         this.$store.commit('logout')
         this.$router.push('/')
@@ -250,42 +251,7 @@
           }
         }
       },
-      /**
-       *
-       * 自定义验证涨跌幅
-       */
-      LimitPrice(rule, value, callback) {
-        if (!value) {
-          callback(new Error('请输入卖出金额'));
-          console.log('请输入卖出金额')
-        } else {
-          value = Number(value);
-          if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.stockTrading.openPrice * 1.1) {
-              callback(new Error('超过涨停价'))
-            } else if (value < this.stockTrading.openPrice * 0.9) {
-              callback(new Error('低于跌停价'))
-            } else if (value < 0) {
-              callback(new Error('请输入合适价格'))
-            } else {
-              callback()
-            }
-          } else {
-            callback("请输入数字")
-          }
-        }
 
-      },
-      /**
-       * 验证交易策略
-       *
-       */
-      tradingStrategyVerification(rule, value, callback) {
-        if (!value) {
-          callback(new Error('请选择交易策略'));
-          console.log('请选择交易策略')
-        }
-      },
       /**
        *
        * 自定义验证卖出数量
@@ -364,8 +330,11 @@
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.stockTrading = res.data;
-          this.stockTrading.openPrice = res.data.openPrice;
+          this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
+          this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
+          this.$set(this.stockTrading, 'tradeMarket', res.data.tradeMarket);
+
           console.log(res.data.tradeMarket)
           if (this.stockTrading.tradeMarket === 0) {
             this.allDelegateType = store.state.SDelegateType;
@@ -375,25 +344,25 @@
             console.log('sada')
             console.log(this.allDelegateType)
           }
-        }).catch((res)=> {
+        }).catch((res) => {
           this.$message.error(res.message)
         });
       }
       ,
-
-
       /**
        * ajax发送给后台委托单
        */
       ajaxSubmit() {
 
-        if ( this.$store.getters.getUserId== null) {
+        if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
-        } else if (this.stockTrading.stockId == null
-          || this.stockTrading.orderPrice == null
-          || this.stockTrading.orderAmount == null
-          || this.DelegateType == null) {
-          this.alertBox('错误', '有东西未输入');
+        } else if (this.stockTrading.stockId === null
+          || this.stockTrading.orderPrice === null
+          || this.stockTrading.orderAmount === null
+          || this.stockTrading.DelegateType === ''
+          || this.stockTrading.DelegateType === undefined) {
+          this.stockTrading.DelegateType = '',
+            this.alertBox('错误', '有东西未输入');
         } else {
           let SentstockTrading = {
             // userId: store.state.user.userId,
@@ -402,12 +371,12 @@
             type: 0,//买卖标识
             orderAmount: this.stockTrading.orderAmount,
             orderPrice: this.stockTrading.orderPrice,
-            tradeStraregy: this.DelegateType,
+            tradeStraregy: this.stockTrading.DelegateType,
           };
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((res)=> {
+          }).catch((res) => {
             this.$message.error(res.message)
           })
         }
@@ -427,7 +396,7 @@
           type: 1,
           orderAmount: this.stockTrading.orderAmount,
           orderPrice: this.stockTrading.orderPrice,
-          tradeStraregy: this.DelegateType,
+          tradeStraregy: this.stockTrading.DelegateType,
         };
         console.log(SentstockTrading);
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
@@ -439,18 +408,26 @@
         console.log("1/4");
         console.log(this.stockTrading.canorderAmount * 0.25);
         console.log(this.stockTrading);
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100);
+
         console.log(this.stockTrading);
       },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100);
+
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
       },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100);
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
       },
       change4() {
-        this.stockTrading.orderAmount = this.stockTrading.availableNumber;
+        this.$set(this.stockTrading, 'orderAmount', this.stockTrading.availableNumber);
+
+        // this.stockTrading.orderAmount = this.stockTrading.availableNumber;
       },
+
     }
   }
 </script>

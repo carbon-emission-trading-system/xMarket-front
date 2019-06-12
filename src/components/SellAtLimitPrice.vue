@@ -8,7 +8,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -23,8 +23,9 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -59,13 +60,14 @@
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
             <div style="text-align: center" class="elementInput">
               <el-form-item label="证券代码"
+                            style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                             prop="stockId"
                             :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"
+                <el-input v-model.number="stockTrading.stockId" type="number"  class="dx" placeholder="请输入证券代码"
                 ></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
@@ -73,20 +75,23 @@
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
               <el-form-item label="卖出价格"
-                            prop="orderPrice">
+                            prop="orderPrice"
+                            style="float: left;width: 100%">
                 <!-- :rules="[
                 { validator: LimitPrice, // 自定义验证
                   trigger: 'blur'
                 }
                 ]" -->
-                <el-input v-model="stockTrading.orderPrice" placeholder="请输入卖出价格"></el-input>
+                <el-input v-model="stockTrading.orderPrice" class="dx"  placeholder="请输入卖出价格"></el-input>
               </el-form-item>
-              <el-form-item label="可卖数量">
+              <el-form-item label="可卖数量"
+                            style="float: left;width: 100%">
                 {{stockTrading.availableNumber}}
                 <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
               </el-form-item>
 
-              <div class="proportion">
+              <div class="proportion"
+                   style=" float: left; width: 100%; margin-left: 0px; align-content: left">
                 <el-button type="text" @click="change1()" class="TxTbutton">1/4</el-button>
                 <el-button type="text" @click="change2()" class="TxTbutton">1/2</el-button>
                 <el-button type="text" @click="change3()" class="TxTbutton">3/4</el-button>
@@ -94,17 +99,18 @@
               </div>
 
               <el-form-item label="卖出数量"
-                            prop="orderAmount">
-                <!-- :rules="[
-                 { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                  trigger: 'blur'
-                }]" -->
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
+                            prop="orderAmount"
+                            :rules="[
+                            { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                            trigger: 'blur'
+                              }]"
+                              style="float: left;width: 100%" >
+                <el-input v-model="stockTrading.orderAmount"  class="dx" placeholder="请输入卖出股数" clearable></el-input>
               </el-form-item>
-              <div>
-                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
+              <div style="float: left;width: 60%;margin-top: 5%">
+                <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
+                <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -297,7 +303,7 @@
         } else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.stockTrading.canorderAmount) {
+            if (value > this.stockTrading.availableNumber) {
               callback(new Error('超出可买数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
@@ -353,15 +359,15 @@
 
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
-          this.basicInfoStok = res.data;
+          this.stockTrading = res.data;
           console.log("this.basicInfoStok)");
-          console.log(this.basicInfoStok);
+          this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
 
-          this.stockTrading.userId = this.basicInfoStok.stockId;
-          this.stockTrading.stockName = this.basicInfoStok.stockName;
-          this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
-          this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
-        }).catch((res)=> {
+          // this.stockTrading.userId = this.basicInfoStok.stockId;
+          // this.stockTrading.stockName = this.basicInfoStok.stockName;
+          // this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
+          // this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
+        }).catch((res) => {
           this.$message.error(res.message)
         })
       },
@@ -404,7 +410,7 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
-          }).catch((res)=> {
+          }).catch((res) => {
             this.$message.error(res.message)
           })
         }
@@ -412,18 +418,25 @@
 
       //0.25/0.5/0.75计算
       change1() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100);
+
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
       },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100);
 
       },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100);
+
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
 
       },
       change4() {
-        this.stockTrading.orderAmount = this.stockTrading.availableNumber;
+        this.$set(this.stockTrading, 'orderAmount', this.stockTrading.availableNumber);
+
+        // this.stockTrading.orderAmount = this.stockTrading.availableNumber;
       },
     },
   }
@@ -543,5 +556,8 @@
   .card1 {
     height: 95%;
 
+  }
+  .dx{
+    width: 60%;
   }
 </style>
