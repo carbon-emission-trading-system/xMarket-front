@@ -87,17 +87,22 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="openPrice"
-              label="今开盘"
-              width="70"
-              align="center">
-            </el-table-column>
-            <el-table-column
               prop="yesterdayClosePrice"
               label="昨收盘"
               width="70"
               align="center">
             </el-table-column>
+            <el-table-column
+              prop="openPrice"
+              label="今开盘"
+              width="70"
+              align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.openPrice}}</span>
+                <span v-else style="color: forestgreen">{{scope.row.openPrice}}</span>
+              </template>
+            </el-table-column>
+
             <el-table-column
               prop="tradeAmount"
               label="成交额"
