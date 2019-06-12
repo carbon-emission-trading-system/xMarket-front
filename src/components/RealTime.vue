@@ -171,6 +171,15 @@
       }
     },
 
+    destroyed(){
+      if(this.client!=null) {
+        this.client.disconnect(
+          function () {
+            console.log("断开连接");
+          });
+      };
+    },
+
     created() {
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
@@ -220,17 +229,13 @@
       },
       onConnected(frame) {
         console.log("Connected: " + frame);
-        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
 
-        let exchange = "/exchange/realTimeExchange/stock.SZSE." + buyOrSellStock
-
+        let exchange = "/exchange/realTimeExchange/stock.SZSE." + this.buyOrSellStock;
 
         var subscription = this.client.subscribe(exchange, this.onmessage);
         console.log(subscription);
-        this.realTimeData = subscription;
+       // this.realTimeData = subscription;
 
-        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        console.log(subscription3);
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -251,8 +256,8 @@
         this.client = Stomp.client("ws://192.168.137.1:15674/ws")
         console.log("创建");
         var headers = {
-          "login": "guest",
-          "passcode": "guest",
+          "login": "zhang",
+          "passcode": "648810",
           //虚拟主机，默认“/”
           "heart-beat": "0,0"
         };
