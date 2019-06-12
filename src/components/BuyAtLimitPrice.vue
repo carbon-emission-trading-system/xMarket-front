@@ -57,40 +57,49 @@
         <el-card class="card1">
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center" class="elementInput">
+            <div style="text-align: center;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
+                            style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                             prop="stockId"
                             :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
-                            }]">
-                <el-input v-model.number="stockTrading.stockId" type="number" placeholder="请输入证券代码"></el-input>
+                            }]"
+
+              >
+                <el-input v-model.number="stockTrading.stockId" type="number" class="dx" placeholder="请输入证券代码"></el-input>
                 <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
               </el-form-item>
 
-              <el-form-item label="证券名称">
+              <el-form-item label="证券名称"  >
                 {{ stockTrading.stockName }}
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
 
               <el-form-item label="买入价格"
+                            style="float: left;width: 100%"
                             prop="orderPrice"
+
                             :rules="[
                             { validator: LimitPrice, // 自定义验证
                               trigger: 'blur',
                             }
-                            ]">
-                <el-input v-model="stockTrading.orderPrice" placeholder="请输入买入价格" clearable></el-input>
+                            ]"
+                          >
+                <el-input v-model="stockTrading.orderPrice"   class="dx" placeholder="请输入买入价格" clearable></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
-              <el-form-item label="可买数量">
+              <el-form-item label="可买数量"
+                            style="float: left;"
+                           >
                 {{ stockTrading.canorderAmount }}
 
                 <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
               </el-form-item>
 
-              <div class="proportion">
+              <div class="proportion"
+                   style=" float: left; width: 100%; margin-left: 0px; align-content: left">
                 <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
                 <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
                 <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
@@ -103,14 +112,15 @@
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'change'
                             }]"
+                            style="float: left;width: 100%"
               >
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" clearable></el-input>
+                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" class="dx" clearable></el-input>
               </el-form-item>
-              <div>
-                <el-button @click="resetForm('stockTrading')">重新填写</el-button>
+              <div   style="float: left;width: 60%;margin-top: 5%">
+                <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
                 <!--<el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>-->
-                <el-button @click="submitForm('stockTrading')" style="width: 92px;">提交</el-button>
+                <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
               </div>
             </div>
           </el-form>
@@ -634,26 +644,8 @@
     background-color: #EFF3F6;
     color: #393C3E;
   }
-
-  .all {
-    height: 900px;
+  .dx{
+    width: 60%;
   }
 
-  .listA {
-    width: 50%;
-    float: left;
-    height: 95%;
-    text-align: center;
-  }
-
-  .listB {
-    width: 40%;
-    float: left;
-    height: 95%;
-    text-align: center;
-  }
-
-  .column {
-    width: 5%;
-  }
 </style>

@@ -265,7 +265,7 @@
   }
 
   .all {
-    height: 900px;
+    height: 100%;
   }
 
   .list1 {

@@ -7,7 +7,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
@@ -22,8 +22,9 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -98,7 +99,7 @@
                   label="股票代码"
                   sortable
                   align="center"
-                width="100">
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="stockName"
@@ -121,19 +122,34 @@
                   width="100">
                 </el-table-column>
                 <el-table-column
-                  prop="actualAmont"
-                  label="实际数量"
+                  prop="positionNumber"
+                  label="股票余额"
+                  sortable
+                  align="center"
+                  width="100">
+                </el-table-column>
+
+                <el-table-column
+                  prop="availableNumber"
+                  label="可用数量"
                   sortable
                   align="center"
                   width="100">
                 </el-table-column>
                 <el-table-column
-                  prop="todayProfitAndLoss"
-                  label="当日盈亏"
+                  prop="frozenNumber"
+                  label="冻结数量"
                   sortable
                   align="center"
                   width="100">
                 </el-table-column>
+                <!--<el-table-column-->
+                <!--prop="todayProfitAndLoss"-->
+                <!--label="当日盈亏"-->
+                <!--sortable-->
+                <!--align="center"-->
+                <!--width="100">-->
+                <!--</el-table-column>-->
                 <el-table-column
                   prop="totalProfitAndLoss"
                   label="总盈亏"
@@ -197,8 +213,8 @@
       }
     },
     created() {
-      this.ReceiveAccountInformation();
       this.ReceiveSelfHoldStock();
+      this.ReceiveAccountInformation();
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -238,7 +254,7 @@
           console.log(res);
           console.log('到这里了');
           this.UserFundsInformation = res.data;
-        }).catch((error)=> {
+        }).catch((error) => {
           this.$message.error(res.message)
         })
       },
@@ -260,7 +276,7 @@
           console.log('到这里了');
           this.tableData = res.data;
           console.log(this.tableData)
-        }).catch((error)=> {
+        }).catch((error) => {
           this.$message.error(error.message)
         })
       },
@@ -291,7 +307,6 @@
     margin-left: 20%;
     margin-right: 10%;
   }
-
 
   #select {
     margin-top: 50px;
