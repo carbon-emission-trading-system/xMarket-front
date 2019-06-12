@@ -181,8 +181,8 @@
         var exchange2 = "/exchange/timeShareExchange/stock.SZSE."+this.$store.state.stockId;
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
-        console.log(subscription);
-        this.realTimeData = subscription;
+        console.log(subscription.data());
+        this.realTimeData = subscription.data();
 
         var subscription2 = this.client.subscribe(exchange2, this.onmessage);
         console.log(subscription2);
