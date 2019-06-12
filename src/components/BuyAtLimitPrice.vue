@@ -370,14 +370,16 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
+
           this.stockTrading = res.data;
           // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
-          console.log(this.stockTrading.orderPrice)
+
           // this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice)
           // Vue.set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice));
           this.$forceUpdate();
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice));
+
           // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
@@ -394,13 +396,14 @@
        * @return {{articles: {stockId: number, stockName: string, orderPrice: number, canorderAmount: number, soh: number}}}
        */
       CalculatingTax(allFund, price) {
+
         let res = '';
         if (Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price > 166.6) {
           console.log('if');
           console.log(allFund / (price * 1.030287 * 100));
           res = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
         } else {
-          res = Math.floor((allFund - 5) / (price * 1.000287)) * 100;
+          res = Math.floor((allFund - 5) / (price * 1.000287*100)) * 100;
         }
         return res;
       }
