@@ -95,11 +95,11 @@
               </div>
 
               <el-form-item label="卖出数量"
-                            prop="orderAmount">
-                <!-- :rules="[
-                 { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                  trigger: 'blur'
-                }]" -->
+                            prop="orderAmount"
+                :rules="[
+                { validator: DetermineTheNumberOfPurchases, // 自定义验证
+                trigger: 'blur'
+                }]">
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
               <div>
@@ -298,7 +298,7 @@
         } else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
-            if (value > this.stockTrading.canorderAmount) {
+            if (value > this.stockTrading.availableNumber) {
               callback(new Error('超出可买数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
@@ -354,14 +354,14 @@
 
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
-          this.basicInfoStok = res.data;
+          this.stockTrading = res.data;
           console.log("this.basicInfoStok)");
-          console.log(this.basicInfoStok);
-          this.stockTrading.openPrice = res.data.yesterdayClosePrice;
-          this.stockTrading.userId = this.basicInfoStok.stockId;
-          this.stockTrading.stockName = this.basicInfoStok.stockName;
-          this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
-          this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
+          this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
+
+          // this.stockTrading.userId = this.basicInfoStok.stockId;
+          // this.stockTrading.stockName = this.basicInfoStok.stockName;
+          // this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;
+          // this.stockTrading.availableNumber = this.basicInfoStok.availableNumber;
         }).catch((res) => {
           this.$message.error(res.message)
         })
@@ -413,18 +413,25 @@
 
       //0.25/0.5/0.75计算
       change1() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100);
+
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
       },
       change2() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.5 / 100) * 100);
 
       },
       change3() {
-        this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
+        this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100);
+
+        // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.75 / 100) * 100;
 
       },
       change4() {
-        this.stockTrading.orderAmount = this.stockTrading.availableNumber;
+        this.$set(this.stockTrading, 'orderAmount', this.stockTrading.availableNumber);
+
+        // this.stockTrading.orderAmount = this.stockTrading.availableNumber;
       },
     },
   }
