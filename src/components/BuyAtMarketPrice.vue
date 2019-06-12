@@ -374,7 +374,7 @@
           console.log(allFund / (price * 1.030287 * 100));
           return Math.floor(allFund / (price * 1.030287 * 100)) * 100;
         } else {
-          return Math.floor((allFund - 5) / (price * 1.000287)) * 100;
+          return Math.floor((allFund - 5) / (price * 1.000287*100)) * 100;
         }
       }
       ,
