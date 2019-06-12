@@ -179,15 +179,23 @@
       ;
       // this.connect();
     },
+    /**
+    * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
+    * @Param:
+    * @return:
+    * @Author: zky
+    * @Date:
+    */
     updated() {
-      console.log('update')
+      console.log('update');
+      console.log(this.$store.state.buyOrSellStock);
       this.buyOrSellStock = this.$store.state.buyOrSellStock;
-      this.x = '';
       if (this.buyOrSellStock === this.x) {
-
       } else {
         this.x = this.buyOrSellStock;
-        console.log(this.buyOrSellStock + 2);
+        console.log('----------')
+        console.log(this.x)
+        console.log(this.buyOrSellStock)
         this.realTimeDataDisplay();
         this.connect();
       }
@@ -250,6 +258,7 @@
         };
         this.client.connect(headers, this.onConnected, this.onFailed);
         console.log("连接结束");
+        //连接结束后需要回复x的值为‘’！！！！
       },
     }
   }
