@@ -200,9 +200,12 @@
                   this.tableData[i].tradeMarket="沪市"
                 }
               }
-              setTimeout(()=>{
+              let timer = setInterval(()=>{
                 this.setTodayOrderApi()
               },3000)
+              this.$once('hook:beforeDestroy',()=>{
+                clearInterval(timer)
+              })
             }else{
               console.log('请求失败')
               return
