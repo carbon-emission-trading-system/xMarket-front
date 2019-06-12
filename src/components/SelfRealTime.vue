@@ -161,7 +161,7 @@
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
       };
-      this.connect();
+    //  this.connect();
     },
 
     methods: {
@@ -182,7 +182,7 @@
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription.data());
-        this.realTimeData = subscription.data();
+       // this.realTimeData = subscription.data();
 
         var subscription2 = this.client.subscribe(exchange2, this.onmessage);
         console.log(subscription2);

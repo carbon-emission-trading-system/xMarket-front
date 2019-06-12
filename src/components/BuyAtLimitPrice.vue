@@ -240,25 +240,25 @@
        * 验证股票代码
        */
       verifyStockCode(rule, value, callback) {
-        console.log('----');
+        console.log('验证股票代码');
         this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          value = Number(value)
-          if (typeof value === 'number' && !isNaN(value)) {
-            this.firstReturnStockRealtimeInformation();
-            callback();
-            // if (this.bz === this.stockTrading.stockId) {
-            //   console.log('000000', this.bz);
-            //   callback()
-            // } else {
-            //   this.bz = this.stockTrading.stockId;
-            //   this.firstReturnStockRealtimeInformation()
-            // }
+          console.log('msg      ' + this.msg)
+          if (this.msg === 1) {
+            callback()
           } else {
-            callback("请输入数字")
+            value = Number(value)
+            this.msg = 0;
+            if (typeof value === 'number' && !isNaN(value)) {
+              this.msg = 1;
+              this.firstReturnStockRealtimeInformation();
+              callback();
+            } else {
+              callback("请输入数字")
+            }
           }
         }
       },
@@ -268,6 +268,7 @@
        * 跌幅
        */
       LimitPrice(rule, value, callback) {
+        console.log('Limit')
         this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入买入金额'));
@@ -284,7 +285,6 @@
             } else {
               callback();
               this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value);
-              this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
               // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
               this.$forceUpdate();
               // this.updataStock()
@@ -293,20 +293,20 @@
             callback("请输入数字")
           }
         }
-        console.log(this.stockTrading.canorderAmount)
       },
       /**
        * 自定义验证买入数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
-        console.log(value)
-        // this.stockTrading.orderAmount = value;
-        console.log(value)
+        console.log('DetermineTheNumberOfPurchases')
+        this.stockTrading.orderAmount = value;
         this.$forceUpdate();
         if (!value) {
+          console.log('333333333333333')
           callback(new Error('请输入买入数量'))
           console.log('请输入买入数量')
         } else {
+          console.log('111111111111111111')
           value = Number(value)
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.stockTrading.canorderAmount) {
@@ -316,12 +316,13 @@
             } else if (Math.floor(value / 100) * 100 != value) {
               callback('请输入100的整数倍')
             } else {
-              callback();
+              // alert('a'+this.stockTrading.orderAmount);
               this.$forceUpdate();
+              callback();
               // Vue.set(this.stockTrading, this.stockTrading.orderPrice, this.stockTrading.orderPrice);
             }
           } else {
-            callback("请输入数字")
+            callback(new Error("请输入数字"))
           }
         }
       },
@@ -329,6 +330,7 @@
        * 重新提交
        */
       resetForm(formName) {
+        console.log('resetForm');
         this.$refs[formName].resetFields();
         console.log('asd');
         this.stockTrading.stockId = null;
@@ -342,6 +344,7 @@
        *提交
        */
       submitForm(formName) {
+        console.log(this.$refs[formName])
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.ajaxSubmit();
@@ -360,6 +363,7 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
+        console.log('firstReturnStockRealtimeInformation')
         let prom = {
           stockId: this.stockTrading.stockId,
           userId: this.$store.getters.getUserId
@@ -428,7 +432,7 @@
           || this.stockTrading.orderAmount == null) {
           this.alertBox('错误', '有东西未输入');
         } else {
-          this.firstReturnStockRealtimeInformation();
+
           let SentstockTrading = {
             // userId: store.state.user.userId,
             userId: this.$store.getters.getUserId,
@@ -440,6 +444,7 @@
           };
           console.log('SentstockTrading');
           console.log(SentstockTrading);
+          alert(SentstockTrading);
           api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
           }).catch((res) => {
@@ -585,8 +590,6 @@
   .clearfix:after {
     clear: both
   }
-
-
 
   .card1 {
     height: 95%;

@@ -325,7 +325,6 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
-        console.log("a")
         let prom = {
           stockId: this.stockTrading.stockId,
           // userId: store.state.user.userI
@@ -339,16 +338,14 @@
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
           this.$set(this.stockTrading, 'tradeMarket', res.data.tradeMarket);
 
-          console.log(res.data.tradeMarket)
+          console.log(res.data.tradeMarket);
           if (this.stockTrading.tradeMarket === 0) {
             this.allDelegateType = store.state.SDelegateType;
             console.log(this.allDelegateType)
           } else {
             this.allDelegateType = store.state.HDelegateType;
-            console.log('sada')
             console.log(this.allDelegateType)
           }
-
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 
         }).catch((res) => {
@@ -412,9 +409,6 @@
 
       //0.25/0.5/0.75计算
       change1() {
-        console.log("1/4");
-        console.log(this.stockTrading.canorderAmount * 0.25);
-        console.log(this.stockTrading);
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100;
         this.$set(this.stockTrading, 'orderAmount', Math.floor(this.stockTrading.availableNumber * 0.25 / 100) * 100);
 

@@ -186,7 +186,6 @@
         this.s_showByRow = this.showByRow;
       }
       ;
-      // this.connect();
     },
     /**
     * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
@@ -206,7 +205,7 @@
         console.log(this.x)
         console.log(this.buyOrSellStock)
         this.realTimeDataDisplay();
-        this.connect();
+      this.connect();
       }
     },
     methods: {
@@ -232,9 +231,9 @@
 
         let exchange = "/exchange/realTimeExchange/stock.SZSE." + this.buyOrSellStock;
 
-        var subscription = this.client.subscribe(exchange, this.onmessage);
-        console.log(subscription);
-       // this.realTimeData = subscription;
+        this.client.subscribe(exchange, this.onmessage);
+        //alert(JSON.parse(subscription.body));
+      // this.realTimeData = subscription.body;
 
       },
       onFailed(frame) {
@@ -243,8 +242,10 @@
 
       },
       onmessage(message) {
-        console.log("得到消息");
-        this.realTimeData = message;
+        console.log("得到消息msg=>" + message.body);
+       // alert("haha"+message.body);
+        //alert("wowo"+this.realTimeData);
+        this.realTimeData = message.body;
       },
       responseCallback(frame) {
         console.log("得到的消息 msg=>" + frame.body);
