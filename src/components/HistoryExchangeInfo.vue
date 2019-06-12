@@ -41,7 +41,8 @@
             border
             style="width: 100%;font-size: 6px"
             @row-dblclick="handle"
-            :default-sort = "{prop: 'date', order: 'descending'}">
+            :default-sort = "{prop: 'date', order: 'descending'}"
+            :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
               prop="date"
               label="成交日期"

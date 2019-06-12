@@ -41,7 +41,8 @@
             @row-dblclick="handle"
             border
             style="font-size: 6px"
-            :default-sort = "{prop: 'buildPositionDate', order: 'descending'}">
+            :default-sort = "{prop: 'buildPositionDate', order: 'descending'}"
+            :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
               prop="stockId"
               label="股票代码"
