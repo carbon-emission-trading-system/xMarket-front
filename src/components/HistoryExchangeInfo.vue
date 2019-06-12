@@ -41,7 +41,7 @@
             border
             style="width: 100%;font-size: 6px"
             @row-dblclick="handle"
-            :default-sort = "{prop: 'exchangeDate', order: 'descending'}">
+            :default-sort = "{prop: 'date', order: 'descending'}">
             <el-table-column
               prop="date"
               label="成交日期"
