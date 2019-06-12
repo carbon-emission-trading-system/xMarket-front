@@ -523,7 +523,8 @@
     float: left;
     width: 100%;
     margin-left: 0px;
-    align-content: left
+    align-content: left;
+    text-align: left;
   }
 
   .list1 {
