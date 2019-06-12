@@ -65,14 +65,13 @@
                             :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
-                            }]"
-
-              >
-                <el-input v-model.number="stockTrading.stockId" type="number" class="dx" placeholder="请输入证券代码"></el-input>
+                            }]">
+                <el-input v-model.number="stockTrading.stockId" type="number" class="dx"
+                          placeholder="请输入证券代码"></el-input>
                 <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
               </el-form-item>
 
-              <el-form-item label="证券名称"  >
+              <el-form-item label="证券名称">
                 {{ stockTrading.stockName }}
                 <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
               </el-form-item>
@@ -84,15 +83,13 @@
                             :rules="[
                             { validator: LimitPrice, // 自定义验证
                               trigger: 'blur',
-                            }
-                            ]"
-                          >
-                <el-input v-model="stockTrading.orderPrice"   class="dx" placeholder="请输入买入价格" clearable></el-input>
+                            }]">
+                <el-input v-model="stockTrading.orderPrice" class="dx" placeholder="请输入买入价格" clearable></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
               <el-form-item label="可买数量"
                             style="float: left;"
-                           >
+              >
                 {{ stockTrading.canorderAmount }}
 
                 <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
@@ -116,7 +113,7 @@
               >
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" class="dx" clearable></el-input>
               </el-form-item>
-              <div  style="float: left;width: 60%;margin-top: 5%">
+              <div style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
                 <!--<el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>-->
@@ -148,7 +145,7 @@
         activeIndexBS: 'BuyAtLimitPrice',
         buyOrSell: '买入股票',
         client: null,
-        bz: '',
+        bz: 12,
         //用户可用金额
         stockTrading: {
           balance: '',
@@ -168,11 +165,7 @@
       RealTime,
     },
     created() {
-      this.styleObject = this.tableStyle;
-      if (this.showByRow !== undefined) {
-        this.s_showByRow = this.showByRow;
-      }
-      ;
+
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -183,70 +176,71 @@
         this.$router.push('/')
       }
     },
+
     methods: {
+
       exit() {
         this.$store.commit('logout');
         this.$router.push('/')
       },
-      realTimeDataDisplay() {
-        var self = this;
-        Vue.axios.get('/api/realTimeDataDisplay')
-          .then(function (response) {
-            self.$message.success(response.data)
-          })
-          .catch(function (error) {
-            self.$message.error(response.data)
-          });
-      },
-
-      updataStock() {
-        this.stockTrading = this.stockTrading;
-      },
-      onConnected(frame) {
-        console.log("Connected: " + frame);
-        var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
-        var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
-
-
-        var subscription = this.client.subscribe(exchange1, this.onmessage);
-        console.log(subscription);
-
-        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        console.log(subscription3);
-      },
-      onFailed(frame) {
-        console.log("Failed: " + frame.body);
-        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-
-      },
-      onmessage(message) {
-        console.log("得到消息");
-      },
-
-      responseCallback(frame) {
-        console.log("得到的消息 msg=>" + frame.body);
-        //接收到服务器推送消息，向服务器发送确认消息
-        // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      },
-      connect() {
-        console.log("开始连接");
-        this.client = Stomp.client("ws://localhost:15674/ws")
-        console.log("创建");
-        var headers = {
-          "login": "guest",
-          "passcode": "guest",
-          //虚拟主机，默认“/”
-          "heart-beat": "0,0"
-        };
-        this.client.connect(headers, this.onConnected, this.onFailed);
-        console.log("连接结束");
-      },
+      // realTimeDataDisplay() {
+      //   var self = this;
+      //   Vue.axios.get('/api/realTimeDataDisplay')
+      //     .then(function (response) {
+      //       self.$message.success(response.data)
+      //     })
+      //     .catch(function (error) {
+      //       self.$message.error(response.data)
+      //     });
+      // },
+      //
+      // updataStock() {
+      //   this.stockTrading = this.stockTrading;
+      // },
+      // onConnected(frame) {
+      //   console.log("Connected: " + frame);
+      //   var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
+      //   var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
+      //
+      //
+      //   var subscription = this.client.subscribe(exchange1, this.onmessage);
+      //   console.log(subscription);
+      //
+      //   var subscription3 = this.client.subscribe(exchange3, this.onmessage);
+      //   console.log(subscription3);
+      // },
+      // onFailed(frame) {
+      //   console.log("Failed: " + frame.body);
+      //   //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
+      //
+      // },
+      // onmessage(message) {
+      //   console.log("得到消息");
+      // },
+      //
+      // responseCallback(frame) {
+      //   console.log("得到的消息 msg=>" + frame.body);
+      //   //接收到服务器推送消息，向服务器发送确认消息
+      //   // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
+      // },
+      // connect() {
+      //   console.log("开始连接");
+      //   this.client = Stomp.client("ws://localhost:15674/ws")
+      //   console.log("创建");
+      //   var headers = {
+      //     "login": "guest",
+      //     "passcode": "guest",
+      //     //虚拟主机，默认“/”
+      //     "heart-beat": "0,0"
+      //   };
+      //   this.client.connect(headers, this.onConnected, this.onFailed);
+      //   console.log("连接结束");
+      // },
       /**
        *
        * 验证股票代码
        */
       verifyStockCode(rule, value, callback) {
-
         console.log('----');
         this.$forceUpdate();
         if (!value) {
@@ -306,7 +300,7 @@
        * 自定义验证买入数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
-          console.log(value)
+        console.log(value)
         // this.stockTrading.orderAmount = value;
         console.log(value)
         this.$forceUpdate();
@@ -348,7 +342,6 @@
       /**
        *提交
        */
-
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -370,39 +363,28 @@
       firstReturnStockRealtimeInformation() {
         let prom = {
           stockId: this.stockTrading.stockId,
-          // userId: store.state.user.userId
           userId: this.$store.getters.getUserId
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-          alert('yes')
-
           this.stockTrading = res.data;
           // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
-
           console.log(this.stockTrading.orderPrice)
-
           // this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice)
           // Vue.set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice));
           this.$forceUpdate();
-
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice));
           // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
-
-          this.connect();
+          this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 
         }).catch((res) => {
           this.$message.error(res.message)
         });
-
-
-        // console.log('st'+this.basicInfoStok)
       }
       ,
-
       /**
        * 计算最多可买多少
        * @param params
@@ -420,7 +402,6 @@
         return res;
       }
       ,
-
       /**
        * websocket发送给后台委托单
        */
@@ -460,7 +441,7 @@
           };
           console.log('SentstockTrading');
           console.log(SentstockTrading);
-          this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+          api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
           }).catch((res) => {
             this.$message.error(res.message)
@@ -468,7 +449,6 @@
         }
       }
       ,
-
 
       //0.25/0.5/0.75计算
       change1() {
@@ -486,17 +466,11 @@
       },
       change3() {
         this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice));
-        // this.stockTrading.orderAmount = this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.orderPrice)
         this.$forceUpdate();
       },
       change4() {
         this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
-        // this.stockTrading.orderAmount = this.stockTrading.canorderAmount
         this.$forceUpdate();
-      },
-      change() {
-        console.log('orderAmount')
-        console.log(this.stockTrading.orderAmount)
       },
     },
   }
@@ -639,7 +613,8 @@
     background-color: #EFF3F6;
     color: #393C3E;
   }
-  .dx{
+
+  .dx {
     width: 60%;
   }
 
