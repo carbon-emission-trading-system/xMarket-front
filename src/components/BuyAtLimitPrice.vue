@@ -116,7 +116,7 @@
               >
                 <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" class="dx" clearable></el-input>
               </el-form-item>
-              <div   style="float: left;width: 60%;margin-top: 5%">
+              <div  style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
                 <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
                 <!--<el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>-->
@@ -160,7 +160,6 @@
           orderAmount: '',
           tradeMarket: '',
         },
-        basicInfoStok: {},
         msg: 0,
         realTimeData: {}
       }
@@ -307,7 +306,6 @@
        * 自定义验证买入数量
        */
       DetermineTheNumberOfPurchases(rule, value, callback) {
-        console.log('value'),
           console.log(value)
         // this.stockTrading.orderAmount = value;
         console.log(value)
@@ -377,16 +375,13 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-          // alert('yes')
+          alert('yes')
 
-          this.basicInfoStok = res.data;
           this.stockTrading = res.data;
           // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
 
-          this.$set(this.stockTrading, 'orderPrice', '100');
-          this.$set(this.stockTrading, 'openPrice', '100');
-          this.$set(this.stockTrading, 'balance', '100000');
+          console.log(this.stockTrading.orderPrice)
 
           // this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice)
           // Vue.set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.basicInfoStok.balance, this.basicInfoStok.orderPrice));
