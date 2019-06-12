@@ -156,7 +156,7 @@
       RealTime,
     },
     created() {
-      this.firstReturnStockRealtimeInformation()
+      
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin
