@@ -42,7 +42,7 @@
           <td class="column">涨停</td>
           <td class="column">{{this.realTimeData.dailyLimit }}</td>
           <td class="column">跌停</td>
-          <td class="column">{{this.realTimeData.downLimitBoard }}</td>
+          <td class="column">{{this.realTimeData.downLimit }}</td>
         </tr>
       </table>
 
@@ -79,9 +79,9 @@
           <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">{{this.realTimeData.buyOneToFive[4].quantity}}</td><td v-else></td>
         </tr>
       </table>
-      <table class="mailTable" :style="styleObject">
+      <table class="mailTable" :style="styleObject" style="width: 100%">
         <tr>
-          <td class="column">开盘价</td>
+          <td class="column " >开盘价</td>
           <td class="column">{{this.realTimeData.openPrice}}</td>
         </tr>
         <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
@@ -148,13 +148,13 @@
         <tr>
           <!--//静态市盈率-->
           <td class="column">市盈率</td>
-          <td>{{this.realTimeData.staticPERatio}}</td>
+          <td>{{this.realTimeData.peRatio}}</td>
         </tr>
 
 
         <tr>
           <td class="column">市净值</td>
-          <td>{{this.realTimeData.cityNet }}</td>
+          <td>{{this.realTimeData.pbRatio}}</td>
         </tr>
         <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
       </table>
