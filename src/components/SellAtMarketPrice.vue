@@ -353,6 +353,7 @@
             this.allDelegateType = store.state.HDelegateType;
             console.log(this.allDelegateType)
           }
+
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
