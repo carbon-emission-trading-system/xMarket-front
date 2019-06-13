@@ -15,6 +15,7 @@ export default new Vuex.Store({
     stockName: '',
     //用于查看详情的公告title
     title: '',
+    temStockId:'',
     //设置导航栏
     user: {
       userId: '',
@@ -119,8 +120,10 @@ export default new Vuex.Store({
       },
       buyOrSellStock:(state,payload)=>{
         state.buyOrSellStock = payload
-      }
-
+      },
+      temStockId:(state,payload)=>{
+        state.temStockId = payload
+      },
     },
     //在actions中提交mutations的方法达到改变state的目的 .commit()
     actions: {
