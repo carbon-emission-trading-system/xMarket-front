@@ -269,7 +269,11 @@
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
       };
-      this.connect();
+      //this.connect();
+    },
+
+    updated(){
+
     },
 
     computed:{
