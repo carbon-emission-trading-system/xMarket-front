@@ -92,7 +92,7 @@
 
           </el-table>
           <div class="block" style="margin-top:30px;">
-            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[20,50,100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
             </el-pagination>
           </div>
         </div>
@@ -120,7 +120,7 @@
             tableData:[],
             currentPage:1,
             total:20,
-            pageSize:5,
+            pageSize:20,
             beginDate:'',
             endDate:''
           }

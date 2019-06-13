@@ -92,6 +92,7 @@
     },
     data() {
       this.kChartSettings = {
+        symbol:'none',
         showMA: true,
         showVol: true,
         showDataZoom: true,
@@ -382,14 +383,16 @@ this.connect();
             {
               name:'最新价',
               type:'line',
-              symbolSize: 8,
+              symbol:'none',
+              smooth:0.2,
               hoverAnimation: false,
               data:this.latestPrice
             },
             {
               name:'均价',
               type:'line',
-              symbolSize: 8,
+              symbol:'none',
+              smooth:0.2,
               hoverAnimation: false,
               data:this.averagePrice
             },
