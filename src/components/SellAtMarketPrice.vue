@@ -274,7 +274,7 @@
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.stockTrading.availableNumber) {
-              callback(new Error('超出可买数量'))
+              callback(new Error('超出可卖数量'))
             } else if (value < 0) {
               callback(new Error('请输入合适数量'))
               ///判断卖出 数量是否是100的倍数
