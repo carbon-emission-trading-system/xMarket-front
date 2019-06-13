@@ -67,7 +67,7 @@
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model.number="stockTrading.stockId" type="number"  class="dx" placeholder="请输入证券代码"
+                <el-input v-model.number="stockTrading.stockId"  class="dx" placeholder="请输入证券代码"
                 ></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
