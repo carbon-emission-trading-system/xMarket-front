@@ -9,7 +9,6 @@
                text-color="#fff"
                active-text-color="#ffd04b"
                v-bind:router=true>
-
         <el-menu-item style="margin-left: 15%" index="/">首页</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="StockList">股票列表</el-menu-item>
         <el-menu-item style="margin-left: 5%" @click="warning">股票买卖</el-menu-item>
@@ -43,7 +42,9 @@
           </el-form-item>
           <el-form-item label="验证码" prop="mailCode">
             <el-col :span="14">
-              <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"></el-input>
+              <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"
+                        @blur="focusState = false"
+                        v-focus="focusState"></el-input>
             </el-col>
             <el-col class="line" :span="2">-</el-col>
             <el-col :span="6">
@@ -93,6 +94,7 @@ import qs from 'qs'
   export default {
     data() {
       return {
+        focusState:'',
         activeIndex: '/',
         user: {
           username: '',
@@ -176,6 +178,15 @@ import qs from 'qs'
         }
       }
     },
+    directives: {
+      focus: {
+        update: function (el, {value}) {
+          if (value) {
+            el.focus()
+          }
+        }
+      }
+    },
     methods: {
 
       warning() {
@@ -217,6 +228,8 @@ import qs from 'qs'
        * @Date:
        */
       getMailCode(email) {
+        console.log('++++++++++++++++')
+        this.focusState = true;
         if (this.flag === 0) {
           alert('请输入邮箱');
         } else if (this.flag === 2) {

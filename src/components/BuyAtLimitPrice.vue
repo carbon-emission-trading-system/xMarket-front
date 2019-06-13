@@ -66,8 +66,8 @@
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model.number="stockTrading.stockId" type="number" class="dx"
-                          placeholder="请输入证券代码"></el-input>
+                <el-input v-model.number="stockTrading.stockId" class="dx"
+                          placeholder="请输入证券代码" ></el-input>
                 <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
               </el-form-item>
 
@@ -164,7 +164,10 @@
       RealTime,
     },
     created() {
-
+      if (this.$store.state.temStockId !== '') {
+        this.stockTrading.stockId = this.$store.state.temStockId;
+        this.firstReturnStockRealtimeInformation();
+      }
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -247,7 +250,6 @@
           console.log('请输入股票代码')
         } else {
           value = Number(value);
-
           if (typeof value === 'number' && !isNaN(value)) {
             if (this.msg === this.stockTrading.stockId) {
               callback()
@@ -338,7 +340,7 @@
         this.stockTrading.canorderAmount = null;
         this.stockTrading.orderAmount = null;
         this.stockTrading.stockName = null;
-        this.msg='';
+        this.msg = '';
       }
       ,
       /**
@@ -384,8 +386,7 @@
           // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
-          console.log('this.stockTrading.stockId');
-          console.log(this.stockTrading.stockId);
+          this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 

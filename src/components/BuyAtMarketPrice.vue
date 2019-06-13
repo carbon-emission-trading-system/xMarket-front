@@ -67,7 +67,7 @@
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model.number="stockTrading.stockId" type="number" class="dx" placeholder="请输入证券代码"></el-input>
+                <el-input v-model.number="stockTrading.stockId" class="dx" placeholder="请输入证券代码"></el-input>
               </el-form-item>
 
               <el-form-item label="证券名称">
@@ -257,24 +257,23 @@
        * 验证股票代码
        */
       verifyStockCode(rule, value, callback) {
-        console.log('verifyStockCode');
+        console.log('验证股票代码');
         this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          if (this.msg === this.stockTrading.stockId) {
-            callback()
-          } else {
-            value = Number(value)
-            this.msg = 0;
-            if (typeof value === 'number' && !isNaN(value)) {
-              this.msg = 1;
+          value = Number(value);
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (this.msg === this.stockTrading.stockId) {
+              callback()
+            } else {
               this.firstReturnStockRealtimeInformation();
               callback();
-            } else {
-              callback("请输入数字")
             }
+          }
+          else {
+            callback("请输入数字")
           }
         }
       },
@@ -353,8 +352,8 @@
           this.stockTrading.balance = res.data.balance;
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice*1.1));
           this.msg = this.stockTrading.stockId;
+          this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
-
         }).catch((res) => {
           this.$message.error(res.message)
         })
