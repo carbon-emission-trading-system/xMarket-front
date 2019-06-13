@@ -255,8 +255,4 @@
   #stock{
     margin-top: 15%;
   }
-  #exit{
-    margin-top: 1.5%;
-  }
-
 </style>

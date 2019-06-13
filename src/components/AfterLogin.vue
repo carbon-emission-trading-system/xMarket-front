@@ -180,7 +180,9 @@
     data() {
       return {
         activeIndex: 'AfterLogin',
-        notices: [],
+        notices: [{title:'浦发银行退市',date:'2019-03-15'},
+          {title:'浦发银行增发新股',date:'2019-03-12'},
+          {title:'浦发银行上市',date:'2019-03-03'},],
         stock: []
       }
     },

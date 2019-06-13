@@ -337,15 +337,15 @@ this.connect();
             {
               show: true,
               realtime: true,
-              start: 30,
-              end: 70,
+              start: 0,
+              end: 100,
               xAxisIndex: [0, 1]
             },
             {
               type: 'inside',
               realtime: true,
-              start: 30,
-              end: 70,
+              start: 0,
+              end: 100,
               xAxisIndex: [0, 1]
             }
           ],
@@ -360,8 +360,8 @@ this.connect();
               type : 'category',
               boundaryGap : true,
               axisLine: {onZero: false},
-              max:"25:00:00",
-              min:"23:14:51",
+              max:"15:00:00",
+              min:"09:30:00",
               data: this.timeData
             },
             {
@@ -369,8 +369,8 @@ this.connect();
               show:false,
               type : 'category',
               boundaryGap : true,
-              max:"25:00:00",
-              min:"23:14:51",
+              max:"15:00:00",
+              min:"09:30:00",
               axisLine: {onZero: false},
               splitLine: {
                 "show": false
