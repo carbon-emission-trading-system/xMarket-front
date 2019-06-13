@@ -159,7 +159,11 @@
       RealTime,
     },
     created() {
-
+      if (this.$store.state.temStockId !== '') {
+        this.stockTrading.stockId = this.$store.state.temStockId;
+        this.firstReturnStockRealtimeInformation();
+        this.$store.commit('temStockId', '');
+      }
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin
