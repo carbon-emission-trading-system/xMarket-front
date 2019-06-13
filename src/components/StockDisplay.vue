@@ -39,7 +39,7 @@
     <div id="both">
   <div id="card">
 
-    <el-card class="box-card">
+    <el-card class="box-card" >
       <div slot="header" class="clearfix">
         <span>{{this.stockName}}</span>
         <i class="el-icon-circle-plus-outline" v-if="this.chosen===false" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="add()"></i>
@@ -52,12 +52,12 @@
 
       <div>
         <el-tabs v-model="activeName" >
-          <el-tab-pane label="日K" name="first">
-            <ve-candle :data="kChartData" width="600px" height="450px" :settings="kChartSettings" :colors="kColor" ></ve-candle>
+          <el-tab-pane label="日K" name="first" >
+            <ve-candle :data="kChartData" width="700px" height="450px" :settings="kChartSettings" :colors="kColor" ></ve-candle>
           </el-tab-pane>
 
-          <el-tab-pane label="分时" name="second" >
-            <div id="myChart" style="width: 600px;height: 450px"></div>
+          <el-tab-pane label="分时" name="second" style="background-color: " >
+            <div id="myChart" style="width: 700px;height: 450px"></div>
           </el-tab-pane>
         </el-tabs>
 
@@ -95,7 +95,10 @@
         symbol:'none',
         showMA: true,
         showVol: true,
+        
         showDataZoom: true,
+        upColor:'mediumseagreen',
+        downColor:'crimson',
         labelMap: {
           openPrice: '开盘价',
           closePrice: '收盘价',
@@ -427,7 +430,7 @@ this.connect();
   #card{
     margin-top: 5%;
     float:left;
-    width:60%;
+    width:65%;
   }
   #table{
     margin-top: 5%;
