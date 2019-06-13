@@ -91,6 +91,7 @@
             <div style="width: 100%;">
               <el-table
                 :data="tableData"
+                :header-cell-style="{background:'#eef1f6',color:'#606266'}"
                 border
                 @row-dblclick="handle"
                 style="width:100%;font-size: 6px">

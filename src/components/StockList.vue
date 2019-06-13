@@ -216,6 +216,7 @@
           return this.$store.state.isLogin
         },
           list:function () {
+
             let list = []
             for(let i = 0;i<this.tableData.length;i++){
               if(this.index===2){
@@ -228,6 +229,7 @@
                 }
               }
             }
+            console.log(list)
             return list
           }
 

@@ -79,7 +79,7 @@
         </tr>
         <tr>
           <td class="column">跌停</td>
-          <td >{{this.realTimeData.downLimitBoard	}}</td>
+          <td >{{this.realTimeData.downLimit	}}</td>
         </tr>
 
         <tr>
@@ -89,12 +89,12 @@
 
         <tr>
           <td class="column">最高价</td>
-          <td>{{this.realTimeData.highestPrice	}}</td>
+          <td v-if="this.realTimeData.highestPrice!==5e-324">{{this.realTimeData.highestPrice	}}</td><td v-else></td>
         </tr>
 
         <tr>
           <td class="column">最低价</td>
-          <td>{{this.realTimeData.lowestPrice	}}</td>
+          <td v-if="this.realTimeData.lowestPrice!==1.7976931348623157e+308">{{this.realTimeData.lowestPrice	}}</td><td v-else></td>
         </tr>
 
         <tr>
@@ -244,7 +244,7 @@
 <style lang="scss">
 
   .mailTabl{ font-size: 12px; color: #71787E; }
-  .mailTabl tr td{ width: 120px; height: 20px; line-height: 20px; box-sizing: border-box; padding: 0 10px; }
+  .mailTabl tr td{ width: 120px; height: 20px; line-height: 20px; box-sizing: border-box; padding: 0 10px; border: 0.5px solid #E6EAEE;}
   .mailTabl tr td.column { background-color: #EFF3F6; color: #393C3E; }
   .list1{
     width: 90%;
