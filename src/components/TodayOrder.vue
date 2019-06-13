@@ -107,7 +107,7 @@
           <el-table-column
             prop="tradeStraregy"
             label="订单类型"
-            width="85"
+            width="150"
             align="center">
           </el-table-column>
           <el-table-column
@@ -194,12 +194,32 @@
                 } else {
                   this.tableData[i].type = "卖出"
                 }
+
                 if(this.tableData[i].tradeMarket===0){
                   this.tableData[i].tradeMarket="深市"
                 }
                 else{
                   this.tableData[i].tradeMarket="沪市"
                 }
+
+                if(this.tableData[i].tradeStraregy===0){
+                  this.tableData[i].tradeStraregy="现价委托"
+                }else if(this.tableData[i].tradeStraregy===1){
+                  this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
+                }else if(this.tableData[i].tradeStraregy===2){
+                  this.tableData[i].tradeStraregy="最优五档即时成交剩余转限价"
+                }else if(this.tableData[i].tradeStraregy===3){
+                  this.tableData[i].tradeStraregy="对手方最优价格"
+                }else if(this.tableData[i].tradeStraregy===4){
+                  this.tableData[i].tradeStraregy="本方最优价格"
+                }else if(this.tableData[i].tradeStraregy===5){
+                  this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
+                }else if(this.tableData[i].tradeStraregy===6){
+                  this.tableData[i].tradeStraregy="即时成交并撤销"
+                }else if(this.tableData[i].tradeStraregy===7){
+                  this.tableData[i].tradeStraregy="全额成交或撤销"
+                }
+
               }
 
               let timer = setTimeout(()=>{

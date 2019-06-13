@@ -132,7 +132,7 @@
 
           </el-table>
           <div class="block" style="margin-top:30px;">
-            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[1,5,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="list.length">
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[20,50,100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="list.length">
             </el-pagination>
           </div>
 
@@ -160,7 +160,7 @@
           stockType:'全部股票',
           currentPage:1,
           total:20,
-          pageSize:5,
+          pageSize:20,
           index:2
         }
       },
