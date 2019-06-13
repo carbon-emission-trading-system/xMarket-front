@@ -122,7 +122,7 @@
     },
     created() {
       this.setKlineApi();
-      this.setTimeApi();
+      this.setFirstTimeApi();
       this.setSelfApi()
     },
     mounted() {
@@ -217,11 +217,11 @@
           });
       },
       //首次获取分时图数据
-      setTimeApi:function () {
+      setFirstTimeApi:function () {
         let params={
           stockId: this.$store.getters.getStockId
         }
-        this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
+        this.$api.http('get','/api/firstTimeSharingDisplay',params).then(res => {
           let data = res.data
           for(let i =0;i<data.length;i++){
             this.timeData.push(data[i].realTime)
@@ -232,6 +232,29 @@
           this.drawLine()
           });
       },
+
+      // //后次获取分时图数据
+      // setTimeApi:function () {
+      //   let params={
+      //     stockId: this.$store.getters.getStockId
+      //   }
+      //   this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
+      //     let data = res.data
+      //     for(let i =0;i<data.length;i++){
+      //       this.timeData.push(data[i].realTime)
+      //       this.averagePrice.push(data[i].averagePrice)
+      //       this.latestPrice.push(data[i].latestPrice)
+      //       this.volume.push(data[i].volume)
+      //     }
+      //     this.drawLine()
+      //     let timer = setTimeout(()=>{
+      //       this.setTimeApi()
+      //     },60000)
+      //     this.$once('hook:beforeDestroy',()=>{
+      //       clearInterval(timer)
+      //     })
+      //   });
+      // },
 
       drawLine() {
         // 基于准备好的dom，初始化echarts实例
@@ -364,4 +387,3 @@
   }
 
 </style>
-

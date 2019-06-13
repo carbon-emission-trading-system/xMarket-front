@@ -30,9 +30,9 @@
     </div>
     <search></search>
   <div id="in">
-    <!--公告-->
+    <!--公告 background-color: lavender -->
     <div id="left">
-      <el-card class="box-card" style="height: 350px;">
+      <el-card class="box-card" style="height: 350px; ">
         <div slot="header" class="clearfix">
           <i class="el-icon-postcard" style="font-size: 25px"></i>
           <span style="font-size: 25px">公告</span>
@@ -43,7 +43,8 @@
 
         <el-table
           :data="notices"
-          style="width: 100%">
+          style="width: 100%;"
+          >
           <el-table-column
             prop="title"
             label="标题"
@@ -61,7 +62,7 @@
     </div>
     <!--自选股-->
     <div id="right">
-      <el-card class="box-card" style="height: 350px;">
+      <el-card class="box-card" style="height: 350px; ">
         <div slot="header" class="clearfix">
           <i class="el-icon-setting" style="font-size: 25px"></i>
           <span style="font-size: 25px">自选股</span>
@@ -70,7 +71,7 @@
         <el-table
           :data="stock"
           @row-dblclick="handle"
-          style="width: 100%;font-size: 6px"
+          style="width: 100%;font-size: 6px;"
           height="250">
           <el-table-column
             prop="stockId"
