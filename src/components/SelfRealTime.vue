@@ -2,7 +2,7 @@
 <template>
 
     <el-card class="list1" >
-      <table class="mailTable" :style="styleObject" >
+      <table class="mailTabl" :style="styleObject" >
         <tr>
           <td class="column"></td>
           <td class="column" >价格</td>
@@ -36,8 +36,13 @@
         </tr>
       </table>
 
-      <table class="mailTable" :style="styleObject">
+      <table class="mailTabl" :style="styleObject">
         <!--卖一-->
+        <tr>
+          <td class="column"></td>
+          <td class="column" >价格</td>
+          <td class="column">数量</td>
+        </tr>
         <tr>
           <td class="column">买一</td>
           <td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td>
@@ -67,7 +72,7 @@
 
 
 
-      <table class="mailTable" :style="styleObject" >
+      <table class="mailTabl" :style="styleObject" >
         <tr>
           <td class="column" >涨停</td>
           <td >{{this.realTimeData.dailyLimit	}}</td>
@@ -152,7 +157,23 @@
     data() {
       return {
         client: null,
-        realTimeData: {}
+        realTimeData: {
+          sellOneToFive:[
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+          ],
+          buyOneToFive:[
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+          ]
+        },
+
       }
     },
     created() {
@@ -222,9 +243,9 @@
 </script>
 <style lang="scss">
 
-  .mailTable{ font-size: 12px; color: #71787E; }
-  .mailTable tr td{ width: 120px; height: 20px; line-height: 20px; box-sizing: border-box; padding: 0 10px; }
-  .mailTable tr td.column { background-color: #EFF3F6; color: #393C3E; }
+  .mailTabl{ font-size: 12px; color: #71787E; }
+  .mailTabl tr td{ width: 120px; height: 20px; line-height: 20px; box-sizing: border-box; padding: 0 10px; }
+  .mailTabl tr td.column { background-color: #EFF3F6; color: #393C3E; }
   .list1{
     width: 90%;
     float: left;
