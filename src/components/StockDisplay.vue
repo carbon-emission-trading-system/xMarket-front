@@ -290,26 +290,26 @@
             }
           ],
           grid: [{
-
             height: '45%'
           }, {
-
-            top: '60%',
+            top: '65%',
             height: '20%'
           }],
           xAxis : [
             {
               type : 'category',
-              boundaryGap : false,
-              axisLine: {onZero: true},
+              boundaryGap : true,
+              axisLine: {onZero: false},
+              max:"23:30:00",
+              min:"25:00:00",
               data: this.timeData
             },
             {
               gridIndex: 1,
               show:false,
               type : 'category',
-              boundaryGap : false,
-              axisLine: {onZero: true},
+              boundaryGap : true,
+              axisLine: {onZero: false},
               splitLine: {
                 "show": false
               },
@@ -319,6 +319,7 @@
           yAxis : [
             {
               type : 'value',
+              scale:true,
             },
             {
               gridIndex: 1,
