@@ -68,147 +68,8 @@
 
   </div>
 
-      <!-- 实时信息表-->
       <div id="table">
-
-        <el-card class="list1" >
-          <table class="mailTable" :style="styleObject" >
-            <tr>
-              <td class="column"></td>
-              <td class="column" >价格</td>
-              <td class="column">数量</td>
-            </tr>
-
-            <tr>
-              <td class="column">卖五</td>
-              <td v-if="this.realTimeData.sellOneToFive[4].price>=0">{{this.realTimeData.sellOneToFive[4].price}}</td>
-              <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">{{this.realTimeData.sellOneToFive[4].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">卖四</td>
-              <td v-if="this.realTimeData.sellOneToFive[3].price>=0">{{this.realTimeData.sellOneToFive[3].price}}</td>
-              <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">{{this.realTimeData.sellOneToFive[3].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">卖三</td>
-              <td v-if="this.realTimeData.sellOneToFive[2].price>=0">{{this.realTimeData.sellOneToFive[2].price}}</td>
-              <td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">{{this.realTimeData.sellOneToFive[2].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">卖二</td>
-              <td v-if="this.realTimeData.sellOneToFive[1].price>=0">{{this.realTimeData.sellOneToFive[1].price}}</td>
-              <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">{{this.realTimeData.sellOneToFive[1].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">卖一</td>
-              <td v-if="this.realTimeData.sellOneToFive[0].price>=0">{{this.realTimeData.sellOneToFive[0].price}}</td>
-              <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">{{this.realTimeData.sellOneToFive[0].quantity}}</td>
-            </tr>
-          </table>
-
-          <table class="mailTable" :style="styleObject">
-            <!--卖一-->
-            <tr>
-              <td class="column">买一</td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td>
-              <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">{{this.realTimeData.buyOneToFive[0].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">买二</td>
-              <td v-if="this.realTimeData.buyOneToFive[1].price>=0">{{this.realTimeData.buyOneToFive[1].price}}</td>
-              <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">{{this.realTimeData.buyOneToFive[1].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">买三</td>
-              <td v-if="this.realTimeData.buyOneToFive[2].price>=0">{{this.realTimeData.buyOneToFive[2].price}}</td>
-              <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">{{this.realTimeData.buyOneToFive[2].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">买四</td>
-              <td v-if="this.realTimeData.buyOneToFive[3].price>=0">{{this.realTimeData.buyOneToFive[3].price}}</td>
-              <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">{{this.realTimeData.buyOneToFive[3].quantity}}</td>
-            </tr>
-            <tr>
-              <td class="column">买五</td>
-              <td v-if="this.realTimeData.buyOneToFive[4].price>=0">{{this.realTimeData.buyOneToFive[4].price}}</td>
-              <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">{{this.realTimeData.buyOneToFive[4].quantity}}</td>
-            </tr>
-          </table>
-
-          <table class="mailTable" :style="styleObject" >
-            <tr>
-              <td class="column" >涨停</td>
-              <td >{{this.realTimeData.dailyLimit	}}</td>
-            </tr>
-            <tr>
-              <td class="column">跌停</td>
-              <td >{{this.realTimeData.downLimitBoard	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">开盘价</td>
-              <td >{{this.realTimeData.openPrice}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">最高价</td>
-              <td>{{this.realTimeData.highestPrice	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">最低价</td>
-              <td>{{this.realTimeData.lowestPrice	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">最新价</td>
-              <td>{{this.realTimeData.latestPrice	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">涨跌</td>
-              <td>{{this.realTimeData.upsAndDowns	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">涨幅</td>
-              <td>{{this.realTimeData.increase	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">外盘</td>
-              <td>{{this.realTimeData.outMarket	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">内盘</td>
-              <td>{{this.realTimeData.inMarket}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">换手</td>
-              <td>{{this.realTimeData.conversionHand	}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">总市值</td>
-              <td>{{this.realTimeData.totalMarketCapitalization	}}</td>
-            </tr>
-
-            <tr>
-              <!--//静态市盈率-->
-              <td class="column">市盈率</td>
-              <td>{{this.realTimeData.peRatio}}</td>
-            </tr>
-
-            <tr>
-              <td class="column">市净率</td>
-              <td>{{this.realTimeData.pbRatio	}}</td>
-            </tr>
-
-          </table>
-        </el-card>
-
+        <realTime></realTime>
       </div>
     </div>
 
@@ -217,16 +78,18 @@
 
 <script>
   import VCharts from 'v-charts'
+  import RealTime from './SelfRealTime'
   import echarts from 'echarts' //引入echarts
   import Vue from 'vue'
-  import Stomp from 'stompjs'
   Vue.prototype.$echarts = echarts //引入组件
 
   Vue.use(VCharts)
-
+  Vue.component( 'realTime',RealTime);
 
   export default {
-
+    components:{
+      RealTime,
+    },
     data() {
       this.kChartSettings = {
         showMA: true,
@@ -250,32 +113,21 @@
           columns: ['date', 'openPrice', 'closePrice', 'lowestPrice', 'highestPrice', 'volume'],
           rows: []
         },
-        //分时图数据
+        //分时图的横坐标
         timeData: [],
         averagePrice: [],
         latestPrice:[],
-        volume:[],
-        //来自realTime的数据
-        client: null,
-        realTimeData: {}
+        volume:[]
       }
     },
     created() {
       this.setKlineApi();
-      this.setTimeApi();
-      this.setSelfApi();
-      this.realTimeDataDisplay();
-      this.styleObject = this.tableStyle;
-      if (this.showByRow !== undefined) {
-        this.s_showByRow = this.showByRow;
-      };
-      //this.connect();
+      this.setFirstTimeApi();
+      this.setSelfApi()
     },
-
-    updated(){
-
+    mounted() {
+      this.drawLine();
     },
-
     computed:{
       isLogin:function () {
         return this.$store.state.isLogin
@@ -365,11 +217,11 @@
           });
       },
       //首次获取分时图数据
-      setTimeApi:function () {
+      setFirstTimeApi:function () {
         let params={
           stockId: this.$store.getters.getStockId
         }
-        this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
+        this.$api.http('get','/api/firstTimeSharingDisplay',params).then(res => {
           let data = res.data
           for(let i =0;i<data.length;i++){
             this.timeData.push(data[i].realTime)
@@ -381,12 +233,30 @@
           });
       },
 
+      // //后次获取分时图数据
+      // setTimeApi:function () {
+      //   let params={
+      //     stockId: this.$store.getters.getStockId
+      //   }
+      //   this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
+      //     let data = res.data
+      //     for(let i =0;i<data.length;i++){
+      //       this.timeData.push(data[i].realTime)
+      //       this.averagePrice.push(data[i].averagePrice)
+      //       this.latestPrice.push(data[i].latestPrice)
+      //       this.volume.push(data[i].volume)
+      //     }
+      //     this.drawLine()
+      //     let timer = setTimeout(()=>{
+      //       this.setTimeApi()
+      //     },60000)
+      //     this.$once('hook:beforeDestroy',()=>{
+      //       clearInterval(timer)
+      //     })
+      //   });
+      // },
+
       drawLine() {
-        console.log("drawLine")
-        console.log(this.averagePrice)
-        console.log(this.timeData)
-        console.log(this.latestPrice)
-        console.log(this.volume)
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'))
         // 绘制图表
@@ -486,59 +356,7 @@
             }
           ]
         });
-      },
-
-      //来自realTime
-      realTimeDataDisplay() {
-        let params={
-          stockId:this.$store.state.stockId
-        }
-        this.$api.http('get','/api/realTimeInfo',params).then(res=>{
-          console.log(res.data)
-          this.realTimeData=res.data
-        })
-      },
-
-      onConnected(frame) {
-        console.log("Connected: " + frame);
-        var exchange1 = "/exchange/realTimeExchange/stock.SZSE."+this.$store.state.stockId;
-        var exchange2 = "/exchange/timeShareExchange/stock.SZSE."+this.$store.state.stockId;
-
-        var subscription = this.client.subscribe(exchange1, this.onmessage);
-        console.log(subscription.data());
-        this.realTimeData = subscription.data();
-
-        var subscription2 = this.client.subscribe(exchange2, this.onmessage);
-        console.log(subscription2);
-
-      },
-      onFailed(frame) {
-        console.log("Failed: " + frame.body);
-        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-
-      },
-      onmessage(message) {
-        console.log("得到消息");
-        this.realTimeData = message;
-      },
-      responseCallback(frame) {
-        console.log("得到的消息 msg=>" + frame.body);
-        //接收到服务器推送消息，向服务器发送确认消息
-        // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      },
-      connect() {
-        console.log("开始连接");
-        this.client = Stomp.client("ws://localhost:15674/ws")
-        console.log("创建");
-        var headers = {
-          "login": "guest",
-          "passcode": "guest",
-          //虚拟主机，默认“/”
-          "heart-beat": "0,0"
-        };
-        this.client.connect(headers, this.onConnected, this.onFailed);
-        console.log("连接结束");
-      },
+      }
       }
 
   }
@@ -564,18 +382,8 @@
     float: right;
     width: 30%;
   }
-  .mailTable{ font-size: 12px; color: #71787E; }
-  .mailTable tr td{ width: 120px; height: 20px; line-height: 20px; box-sizing: border-box; padding: 0 10px; }
-  .mailTable tr td.column { background-color: #EFF3F6; color: #393C3E; }
-  .list1{
-    width: 90%;
-    float: left;
-    height: 95%;
-    text-align: center;
-  }
-  .column{
-    width: 5%;
+  #exit{
+    margin-top: 1.5%;
   }
 
 </style>
-
