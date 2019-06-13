@@ -120,7 +120,7 @@
         //分时图的横坐标
         timeData: [],
         averagePrice: [],
-        latestPrice:[],
+        lastTradePrice:[],
         volume:[]
       }
     },
@@ -165,7 +165,7 @@ this.connect();
         console.log(data);
           this.timeData.push(data.realTime)
           this.averagePrice.push(data.averagePrice)
-          this.latestPrice.push(data.latestPrice)
+          this.lastTradePrice.push(data.lastTradePrice)
           this.volume.push(data.volume)
 
         this.drawLine()
@@ -286,7 +286,7 @@ this.connect();
           for(let i =0;i<data.length;i++){
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
-            this.latestPrice.push(data[i].latestPrice)
+            this.lastTradePrice.push(data[i].lastTradePrice)
             this.volume.push(data[i].volume)
           }
           this.drawLine()
@@ -337,15 +337,15 @@ this.connect();
             {
               show: true,
               realtime: true,
-              start: 30,
-              end: 70,
+              start: 0,
+              end: 100,
               xAxisIndex: [0, 1]
             },
             {
               type: 'inside',
               realtime: true,
-              start: 30,
-              end: 70,
+              start: 0,
+              end: 100,
               xAxisIndex: [0, 1]
             }
           ],
@@ -360,8 +360,8 @@ this.connect();
               type : 'category',
               boundaryGap : true,
               axisLine: {onZero: false},
-              max:"25:00:00",
-              min:"23:14:51",
+              max:"15:00:00",
+              min:"09:30:00",
               data: this.timeData
             },
             {
@@ -369,8 +369,8 @@ this.connect();
               show:false,
               type : 'category',
               boundaryGap : true,
-              max:"25:00:00",
-              min:"23:14:51",
+              max:"15:00:00",
+              min:"09:30:00",
               axisLine: {onZero: false},
               splitLine: {
                 "show": false
@@ -399,7 +399,7 @@ this.connect();
               symbol:'none',
               smooth:0.2,
               hoverAnimation: false,
-              data:this.latestPrice
+              data:this.lastTradePrice
             },
             {
               name:'均价',
