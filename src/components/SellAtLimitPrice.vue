@@ -67,7 +67,7 @@
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model.number="stockTrading.stockId"  class="dx" placeholder="请输入证券代码"
+                <el-input v-model.number="stockTrading.stockId" class="dx" placeholder="请输入证券代码"
                 ></el-input>
               </el-form-item>
               <el-form-item label="证券名称">
@@ -76,13 +76,13 @@
               </el-form-item>
               <el-form-item label="卖出价格"
                             prop="orderPrice"
-                            style="float: left;width: 100%">
-                <!-- :rules="[
-                { validator: LimitPrice, // 自定义验证
-                  trigger: 'blur'
-                }
-                ]" -->
-                <el-input v-model="stockTrading.orderPrice" class="dx"  placeholder="请输入卖出价格"></el-input>
+                            style="float: left;width: 100%"
+                            :rules="[
+                            { validator: LimitPrice, // 自定义验证
+                            trigger: 'blur'
+                            }
+                            ]">
+                <el-input v-model="stockTrading.orderPrice" class="dx" placeholder="请输入卖出价格"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量"
                             style="float: left">
@@ -104,8 +104,8 @@
                             { validator: DetermineTheNumberOfPurchases, // 自定义验证
                             trigger: 'change'
                               }]"
-                              style="float: left;width: 100%" >
-                <el-input v-model="stockTrading.orderAmount"  class="dx" placeholder="请输入卖出股数" clearable></el-input>
+                            style="float: left;width: 100%">
+                <el-input v-model="stockTrading.orderAmount" class="dx" placeholder="请输入卖出股数" clearable></el-input>
               </el-form-item>
               <div style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
@@ -337,7 +337,7 @@
         this.stockTrading.canorderAmount = null;
         this.stockTrading.orderAmount = null;
         this.stockTrading.stockName = null;
-        this.msg='';
+        this.msg = '';
       }
       ,
       /**
@@ -569,12 +569,12 @@
     clear: both
   }
 
-
   .card1 {
     height: 95%;
 
   }
-  .dx{
+
+  .dx {
     width: 60%;
   }
 </style>
