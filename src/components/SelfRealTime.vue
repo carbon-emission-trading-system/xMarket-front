@@ -157,7 +157,23 @@
     data() {
       return {
         client: null,
-        realTimeData: {}
+        realTimeData: {
+          sellOneToFive:[
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+          ],
+          buyOneToFive:[
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+            {price:'',quantity:''},
+          ]
+        },
+
       }
     },
     created() {
