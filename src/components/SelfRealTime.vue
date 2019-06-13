@@ -39,6 +39,11 @@
       <table class="mailTable" :style="styleObject">
         <!--卖一-->
         <tr>
+          <td class="column"></td>
+          <td class="column" >价格</td>
+          <td class="column">数量</td>
+        </tr>
+        <tr>
           <td class="column">买一</td>
           <td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td>
           <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">{{this.realTimeData.buyOneToFive[0].quantity}}</td>
