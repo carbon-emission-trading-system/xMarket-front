@@ -204,8 +204,7 @@
           function () {
             console.log("断开连接");
           });
-      }
-      ;
+      };
     },
 
     created() {
@@ -234,6 +233,12 @@
         console.log(this.buyOrSellStock)
         console.log('updated   else')
         this.realTimeDataDisplay();
+        if (this.client != null) {
+          this.client.disconnect(
+            function () {
+              console.log("断开连接");
+            });
+        };
         this.connect();
       }
     }
