@@ -126,7 +126,9 @@
       this.setSelfApi()
     },
     mounted() {
-      this.drawLine();
+     // this.drawLine();
+this.connect();
+
     },
     computed:{
       isLogin:function () {
@@ -138,6 +140,52 @@
     },
 
     methods: {
+
+      onConnected(frame) {
+        console.log("Connected: " + frame);
+       let exchange = "/exchange/timeShareExchange/stock.SZSE."+this.$store.state.stockId;
+
+        this.client.subscribe(exchange, this.onmessage);
+
+
+      },
+      onFailed(frame) {
+        console.log("Failed: " + frame.body);
+        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
+
+      },
+      onmessage(message) {
+        console.log("得到消息");
+        let data = JSON.parse(message.body);
+        console.log(data.averagePrice);
+        console.log(data);
+          this.timeData.push(data.realTime)
+          this.averagePrice.push(data.averagePrice)
+          this.latestPrice.push(data.latestPrice)
+          this.volume.push(data.volume)
+
+        this.drawLine()
+      },
+      responseCallback(frame) {
+        console.log("得到的消息 msg=>" + frame.body);
+        //接收到服务器推送消息，向服务器发送确认消息
+        // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
+      },
+      connect() {
+        console.log("开始连接");
+        this.client = Stomp.client("ws://localhost:15674/ws")
+        console.log("创建");
+        var headers = {
+          "login": "guest",
+          "passcode": "guest",
+          //虚拟主机，默认“/”
+          "heart-beat": "0,0"
+        };
+        this.client.connect(headers, this.onConnected, this.onFailed);
+        console.log("连接结束");
+      },
+
+
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')
