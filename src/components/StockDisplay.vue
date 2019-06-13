@@ -360,8 +360,8 @@ this.connect();
               type : 'category',
               boundaryGap : true,
               axisLine: {onZero: false},
-              max:"15:00:00",
-              min:"09:30:00",
+              // max:"15:00:00",
+              // min:"09:30:00",
               data: this.timeData
             },
             {
@@ -369,8 +369,8 @@ this.connect();
               show:false,
               type : 'category',
               boundaryGap : true,
-              max:"15:00:00",
-              min:"09:30:00",
+              // max:"15:00:00",
+              // min:"09:30:00",
               axisLine: {onZero: false},
               splitLine: {
                 "show": false
