@@ -241,7 +241,7 @@
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          if (this.msg === 1) {
+          if (this.msg === this.stockTrading.stockId) {
             callback()
           } else {
             value = Number(value)
@@ -329,6 +329,12 @@
        */
       resetForm(formName) {
         this.$refs[formName].resetFields();
+        this.stockTrading.stockId = null;
+        this.stockTrading.orderPrice = null;
+        this.stockTrading.canorderAmount = null;
+        this.stockTrading.orderAmount = null;
+        this.stockTrading.stockName = null;
+        this.msg='';
       }
       ,
       /**

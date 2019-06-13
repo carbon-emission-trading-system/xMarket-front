@@ -45,6 +45,7 @@
       </table>
       <table class="mailTable" :style="styleObject">
         <!--卖一-->
+
         <tr>
           <td class="column">买一</td>
           <td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td>
@@ -170,46 +171,50 @@
         buyOrSellStock: '',
         x: '',
         realTimeData: {
-          sellOneToFive:[
-            {price:'',quantity:''},
-            {price:'',quantity:''},
-            {price:'',quantity:''},
-            {price:'',quantity:''},
-            {price:'',quantity:''},
+          sellOneToFive: [
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
           ],
-          buyOneToFive:[
-            {price:'',quantity:''},
-            {price:'',quantity:''},
-            {price:'',quantity:''},
-            {price:'',quantity:''},
-            {price:'',quantity:''},
+          buyOneToFive: [
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''},
+            {price: '', quantity: ''}, 1
           ]
         },
       }
     },
 
-    destroyed(){
-      if(this.client!=null) {
+    destroyed() {
+      if (this.client != null) {
         this.client.disconnect(
           function () {
             console.log("断开连接");
           });
-      };
+      }
+      ;
     },
 
     created() {
       this.styleObject = this.tableStyle;
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
-      };
+      }
+      ;
     },
     /**
-    * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
-    * @Param:
-    * @return:
-    * @Author: zky
-    * @Date:
-    */
+     * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
+     * @Param:
+     * @return:
+     * @Author: zky
+     * @Date:
+     */
     updated() {
       console.log('update');
       console.log(this.$store.state.buyOrSellStock);
@@ -220,10 +225,12 @@
         console.log('----------')
         console.log(this.x)
         console.log(this.buyOrSellStock)
+        console.log('updated   else')
         this.realTimeDataDisplay();
-      this.connect();
+        this.connect();
       }
-    },
+    }
+    ,
     methods: {
       /**
        * @Description: 初次请求实时信息
@@ -241,33 +248,36 @@
         }).catch((res) => {
           this.$message.error(res.message)
         })
-      },
+      }
+      ,
       onConnected(frame) {
         console.log("Connected: " + frame);
 
         let exchange = "/exchange/realTimeExchange/stock.SZSE." + this.buyOrSellStock;
 
         this.client.subscribe(exchange, this.onmessage);
-        //alert(JSON.parse(subscription.body));
-      // this.realTimeData = subscription.body;
 
-      },
+      }
+      ,
       onFailed(frame) {
         console.log("Failed: " + frame.body);
         //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
 
-      },
+      }
+      ,
       onmessage(message) {
         console.log("得到消息msg=>" + message.body);
-       // alert("haha"+message.body);
+        // alert("haha"+message.body);
         //alert("wowo"+this.realTimeData);
-        this.realTimeData = message.body;
-      },
+        this.realTimeData = JSON.parse(message.body);
+      }
+      ,
       responseCallback(frame) {
         console.log("得到的消息 msg=>" + frame.body);
         //接收到服务器推送消息，向服务器发送确认消息
         // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      },
+      }
+      ,
       connect() {
         console.log("开始连接");
         this.client = Stomp.client("ws://192.168.137.1:15674/ws")
@@ -281,7 +291,8 @@
         this.client.connect(headers, this.onConnected, this.onFailed);
         console.log("连接结束");
         //连接结束后需要回复x的值为‘’！！！！
-      },
+      }
+      ,
     }
   }
 
@@ -301,7 +312,8 @@
     line-height: 35px;
     box-sizing: border-box;
     padding: 0 10px;
-    width: 120px; height: 20px;
+    width: 120px;
+    height: 20px;
   }
 
   .mailTable tr td.column {

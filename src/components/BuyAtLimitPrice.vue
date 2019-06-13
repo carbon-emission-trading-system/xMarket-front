@@ -246,20 +246,21 @@
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          if (this.msg === 1) {
-            callback()
-          } else {
-            value = Number(value)
-            this.msg = 0;
-            if (typeof value === 'number' && !isNaN(value)) {
-              this.msg = 1;
+          value = Number(value);
+
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (this.msg === this.stockTrading.stockId) {
+              callback()
+            } else {
               this.firstReturnStockRealtimeInformation();
               callback();
-            } else {
-              callback("请输入数字")
             }
           }
+          else {
+            callback("请输入数字")
+          }
         }
+
       },
       /**
        *
@@ -337,6 +338,7 @@
         this.stockTrading.canorderAmount = null;
         this.stockTrading.orderAmount = null;
         this.stockTrading.stockName = null;
+        this.msg='';
       }
       ,
       /**
@@ -369,7 +371,7 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-
+          this.msg = this.stockTrading.stockId;
           this.stockTrading = res.data;
           // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
@@ -382,6 +384,9 @@
           // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
+          console.log('this.stockTrading.stockId');
+          console.log(this.stockTrading.stockId);
+          this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 
         }).catch((res) => {
@@ -402,7 +407,7 @@
           console.log(allFund / (price * 1.030287 * 100));
           res = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
         } else {
-          res = Math.floor((allFund - 5) / (price * 1.000287*100)) * 100;
+          res = Math.floor((allFund - 5) / (price * 1.000287 * 100)) * 100;
         }
         return res;
       }
@@ -478,7 +483,8 @@
         this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
         this.$forceUpdate();
       },
-    },
+    }
+    ,
   }
 
 </script>

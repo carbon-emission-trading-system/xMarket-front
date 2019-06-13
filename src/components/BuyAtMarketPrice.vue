@@ -263,7 +263,7 @@
           callback(new Error('请输入股票代码'))
           console.log('请输入股票代码')
         } else {
-          if (this.msg === 1) {
+          if (this.msg === this.stockTrading.stockId) {
             callback()
           } else {
             value = Number(value)
@@ -313,13 +313,14 @@
         this.stockTrading.canorderAmount = null;
         this.stockTrading.orderAmount = null;
         this.stockTrading.stockName = null;
+        this.msg='';
       }
       ,
       /**
        *提交
        */
       submitForm(formName) {
-      console.log(this.stockTrading.DelegateType)
+      console.log(this.stockTrading.DelegateType);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
@@ -351,7 +352,7 @@
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.balance = res.data.balance;
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice*1.1));
-
+          this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 
         }).catch((res) => {
