@@ -120,7 +120,7 @@
         //分时图的横坐标
         timeData: [],
         averagePrice: [],
-        latestPrice:[],
+        lastTradePrice:[],
         volume:[]
       }
     },
@@ -165,7 +165,7 @@ this.connect();
         console.log(data);
           this.timeData.push(data.realTime)
           this.averagePrice.push(data.averagePrice)
-          this.latestPrice.push(data.latestPrice)
+          this.lastTradePrice.push(data.lastTradePrice)
           this.volume.push(data.volume)
 
         this.drawLine()
@@ -286,7 +286,7 @@ this.connect();
           for(let i =0;i<data.length;i++){
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
-            this.latestPrice.push(data[i].latestPrice)
+            this.lastTradePrice.push(data[i].lastTradePrice)
             this.volume.push(data[i].volume)
           }
           this.drawLine()
@@ -399,7 +399,7 @@ this.connect();
               symbol:'none',
               smooth:0.2,
               hoverAnimation: false,
-              data:this.latestPrice
+              data:this.lastTradePrice
             },
             {
               name:'均价',

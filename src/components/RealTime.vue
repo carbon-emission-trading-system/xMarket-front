@@ -105,7 +105,7 @@
 
         <tr>
           <td class="column">最新价</td>
-          <td>{{this.realTimeData.latestPrice }}</td>
+          <td>{{this.realTimeData.lastTradePrice }}</td>
         </tr>
 
         <tr>

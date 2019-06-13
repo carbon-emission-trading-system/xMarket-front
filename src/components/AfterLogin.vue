@@ -221,7 +221,6 @@
         this.$api.http('post','/api/getNews').then(res=>{
             this.notices = res.data;
           }).catch((error)=>{
-
         })
       },
       //获取自选股
