@@ -114,7 +114,7 @@
             prop="orderId"
             label="合同编号"
             align="center"
-            width="100"
+            width="120"
           >
           </el-table-column>
 

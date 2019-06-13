@@ -225,11 +225,11 @@
       },
       connect() {
         console.log("开始连接");
-        this.client = Stomp.client("ws://localhost:15674/ws")
+        this.client = Stomp.client("ws://192.168.137.1:15674/ws")
         console.log("创建");
         var headers = {
-          "login": "guest",
-          "passcode": "guest",
+          "login": "zhang",
+          "passcode": "648810",
           //虚拟主机，默认“/”
           "heart-beat": "0,0"
         };
