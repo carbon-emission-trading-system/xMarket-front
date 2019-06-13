@@ -181,7 +181,10 @@
     },
 
     created() {
-
+      this.styleObject = this.tableStyle;
+      if (this.showByRow !== undefined) {
+        this.s_showByRow = this.showByRow;
+      };
     },
     /**
     * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
