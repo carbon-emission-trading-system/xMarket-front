@@ -246,11 +246,11 @@ this.connect();
         })
       },
       sell:function(){
-        this.$store.commit('temStockId')
+        this.$store.commit('temStockId',this.$store.state.stockId)
         this.$router.push('SellAtLimitPrice')
       },
       buy:function(){
-        this.$store.commit('temStockId')
+        this.$store.commit('temStockId',this.$store.state.stockId)
         this.$router.push('BuyAtLimitPrice')
       },
       //查看该股票是否为自选股
