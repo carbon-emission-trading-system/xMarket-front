@@ -165,6 +165,8 @@
         this.stockTrading.stockId = this.$store.state.temStockId;
         this.firstReturnStockRealtimeInformation();
       }
+
+      console.log(this.$store.state.temStockId)
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -376,6 +378,7 @@
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 
+          this.$store.commit('temStockId', this.stockTrading.stockId)
           // this.stockTrading.userId = this.basicInfoStok.stockId;
           // this.stockTrading.stockName = this.basicInfoStok.stockName;
           // this.stockTrading.orderPrice = this.basicInfoStok.orderPrice;

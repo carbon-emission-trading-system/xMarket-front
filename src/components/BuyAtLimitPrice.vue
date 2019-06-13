@@ -67,7 +67,7 @@
                               trigger: 'blur'
                             }]">
                 <el-input v-model.number="stockTrading.stockId" class="dx"
-                          placeholder="请输入证券代码" ></el-input>
+                          placeholder="请输入证券代码"></el-input>
                 <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
               </el-form-item>
 
@@ -164,10 +164,13 @@
       RealTime,
     },
     created() {
+      console.log(this.$store.state.temStockId);
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
         this.firstReturnStockRealtimeInformation();
+        // this.$store.commit('temStockId', '');
       }
+      console.log(this.$store.state.temStockId)
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -262,7 +265,6 @@
             callback("请输入数字")
           }
         }
-
       },
       /**
        *
@@ -358,7 +360,6 @@
           }
         });
       },
-
       /**
        * @author 郑科宇
        * @date 05/28
@@ -389,7 +390,7 @@
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
-
+          this.$store.commit('temStockId', this.stockTrading.stockId)
         }).catch((res) => {
           this.$message.error(res.message)
         });

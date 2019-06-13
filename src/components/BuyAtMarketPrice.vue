@@ -58,7 +58,7 @@
         <el-card class="card1">
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center;float: left;width: 100%" class="elementInput" >
+            <div style="text-align: center;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
                             style="float: left;width: 100%"
                             onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
@@ -79,10 +79,10 @@
               <el-form-item label="交易策略"
                             prop="value"
                             style="float: left;width: 100%">
-                            <!--:rules="[{-->
-                              <!--validator: tradingStrategyVerification, // 自定义验证-->
-                              <!--trigger: 'blur'-->
-                            <!--}]">-->
+                <!--:rules="[{-->
+                <!--validator: tradingStrategyVerification, // 自定义验证-->
+                <!--trigger: 'blur'-->
+                <!--}]">-->
                 <el-select v-model="stockTrading.DelegateType" @change="changeSelect" class="dx" placeholder="请选择委托方案">
                   <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
                              :value="item.value"></el-option>
@@ -177,11 +177,13 @@
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
         this.firstReturnStockRealtimeInformation();
-        this.$store.commit('temStockId', '');
+        // this.$store.commit('temStockId', '');
       }
+      console.log('console.log(this.$store.state.temStockId)');
+      console.log(this.$store.state.temStockId)
     },
     beforeMount() {
-      let isLogin = this.$store.getters.isLogin
+      let isLogin = this.$store.getters.isLogin;
       if (!isLogin) {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
@@ -191,7 +193,7 @@
     },
     methods: {
       changeSelect(id) {
-        this.$set(this.stockTrading,'DelegateType',id);
+        this.$set(this.stockTrading, 'DelegateType', id);
         console.log(this.stockTrading.DelegateType)
       },
       exit() {
@@ -310,25 +312,25 @@
        */
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.stockTrading.DelegateType ='';
+        this.stockTrading.DelegateType = '';
         this.stockTrading.stockId = null;
         this.stockTrading.orderPrice = null;
         this.stockTrading.canorderAmount = null;
         this.stockTrading.orderAmount = null;
         this.stockTrading.stockName = null;
-        this.msg='';
+        this.msg = '';
       }
       ,
       /**
        *提交
        */
       submitForm(formName) {
-      console.log(this.stockTrading.DelegateType);
+        console.log(this.stockTrading.DelegateType);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
             this.ajaxSubmit();
-            this.stockTrading.DelegateType='';
+            this.stockTrading.DelegateType = '';
           } else {
             console.log('error submit!!');
             return false;
@@ -354,10 +356,11 @@
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.balance = res.data.balance;
-          this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice*1.1));
+          this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice * 1.1));
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
+          this.$store.commit('temStockId', this.stockTrading.stockId)
         }).catch((res) => {
           this.$message.error(res.message)
         })
@@ -379,7 +382,7 @@
           console.log(allFund / (price * 1.030287 * 100));
           return Math.floor(allFund / (price * 1.030287 * 100)) * 100;
         } else {
-          return Math.floor((allFund - 5) / (price * 1.000287*100)) * 100;
+          return Math.floor((allFund - 5) / (price * 1.000287 * 100)) * 100;
         }
       }
       ,
@@ -392,15 +395,15 @@
       ajaxSubmit() {
         // this.firstReturnStockRealtimeInformation()
         console.log('***********************')
-        console.log(this.stockTrading.stockId ,this.stockTrading.orderAmount ,this.stockTrading.DelegateType)
+        console.log(this.stockTrading.stockId, this.stockTrading.orderAmount, this.stockTrading.DelegateType)
         if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
         } else if (this.stockTrading.stockId === null
           || this.stockTrading.orderAmount === null
           || this.stockTrading.DelegateType === ''
           || this.stockTrading.DelegateType === undefined) {
-          this.stockTrading.DelegateType ='',
-          alert('错误');
+          this.stockTrading.DelegateType = '',
+            alert('错误');
         } else {
           let SentstockTrading = {
             // userId: store.state.user.userId,
@@ -438,20 +441,20 @@
       },
       //0.25/0.5/0.75计算
       change1() {
-        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.25,  this.stockTrading.openPrice*1.1));
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.openPrice * 1.1));
         this.$forceUpdate();
         // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
         console.log(this.stockTrading);
       },
       change2() {
-        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.openPrice*1.1));
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.openPrice * 1.1));
 
         // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.orderPrice)
         this.$forceUpdate();
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.5)
       },
       change3() {
-        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.openPrice*1.1));
+        this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.75, this.stockTrading.openPrice * 1.1));
         this.$forceUpdate();
         // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.2575, this.stockTrading.orderPrice)
         // this.stockTrading.orderAmount = Math.floor(this.stockTrading.canorderAmount * 0.75)
@@ -573,6 +576,7 @@
     height: 95%;
 
   }
+
   .dx {
     width: 60%;
   }

@@ -162,8 +162,10 @@
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
         this.firstReturnStockRealtimeInformation();
-        this.$store.commit('temStockId', '');
+        // this.$store.commit('temStockId', '');
       }
+
+      console.log(this.$store.state.temStockId)
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin
@@ -362,6 +364,7 @@
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
 
+          this.$store.commit('temStockId', this.stockTrading.stockId)
         }).catch((res) => {
           this.$message.error(res.message)
         });
