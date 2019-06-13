@@ -165,7 +165,16 @@ export default new Vuex.Store({
 
     stockList(context, payload) {
       api.http('get', '/api/stockList').then(res => {
-        payload = res.data
+        let data = res.data
+        for(let i =0;i<data.length;i++){
+          if(data[i].highestPrice===5e-324){
+            data[i].highestPrice=null
+          }
+          if(data[i].lowestPrice===1.7976931348623157e+308){
+            data[i].lowestPrice=null
+          }
+        }
+        payload = data
         context.commit('stockList', payload)
       });
     },

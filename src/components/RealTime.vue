@@ -102,12 +102,12 @@
 
         <tr>
           <td class="column">最高价</td>
-          <td>{{this.realTimeData.highestPrice }}</td>
+          <td v-if="this.realTimeData.highestPrice!==5e-324">{{this.realTimeData.highestPrice	}}</td><td v-else></td>
         </tr>
 
         <tr>
           <td class="column">最低价</td>
-          <td>{{this.realTimeData.lowestPrice }}</td>
+          <td v-if="this.realTimeData.lowestPrice!==1.7976931348623157e+308">{{this.realTimeData.lowestPrice	}}</td><td v-else></td>
         </tr>
 
         <tr>

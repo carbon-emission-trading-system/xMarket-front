@@ -58,6 +58,7 @@
           <div style="width: 100%;font-size: 6px">
             <el-table
               :data="tableData"
+              :header-cell-style="{background:'#eef1f6',color:'#606266'}"
               @row-dblclick="handle"
               border
               style="width:100%;font-size: 6px">
@@ -225,7 +226,16 @@
           userId: this.userId
         }
         this.$api.http('get', "/api/selfSelectStockList", poem).then(res => {
-          this.tableData = res.data;
+          let data = res.data
+          for(let i =0;i<data.length;i++){
+            if(data[i].highestPrice===5e-324){
+              data[i].highestPrice=null
+            }
+            if(data[i].lowestPrice===1.7976931348623157e+308){
+              data[i].lowestPrice=null
+            }
+          }
+          this.tableData = data;
           console.log(this.tableData)
         }).catch((error) => {
           this.$message.error(error.message)
