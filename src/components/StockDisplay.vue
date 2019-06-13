@@ -44,8 +44,8 @@
         <span>{{this.stockName}}</span>
         <i class="el-icon-circle-plus-outline" v-if="this.chosen===false" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="add()"></i>
         <i class="el-icon-remove-outline" v-if="this.chosen===true" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="remove()"></i>
-        <router-link to="SellAtLimitPrice"><el-button style="float: right; padding: 1% 3%" type="text" >卖出</el-button></router-link>
-        <router-link to="BuyAtLimitPrice"><el-button style="float: right; padding: 1% 0" type="text">买入</el-button></router-link>
+        <el-button style="float: right; padding: 1% 3%" type="text" @click="sell">卖出</el-button>
+        <el-button style="float: right; padding: 1% 0" type="text" @click="buy">买入</el-button>
 
 
       </div>
@@ -245,6 +245,14 @@ this.connect();
           }
         })
       },
+      sell:function(){
+        this.$store.commit('temStockId')
+        this.$router.push('SellAtLimitPrice')
+      },
+      buy:function(){
+        this.$store.commit('temStockId')
+        this.$router.push('BuyAtLimitPrice')
+      },
       //查看该股票是否为自选股
       setSelfApi:function(){
         let params={
@@ -352,8 +360,8 @@ this.connect();
               type : 'category',
               boundaryGap : true,
               axisLine: {onZero: false},
-              max:"23:30:00",
-              min:"25:00:00",
+              max:"25:00:00",
+              min:"23:14:51",
               data: this.timeData
             },
             {
@@ -361,6 +369,8 @@ this.connect();
               show:false,
               type : 'category',
               boundaryGap : true,
+              max:"25:00:00",
+              min:"23:14:51",
               axisLine: {onZero: false},
               splitLine: {
                 "show": false
