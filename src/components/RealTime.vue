@@ -90,7 +90,7 @@
       <table class="mailTable" :style="styleObject">
         <tr>
           <td class="column"></td>
-          <td class="column">价格</td>
+          <td class="column">数值</td>
         </tr>
 
         <tr>
