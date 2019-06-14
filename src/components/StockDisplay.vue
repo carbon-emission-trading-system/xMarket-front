@@ -78,6 +78,7 @@
   import RealTime from './SelfRealTime'
   import echarts from 'echarts' //引入echarts
   import Vue from 'vue'
+  import {formatDate} from "../util/data-format";
   Vue.prototype.$echarts = echarts //引入组件
 
   Vue.use(VCharts)
@@ -92,8 +93,8 @@
         symbol:'none',
         showMA: true,
         showVol: true,
-
-        showDataZoom: true,
+        //
+        // showDataZoom: true,
         upColor:'mediumseagreen',
         downColor:'crimson',
         labelMap: {
@@ -289,6 +290,7 @@ this.connect();
         this.$api.http('get','/api/firstTimeSharingDisplay',params).then(res => {
           let data = res.data
           for(let i =0;i<data.length;i++){
+
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
             this.lastTradePrice.push(data[i].lastTradePrice)
@@ -367,8 +369,8 @@ this.connect();
               type : 'category',
               boundaryGap : true,
               axisLine: {onZero: false},
-              // max:"15:00:00",
-              // min:"09:30:00",
+              max:330,
+
               data: this.timeData
             },
             {
@@ -376,8 +378,7 @@ this.connect();
               show:false,
               type : 'category',
               boundaryGap : true,
-              // max:"15:00:00",
-              // min:"09:30:00",
+              max:330,
               axisLine: {onZero: false},
               splitLine: {
                 "show": false
