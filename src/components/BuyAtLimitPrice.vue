@@ -451,9 +451,7 @@
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
           };
-          console.log('SentstockTrading');
-          console.log(SentstockTrading);
-          alert(SentstockTrading);
+
           api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
           }).catch((res) => {
