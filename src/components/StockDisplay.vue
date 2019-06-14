@@ -42,9 +42,18 @@
     <el-card class="box-card" >
       <div slot="header" class="clearfix">
         <span>{{this.stockName}}</span>
-        <i class="el-icon-circle-plus-outline" v-if="this.chosen===false" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="add()"></i>
-        <i class="el-icon-remove-outline" v-if="this.chosen===true" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="remove()"></i>
-        <el-button style="float: right; padding: 1% 3%" type="text" @click="sell">卖出</el-button>
+        <span v-if="this.chosen===false">
+        <el-tooltip class="item" effect="dark" content="添加自选股" placement="top-start">
+        <i class="el-icon-circle-plus-outline"  style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="add()"></i>
+        </el-tooltip>
+
+          </span>
+        <span v-if="this.chosen===true">
+        <el-tooltip class="item" effect="dark" content="删除自选股" placement="top-start">
+        <i class="el-icon-remove-outline"  style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%" @click="remove()"></i>
+        </el-tooltip>
+          </span>
+          <el-button style="float: right; padding: 1% 3%" type="text" @click="sell">卖出</el-button>
         <el-button style="float: right; padding: 1% 0" type="text" @click="buy">买入</el-button>
 
 
@@ -94,7 +103,7 @@
         showMA: true,
         showVol: true,
         //
-        // showDataZoom: true,
+        showDataZoom: true,
         upColor:'mediumseagreen',
         downColor:'crimson',
         labelMap: {
@@ -342,22 +351,22 @@ this.connect();
           axisPointer: {
             link: {xAxisIndex: 'all'}
           },
-          dataZoom: [
-            {
-              show: true,
-              realtime: true,
-              start: 0,
-              end: 100,
-              xAxisIndex: [0, 1]
-            },
-            {
-              type: 'inside',
-              realtime: true,
-              start: 0,
-              end: 100,
-              xAxisIndex: [0, 1]
-            }
-          ],
+          // dataZoom: [
+          //   {
+          //     show: true,
+          //     realtime: true,
+          //     start: 0,
+          //     end: 100,
+          //     xAxisIndex: [0, 1]
+          //   },
+          //   {
+          //     type: 'inside',
+          //     realtime: true,
+          //     start: 0,
+          //     end: 100,
+          //     xAxisIndex: [0, 1]
+          //   }
+          // ],
           grid: [{
             height: '50%'
           }, {
