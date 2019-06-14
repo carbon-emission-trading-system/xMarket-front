@@ -43,7 +43,7 @@
 
         <el-table
           :data="notices"
-          style="width: 100%;"
+          style="width: 100%;font-size: 6px;cursor: pointer"
           >
           <el-table-column
             prop="title"
@@ -71,7 +71,7 @@
         <el-table
           :data="stock"
           @row-dblclick="handle"
-          style="width: 100%;font-size: 6px;"
+          style="width: 100%;font-size: 6px;cursor: pointer"
           height="250">
           <el-table-column
             prop="stockId"

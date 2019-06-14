@@ -40,7 +40,7 @@
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             @row-dblclick="handle"
             border
-            style="font-size: 6px"
+            style="font-size: 6px;cursor: pointer"
             :default-sort = "{prop: 'buildPositionDate', order: 'descending'}"
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column

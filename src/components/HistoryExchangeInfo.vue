@@ -39,7 +39,7 @@
           <el-table
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
-            style="width: 100%;font-size: 6px"
+            style="width: 100%;font-size: 6px;cursor: pointer"
             @row-dblclick="handle"
             :default-sort = "{prop: 'date', order: 'descending'}"
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
