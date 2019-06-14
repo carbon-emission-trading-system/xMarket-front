@@ -228,7 +228,7 @@
 
             let timer = setTimeout(()=>{
               this.setTodayOrderApi()
-            },3000)
+            },10000)
             this.$once('hook:beforeDestroy',()=>{
               clearInterval(timer)
             })
