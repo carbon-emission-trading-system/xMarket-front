@@ -360,10 +360,10 @@ this.connect();
             }
           ],
           grid: [{
-            height: '45%'
+            height: '50%'
           }, {
-            top: '65%',
-            height: '20%'
+            top: '70%',
+            height: '15%'
           }],
           xAxis : [
             {
