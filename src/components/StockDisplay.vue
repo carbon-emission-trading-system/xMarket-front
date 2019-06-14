@@ -21,7 +21,7 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')" >历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
         <el-submenu v-if="this.$store.getters.isLogin" style = "margin-left: 5%" index="2">
           <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
@@ -62,10 +62,7 @@
         </el-tabs>
 
         </div>
-
-
     </el-card>
-
   </div>
 
       <div id="table">
