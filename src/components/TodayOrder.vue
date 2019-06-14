@@ -40,7 +40,7 @@
           :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
           border
           @row-dblclick="handle"
-          style="width: 100%;font-size: 8px"
+          style="width: 100%;font-size: 8px;cursor: pointer"
           :default-sort = "{prop: 'time', order: 'descending'}"
           :header-cell-style="{background:'#eef1f6',color:'#606266'}">
           <el-table-column
@@ -185,55 +185,52 @@
        //   userId:1001
         }
         this.$api.http('get','/api/todayOrder',params).then(res=>{
-            if(res){
-              console.log('请求成功')
-              this.tableData = res.data;
-              for(let i =0;i<this.tableData.length;i++) {
-                if (this.tableData[i].type === 0) {
-                  this.tableData[i].type = "买入"
-                } else {
-                  this.tableData[i].type = "卖出"
-                }
 
-                if(this.tableData[i].tradeMarket===0){
-                  this.tableData[i].tradeMarket="深市"
-                }
-                else{
-                  this.tableData[i].tradeMarket="沪市"
-                }
-
-                if(this.tableData[i].tradeStraregy===0){
-                  this.tableData[i].tradeStraregy="现价委托"
-                }else if(this.tableData[i].tradeStraregy===1){
-                  this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
-                }else if(this.tableData[i].tradeStraregy===2){
-                  this.tableData[i].tradeStraregy="最优五档即时成交剩余转限价"
-                }else if(this.tableData[i].tradeStraregy===3){
-                  this.tableData[i].tradeStraregy="对手方最优价格"
-                }else if(this.tableData[i].tradeStraregy===4){
-                  this.tableData[i].tradeStraregy="本方最优价格"
-                }else if(this.tableData[i].tradeStraregy===5){
-                  this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
-                }else if(this.tableData[i].tradeStraregy===6){
-                  this.tableData[i].tradeStraregy="即时成交并撤销"
-                }else if(this.tableData[i].tradeStraregy===7){
-                  this.tableData[i].tradeStraregy="全额成交或撤销"
-                }
-
+            console.log('请求成功')
+            this.tableData = res.data;
+            for(let i =0;i<this.tableData.length;i++) {
+              if (this.tableData[i].type === 0) {
+                this.tableData[i].type = "买入"
+              } else {
+                this.tableData[i].type = "卖出"
               }
 
-              let timer = setTimeout(()=>{
-                this.setTodayOrderApi()
-              },3000)
-              this.$once('hook:beforeDestroy',()=>{
-                clearInterval(timer)
-              })
-            }else{
-              console.log('请求失败')
-              return
+              if(this.tableData[i].tradeMarket===0){
+                this.tableData[i].tradeMarket="深市"
+              }
+              else{
+                this.tableData[i].tradeMarket="沪市"
+              }
+
+              if(this.tableData[i].tradeStraregy===0){
+                this.tableData[i].tradeStraregy="现价委托"
+              }else if(this.tableData[i].tradeStraregy===1){
+                this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
+              }else if(this.tableData[i].tradeStraregy===2){
+                this.tableData[i].tradeStraregy="最优五档即时成交剩余转限价"
+              }else if(this.tableData[i].tradeStraregy===3){
+                this.tableData[i].tradeStraregy="对手方最优价格"
+              }else if(this.tableData[i].tradeStraregy===4){
+                this.tableData[i].tradeStraregy="本方最优价格"
+              }else if(this.tableData[i].tradeStraregy===5){
+                this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
+              }else if(this.tableData[i].tradeStraregy===6){
+                this.tableData[i].tradeStraregy="即时成交并撤销"
+              }else if(this.tableData[i].tradeStraregy===7){
+                this.tableData[i].tradeStraregy="全额成交或撤销"
+              }
+
             }
 
-          });
+            let timer = setTimeout(()=>{
+              this.setTodayOrderApi()
+            },3000)
+            this.$once('hook:beforeDestroy',()=>{
+              clearInterval(timer)
+            })
+          }).catch((error) => {
+          this.$message.error(error.message)
+        });
       },
     }
   }

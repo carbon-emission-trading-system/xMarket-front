@@ -43,7 +43,7 @@
 
         <el-table
           :data="notices"
-          style="width: 100%;"
+          style="width: 100%;font-size: 6px;cursor: pointer"
           >
           <el-table-column
             prop="title"
@@ -71,7 +71,7 @@
         <el-table
           :data="stock"
           @row-dblclick="handle"
-          style="width: 100%;font-size: 6px;"
+          style="width: 100%;font-size: 6px;cursor: pointer"
           height="250">
           <el-table-column
             prop="stockId"
@@ -90,6 +90,10 @@
             label="最新成交价"
             width="90"
             align="center">
+            <template slot-scope="scope">
+              <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.lastTradePrice}}</span>
+              <span v-else style="color: forestgreen">{{scope.row.lastTradePrice}}</span>
+            </template>
           </el-table-column>
           <el-table-column
             label="今日涨幅"
@@ -222,7 +226,8 @@
       setNoticesApi:function () {
         this.$api.http('post','/api/getNews').then(res=>{
             this.notices = res.data;
-          }).catch((error)=>{
+          }).catch((error) => {
+          //this.$message.error(error.message)
         })
       },
       //获取自选股
@@ -241,7 +246,9 @@
             }
           }
           this.stock=data
-          })
+          }).catch((error) => {
+          this.$message.error(error.message)
+        })
       }
     },
   }

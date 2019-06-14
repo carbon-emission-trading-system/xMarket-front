@@ -74,7 +74,6 @@
                 <el-input type="password" v-model="user.loginPassword" placeholder="请输入密码  "></el-input>
               </el-form-item>
               <el-form-item label="验证码" prop="validateCode">
-
                 <el-col :span="14">
                   <el-input v-model="user.validateCode" placeholder="请输验证码 "></el-input>
                 </el-col>
@@ -130,6 +129,9 @@
           ],
           loginPassword: [
             {required: true, message: '请输入密码 ', trigger: 'blur'}
+          ],
+          validateCode:[
+            {required: true, message: '请输入验证码 ', trigger: 'blur'}
           ]
         }
       }

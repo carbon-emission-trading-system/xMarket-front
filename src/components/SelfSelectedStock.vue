@@ -61,7 +61,7 @@
               :header-cell-style="{background:'#eef1f6',color:'#606266'}"
               @row-dblclick="handle"
               border
-              style="width:100%;font-size: 6px">
+              style="width:100%;cursor: pointer;font-size: 6px;">
               <el-table-column
                 prop="stockId"
                 label="股票代码"
@@ -76,6 +76,10 @@
                 prop="lastTradePrice"
                 label="最新价"
                 align="center">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.lastTradePrice}}</span>
+                  <span v-else style="color: forestgreen">{{scope.row.lastTradePrice}}</span>
+                </template>
               </el-table-column>
               <el-table-column
                 label="今日涨幅"

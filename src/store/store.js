@@ -22,14 +22,14 @@ export default new Vuex.Store({
       username: '',
     },
     buyOrSellStock: '',
-    SDelegateType: [
+    HDelegateType: [
       {
         value: 1, label: '最优五档即时成交剩余撤销',
       },
       {
         value: 2, label: '最优五档即时成交剩余转限价',
       }],
-    HDelegateType: [
+    SDelegateType: [
       {
         value: 3, label: '对手方最优价格',
       },
@@ -130,7 +130,6 @@ export default new Vuex.Store({
     login(context, payload) {
 
       let p = new Promise((resolve, reject) => {
-        alert(JSON.stringify(payload))
         api.http('post', '/api/login', payload).then(res => {
           payload.userId = res.data
           console.log(payload)
@@ -149,7 +148,6 @@ export default new Vuex.Store({
     },
     register(context, payload) {
       let p = new Promise((resolve, reject) => {
-        alert(JSON.stringify(payload))
         api.http('post', '/api/register', payload).then(res => {
           context.commit('register', payload)
           resolve(res)

@@ -39,12 +39,13 @@
           </el-button-group>
         </div>
 
+        <!--background-color: gainsboro-->
         <div id="stock">
           <el-table
             :data="list.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
             @row-dblclick="handle"
-            style="width: 100%;font-size: 6px"
+            style="width: 100%;font-size: 6px; cursor: pointer ;"
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
               prop="stockId"
@@ -63,6 +64,10 @@
               label="最新成交价"
               width="90"
               align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.lastTradePrice}}</span>
+                <span v-else style="color: forestgreen">{{scope.row.lastTradePrice}}</span>
+              </template>
             </el-table-column>
             <el-table-column
               label="今日涨幅"
@@ -206,7 +211,8 @@
           this.$store.commit('stockId',row.stockId)
           this.$store.commit('stockName',row.stockName)
           this.$router.push('StockDisplay')
-        }
+        },
+
       },
       computed:{
           tableData:function(){

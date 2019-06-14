@@ -203,7 +203,7 @@ import qs from 'qs'
        * @Date:
        */
       register(formName) {
-        alert(this.$refs[formName]);
+
         console.log(this.$refs[formName]);
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -230,7 +230,7 @@ import qs from 'qs'
       getMailCode(email) {
         console.log('++++++++++++++++')
         this.focusState = true;
-        if (this.flag === 0) {
+        if (this.user.email === '') {
           alert('请输入邮箱');
         } else if (this.flag === 2) {
           alert("邮箱已被注册");
