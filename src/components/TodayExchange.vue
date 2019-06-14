@@ -200,32 +200,26 @@
             userId: this.$store.getters.getUserId
           }
           this.$api.http('get','/api/todayExchange',params).then(res=>{
-              if(res){
-                console.log(res.data)
-                this.tableData = res.data;
-                for(let i =0;i<this.tableData.length;i++){
-                  if(this.tableData[i].type===0){
-                    this.tableData[i].type="买入"
-                  }
-                  else{
-                    this.tableData[i].type="卖出"
-                  }
-                  if(this.tableData[i].tradeMarket===0){
-                    this.tableData[i].tradeMarket="深市"
-                  }
-                  else{
-                    this.tableData[i].tradeMarket="沪市"
-                  }
-                }
-                // setTimeout(()=>{
-                //   this.setTodayExchangeApi()
-                // },3000)
-              }else{
-                console.log('请求失败')
-                return
-              }
 
-            });
+              console.log(res.data)
+              this.tableData = res.data;
+              for(let i =0;i<this.tableData.length;i++){
+                if(this.tableData[i].type===0){
+                  this.tableData[i].type="买入"
+                }
+                else{
+                  this.tableData[i].type="卖出"
+                }
+                if(this.tableData[i].tradeMarket===0){
+                  this.tableData[i].tradeMarket="深市"
+                }
+                else{
+                  this.tableData[i].tradeMarket="沪市"
+                }
+              }
+          }).catch((error) => {
+            this.$message.error(error.message)
+          });
         },
       }
     }

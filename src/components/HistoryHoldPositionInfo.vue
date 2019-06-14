@@ -207,7 +207,9 @@
           this.$api.http('get','/api/historyHoldPositionInfo',params).then(res => {
               console.log(res);
               this.tableData = res.data;
-            });
+            }).catch((error) => {
+            this.$message.error(error.message)
+          });
         },
       }
     }

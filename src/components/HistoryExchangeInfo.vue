@@ -277,7 +277,9 @@
               this.tableData[i].tradeMarket="沪市"
             }
           }
-          });
+          }).catch((error) => {
+          this.$message.error(error.message)
+        });
       },
     }
   }

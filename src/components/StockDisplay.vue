@@ -223,6 +223,8 @@ this.connect();
               message: '自选股添加成功！',
               type: 'success',
               center: true
+            }).catch((error) => {
+              this.$message.error(error.message)
             });
           }
         })
@@ -241,6 +243,8 @@ this.connect();
               message: '自选股删除成功！',
               type: 'success',
               center: true
+            }).catch((error) => {
+              this.$message.error(error.message)
             });
           }
         })
@@ -262,7 +266,9 @@ this.connect();
         this.$api.http('get','/api/isSelfSelectStock',params).then(res => {
             console.log(res);
             this.chosen = res.data;
-          });
+          }).catch((error) => {
+          this.$message.error(error.message)
+        });
       },
       //获取k线图数据
       setKlineApi: function () {
@@ -274,7 +280,9 @@ this.connect();
         this.$api.http('get','/api/KlineDiagramDisplay',params).then(res => {
             console.log(res);
             this.kChartData.rows = res.data;
-          });
+          }).catch((error) => {
+          this.$message.error(error.message)
+        });
       },
       //首次获取分时图数据
       setFirstTimeApi:function () {
@@ -290,7 +298,9 @@ this.connect();
             this.volume.push(data[i].volume)
           }
           this.drawLine()
-          });
+          }).catch((error) => {
+          this.$message.error(error.message)
+        });
       },
 
       // //后次获取分时图数据

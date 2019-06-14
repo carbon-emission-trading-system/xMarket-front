@@ -249,11 +249,11 @@
           userId: this.userId
         };
         this.$api.http('get', "/api/getFunds", poem).then(res => {
-          console.log(res);
-          console.log('到这里了');
+          // console.log(res);
+          // console.log('到这里了');
           this.UserFundsInformation = res.data;
         }).catch((error) => {
-          this.$message.error(res.message)
+          this.$message.error(error.message)
         })
       },
 
@@ -270,8 +270,8 @@
           userId: this.userId
         };
         this.$api.http('get', "/api/presentHoldPositionInfo", poem).then(res => {
-          console.log(res);
-          console.log('到这里了');
+          // console.log(res);
+          // console.log('到这里了');
           this.tableData = res.data;
           console.log(this.tableData)
         }).catch((error) => {

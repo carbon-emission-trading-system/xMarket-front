@@ -226,7 +226,8 @@
       setNoticesApi:function () {
         this.$api.http('post','/api/getNews').then(res=>{
             this.notices = res.data;
-          }).catch((error)=>{
+          }).catch((error) => {
+          //this.$message.error(error.message)
         })
       },
       //获取自选股
@@ -245,7 +246,9 @@
             }
           }
           this.stock=data
-          })
+          }).catch((error) => {
+          this.$message.error(error.message)
+        })
       }
     },
   }
