@@ -211,6 +211,7 @@
       }
     },
     created() {
+      this.$forceUpdate();
       this.ReceiveSelfHoldStock();
       this.ReceiveAccountInformation();
     },
