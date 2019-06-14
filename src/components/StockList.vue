@@ -112,7 +112,7 @@
             <el-table-column
               prop="tradeAmount"
               label="成交额"
-              width="75"
+              width="100"
               align="center">
             </el-table-column>
             <el-table-column

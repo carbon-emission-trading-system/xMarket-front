@@ -36,9 +36,9 @@
         <div slot="header" class="clearfix">
           <i class="el-icon-postcard" style="font-size: 25px"></i>
           <span style="font-size: 25px">公告</span>
-          <router-link to="/Notices">
+<!--          <router-link to="/Notices">-->
           <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
-          </router-link>
+<!--          </router-link>-->
         </div>
 
         <el-table
@@ -137,7 +137,7 @@
           <el-table-column
             prop="tradeAmount"
             label="成交额"
-            width="70"
+            width="100"
             align="center">
           </el-table-column>
           <el-table-column

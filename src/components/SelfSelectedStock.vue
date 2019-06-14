@@ -117,7 +117,8 @@
               <el-table-column
                 prop="tradeAmount"
                 label="成交额"
-                align="center">
+                align="center"
+              width="100">
               </el-table-column>
               <el-table-column
                 prop="totalMarketCapitalization"
