@@ -130,7 +130,6 @@ export default new Vuex.Store({
     login(context, payload) {
 
       let p = new Promise((resolve, reject) => {
-        alert(JSON.stringify(payload))
         api.http('post', '/api/login', payload).then(res => {
           payload.userId = res.data
           console.log(payload)
@@ -149,7 +148,6 @@ export default new Vuex.Store({
     },
     register(context, payload) {
       let p = new Promise((resolve, reject) => {
-        alert(JSON.stringify(payload))
         api.http('post', '/api/register', payload).then(res => {
           context.commit('register', payload)
           resolve(res)
