@@ -22,14 +22,14 @@ export default new Vuex.Store({
       username: '',
     },
     buyOrSellStock: '',
-    SDelegateType: [
+    HDelegateType: [
       {
         value: 1, label: '最优五档即时成交剩余撤销',
       },
       {
         value: 2, label: '最优五档即时成交剩余转限价',
       }],
-    HDelegateType: [
+    SDelegateType: [
       {
         value: 3, label: '对手方最优价格',
       },
