@@ -50,13 +50,13 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="85"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="85"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
@@ -83,13 +83,13 @@
             <el-table-column
               prop="highestPrice"
               label="最高价"
-              width="75"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
               prop="lowestPrice"
               label="最低价"
-              width="75"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
