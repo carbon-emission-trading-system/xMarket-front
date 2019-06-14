@@ -61,7 +61,7 @@
               :header-cell-style="{background:'#eef1f6',color:'#606266'}"
               @row-dblclick="handle"
               border
-              style="width:100%;font-size: 6px">
+              style="width:100%;cursor: pointer;font-size: 6px;">
               <el-table-column
                 prop="stockId"
                 label="股票代码"
