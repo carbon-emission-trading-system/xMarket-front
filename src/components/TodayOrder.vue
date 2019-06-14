@@ -21,7 +21,7 @@
           <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="SelfCenter">个人中心</el-menu-item>
         <el-submenu style = "margin-left: 5%" index="2">
           <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
@@ -97,6 +97,10 @@
             label="委托价格"
             width="80"
             align="center">
+            <template slot-scope="scope">
+              <span v-if="scope.row.orderPrice<=scope.row.exchangeAveragePrice" style="color: firebrick" >{{scope.row.orderPrice}}</span>
+              <span v-else style="color: forestgreen">{{scope.row.orderPrice}}</span>
+            </template>
           </el-table-column>
           <el-table-column
             prop="cancelNumber"

@@ -21,7 +21,7 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')" >历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style = "margin-left: 50px" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
         <el-submenu v-if="this.$store.getters.isLogin" style = "margin-left: 5%" index="2">
           <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
@@ -62,10 +62,7 @@
         </el-tabs>
 
         </div>
-
-
     </el-card>
-
   </div>
 
       <div id="table">
@@ -81,6 +78,7 @@
   import RealTime from './SelfRealTime'
   import echarts from 'echarts' //引入echarts
   import Vue from 'vue'
+  import {formatDate} from "../util/data-format";
   Vue.prototype.$echarts = echarts //引入组件
 
   Vue.use(VCharts)
@@ -95,8 +93,8 @@
         symbol:'none',
         showMA: true,
         showVol: true,
-
-        showDataZoom: true,
+        //
+        // showDataZoom: true,
         upColor:'mediumseagreen',
         downColor:'crimson',
         labelMap: {
@@ -292,6 +290,7 @@ this.connect();
         this.$api.http('get','/api/firstTimeSharingDisplay',params).then(res => {
           let data = res.data
           for(let i =0;i<data.length;i++){
+
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
             this.lastTradePrice.push(data[i].lastTradePrice)
@@ -370,8 +369,8 @@ this.connect();
               type : 'category',
               boundaryGap : true,
               axisLine: {onZero: false},
-              // max:"15:00:00",
-              // min:"09:30:00",
+              max:330,
+
               data: this.timeData
             },
             {
@@ -379,8 +378,7 @@ this.connect();
               show:false,
               type : 'category',
               boundaryGap : true,
-              // max:"15:00:00",
-              // min:"09:30:00",
+              max:330,
               axisLine: {onZero: false},
               splitLine: {
                 "show": false

@@ -20,7 +20,7 @@
           <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "margin-left: 50px" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item style = "margin-left: 5%" index="SelfCenter">个人中心</el-menu-item>
         <el-submenu style = "margin-left: 5%" index="2">
           <template slot="title" ><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
@@ -36,9 +36,9 @@
         <div slot="header" class="clearfix">
           <i class="el-icon-postcard" style="font-size: 25px"></i>
           <span style="font-size: 25px">公告</span>
-          <router-link to="/Notices">
+<!--          <router-link to="/Notices">-->
           <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
-          </router-link>
+<!--          </router-link>-->
         </div>
 
         <el-table
@@ -96,9 +96,9 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="今日涨幅"
+            label="今日涨幅%"
             prop="increase"
-            width="100"
+            width="105"
             sortable
             align="center">
             <template slot-scope="scope">
@@ -137,7 +137,7 @@
           <el-table-column
             prop="tradeAmount"
             label="成交额"
-            width="70"
+            width="100"
             align="center">
           </el-table-column>
           <el-table-column

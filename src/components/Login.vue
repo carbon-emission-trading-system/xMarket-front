@@ -22,7 +22,7 @@
           <el-menu-item @click="warning">历史成交</el-menu-item>
         </el-submenu>
 
-        <el-menu-item style="margin-left: 50px" @click="warning">个人中心</el-menu-item>
+        <el-menu-item style="margin-left: 5%" @click="warning">个人中心</el-menu-item>
       </el-menu>
     </div>
 
@@ -34,9 +34,9 @@
           <div slot="header" class="clearfix">
             <i class="el-icon-postcard" style="font-size: 25px"></i>
             <span style="font-size: 25px">公告</span>
-            <router-link to="/Notices">
+<!--            <router-link to="/Notices">-->
               <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
-            </router-link>
+<!--            </router-link>-->
           </div>
 
           <el-table
@@ -115,7 +115,9 @@
     data() {
       return {
         activeIndex: '/',
-        notices: [],
+        notices: [{title:'浦发银行退市',date:'2019-03-15'},
+          {title:'浦发银行增发新股',date:'2019-03-12'},
+          {title:'浦发银行上市',date:'2019-03-03'},],
         user: {
           username: '',
           loginPassword: '',
