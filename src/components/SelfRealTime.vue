@@ -406,7 +406,7 @@
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription.data());
-        // this.realTimeData = subscription.data();
+        this.realTimeData = JSON.parse(message.body);
 
         var subscription2 = this.client.subscribe(exchange2, this.onmessage);
         console.log(subscription2);
