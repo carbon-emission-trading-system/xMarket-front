@@ -66,7 +66,7 @@
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: firebrick" >{{scope.row.lastTradePrice}}</span>
-                <span v-else style="color: forestgreen">{{scope.row.lastTradePrice}}</span>
+                <span v-else style="color: green">{{scope.row.lastTradePrice}}</span>
               </template>
             </el-table-column>
             <el-table-column

@@ -30,7 +30,7 @@
 
     <div id="bread">
       <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '' }"><span @click="toFirst">首页</span></el-breadcrumb-item>
         <el-breadcrumb-item>更多公告</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -63,7 +63,7 @@
 <script>
 
   export default {
-    name: "Notices",
+    name: "News",
     data() {
       return {
         activeIndex: '',
@@ -71,7 +71,7 @@
       }
     },
     created() {
-      this.setNoticesApi();
+      this.setNewsApi();
     },
     methods: {
       setNewsApi: function () {

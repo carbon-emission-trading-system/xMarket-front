@@ -30,15 +30,23 @@
 
   </div>
 <div id="all">
+  <div id="bread">
+    <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
+      <el-breadcrumb-item :to="{ path: '' }"><span @click="toFirst">首页</span></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/News' }">更多公告</el-breadcrumb-item>
+      <el-breadcrumb-item >公告详情</el-breadcrumb-item>
+    </el-breadcrumb>
+  </div>
   <div id="title" style="margin-top: 50px">
-    <h3>{{this.new.title}}</h3>
+    <h2>{{this.news.title}}</h2>
+    <span style="float: right">{{this.news.date}}</span>
   </div>
 
     <div id="tag">
       <el-divider ></el-divider>
     </div>
-    <p>{{this.new.content}}</p>
-    <span>{{this.new.date}}</span>
+    <p>{{this.news.content}}</p>
+
   </div>
 
   </div>
@@ -51,7 +59,7 @@
     data() {
       return {
         activeIndex:'',
-        new:{},
+        news:{},
       }
     },
     created() {
@@ -63,7 +71,8 @@
           title:this.$store.state.title
         }
         this.$api.http('get','/api/getOneNews',params).then(res=>{
-          this.new = res.data;
+          this.news = res.data;
+          console.log(res.data)
         }).catch((error) => {
           this.$message.error(error.message)
         })
@@ -94,13 +103,18 @@
 
 <style scoped>
   #all{
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
     height: 90%;
   }
   #tag{
     margin-top: 5%;
     margin-bottom: 4%;
+  }
+  #bread {
+    margin-top: 5%;
+    margin-bottom: 3%;
+
   }
 
 </style>
