@@ -165,6 +165,16 @@
                   </template>
                 </el-table-column>
                 <el-table-column
+                  prop="todayProfitAndLoss"
+                  label="当日盈亏"
+                  align="center"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.todayProfitAndLoss>=0" style="color: #ff3434 " >{{scope.row.todayProfitAndLoss}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.todayProfitAndLoss}}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
                   prop="profitAndLossRatio"
                   label="盈亏比例%"
                   align="center"
