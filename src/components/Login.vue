@@ -140,7 +140,7 @@
       this.refreshCode();//需要触发的函数
     },
     created() {
-      this.setNoticesApi();
+      this.setNewsApi();
     },
     methods: {
       /**
