@@ -146,7 +146,8 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-button @click="cancel(scope.row.orderId)" type="text" size="small">撤单</el-button>
+              <el-button v-if="scope.row.state!==0" @click="cancel(scope.row.orderId)" type="text" size="small" disabled>撤单</el-button>
+              <el-button v-else @click="cancel(scope.row.orderId)" type="text" size="small">撤单</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -293,6 +294,7 @@
           orderId:orderId
         }
         this.$api.http('post','/api/cancelOrder',params).then(res=>{
+          this.setTodayOrderApi()
           return res.code;
         }).catch((error) => {
           this.$message.error(error.message)
