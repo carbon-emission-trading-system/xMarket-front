@@ -35,6 +35,13 @@
       <div id="tag">
         <el-divider >当日委托</el-divider>
       </div>
+<!--      <el-table-column-->
+<!--        prop="date"-->
+<!--        label="委托日期"-->
+<!--        width="100"-->
+<!--        fixed-->
+<!--        align="center">-->
+<!--      </el-table-column>-->
       <div id="stock">
         <el-table
           :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
@@ -43,13 +50,7 @@
           @row-dblclick="handle"
           style="width: 100%;font-size: 8px;cursor: pointer"
           :header-cell-style="{background:'#eef1f6',color:'#606266'}">
-          <el-table-column
-            prop="date"
-            label="委托日期"
-            width="100"
-            fixed
-            align="center">
-          </el-table-column>
+
           <el-table-column
             prop="time"
             label="委托时间"
@@ -86,6 +87,12 @@
             align="center">
           </el-table-column>
           <el-table-column
+            prop="tradeStraregy"
+            label="订单类型"
+            width="150"
+            align="center">
+          </el-table-column>
+          <el-table-column
             prop="orderAmount"
             label="委托数量"
             width="85"
@@ -114,23 +121,23 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="cancelNumber"
-            label="撤单数量"
-            width="80"
-            align="center">
-          </el-table-column>
-          <el-table-column
-            prop="tradeStraregy"
-            label="订单类型"
-            width="150"
-            align="center">
-          </el-table-column>
-          <el-table-column
             prop="orderId"
             label="合同编号"
             align="center"
             width="120"
           >
+          </el-table-column>
+          <el-table-column
+            prop="tradeMarket"
+            label="交易市场"
+            width="80"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="cancelNumber"
+            label="撤单数量"
+            width="80"
+            align="center">
           </el-table-column>
           <el-table-column
             label="操作"

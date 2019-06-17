@@ -78,7 +78,7 @@
 
           if (stockIds.indexOf(input) !== -1 || stockNames.indexOf(input) !== -1) {
             //如果用户输入的是股票简称
-            if (input.indexOf("6") === -1) {
+            if (input.length!==6) {
               this.$store.commit('stockName', input)
               let index = stockNames.indexOf(input)
               let stockId = stockIds[index]
