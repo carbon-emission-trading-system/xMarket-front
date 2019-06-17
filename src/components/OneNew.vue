@@ -31,8 +31,7 @@
   </div>
 <div id="all">
   <div id="title" style="margin-top: 50px">
-<!--    <h3>{{this.new.title}}</h3>-->
-    <h3>hahahahahah</h3>
+    <h3>{{this.new.title}}</h3>
   </div>
 
     <div id="tag">
@@ -63,7 +62,7 @@
         let params={
           title:this.$store.state.title
         }
-        this.$api.http('get','/api/getOneNew',params).then(res=>{
+        this.$api.http('get','/api/getOneNews',params).then(res=>{
           this.new = res.data;
         }).catch((error) => {
           this.$message.error(error.message)
