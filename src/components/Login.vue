@@ -40,7 +40,7 @@
           </div>
 
           <el-table
-            :data="notices"
+            :data="news"
             style="width: 100%">
             <el-table-column
               prop="title"
@@ -115,7 +115,7 @@
     data() {
       return {
         activeIndex: '/',
-        notices: [],
+        news: [],
         user: {
           username: '',
           loginPassword: '',
@@ -178,9 +178,9 @@
     //获取公告
 
 
-    setNoticesApi: function () {
-      this.$api.http('post', '/api/getNews').then(res => {
-        this.notices = res.data;
+    setNewsApi: function () {
+      this.$api.http('get', '/api/getNews').then(res => {
+        this.news = res.data;
       });
     },
     login(formName) {
