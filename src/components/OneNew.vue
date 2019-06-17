@@ -1,4 +1,5 @@
 <template>
+  <div >
   <div>
     <el-menu :default-active="this.activeIndex"
              class="el-menu-demo"
@@ -28,6 +29,20 @@
     </el-menu>
 
   </div>
+<div id="all">
+  <div id="title" style="margin-top: 50px">
+<!--    <h3>{{this.new.title}}</h3>-->
+    <h3>hahahahahah</h3>
+  </div>
+
+    <div id="tag">
+      <el-divider ></el-divider>
+    </div>
+    <p>{{this.new.content}}</p>
+    <span>{{this.new.date}}</span>
+  </div>
+
+  </div>
 </template>
 
 <script>
@@ -37,6 +52,7 @@
     data() {
       return {
         activeIndex:'',
+        new:{},
       }
     },
     created() {
@@ -48,7 +64,7 @@
           title:this.$store.state.title
         }
         this.$api.http('get','/api/getOneNew',params).then(res=>{
-          this.news = res.data;
+          this.new = res.data;
         }).catch((error) => {
           this.$message.error(error.message)
         })
@@ -78,5 +94,14 @@
 </script>
 
 <style scoped>
+  #all{
+    width: 70%;
+    margin: 0 auto;
+    height: 90%;
+  }
+  #tag{
+    margin-top: 5%;
+    margin-bottom: 4%;
+  }
 
 </style>
