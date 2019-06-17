@@ -15,7 +15,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[4].price}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602"> {{this.realTimeData.sellOneToFive[4].price}} </span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">
@@ -23,7 +23,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[4].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">   {{this.realTimeData.sellOneToFive[4].quantity}}</span>
 
           <td v-else></td>
 
@@ -35,7 +35,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[3].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602">     {{this.realTimeData.sellOneToFive[3].price}} </span>
           </td>
 
           <td v-else></td>
@@ -44,7 +44,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[3].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">  {{this.realTimeData.sellOneToFive[3].quantity}} </span>
 
 
           <td v-else></td>
@@ -56,7 +56,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[2].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602"> {{this.realTimeData.sellOneToFive[2].price}} </span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">
@@ -64,7 +64,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[2].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">            {{this.realTimeData.sellOneToFive[2].quantity}} </span>
 
           <td v-else></td>
         </tr>
@@ -75,7 +75,7 @@
                  style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[1].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602">   {{this.realTimeData.sellOneToFive[1].price}} </span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">
@@ -83,7 +83,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[1].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">  {{this.realTimeData.sellOneToFive[1].quantity}}</span>
 
           <td v-else></td>
         </tr>
@@ -94,7 +94,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[0].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602">      {{this.realTimeData.sellOneToFive[0].price}} </span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">
@@ -102,7 +102,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[0].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">               {{this.realTimeData.sellOneToFive[0].quantity}} </span>
 
           <td v-else></td>
         </tr>
@@ -130,7 +130,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[0].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602"> {{this.realTimeData.buyOneToFive[0].price}} </span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">
@@ -138,7 +138,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[0].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">{{this.realTimeData.buyOneToFive[0].quantity}} </span>
 
           <td v-else></td>
         </tr>
@@ -149,7 +149,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[1].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602"> {{this.realTimeData.buyOneToFive[1].price}}</span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">
@@ -157,7 +157,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[1].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">{{this.realTimeData.buyOneToFive[1].quantity}}</span>
 
           <td v-else></td>
         </tr>
@@ -168,7 +168,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[2].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602">{{this.realTimeData.buyOneToFive[2].price}}</span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">
@@ -176,7 +176,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[2].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602"> {{this.realTimeData.buyOneToFive[2].quantity}}</span>
 
           <td v-else></td>
         </tr>
@@ -187,7 +187,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[3].price}}
             </span>
-            <span v-else style="color: #02e602"></span>
+            <span v-else style="color: #02e602"> {{this.realTimeData.buyOneToFive[3].price}}</span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">
@@ -195,7 +195,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[3].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602"> {{this.realTimeData.buyOneToFive[3].quantity}} </span>
 
           <td v-else></td>
         </tr>
@@ -206,7 +206,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[4].price}}
             </span>
-            <span v-else style="color:#02e602"></span>
+            <span v-else style="color:#02e602">{{this.realTimeData.buyOneToFive[4].price}}</span>
           </td>
           <td v-else></td>
           <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">
@@ -214,8 +214,7 @@
                   style="color: #ff3434">
               {{this.realTimeData.buyOneToFive[4].quantity}}
             </span>
-            <span v-else style="color:#02e602"></span>
-
+            <span v-else style="color:#02e602"> {{this.realTimeData.buyOneToFive[4].quantity}}</span>
           <td v-else></td>
         </tr>
       </table>
