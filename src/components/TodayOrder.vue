@@ -80,6 +80,12 @@
             align="center">
           </el-table-column>
           <el-table-column
+            prop="state"
+            label="委托状态"
+            width="90"
+            align="center">
+          </el-table-column>
+          <el-table-column
             prop="orderAmount"
             label="委托数量"
             width="85"
@@ -126,7 +132,16 @@
             width="120"
           >
           </el-table-column>
-
+          <el-table-column
+            label="操作"
+            width="70"
+            fixed="right"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-button @click="cancel(scope.row.orderId)" type="text" size="small">撤单</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <div class="block" style="margin-top:30px;">
           <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[15,30,50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -240,6 +255,41 @@
         }).catch((error) => {
           this.$message.error(error.message)
         });
+      },
+      //撤单
+      cancel(orderId){
+        let x = '您确认对合同编号为' + orderId + '的订单进行撤单操作吗?'
+        this.$confirm(x, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let code = this.cancelOrder(orderId)
+          let message =''
+          if(code === 200) {
+            message='撤单成功!';
+          }
+          this.$message({
+            type: 'success',
+            message: message,
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消撤单'
+          });
+        });
+
+      },
+      cancelOrder(orderId){
+        let params={
+          orderId:orderId
+        }
+        this.$api.http('post','/api/cancelOrder',params).then(res=>{
+          return res.code;
+        }).catch((error) => {
+          this.$message.error(error.message)
+        })
       },
     }
   }
