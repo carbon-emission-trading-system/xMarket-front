@@ -105,6 +105,12 @@
             align="center">
           </el-table-column>
           <el-table-column
+            prop="cancelNumber"
+            label="撤单数量"
+            width="80"
+            align="center">
+          </el-table-column>
+          <el-table-column
             prop="exchangeAveragePrice"
             label="成交均价"
             width="80"
@@ -130,12 +136,6 @@
           <el-table-column
             prop="tradeMarket"
             label="交易市场"
-            width="80"
-            align="center">
-          </el-table-column>
-          <el-table-column
-            prop="cancelNumber"
-            label="撤单数量"
             width="80"
             align="center">
           </el-table-column>

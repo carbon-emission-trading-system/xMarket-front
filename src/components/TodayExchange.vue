@@ -78,6 +78,12 @@
           align="center">
         </el-table-column>
         <el-table-column
+          prop="revokeAmount"
+          label="撤单数量"
+          width="80"
+          align="center">
+        </el-table-column>
+        <el-table-column
           prop="tradePrice"
           label="成交价"
           width="80"
@@ -137,12 +143,7 @@
           width="80"
           align="center">
         </el-table-column>
-        <el-table-column
-          prop="revokeAmount"
-          label="撤单数量"
-          width="80"
-          align="center">
-        </el-table-column>
+
 
       </el-table>
         <div class="block" style="margin-top:30px;">
