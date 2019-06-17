@@ -98,17 +98,20 @@
                 :data="tableData"
                 :header-cell-style="{background:'#eef1f6',color:'#606266'}"
                 border
+                height="250px"
                 @row-dblclick="handle"
                 style="width:100%;font-size: 6px;cursor: pointer">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
                   align="center"
+                  fixed
                   width="100">
                 </el-table-column>
                 <el-table-column
                   prop="stockName"
                   label="股票简称"
+                  fixed
                   align="center"
                   width="100">
                 </el-table-column>

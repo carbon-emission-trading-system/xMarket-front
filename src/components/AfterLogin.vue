@@ -77,12 +77,14 @@
             prop="stockId"
             label="股票代码"
             width="85"
+            fixed
             align="center">
           </el-table-column>
           <el-table-column
             prop="stockName"
             label="股票简称"
             width="85"
+            fixed
             align="center">
           </el-table-column>
           <el-table-column
