@@ -184,6 +184,14 @@
       };
       this.connect();
     },
+    destroyed(){
+      if (this.client != null) {
+        this.client.disconnect(
+          function () {
+            console.log("断开连接");
+          });
+      };
+    },
 
     methods: {
       realTimeDataDisplay() {
