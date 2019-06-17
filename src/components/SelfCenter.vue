@@ -129,8 +129,8 @@
                   align="center"
                   width="100">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.costPrice<=scope.row.presentPrice" style="color: firebrick" >{{scope.row.costPrice}}</span>
-                    <span v-else style="color: forestgreen">{{scope.row.costPrice}}</span>
+                    <span v-if="scope.row.costPrice<=scope.row.presentPrice" style="color: #ff3434 " >{{scope.row.costPrice}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.costPrice}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -160,8 +160,8 @@
                   align="center"
                   width="100">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.totalProfitAndLoss>=0" style="color: firebrick" >{{scope.row.totalProfitAndLoss}}</span>
-                    <span v-else style="color: forestgreen">{{scope.row.totalProfitAndLoss}}</span>
+                    <span v-if="scope.row.totalProfitAndLoss>=0" style="color: #ff3434 " >{{scope.row.totalProfitAndLoss}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.totalProfitAndLoss}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -170,8 +170,8 @@
                   align="center"
                   width="100">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.profitAndLossRatio>=0" style="color: firebrick" >{{scope.row.profitAndLossRatio}}</span>
-                    <span v-else style="color: forestgreen">{{scope.row.profitAndLossRatio}}</span>
+                    <span v-if="scope.row.profitAndLossRatio>=0" style="color: #ff3434 " >{{scope.row.profitAndLossRatio}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
