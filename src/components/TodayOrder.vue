@@ -41,7 +41,6 @@
           borderheight="100%"
           @row-dblclick="handle"
           style="width: 100%;font-size: 8px;cursor: pointer"
-          :default-sort = "{prop: 'time', order: 'descending'}"
           :header-cell-style="{background:'#eef1f6',color:'#606266'}">
           <el-table-column
             prop="date"
