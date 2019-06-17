@@ -406,7 +406,7 @@
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription.data());
-        this.realTimeData = JSON.parse(message.body);
+
 
         var subscription2 = this.client.subscribe(exchange2, this.onmessage);
         console.log(subscription2);
@@ -419,7 +419,7 @@
       },
       onmessage(message) {
         console.log("得到消息");
-        this.realTimeData = message;
+        this.realTimeData = JSON.parse(message.body);
       },
       responseCallback(frame) {
         console.log("得到的消息 msg=>" + frame.body);
