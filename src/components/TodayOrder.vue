@@ -146,7 +146,7 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-button v-if="scope.row.state!==0" @click="cancel(scope.row.orderId)" type="text" size="small" disabled>撤单</el-button>
+              <el-button v-if="scope.row.state!=='未成交'" @click="cancel(scope.row.orderId)" type="text" size="small" disabled>撤单</el-button>
               <el-button v-else @click="cancel(scope.row.orderId)" type="text" size="small">撤单</el-button>
             </template>
           </el-table-column>
@@ -233,6 +233,26 @@
             else{
               this.tableData[i].tradeMarket="沪市"
             }
+
+            if(this.tableData[i].state===0){
+              this.tableData[i].state="未成交"
+            }
+            else if(this.tableData[i].state===1){
+              this.tableData[i].state="正在撤单"
+            }
+            else if(this.tableData[i].state===2){
+              this.tableData[i].state="已成交"
+            }
+            else if(this.tableData[i].state===3){
+              this.tableData[i].state="部分撤单"
+            }
+            else if(this.tableData[i].state===4){
+              this.tableData[i].state="全部撤单"
+            }
+            else{
+              this.tableData[i].tradeMarket="部分成交"
+            }
+
 
             if(this.tableData[i].tradeStraregy===0){
               this.tableData[i].tradeStraregy="限价委托"
