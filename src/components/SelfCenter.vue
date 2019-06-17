@@ -39,7 +39,7 @@
                      router>
               <el-menu-item index="SelfCenter">资产信息</el-menu-item>
               <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
-              <el-menu-item index="1-3" strle="">个人信息</el-menu-item>
+              <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
             </el-menu>
           </el-aside>
         </el-container>
@@ -50,7 +50,7 @@
       <div>
         <!-----右侧栏第一栏------>
         <div class="rightCard">
-          <el-card style="margin-top:2%;margin-bottom: 2%">
+          <el-card style="margin-top:2%;margin-bottom: 2%" shadow="hover">
             <div slot="header">
               <span style="float: left">资金信息</span>
             </div>
@@ -89,7 +89,7 @@
         </div>
         <!-----右侧栏第二栏------>
         <div>
-          <el-card class="rightCard">
+          <el-card class="rightCard" shadow="hover">
             <div slot="header">
               <span style="float: left">持仓信息</span>
             </div>

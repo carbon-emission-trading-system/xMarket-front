@@ -246,6 +246,7 @@
 <style scoped>
   .selectOn{
     background-color: #409EFF;
+    color: black;
   }
   a{
     text-decoration: none;

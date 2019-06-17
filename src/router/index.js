@@ -23,6 +23,9 @@ import BuyAtMarketPrice from "../components/BuyAtMarketPrice";
 import SellAtLimitPrice from "../components/SellAtLimitPrice";
 import SellAtMarketPrice from "../components/SellAtMarketPrice";
 import Register from "../components/Register";
+import SelfInfo from "../components/SelfInfo";
+import ForPasVal from "../components/ForPasVal";
+
 import NotFund from "../components/404";
 
 Vue.use(Router)
@@ -33,103 +36,111 @@ export default new Router({
   routes: [
     {
       path: '/AfterLogin',
-      name:'afterLogin',
-      component:AfterLogin
-    },{
+      name: 'afterLogin',
+      component: AfterLogin
+    }, {
       path: '/',
-      name:'login',
-      component:Login
-    },{
+      name: 'login',
+      component: Login
+    }, {
       path: '/Register',
-      name:'register',
-      component:Register
+      name: 'register',
+      component: Register
     }, {
-      path:'/Search',
-      name:'search',
-      component:Search
-    },{
-      path:'/SelectDate',
-      name:'selectDate',
-      component:SelectDate
+      path: '/Search',
+      name: 'search',
+      component: Search
     }, {
-      path:'/StockList',
-      name:'stockList',
-      component:StockList
-    },{
-      path:'/Guide',
-      name:'guide',
-      component:Guide
-    },{
-      path:'/TodayExchange',
-      name:'todayExchange',
-      component:TodayExchange
-    },{
-      path:'/TodayOrder',
-      name:'todayOrder',
-      component:TodayOrder
-    },{
-    path:'/StockDisplay',
-      name:'stockDisplay',
-      component:StockDisplay,
-    },{
-      path:'/HistoryHoldPositionInfo',
-      name:'historyHoldPositionInfo',
-      component:HistoryHoldPositionInfo
-    },{
-      path:'/RealTime',
-      name:'realTime',
-      component:RealTime
-    },{
-      path:'/HistoryExchangeInfo',
-      name:'historyExchangeInfo',
-      component:HistoryExchangeInfo
+      path: '/SelectDate',
+      name: 'selectDate',
+      component: SelectDate
+    }, {
+      path: '/StockList',
+      name: 'stockList',
+      component: StockList
+    }, {
+      path: '/Guide',
+      name: 'guide',
+      component: Guide
+    }, {
+      path: '/TodayExchange',
+      name: 'todayExchange',
+      component: TodayExchange
+    }, {
+      path: '/TodayOrder',
+      name: 'todayOrder',
+      component: TodayOrder
+    }, {
+      path: '/StockDisplay',
+      name: 'stockDisplay',
+      component: StockDisplay,
+    }, {
+      path: '/HistoryHoldPositionInfo',
+      name: 'historyHoldPositionInfo',
+      component: HistoryHoldPositionInfo
+    }, {
+      path: '/RealTime',
+      name: 'realTime',
+      component: RealTime
+    }, {
+      path: '/HistoryExchangeInfo',
+      name: 'historyExchangeInfo',
+      component: HistoryExchangeInfo
     },
     {
-      path:'/SelfRealTime',
-      name:'selfRealTime',
-      component:SelfRealTime
+      path: '/SelfRealTime',
+      name: 'selfRealTime',
+      component: SelfRealTime
     },
     {
-      path:'/News',
-      name:'news',
-      component:News
+      path: '/News',
+      name: 'news',
+      component: News
     },
     {
-      path:'/OneNew',
-      name:'oneNew',
-      component:OneNew
+      path: '/OneNew',
+      name: 'oneNew',
+      component: OneNew
     },
     {
-      path:'/SelfCenter',
-      name:'selfCenter',
-      component:SelfCenter
-    },{
-      path:'/SelfSelectedStock',
-      name:'selfSelectedStock',
-      component:SelfSelectedStock
-    },{
-      path:'/BuyAtLimitPrice',
-      name:'buyAtLimitPrice',
-      component:BuyAtLimitPrice
-    },{
-      path:'/BuyAtMarketPrice',
-      name:'buyAtMarketPrice',
-      component:BuyAtMarketPrice
-    },{
-      path:'/SellAtLimitPrice',
-      name:'sellAtLimitPrice',
-      component:SellAtLimitPrice
-    },{
-      path:'/SellAtMarketPrice',
-      name:'sellAtMarketPrice',
-      component:SellAtMarketPrice
-    },{
-      path:'/404',
-      name:'notFund',
-      component:NotFund
-    },{
-      path:'*',
-      redirect:'/404'
+      path: '/SelfCenter',
+      name: 'selfCenter',
+      component: SelfCenter
+    }, {
+      path: '/SelfSelectedStock',
+      name: 'selfSelectedStock',
+      component: SelfSelectedStock
+    }, {
+      path: '/BuyAtLimitPrice',
+      name: 'buyAtLimitPrice',
+      component: BuyAtLimitPrice
+    }, {
+      path: '/BuyAtMarketPrice',
+      name: 'buyAtMarketPrice',
+      component: BuyAtMarketPrice
+    }, {
+      path: '/SellAtLimitPrice',
+      name: 'sellAtLimitPrice',
+      component: SellAtLimitPrice
+    }, {
+      path: '/SellAtMarketPrice',
+      name: 'sellAtMarketPrice',
+      component: SellAtMarketPrice
+    }, {
+      path: '/SelfInfo',
+      name: 'selfInfo',
+      component: SelfInfo
+    }, {
+      path: '/ForPasVal',
+      name: 'forPasVal',
+      component: ForPasVal
+    }, {
+      path: '/404',
+      name: 'notFund',
+      component: NotFund
+    }, {
+      path: '*',
+      redirect: '/404'
     }
 
   ]
