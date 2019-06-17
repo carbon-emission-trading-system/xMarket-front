@@ -34,7 +34,7 @@
         <div id="tag">
           <el-divider >历史成交</el-divider>
         </div>
-
+        <!--            :default-sort = "{prop: 'date', order: 'descending'}"-->
         <div id="stock">
           <el-table
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
@@ -42,7 +42,7 @@
             height="100%"
             style="width: 100%;font-size: 6px;cursor: pointer"
             @row-dblclick="handle"
-            :default-sort = "{prop: 'date', order: 'descending'}"
+
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
               prop="date"

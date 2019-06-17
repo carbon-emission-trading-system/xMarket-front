@@ -14,8 +14,8 @@ import StockDisplay from "../components/StockDisplay";
 import HistoryHoldPositionInfo from "../components/HistoryHoldPositionInfo";
 import HistoryExchangeInfo from "../components/HistoryExchangeInfo";
 import SelfRealTime from "../components/SelfRealTime";
-import Notices from "../components/Notices";
-import OneNotice from "../components/OneNotice"
+import News from "../components/News";
+import OneNew from "../components/OneNew"
 import SelfCenter from "../components/SelfCenter"
 import SelfSelectedStock from "../components/SelfSelectedStock";
 import BuyAtLimitPrice from "../components/BuyAtLimitPrice";
@@ -90,14 +90,14 @@ export default new Router({
       component:SelfRealTime
     },
     {
-      path:'/Notices',
-      name:'notices',
-      component:Notices
+      path:'/News',
+      name:'news',
+      component:News
     },
     {
-      path:'/OneNotice',
-      name:'oneNotice',
-      component:OneNotice
+      path:'/OneNew',
+      name:'oneNew',
+      component:OneNew
     },
     {
       path:'/SelfCenter',

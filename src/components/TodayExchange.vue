@@ -41,7 +41,6 @@
         height="100%"
         @row-dblclick="handle"
         style="width: 100%;font-size: 6px;cursor: pointer"
-        :default-sort = "{prop: 'time', order: 'descending'}"
         :header-cell-style="{background:'#eef1f6',color:'#606266'}">
         <el-table-column
           prop="time"
@@ -246,9 +245,6 @@
   #tag{
     margin-top: 5%;
     margin-bottom: 4%;
-  }
-  #exit{
-    margin-top: 1.5%;
   }
 
 </style>
