@@ -40,6 +40,7 @@
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             @row-dblclick="handle"
             border
+            height="500"
             style="font-size: 6px;cursor: pointer"
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
