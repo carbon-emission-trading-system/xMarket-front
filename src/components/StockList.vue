@@ -45,7 +45,6 @@
             :data="list.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
             @row-dblclick="handle"
-            height="60%"
             style="width: 100%;font-size: 6px; cursor: pointer ;"
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
