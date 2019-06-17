@@ -38,7 +38,8 @@
         <div id="stock">
           <el-table
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-            borderheight="100%"
+            border
+            height=500
             style="width: 100%;font-size: 6px;cursor: pointer"
             @row-dblclick="handle"
 

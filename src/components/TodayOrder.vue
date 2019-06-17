@@ -38,7 +38,8 @@
       <div id="stock">
         <el-table
           :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-          borderheight="100%"
+          border
+          height=500
           @row-dblclick="handle"
           style="width: 100%;font-size: 8px;cursor: pointer"
           :header-cell-style="{background:'#eef1f6',color:'#606266'}">
