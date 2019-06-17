@@ -68,14 +68,19 @@
                   </td>
                 </tr>
                 <tr>
-                  <td style="align-content: left;padding-left: 5%;">
+                  <td style="padding-bottom: 2%;;padding-left:5%;">
                     总市值: {{ this.UserFundsInformation.totalMarketValue}}
                   </td>
-                  <td style="align-content: left">
+                  <td style="align-content: left;padding-bottom: 2%;">
                     当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}
                   </td>
-                  <td style="align-content: left">
+                  <td style="align-content: left;padding-bottom: 2%;">
                     冻结资金: {{ this.UserFundsInformation.frozenAmount}}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="align-content: left;padding-left: 5%;">
+                    资金余额: {{ this.UserFundsInformation.amountBalance}}
                   </td>
                 </tr>
               </table>
@@ -209,6 +214,7 @@
           totalMarketValue: '',//总市值
           todayProAndLos: '',//当日盈亏
           frozenAmount: '',//冻结资金
+          amountBalance:'',//资金余额
         },
         //持仓信息
         tableData: []
