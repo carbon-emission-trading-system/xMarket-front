@@ -36,13 +36,14 @@
         <div slot="header" class="clearfix">
           <i class="el-icon-postcard" style="font-size: 25px"></i>
           <span style="font-size: 25px">公告</span>
-<!--          <router-link to="/Notices">-->
+          <router-link to="/News">
           <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
-<!--          </router-link>-->
+          </router-link>
         </div>
 
         <el-table
-          :data="notices"
+          :data="news"
+          @row-dblclick="handleNews"
           style="width: 100%;font-size: 6px;cursor: pointer"
           >
           <el-table-column
@@ -77,12 +78,14 @@
             prop="stockId"
             label="股票代码"
             width="85"
+            fixed
             align="center">
           </el-table-column>
           <el-table-column
             prop="stockName"
             label="股票简称"
             width="85"
+            fixed
             align="center">
           </el-table-column>
           <el-table-column
@@ -184,14 +187,12 @@
     data() {
       return {
         activeIndex: 'AfterLogin',
-        notices: [{title:'浦发银行退市',date:'2019-03-15'},
-          {title:'浦发银行增发新股',date:'2019-03-12'},
-          {title:'浦发银行上市',date:'2019-03-03'},],
+        news: [],
         stock: []
       }
     },
     created() {
-      this.setNoticesApi();
+      this.setNewsApi();
       this.setStocksApi();
     },
     beforeMount(){
@@ -222,12 +223,16 @@
         this.$store.commit('stockName',row.stockName)
         this.$router.push('StockDisplay')
       },
+      handleNews(row){
+        this.$store.commit('title',row.title)
+        this.$router.push('OneNew')
+      },
       //获取公告
-      setNoticesApi:function () {
-        this.$api.http('post','/api/getNews').then(res=>{
-            this.notices = res.data;
+      setNewsApi:function () {
+        this.$api.http('get','/api/getNews').then(res=>{
+            this.news = res.data;
           }).catch((error) => {
-          //this.$message.error(error.message)
+          this.$message.error(error.message)
         })
       },
       //获取自选股
