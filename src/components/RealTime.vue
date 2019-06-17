@@ -8,84 +8,224 @@
           <td class="column">价格</td>
           <td class="column">数量</td>
         </tr>
-
         <tr>
           <td class="column">卖五</td>
-          <td v-if="this.realTimeData.sellOneToFive[4].price>=0">{{this.realTimeData.sellOneToFive[4].price}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[4].price>=0">
+            <span v-if="this.realTimeData.sellOneToFive[4].price>=this.realTimeData.yesterdayOpenprice"
+                  style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[4].price}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+          </td>
           <td v-else></td>
-          <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">{{this.realTimeData.sellOneToFive[4].quantity}}</td>
+          <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">
+            <span v-if="this.realTimeData.sellOneToFive[4].price>=this.realTimeData.yesterdayOpenprice"
+                  style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[4].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
           <td v-else></td>
+
         </tr>
         <tr>
           <td class="column">卖四</td>
-          <td v-if="this.realTimeData.sellOneToFive[3].price>=0">{{this.realTimeData.sellOneToFive[3].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">{{this.realTimeData.sellOneToFive[3].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[3].price>=0">
+            <span v-if="this.realTimeData.sellOneToFive[3].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[3].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+
+          <td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">
+            <span v-if="this.realTimeData.sellOneToFive[3].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[3].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">卖三</td>
-          <td v-if="this.realTimeData.sellOneToFive[2].price>=0">{{this.realTimeData.sellOneToFive[2].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">{{this.realTimeData.sellOneToFive[2].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[2].price>=0">
+            <span v-if="this.realTimeData.sellOneToFive[2].price>=this.realTimeData.yesterdayOpenPrice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[2].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">
+            <span v-if="this.realTimeData.sellOneToFive[2].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[2].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">卖二</td>
-          <td v-if="this.realTimeData.sellOneToFive[1].price>=0">{{this.realTimeData.sellOneToFive[1].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">{{this.realTimeData.sellOneToFive[1].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[1].price>=0">
+           <span v-if="this.realTimeData.sellOneToFive[1].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[1].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">
+            <span v-if="this.realTimeData.sellOneToFive[1].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[1].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">卖一</td>
-          <td v-if="this.realTimeData.sellOneToFive[0].price>=0">{{this.realTimeData.sellOneToFive[0].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">{{this.realTimeData.sellOneToFive[0].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[0].price>=0">
+            <span v-if="this.realTimeData.sellOneToFive[0].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[0].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">
+            <span v-if="this.realTimeData.sellOneToFive[0].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.sellOneToFive[0].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
       </table>
-<!--      <table class="mailTable" :style="styleObject">-->
-<!--        <tr>-->
-<!--          <td class="column">涨停</td>-->
-<!--          <td class="column">{{this.realTimeData.dailyLimit }}</td>-->
-<!--          <td class="column">跌停</td>-->
-<!--          <td class="column">{{this.realTimeData.downLimit }}</td>-->
-<!--        </tr>-->
-<!--      </table>-->
+      <!--      <table class="mailTable" :style="styleObject">-->
+      <!--        <tr>-->
+      <!--          <td class="column">涨停</td>-->
+      <!--          <td class="column">{{this.realTimeData.dailyLimit }}</td>-->
+      <!--          <td class="column">跌停</td>-->
+      <!--          <td class="column">{{this.realTimeData.downLimit }}</td>-->
+      <!--        </tr>-->
+      <!--      </table>-->
 
       <table class="mailTable" :style="styleObject">
         <!--卖一-->
         <tr style="display: none">
           <td class="column"></td>
-          <td class="column" >价格</td>
+          <td class="column">价格</td>
           <td class="column">数量</td>
         </tr>
         <tr>
           <td class="column">买一</td>
-          <td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">{{this.realTimeData.buyOneToFive[0].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[0].price>=0">
+            <span v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayOpenprice"
+                  style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[0].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">
+            <span v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[0].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">买二</td>
-          <td v-if="this.realTimeData.buyOneToFive[1].price>=0">{{this.realTimeData.buyOneToFive[1].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">{{this.realTimeData.buyOneToFive[1].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[1].price>=0">
+            <span v-if="this.realTimeData.buyOneToFive[1].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[1].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">
+            <span v-if="this.realTimeData.buyOneToFive[1].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[1].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">买三</td>
-          <td v-if="this.realTimeData.buyOneToFive[2].price>=0">{{this.realTimeData.buyOneToFive[2].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">{{this.realTimeData.buyOneToFive[2].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[2].price>=0">
+            <span v-if="this.realTimeData.buyOneToFive[2].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[2].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">
+            <span v-if="this.realTimeData.buyOneToFive[2].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[2].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">买四</td>
-          <td v-if="this.realTimeData.buyOneToFive[3].price>=0">{{this.realTimeData.buyOneToFive[3].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">{{this.realTimeData.buyOneToFive[3].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[3].price>=0">
+            <span v-if="this.realTimeData.buyOneToFive[3].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[3].price}}
+            </span>
+            <span v-else style="color: forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">
+            <span v-if="this.realTimeData.buyOneToFive[3].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[3].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
         <tr>
           <td class="column">买五</td>
-          <td v-if="this.realTimeData.buyOneToFive[4].price>=0">{{this.realTimeData.buyOneToFive[4].price}}</td><td v-else></td>
-          <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">{{this.realTimeData.buyOneToFive[4].quantity}}</td><td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[4].price>=0">
+            <span v-if="this.realTimeData.buyOneToFive[4].price>=this.realTimeData.yesterdayOpenprice"
+                  style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[4].price}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+          </td>
+          <td v-else></td>
+          <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">
+            <span v-if="this.realTimeData.buyOneToFive[4].price>=this.realTimeData.yesterdayOpenprice"
+                style="color: firebrick">
+              {{this.realTimeData.buyOneToFive[4].quantity}}
+            </span>
+            <span v-else style="color:forestgreen"></span>
+
+          <td v-else></td>
         </tr>
       </table>
-<!--      <table class="mailTable" :style="styleObject" style="width: 100%">-->
-<!--        <tr>-->
-<!--          <td class="column " >开盘价</td>-->
-<!--          <td class="column">{{this.realTimeData.openPrice}}</td>-->
-<!--        </tr>-->
-        <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
-<!--      </table>-->
+      <!--      <table class="mailTable" :style="styleObject" style="width: 100%">-->
+      <!--        <tr>-->
+      <!--          <td class="column " >开盘价</td>-->
+      <!--          <td class="column">{{this.realTimeData.openPrice}}</td>-->
+      <!--        </tr>-->
+      <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
+      <!--      </table>-->
       <p style="display:none">
         {{ this.$store.state.buyOrSellStock}}
 
@@ -101,18 +241,20 @@
         </tr>
 
         <tr>
-          <td class="column " >开盘价</td>
-          <td >{{this.realTimeData.openPrice}}</td>
+          <td class="column ">开盘价</td>
+          <td>{{this.realTimeData.openPrice}}</td>
         </tr>
 
         <tr>
           <td class="column">最高价</td>
-          <td v-if="this.realTimeData.highestPrice!==5e-324">{{this.realTimeData.highestPrice	}}</td><td v-else></td>
+          <td v-if="this.realTimeData.highestPrice!==5e-324">{{this.realTimeData.highestPrice }}</td>
+          <td v-else></td>
         </tr>
 
         <tr>
           <td class="column">最低价</td>
-          <td v-if="this.realTimeData.lowestPrice!==1.7976931348623157e+308">{{this.realTimeData.lowestPrice	}}</td><td v-else></td>
+          <td v-if="this.realTimeData.lowestPrice!==1.7976931348623157e+308">{{this.realTimeData.lowestPrice }}</td>
+          <td v-else></td>
         </tr>
 
         <tr>
@@ -131,27 +273,27 @@
         </tr>
         <tr>
           <td class="column">涨停</td>
-          <td >{{this.realTimeData.dailyLimit }}</td>
+          <td>{{this.realTimeData.dailyLimit }}</td>
         </tr>
         <tr>
           <td class="column">跌停</td>
-          <td >{{this.realTimeData.downLimit }}</td>
+          <td>{{this.realTimeData.downLimit }}</td>
         </tr>
 
-<!--        <tr>-->
-<!--          <td class="column">外盘</td>-->
-<!--          <td>{{this.realTimeData.outMarket }}</td>-->
-<!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td class="column">外盘</td>-->
+        <!--          <td>{{this.realTimeData.outMarket }}</td>-->
+        <!--        </tr>-->
 
-<!--        <tr>-->
-<!--          <td class="column">内盘</td>-->
-<!--          <td>{{this.realTimeData.inMarket}}</td>-->
-<!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td class="column">内盘</td>-->
+        <!--          <td>{{this.realTimeData.inMarket}}</td>-->
+        <!--        </tr>-->
 
-<!--        <tr>-->
-<!--          <td class="column">换手</td>-->
-<!--          <td>{{this.realTimeData.conversionHand }}</td>-->
-<!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td class="column">换手</td>-->
+        <!--          <td>{{this.realTimeData.conversionHand }}</td>-->
+        <!--        </tr>-->
 
         <tr>
           <td class="column">总市值</td>
@@ -217,7 +359,8 @@
           function () {
             console.log("断开连接");
           });
-      };
+      }
+      ;
     },
 
     created() {
@@ -251,7 +394,8 @@
             function () {
               console.log("断开连接");
             });
-        };
+        }
+        ;
         this.connect();
       }
     }
