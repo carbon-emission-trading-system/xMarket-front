@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 90%">
     <div>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
@@ -28,7 +28,7 @@
         </el-submenu>
       </el-menu>
     </div>
-    <div>
+    <div style="height: 100%">
       <selectDate v-on:select="select"></selectDate>
       <div id="in">
         <div id="tag">
@@ -92,7 +92,7 @@
 
           </el-table>
           <div class="block" style="margin-top:30px;">
-            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[20,50,100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[15,30,50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
             </el-pagination>
           </div>
         </div>
@@ -120,7 +120,7 @@
             tableData:[],
             currentPage:1,
             total:20,
-            pageSize:20,
+            pageSize:15,
             beginDate:'',
             endDate:''
           }
@@ -219,11 +219,13 @@
   #in{
     width: 70%;
     margin: 0 auto;
-    text-align:center
+    text-align:center;
+    height:90%
   }
   #stock{
     margin: auto;
     width: 80%;
+    height: 100%;
   }
   #tag{
     margin-top: 5%;

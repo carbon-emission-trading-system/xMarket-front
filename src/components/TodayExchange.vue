@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 90%">
     <div>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
@@ -38,6 +38,7 @@
       <el-table
         :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
         border
+        height="100%"
         @row-dblclick="handle"
         style="width: 100%;font-size: 6px;cursor: pointer"
         :default-sort = "{prop: 'time', order: 'descending'}"
@@ -47,24 +48,28 @@
           label="成交时间"
           width="100"
           align="center"
+          fixed
           sortable>
         </el-table-column>
         <el-table-column
           prop="stockId"
           label="股票代码"
           width="80"
+          fixed
           align="center">
         </el-table-column>
         <el-table-column
           prop="stockName"
           label="股票简称"
           width="80"
+          fixed
           align="center">
         </el-table-column>
         <el-table-column
           prop="type"
           label="操作"
           width="70"
+          fixed
           align="center">
         </el-table-column>
         <el-table-column
@@ -142,7 +147,7 @@
 
       </el-table>
         <div class="block" style="margin-top:30px;">
-          <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[20,50,100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+          <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[15,30,50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
           </el-pagination>
         </div>
       </div>
@@ -162,7 +167,7 @@
           tableData: [],
           currentPage:1,
           total:20,
-          pageSize:20
+          pageSize:15
         }
       },
       created() {
@@ -232,9 +237,11 @@
   #in{
     width: 70%;
     margin: 0 auto;
+    height: 90%;
   }
   #stock{
     margin-top: 2%;
+    height: 100%;
   }
   #tag{
     margin-top: 5%;

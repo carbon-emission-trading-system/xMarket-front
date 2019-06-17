@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:90%">
     <div>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
@@ -28,7 +28,7 @@
         </el-submenu>
       </el-menu>
     </div>
-    <div>
+    <div style="height: 100%">
       <selectDate v-on:select="select"></selectDate>
       <div id="in">
         <div id="tag">
@@ -39,6 +39,7 @@
           <el-table
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
+            height="100%"
             style="width: 100%;font-size: 6px;cursor: pointer"
             @row-dblclick="handle"
             :default-sort = "{prop: 'date', order: 'descending'}"
@@ -48,30 +49,35 @@
               label="成交日期"
               width="100"
               sortable
+              fixed
               align="center">
             </el-table-column>
             <el-table-column
               prop="time"
               label="成交时间"
               width="80"
+              fixed
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockId"
               label="股票代码"
               width="80"
+              fixed
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
               width="80"
+              fixed
               align="center">
             </el-table-column>
             <el-table-column
               prop="type"
               label="操作"
               width="70"
+              fixed
               align="center">
             </el-table-column>
             <el-table-column
@@ -149,7 +155,7 @@
 
           </el-table>
           <div class="block" style="margin-top:30px;">
-            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[20,50,100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[15,30,50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
             </el-pagination>
           </div>
         </div>
@@ -177,7 +183,7 @@
         tableData:[],
         currentPage:1,
         total:20,
-        pageSize:20,
+        pageSize:15,
         beginDate:'',
         endDate:''
       }
@@ -289,17 +295,14 @@
   #in{
     width: 70%;
     margin: 0 auto;
+    height: 90%;
   }
   #stock{
     margin-top: 2%;
+    height: 100%;
   }
   #tag{
     margin-top: 5%;
     margin-bottom: 5%;
   }
-  #exit{
-    margin-top: 1.5%;
-    margin-left: 3%;
-  }
-
 </style>
