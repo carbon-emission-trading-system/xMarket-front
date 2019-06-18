@@ -70,20 +70,27 @@
           //判断是否存在该股票
 
           if (stockIds.indexOf(input) !== -1 || stockNames.indexOf(input) !== -1) {
-            //如果用户输入的是股票简称
-            if (input.length!==6) {
-              this.$store.commit('stockName', input)
-              let index = stockNames.indexOf(input)
+            //如果用户输入的是股票拼音
+            if (input.length===4) {
+              let index = stockPinyins.indexOf(input)
               let stockId = stockIds[index]
+              let stockName = stockNames[index]
               this.$store.commit('stockId', stockId)
-              console.log(this.$store.state.stockId)
-              console.log(this.$store.state.stockName)
+              this.$store.commit('stockName', stockName)
             }//如果用户输入的是股票代码
-            else {
+            else if(input.length===6){
               this.$store.commit('stockId', input)
               let index = stockIds.indexOf(input)
               let stockName = stockNames[index]
               this.$store.commit('stockName', stockName)
+              console.log(this.$store.state.stockId)
+              console.log(this.$store.state.stockName)
+            }//如果用户输入的是股票名称
+            else{
+              this.$store.commit('stockName', input)
+              let index = stockNames.indexOf(input)
+              let stockId = stockIds[index]
+              this.$store.commit('stockId', stockId)
               console.log(this.$store.state.stockId)
               console.log(this.$store.state.stockName)
             }
