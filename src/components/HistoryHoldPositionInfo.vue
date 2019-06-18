@@ -74,7 +74,7 @@
               sortable>
             </el-table-column>
             <el-table-column
-              prop="holdStockDay"
+              prop="stockHoldDay"
               label="持股天数"
               width="110"
               align="center"
