@@ -129,6 +129,9 @@ export default new Vuex.Store({
     temStockId: (state, payload) => {
       state.temStockId = payload
     },
+    changeUserName:(state,payload)=>{
+      state.user.username=payload
+    },
   },
   //在actions中提交mutations的方法达到改变state的目的 .commit()
   actions: {

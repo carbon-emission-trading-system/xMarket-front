@@ -91,6 +91,9 @@
               </el-form-item>
               <el-button class="submit-btn" type="primary" @click="login('ruleForm')">登录</el-button>
             </el-form>
+            <router-link to="/forgetPassword">
+              <el-button type="text" icon="el-icon-edit" style="float: left">忘记密码</el-button>
+            </router-link>
             <router-link to="/register">
               <el-button type="text" icon="el-icon-edit" style="float: right">去注册页</el-button>
             </router-link>
