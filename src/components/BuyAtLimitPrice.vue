@@ -11,10 +11,10 @@
                v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="3">
+        <el-submenu style="margin-left: 5%" index="3">
           <template slot="title">行情中心</template>
-          <el-menu-item index="StockList" >股票列表</el-menu-item>
-          <el-menu-item index="Rank" >排行榜</el-menu-item>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
@@ -59,8 +59,9 @@
     <div class="all">
       <div class="list1">
         <el-card class="card1">
+          <el-button v-show="rout" type="text" icon="el-icon-edit" style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图</el-button>
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-            <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
+            <p style="font-size: 30px; margin-top:10%;"> {{ buyOrSell }} </p>
             <div style="text-align: center;float: left;width: 100%" class="elementInput">
               <el-form-item label="证券代码"
                             style="float: left;width: 100%"
@@ -83,12 +84,12 @@
               <el-form-item label="买入价格"
                             style="float: left;width: 100%"
                             prop="orderPrice"
-
                             :rules="[
                             { validator: LimitPrice, // 自定义验证
-                              trigger: 'blur',
+                              trigger: 'change',
                             }]">
-                <el-input v-model="stockTrading.orderPrice" class="dx" type="number" placeholder="请输入买入价格" ></el-input>
+                <el-input v-model="stockTrading.orderPrice" class="dx" type="number" step="0.01"
+                          placeholder="请输入买入价格"></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
               <el-form-item label="可买数量"
@@ -114,7 +115,12 @@
                             }]"
                             style="float: left;width: 100%"
               >
-                <el-input v-model="stockTrading.orderAmount" placeholder="请输入买入股数" class="dx" clearable></el-input>
+                <el-input v-model="stockTrading.orderAmount"
+                          type="number"
+                          step="100"
+                          placeholder="请输入买入股数"
+                          class="dx"
+                          ></el-input>
               </el-form-item>
               <div style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
@@ -144,6 +150,7 @@
     name: "BuyAtLimitPrice",
     data() {
       return {
+        rout:false,
         activeIndex: 'BuyAtLimitPrice',
         activeIndexBS: 'BuyAtLimitPrice',
         buyOrSell: '买入股票',
@@ -187,64 +194,17 @@
     },
 
     methods: {
-
+      linkKline() {
+        this.$store.commit('stockId', this.stockTrading.stockId);
+        this.$store.commit('stockName', this.stockTrading.stockName);
+        this.$store.commit('changeRout',1);
+        this.$router.push('/StockDisplay')
+      },
       exit() {
         this.$store.commit('logout');
         this.$router.push('/')
       },
-      // realTimeDataDisplay() {
-      //   var self = this;
-      //   Vue.axios.get('/api/realTimeDataDisplay')
-      //     .then(function (response) {
-      //       self.$message.success(response.data)
-      //     })
-      //     .catch(function (error) {
-      //       self.$message.error(response.data)
-      //     });
-      // },
-      //
-      // updataStock() {
-      //   this.stockTrading = this.stockTrading;
-      // },
-      // onConnected(frame) {
-      //   console.log("Connected: " + frame);
-      //   var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
-      //   var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
-      //
-      //
-      //   var subscription = this.client.subscribe(exchange1, this.onmessage);
-      //   console.log(subscription);
-      //
-      //   var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-      //   console.log(subscription3);
-      // },
-      // onFailed(frame) {
-      //   console.log("Failed: " + frame.body);
-      //   //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-      //
-      // },
-      // onmessage(message) {
-      //   console.log("得到消息");
-      // },
-      //
-      // responseCallback(frame) {
-      //   console.log("得到的消息 msg=>" + frame.body);
-      //   //接收到服务器推送消息，向服务器发送确认消息
-      //   // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      // },
-      // connect() {
-      //   console.log("开始连接");
-      //   this.client = Stomp.client("ws://localhost:15674/ws")
-      //   console.log("创建");
-      //   var headers = {
-      //     "login": "guest",
-      //     "passcode": "guest",
-      //     //虚拟主机，默认“/”
-      //     "heart-beat": "0,0"
-      //   };
-      //   this.client.connect(headers, this.onConnected, this.onFailed);
-      //   console.log("连接结束");
-      // },
+
       /**
        *
        * 验证股票代码
@@ -293,6 +253,7 @@
             } else {
               callback();
               this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value);
+              this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
               // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
               this.$forceUpdate();
               // this.updataStock()
@@ -371,6 +332,7 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
+        this.rout=false;
         console.log('firstReturnStockRealtimeInformation')
         let prom = {
           stockId: this.stockTrading.stockId,
@@ -378,6 +340,7 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          this.rout=true;
           this.msg = this.stockTrading.stockId;
           this.stockTrading = res.data;
           // this.stockTrading.openPrice = res.data.yesterdayClosePrice;

@@ -60,6 +60,7 @@
 
       <div class="list1">
         <el-card class="card1">
+          <el-button v-show="rout" type="text" icon="el-icon-edit" style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图</el-button>
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
             <div style="text-align: center;float: left;width: 100%" class="elementInput">
@@ -103,9 +104,9 @@
                             prop="orderAmount"
                             :rules="[
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
-                              trigger: 'blur'
+                              trigger: 'change'
                             }]">
-                <el-input v-model="stockTrading.orderAmount" class="dx" placeholder="请输入卖出股数"></el-input>
+                <el-input v-model="stockTrading.orderAmount" class="dx"  type="number" step="100" placeholder="请输入卖出股数"></el-input>
               </el-form-item>
               <div style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width:50%;">重新填写</el-button>
@@ -137,6 +138,7 @@
         activeIndexBS: 'SellAtMarketPrice',
         buyOrSell: '市价卖出',
         client: null,
+        rout:false,
         stockTrading: {
           stockId: '',
           stockName: '',
@@ -181,6 +183,12 @@
       }
     },
     methods: {
+      linkKline() {
+        this.$store.commit('stockId', this.stockTrading.stockId);
+        this.$store.commit('stockName', this.stockTrading.stockName);
+        this.$store.commit('changeRout',4);
+        this.$router.push('/StockDisplay')
+      },
       changeSelect(id) {
         this.$set(this.stockTrading, 'DelegateType', id);
         console.log(this.stockTrading.DelegateType)
@@ -342,6 +350,7 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
+        this.rout=false;
         let prom = {
           stockId: this.stockTrading.stockId,
           // userId: store.state.user.userI
@@ -349,6 +358,7 @@
         };
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
+          this.rout=true;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
@@ -367,6 +377,8 @@
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
+
+          this.$set(this.stockTrading, 'orderAmount', this.stockTrading.availableNumber);
 
           this.$store.commit('temStockId', this.stockTrading.stockId)
         }).catch((res) => {

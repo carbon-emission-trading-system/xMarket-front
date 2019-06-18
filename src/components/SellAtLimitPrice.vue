@@ -60,6 +60,7 @@
 
       <div class="list1">
         <el-card class="card1">
+          <el-button v-show="rout" type="text" icon="el-icon-edit" style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图</el-button>
           <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
             <p style="font-size: 30px; margin-top:10% ;"> {{ buyOrSell }} </p>
             <div style="text-align: center ;float: left;width: 100%" class="elementInput">
@@ -86,7 +87,7 @@
                             trigger: 'blur'
                             }
                             ]">
-                <el-input v-model="stockTrading.orderPrice" class="dx" placeholder="请输入卖出价格" type="number"></el-input>
+                <el-input v-model="stockTrading.orderPrice" class="dx" type="number" step="0.01" placeholder="请输入卖出价格" ></el-input>
               </el-form-item>
               <el-form-item label="可卖数量"
                             style="float: left">
@@ -109,7 +110,7 @@
                             trigger: 'change'
                               }]"
                             style="float: left;width: 100%">
-                <el-input v-model="stockTrading.orderAmount" class="dx" placeholder="请输入卖出股数" clearable></el-input>
+                <el-input v-model="stockTrading.orderAmount" class="dx" type="number" step="100" placeholder="请输入卖出股数" ></el-input>
               </el-form-item>
               <div style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
@@ -137,6 +138,7 @@
     name: "SellAtLimitPrice",
     data() {
       return {
+        rout:false,
         activeIndexBS: 'SellAtLimitPrice',
         activeIndex: 'BuyAtLimitPrice',
         buyOrSell: '卖出股票',
@@ -182,62 +184,16 @@
       }
     },
     methods: {
+      linkKline() {
+        this.$store.commit('stockId', this.stockTrading.stockId);
+        this.$store.commit('stockName', this.stockTrading.stockName);
+        this.$store.commit('changeRout',3);
+        this.$router.push('/StockDisplay')
+      },
       exit() {
         this.$store.commit('logout');
         this.$router.push('/')
       },
-      //
-      // realTimeDataDisplay() {
-      //   var self = this;
-      //   Vue.axios.get('/api/realTimeDataDisplay')
-      //     .then(function (response) {
-      //       self.$message.success(response.data)
-      //     })
-      //     .catch(function (error) {
-      //       self.$message.error(response.data)
-      //     });
-      // },
-      //
-      // onConnected(frame) {
-      //   console.log("Connected: " + frame);
-      //   var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
-      //   var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
-      //
-      //
-      //   var subscription = this.client.subscribe(exchange1, this.onmessage);
-      //   console.log(subscription);
-      //
-      //   var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-      //   console.log(subscription3);
-      // },
-      // onFailed(frame) {
-      //   console.log("Failed: " + frame.body);
-      //   //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-      //
-      // },
-      // onmessage(message) {
-      //   console.log("得到消息");
-      // },
-      //
-      // responseCallback(frame) {
-      //   console.log("得到的消息 msg=>" + frame.body);
-      //   //接收到服务器推送消息，向服务器发送确认消息
-      //   // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      // },
-      // connect() {
-      //   console.log("开始连接");
-      //   this.client = Stomp.client("ws://localhost:15674/ws");
-      //   console.log("创建");
-      //   var headers = {
-      //     "login": "guest",
-      //     "passcode": "guest",
-      //     //虚拟主机，默认“/”
-      //     "heart-beat": "0,0"
-      //   };
-      //   this.client.connect(headers, this.onConnected, this.onFailed);
-      //   console.log("连接结束");
-      // },
-
       /**
        *
        * 验证股票代码
@@ -367,6 +323,7 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与可卖股票数量
        */
       firstReturnStockRealtimeInformation() {
+        this.rout=false;
         let prom = {
           stockId: this.stockTrading.stockId,
           // userId: store.state.user.userId
@@ -374,10 +331,14 @@
         }
 
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          this.rout=true;
           console.log(res);
           this.stockTrading = res.data;
           console.log("this.basicInfoStok)");
           this.$set(this.stockTrading, 'openPrice', res.data.yesterdayClosePrice);
+
+          this.$set(this.stockTrading, 'orderAmount', this.stockTrading.availableNumber);
+
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
