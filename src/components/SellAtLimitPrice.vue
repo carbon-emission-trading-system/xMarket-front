@@ -86,7 +86,7 @@
                             trigger: 'blur'
                             }
                             ]">
-                <el-input v-model="stockTrading.orderPrice" class="dx" placeholder="请输入卖出价格"></el-input>
+                <el-input v-model="stockTrading.orderPrice" class="dx" placeholder="请输入卖出价格" type="number"></el-input>
               </el-form-item>
               <el-form-item label="可卖数量"
                             style="float: left">

@@ -88,7 +88,7 @@
                             { validator: LimitPrice, // 自定义验证
                               trigger: 'blur',
                             }]">
-                <el-input v-model="stockTrading.orderPrice" class="dx" placeholder="请输入买入价格" clearable></el-input>
+                <el-input v-model="stockTrading.orderPrice" class="dx" type="number" placeholder="请输入买入价格" ></el-input>
                 <!--@blur.prevent="LimitPrice()"-->
               </el-form-item>
               <el-form-item label="可买数量"
