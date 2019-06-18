@@ -151,7 +151,7 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="revokeAmount"
+              prop="cancelNumber"
               label="撤单数量"
               width="80"
               align="center">
