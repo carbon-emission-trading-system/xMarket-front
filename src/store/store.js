@@ -15,6 +15,8 @@ export default new Vuex.Store({
     stockName: '',
     //用于查看详情的公告title
     title: '',
+    //查看更多排名的rankIndex
+    rankIndex:'',
     temStockId: '',
     //设置导航栏
     user: {
@@ -117,6 +119,9 @@ export default new Vuex.Store({
     },
     title: (state, payload) => {
       state.title = payload
+    },
+    rankIndex: (state, payload) => {
+      state.rankIndex = payload
     },
     buyOrSellStock: (state, payload) => {
       state.buyOrSellStock = payload
