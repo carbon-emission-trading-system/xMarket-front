@@ -35,6 +35,13 @@
       <div id="tag">
         <el-divider >当日委托</el-divider>
       </div>
+<!--      <el-table-column-->
+<!--        prop="date"-->
+<!--        label="委托日期"-->
+<!--        width="100"-->
+<!--        fixed-->
+<!--        align="center">-->
+<!--      </el-table-column>-->
       <div id="stock">
         <el-table
           :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
@@ -43,13 +50,7 @@
           @row-dblclick="handle"
           style="width: 100%;font-size: 8px;cursor: pointer"
           :header-cell-style="{background:'#eef1f6',color:'#606266'}">
-          <el-table-column
-            prop="date"
-            label="委托日期"
-            width="100"
-            fixed
-            align="center">
-          </el-table-column>
+
           <el-table-column
             prop="time"
             label="委托时间"
@@ -80,6 +81,18 @@
             align="center">
           </el-table-column>
           <el-table-column
+            prop="state"
+            label="委托状态"
+            width="90"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="tradeStraregy"
+            label="订单类型"
+            width="150"
+            align="center">
+          </el-table-column>
+          <el-table-column
             prop="orderAmount"
             label="委托数量"
             width="85"
@@ -88,6 +101,12 @@
           <el-table-column
             prop="exchangeAmount"
             label="成交数量"
+            width="80"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="cancelNumber"
+            label="撤单数量"
             width="80"
             align="center">
           </el-table-column>
@@ -108,25 +127,29 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="cancelNumber"
-            label="撤单数量"
-            width="80"
-            align="center">
-          </el-table-column>
-          <el-table-column
-            prop="tradeStraregy"
-            label="订单类型"
-            width="150"
-            align="center">
-          </el-table-column>
-          <el-table-column
             prop="orderId"
             label="合同编号"
             align="center"
             width="120"
           >
           </el-table-column>
-
+          <el-table-column
+            prop="tradeMarket"
+            label="交易市场"
+            width="80"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            label="操作"
+            width="70"
+            fixed="right"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-button v-if="scope.row.state!=='未成交'" @click="cancel(scope.row.orderId)" type="text" size="small" disabled>撤单</el-button>
+              <el-button v-else @click="cancel(scope.row.orderId)" type="text" size="small">撤单</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <div class="block" style="margin-top:30px;">
           <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[15,30,50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -211,6 +234,26 @@
               this.tableData[i].tradeMarket="沪市"
             }
 
+            if(this.tableData[i].state===0){
+              this.tableData[i].state="未成交"
+            }
+            else if(this.tableData[i].state===1){
+              this.tableData[i].state="正在撤单"
+            }
+            else if(this.tableData[i].state===2){
+              this.tableData[i].state="已成交"
+            }
+            else if(this.tableData[i].state===3){
+              this.tableData[i].state="部分撤单"
+            }
+            else if(this.tableData[i].state===4){
+              this.tableData[i].state="全部撤单"
+            }
+            else{
+              this.tableData[i].tradeMarket="部分成交"
+            }
+
+
             if(this.tableData[i].tradeStraregy===0){
               this.tableData[i].tradeStraregy="限价委托"
             }else if(this.tableData[i].tradeStraregy===1){
@@ -240,6 +283,42 @@
         }).catch((error) => {
           this.$message.error(error.message)
         });
+      },
+      //撤单
+      cancel(orderId){
+        let x = '您确认对合同编号为' + orderId + '的订单进行撤单操作吗?'
+        this.$confirm(x, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let code = this.cancelOrder(orderId)
+          let message =''
+          if(code === 200) {
+            message='撤单成功!';
+          }
+          this.$message({
+            type: 'success',
+            message: message,
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消撤单'
+          });
+        });
+
+      },
+      cancelOrder(orderId){
+        let params={
+          orderId:orderId
+        }
+        this.$api.http('post','/api/cancelOrder',params).then(res=>{
+          this.setTodayOrderApi()
+          return res.code;
+        }).catch((error) => {
+          this.$message.error(error.message)
+        })
       },
     }
   }
