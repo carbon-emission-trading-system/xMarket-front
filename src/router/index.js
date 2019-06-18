@@ -26,6 +26,7 @@ import Register from "../components/Register";
 import SelfInfo from "../components/SelfInfo";
 import ForPasVal from "../components/ForPasVal";
 import Rank from "../components/Rank";
+import OneRank from "../components/OneRank";
 import NotFund from "../components/404";
 import ForgetPassword from "../components/ForgetPassword"
 
@@ -102,6 +103,11 @@ export default new Router({
       path: '/Rank',
       name: 'rank',
       component: Rank
+    },
+    {
+      path: '/OneRank',
+      name: 'oneRank',
+      component: OneRank
     },
     {
       path: '/OneNew',
