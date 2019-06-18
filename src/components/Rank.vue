@@ -305,7 +305,12 @@
                 data[i].lowestPrice=null
               }
             }
-            this.rankByIncrease = data;
+            if(data.length>=4){
+              this.rankByIncrease = data.slice(0,4)
+            }
+            else{
+              this.rankByIncrease = data;
+            }
           }).catch((error) => {
             this.$message.error(error.message)
           })
@@ -324,7 +329,12 @@
                 data[i].lowestPrice=null
               }
             }
-            this.rankByDecrease = data;
+            if(data.length>=4){
+              this.rankByDecrease = data.slice(0,4)
+            }
+            else{
+              this.rankByDecrease = data;
+            }
           }).catch((error) => {
             this.$message.error(error.message)
           })
@@ -343,7 +353,12 @@
                 data[i].lowestPrice=null
               }
             }
-            this.rankByTradeAmount = data;
+            if(data.length>=4){
+              this.rankByTradeAmount = data.slice(0,4)
+            }
+            else{
+              this.rankByTradeAmount = data;
+            }
           }).catch((error) => {
             this.$message.error(error.message)
           })
@@ -362,7 +377,12 @@
                 data[i].lowestPrice=null
               }
             }
-            this.rankByConversionHand = data;
+            if(data.length>=4){
+              this.rankByConversionHand = data.slice(0,4)
+            }
+            else{
+              this.rankByConversionHand = data;
+            }
           }).catch((error) => {
             this.$message.error(error.message)
           })
