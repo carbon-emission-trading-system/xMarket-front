@@ -152,9 +152,7 @@
 
             <el-divider content-position="right" style="width: 20%;margin-top: 2%;margin-top: 2%"></el-divider>
             <div style="margin-bottom: 2%;margin-top: 2%">
-              <el-button type="primary" @click="">注销</el-button>
-              <el-button type="text" @click="ModifyTheLoginPassword">修改登录密码</el-button>
-              <el-button type="primary" @click="">修改交易密码</el-button>
+              <el-button type="primary" @click="ModifyTheLoginPassword">修改登录密码</el-button>
             </div>
           </div>
         </el-card>
