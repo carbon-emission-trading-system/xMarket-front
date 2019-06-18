@@ -39,11 +39,11 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span>涨幅排名</span>
-                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(1)">查看更多</el-button>
               </div>
               <el-table
                 :data="rankByIncrease"
-                @row-dblclick="handleStock(1)"
+                @row-dblclick="handleStock"
                 style="width: 100%;font-size: 6px;cursor: pointer">
                 <el-table-column
                   prop="stockId"
@@ -82,19 +82,19 @@
                   width="70">
                 </el-table-column>
               </el-table>
-
             </el-card>
           </div>
+
           <div class="right">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span>跌幅排名</span>
-                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(2)">查看更多</el-button>
               </div>
 
               <el-table
                 :data="rankByDecrease"
-                @row-dblclick="handleStock(2)"
+                @row-dblclick="handleStock"
                 style="width: 100%;font-size: 6px;cursor: pointer">
                 <el-table-column
                   prop="stockId"
@@ -143,12 +143,11 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span>成交额</span>
-                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(3)">查看更多</el-button>
               </div>
-
               <el-table
                 :data="rankByTradeAmount"
-                @row-dblclick="handleStock(3)"
+                @row-dblclick="handleStock"
                 style="width: 100%;font-size: 6px;cursor: pointer">
                 <el-table-column
                   prop="stockId"
@@ -187,19 +186,18 @@
                   width="70">
                 </el-table-column>
               </el-table>
-
             </el-card>
           </div>
+
           <div class="right">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span>跌幅排名</span>
-                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(4)">查看更多</el-button>
               </div>
-
               <el-table
                 :data="rankByConversionHand"
-                @row-dblclick="handleStock(4)"
+                @row-dblclick="handleStock"
                 style="width: 100%;font-size: 6px;cursor: pointer">
                 <el-table-column
                   prop="stockId"
@@ -283,9 +281,14 @@
             });
           }
         },
-        handleStock(index){
+        toOneRank(index){
           this.$store.commit('rankIndex',index)
           this.$router.push('OneRank')
+        },
+        handleStock(row){
+          this.$store.commit('stockId',row.stockId)
+          this.$store.commit('stockName',row.stockName)
+          this.$router.push('StockDisplay')
         },
 
         rankByIncreaseApi(){
