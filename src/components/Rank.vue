@@ -55,7 +55,7 @@
                   prop="stockName"
                   label="股票简称"
                   align="center"
-                  width="80">
+                  width="75">
                 </el-table-column>
                 <el-table-column
                   prop="increase"
@@ -106,10 +106,10 @@
                   prop="stockName"
                   label="股票简称"
                   align="center"
-                  width="80">
+                  width="75">
                 </el-table-column>
                 <el-table-column
-                  prop="decrease"
+                  prop="increase"
                   label="跌幅%"
                   align="center"
                   width="75">
@@ -160,7 +160,7 @@
                   prop="stockName"
                   label="股票简称"
                   align="center"
-                  width="80">
+                  width="75">
                 </el-table-column>
                 <el-table-column
                   prop="tradeAmount"
@@ -211,7 +211,7 @@
                   prop="stockName"
                   label="股票简称"
                   align="center"
-                  width="80">
+                  width="75">
                 </el-table-column>
                 <el-table-column
                   prop="conversionHand"
@@ -293,7 +293,16 @@
             type:1
           }
           this.$api.http('get','/api/rankList',params).then(res=>{
-            this.rankByIncrease = res.data;
+            let data = res.data
+            for(let i =0;i<data.length;i++){
+              if(data[i].highestPrice===5e-324){
+                data[i].highestPrice=null
+              }
+              if(data[i].lowestPrice===1.7976931348623157e+308){
+                data[i].lowestPrice=null
+              }
+            }
+            this.rankByIncrease = data;
           }).catch((error) => {
             this.$message.error(error.message)
           })
@@ -303,7 +312,16 @@
             type:2
           }
           this.$api.http('get','/api/rankList',params).then(res=>{
-            this.rankByDecrease = res.data;
+            let data = res.data
+            for(let i =0;i<data.length;i++){
+              if(data[i].highestPrice===5e-324){
+                data[i].highestPrice=null
+              }
+              if(data[i].lowestPrice===1.7976931348623157e+308){
+                data[i].lowestPrice=null
+              }
+            }
+            this.rankByDecrease = data;
           }).catch((error) => {
             this.$message.error(error.message)
           })
@@ -313,17 +331,35 @@
             type:3
           }
           this.$api.http('get','/api/rankList',params).then(res=>{
-            this.rankByTradeAmount = res.data;
+            let data = res.data
+            for(let i =0;i<data.length;i++){
+              if(data[i].highestPrice===5e-324){
+                data[i].highestPrice=null
+              }
+              if(data[i].lowestPrice===1.7976931348623157e+308){
+                data[i].lowestPrice=null
+              }
+            }
+            this.rankByTradeAmount = data;
           }).catch((error) => {
             this.$message.error(error.message)
           })
         },
         rankByConversionHandApi(){
           let params={
-            type:1
+            type:4
           }
           this.$api.http('get','/api/rankList',params).then(res=>{
-            this.rankByConversionHand = res.data;
+            let data = res.data
+            for(let i =0;i<data.length;i++){
+              if(data[i].highestPrice===5e-324){
+                data[i].highestPrice=null
+              }
+              if(data[i].lowestPrice===1.7976931348623157e+308){
+                data[i].lowestPrice=null
+              }
+            }
+            this.rankByConversionHand = data;
           }).catch((error) => {
             this.$message.error(error.message)
           })
