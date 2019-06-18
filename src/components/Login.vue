@@ -38,13 +38,14 @@
           <div slot="header" class="clearfix">
             <i class="el-icon-postcard" style="font-size: 25px"></i>
             <span style="font-size: 25px">公告</span>
-<!--            <router-link to="/Notices">-->
+            <router-link to="/News">
               <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
-<!--            </router-link>-->
+            </router-link>
           </div>
 
           <el-table
             :data="news"
+            @row-dblclick="handleNews"
             style="width: 100%">
             <el-table-column
               prop="title"
@@ -150,20 +151,17 @@
       this.setNewsApi();
     },
     methods: {
-      /**
-       * @since 导航栏需要
-       * @param key
-       * @param keyPath
-       */
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
+
       warning() {
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
       },
 
+      handleNews(row){
+        this.$store.commit('title',row.title)
+        this.$router.push('OneNew')
+      },
       refreshCode(){
         let self =this;
         axios.get('/api/validateCode' ,{

@@ -9,7 +9,6 @@
         :fetch-suggestions="querySearch"
         placeholder="请输入股票简称或代码"
         :trigger-on-focus="false"
-        @select="handleSelect"
         style="width: 100%;">
       </el-autocomplete>
     </div>
@@ -34,13 +33,13 @@
       //this.$store.dispatch('stockList')
     },
     computed: {
-      //生成搜索提示  stockId：stockName
+      //生成搜索提示  stockId：stockName:stockPinyin
       stocks: function () {
         let theStocks = this.$store.state.stockList
         let theStocksList = [];
         for (let i = 0; i < theStocks.length; i++) {
           let id = theStocks[i].stockId
-          let theStock = id + ":" + theStocks[i].stockName
+          let theStock = id + ":" + theStocks[i].stockName+":"+theStocks[i].stockPinyin
           let stock = {value: theStock}
           theStocksList.push(stock)
         }
@@ -48,15 +47,6 @@
       }
     },
     methods: {
-      /**
-       * @since 导航栏需要
-       * @param key
-       * @param keyPath
-       */
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-
       //向store传递input的stockId值
       find() {
         let input = this.input
@@ -66,12 +56,15 @@
           console.log("用户未按搜索建议")
           let stockIds = []
           let stockNames = []
+          let stockPinyins= []
           for (let i = 0; i < stockList.length; i++) {
             let stockId = stockList[i].stockId
             stockId = stockId.toString()
             let stockName = stockList[i].stockName
+            let stockPinyin = stockList[i].stockPinyin
             stockIds.push(stockId)
             stockNames.push(stockName)
+            stockPinyins.push(stockPinyin)
           }
           console.log(stockNames)
           //判断是否存在该股票
@@ -115,7 +108,19 @@
         let stocks = this.stocks
         let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks
         // 调用 callback 返回建议列表的数据
-        cb(results);
+        // console.log(results)
+        // cb(results)
+        let theResults = []
+
+        //设置返回建议列表的数据不包含缩写
+        for(let i=0;i<results.length;i++){
+          let result = results[i].value
+          let theResult = {value:result.split(":")[0]+":"+result.split(":")[1]}
+       //   console.log(theResult)
+          theResults.push(theResult)
+        }
+        console.log(theResults)
+        cb(theResults);
       },
       createFilter(queryString) {
         return (stocks) => {
