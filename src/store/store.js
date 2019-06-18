@@ -23,6 +23,10 @@ export default new Vuex.Store({
       userId: '',
       username: '',
     },
+    /**
+     * 设置连接路由
+     */
+    rout:'',
     buyOrSellStock: '',
     HDelegateType: [
       {
@@ -132,6 +136,9 @@ export default new Vuex.Store({
     changeUserName:(state,payload)=>{
       state.user.username=payload
     },
+    changeRout:(state,payload)=>{
+      state.rout = payload
+    }
   },
   //在actions中提交mutations的方法达到改变state的目的 .commit()
   actions: {
