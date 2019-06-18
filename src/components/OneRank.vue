@@ -32,6 +32,12 @@
           </el-submenu>
         </el-menu>
       </div>
+      <div id="in">
+
+        <div id="tag">
+          <el-divider >{{rankName}}</el-divider>
+        </div>
+      </div>
 
 
     </div>
@@ -39,7 +45,29 @@
 
 <script>
     export default {
-        name: "OneRank"
+        name: "OneRank",
+      data(){
+          return{
+
+          }
+      },
+      computed:{
+          rankName(){
+            let index = this.$store.state.rankIndex
+            if(index===1){
+              return '涨幅排名'
+            }
+            else if(index===2){
+              return '跌幅排名'
+            }
+            else if(index===3){
+              return '成交额排名'
+            }
+            else{
+              return '换手排名'
+            }
+          }
+      }
     }
 </script>
 

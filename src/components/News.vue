@@ -80,7 +80,8 @@
     methods: {
       setNewsApi: function () {
         this.$api.http('get','/api/getNews').then(res=>{
-          this.news = res.data;
+          this.news = res.data
+
         }).catch((error) => {
           this.$message.error(error.message)
         })

@@ -232,7 +232,13 @@
       //获取公告
       setNewsApi:function () {
         this.$api.http('get','/api/getNews').then(res=>{
-            this.news = res.data;
+          let data = res.data
+          if(data.length>=4){
+            this.news = data.slice(0,4)
+          }
+          else{
+            this.news = data;
+          }
           }).catch((error) => {
           this.$message.error(error.message)
         })
