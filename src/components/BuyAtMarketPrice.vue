@@ -83,11 +83,11 @@
               <!---->
               <el-form-item label="交易策略"
                             prop="value"
-                            style="float: left;width: 100%">
-                <!--:rules="[{-->
-                <!--validator: tradingStrategyVerification, // 自定义验证-->
-                <!--trigger: 'blur'-->
-                <!--}]">-->
+                            style="float: left;width: 100%"
+                            :rules="[{
+                            validator: tradingStrategyVerification, // 自定义验证
+                            trigger: 'blur'
+                            }]">
                 <el-select v-model="stockTrading.DelegateType" @change="changeSelect" class="dx" placeholder="请选择委托方案">
                   <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
                              :value="item.value"></el-option>
