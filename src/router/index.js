@@ -25,7 +25,7 @@ import SellAtMarketPrice from "../components/SellAtMarketPrice";
 import Register from "../components/Register";
 import SelfInfo from "../components/SelfInfo";
 import ForPasVal from "../components/ForPasVal";
-
+import Rank from "../components/Rank";
 import NotFund from "../components/404";
 
 Vue.use(Router)
@@ -96,6 +96,11 @@ export default new Router({
       path: '/News',
       name: 'news',
       component: News
+    },
+    {
+      path: '/Rank',
+      name: 'rank',
+      component: Rank
     },
     {
       path: '/OneNew',
