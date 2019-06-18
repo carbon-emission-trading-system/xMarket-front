@@ -192,7 +192,7 @@
           <div class="right">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
-                <span>跌幅排名</span>
+                <span>换手排名</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(4)">查看更多</el-button>
               </div>
               <el-table
