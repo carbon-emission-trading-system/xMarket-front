@@ -32,6 +32,218 @@
           </el-submenu>
         </el-menu>
       </div>
+
+      <div id="rank">
+        <div class="line">
+          <div class="left">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>涨幅排名</span>
+                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+              </div>
+              <el-table
+                :data="rankByIncrease"
+                @row-dblclick="handleStock(1)"
+                style="width: 100%;font-size: 6px;cursor: pointer">
+                <el-table-column
+                  prop="stockId"
+                  label="股票代码"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="stockName"
+                  label="股票简称"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="increase"
+                  label="涨幅%"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="lastTradePrice"
+                  label="最新成交价"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="highestPrice"
+                  label="最高价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+                <el-table-column
+                  prop="lowestPrice"
+                  label="最低价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+              </el-table>
+
+            </el-card>
+          </div>
+          <div class="right">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>跌幅排名</span>
+                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+              </div>
+
+              <el-table
+                :data="rankByDecrease"
+                @row-dblclick="handleStock(2)"
+                style="width: 100%;font-size: 6px;cursor: pointer">
+                <el-table-column
+                  prop="stockId"
+                  label="股票代码"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="stockName"
+                  label="股票简称"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="decrease"
+                  label="跌幅%"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="lastTradePrice"
+                  label="最新成交价"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="highestPrice"
+                  label="最高价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+                <el-table-column
+                  prop="lowestPrice"
+                  label="最低价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+              </el-table>
+
+            </el-card>
+          </div>
+        </div>
+
+        <div class="line">
+          <div class="left">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>成交额</span>
+                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+              </div>
+
+              <el-table
+                :data="rankByTradeAmount"
+                @row-dblclick="handleStock(3)"
+                style="width: 100%;font-size: 6px;cursor: pointer">
+                <el-table-column
+                  prop="stockId"
+                  label="股票代码"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="stockName"
+                  label="股票简称"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="tradeAmount"
+                  label="成交额"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="lastTradePrice"
+                  label="最新成交价"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="highestPrice"
+                  label="最高价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+                <el-table-column
+                  prop="lowestPrice"
+                  label="最低价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+              </el-table>
+
+            </el-card>
+          </div>
+          <div class="right">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>跌幅排名</span>
+                <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
+              </div>
+
+              <el-table
+                :data="rankByConversionHand"
+                @row-dblclick="handleStock(4)"
+                style="width: 100%;font-size: 6px;cursor: pointer">
+                <el-table-column
+                  prop="stockId"
+                  label="股票代码"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="stockName"
+                  label="股票简称"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="conversionHand"
+                  label="换手"
+                  align="center"
+                  width="75">
+                </el-table-column>
+                <el-table-column
+                  prop="lastTradePrice"
+                  label="最新成交价"
+                  align="center"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="highestPrice"
+                  label="最高价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+                <el-table-column
+                  prop="lowestPrice"
+                  label="最低价"
+                  align="center"
+                  width="70">
+                </el-table-column>
+              </el-table>
+
+            </el-card>
+          </div>
+        </div>
+      </div>
+
     </div>
 </template>
 
@@ -41,7 +253,18 @@
       data(){
           return{
             activeIndex: 'Rank',
+            rankByIncrease:[],
+            rankByDecrease:[],
+            rankByTradeAmount:[],
+            rankByConversionHand:[],
+
           }
+      },
+      created() {
+        this.rankByIncreaseApi();
+        this.rankByDecreaseApi();
+        this.rankByTradeAmountApi();
+        this.rankByConversionHandApi();
       },
       methods:{
         toFirst(){
@@ -60,10 +283,78 @@
             });
           }
         },
+        handleStock(index){
+          this.$store.commit('rankIndex',index)
+          this.$router.push('OneRank')
+        },
+
+        rankByIncreaseApi(){
+          let params={
+            type:1
+          }
+          this.$api.http('get','/api/rankList',params).then(res=>{
+            this.rankByIncrease = res.data;
+          }).catch((error) => {
+            this.$message.error(error.message)
+          })
+        },
+        rankByDecreaseApi(){
+          let params={
+            type:2
+          }
+          this.$api.http('get','/api/rankList',params).then(res=>{
+            this.rankByDecrease = res.data;
+          }).catch((error) => {
+            this.$message.error(error.message)
+          })
+        },
+        rankByTradeAmountApi(){
+          let params={
+            type:3
+          }
+          this.$api.http('get','/api/rankList',params).then(res=>{
+            this.rankByTradeAmount = res.data;
+          }).catch((error) => {
+            this.$message.error(error.message)
+          })
+        },
+        rankByConversionHandApi(){
+          let params={
+            type:1
+          }
+          this.$api.http('get','/api/rankList',params).then(res=>{
+            this.rankByConversionHand = res.data;
+          }).catch((error) => {
+            this.$message.error(error.message)
+          })
+        },
+
       }
     }
 </script>
 
 <style scoped>
+  #rank{
+    margin: auto;
+    width: 80%;
+  }
+  .line{
+    display: inline-block;
+    margin-top: 5%;
+    width: 100%;
+  }
+  .left{
+    float:left;
+    width:45%;
+    height: 50%
+  }
+  .right{
+    float: right;
+    width: 45%;
+    height: 50%
+  }
+  .box-card {
+    width: 100%;
+  }
 
 </style>
