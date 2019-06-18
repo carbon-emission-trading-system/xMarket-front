@@ -32,21 +32,21 @@
     <div id="register">
       <el-card class="box-card" style="margin-top: 5%">
         <el-form label-position="left" label-width="120px"
-                 :model="user"
+                 :model="forget"
                  :rules="rules"
-                 ref="user">
+                 ref="forget">
           <el-form-item label="邮箱"
-                        prop="email"
+                        prop="mailAdress"
                         :rules="[{
                         required: true,
                         validator: DetermineIfmailExists,
                         trigger: 'blur'
                         }]">
-            <el-input v-model="user.email" placeholder="请输电子邮箱"></el-input>
+            <el-input v-model="forget.mailAdress" placeholder="请输电子邮箱"></el-input>
           </el-form-item>
           <el-form-item label="验证码" prop="mailCode">
             <el-col :span="14">
-              <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"
+              <el-input v-model="forget.mailCode" placeholder="请输入邮箱验证码"
                         @blur="focusState = false"
                         v-focus="focusState"></el-input>
             </el-col>
@@ -56,32 +56,17 @@
               <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
             </el-col>
           </el-form-item>
-          <el-form-item label="用户名"
-                        prop="username"
-                        :rules="[
-                        {
-                          required:true, validator: DetermineIfUserNameExists, trigger: 'blur'
-                        },
-                        {pattern: /^([a-zA-Z0-9|_|\_|\.]{1,16})$/, message: '请输入1-16位字母,数字,下划线和“.” ', trigger: 'blur'},
-                        ]">
-            <el-input v-model="user.username" placeholder="请输入最多16位用户名 "></el-input>
-          </el-form-item>
-          <el-form-item label="登录密码" prop="loginPassword">
-            <el-input type="password" v-model="user.loginPassword" placeholder="请输入8-16位密码 "></el-input>
+
+          <el-form-item label="密码" prop="loginPassword">
+            <el-input type="password" v-model="forget.newPassword" placeholder="请输入8-16位密码 "></el-input>
           </el-form-item>
           <el-form-item label="确认登录密码" prop="loginRepassword">
-            <el-input type="password" v-model="user.loginRepassword" placeholder="请确认登录密码  "></el-input>
-          </el-form-item>
-          <el-form-item label="交易密码" prop="transactionPassword">
-            <el-input type="password" v-model="user.transactionPassword" placeholder="只能输入6位数字  "></el-input>
-          </el-form-item>
-          <el-form-item label="确认交易密码" prop="transactionRepassword">
-            <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
+            <el-input type="password" v-model="forget.ReNewPassword" placeholder="请确认登录密码  "></el-input>
           </el-form-item>
           <router-link to="/">
             <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
           </router-link>
-          <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
+          <el-button class="submit-btn" type="primary" @click="change('forget')">修改</el-button>
         </el-form>
 
 
@@ -96,75 +81,47 @@ import qs from 'qs'
   import Vue from 'vue'
 
   export default {
+    name:'forgetPassword',
     data() {
       return {
         focusState:'',
         activeIndex: '/',
-        user: {
-          username: '',
-          email: '',
-          loginPassword: '',
-          loginRepassword: '',
-          transactionPassword: '',
-          transactionRepassword: '',
-          mailCode: ''
+        forget: {
+          newPassword:'',
+          mailCode:'',
+          mailAdress:'',
+          ReNewPassword:'',
         },
         show: true,
         flag: 1,
-        msg: 'Welcome to Your Vue.js App',
         count: 26516,
         timer: null,
         rules: {
-          email: [
+          mailAdress: [
             {required: true, message: '请输入邮箱', trigger: 'blur'},
             {
               pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
               message: '邮箱格式错误',
               trigger: 'blur'
             }
-
           ],
-          username: [
-            {required: true, message: '请输入用户名', trigger: 'blur'},
-            // {pattern: /^([a-zA-Z0-9|_|\_|\.]{2,13})$/, message: '只能输入字母，数字，下划线和“.”', trigger: 'blur'},
-          ],
-          loginPassword: [
+          newPassword: [
             {required: true, message: '请输入密码 ', trigger: 'blur'},
             {pattern: /^([a-zA-Z0-9|_|\_|\.]{8,16})$/, message: '请输入8-16位字母,数字,下划线和“.” ', trigger: 'blur'}
           ],
-          transactionPassword: [
-            {required: true, message: '请输入交易密码 ', trigger: 'blur'},
-            {pattern: /^\d{6}$/, message: '请输入6位数字！', trigger: 'blur'},
-
-          ],
-          loginRepassword: [
+          ReNewPassword: [
             {required: true, message: '请确认登录密码 ', trigger: 'blur'},
             {
               validator: (rule, value, callback) => {
                 if (value === '') {
                   callback(new Error('请再次输入登录密码'));
-                } else if (value !== this.user.loginPassword) {
+                } else if (value !== this.forget.newPassword) {
                   callback(new Error('两次登录密码不一致!'));
                 } else {
                   callback();
                 }
               },
               trigger: 'blur',
-            }
-          ],
-
-          transactionRepassword: [
-            {required: true, message: '请确认交易密码 ', trigger: 'blur'},
-            {
-              validator: (rule, value, callback) => {
-                if (value === '') {
-                  callback(new Error('请再次输入交易密码'));
-                } else if (value !== this.user.transactionPassword) {
-                  callback(new Error('两次交易密码不一致!'));
-                } else {
-                  callback();
-                }
-              }, trigger: 'blur'
             }
           ],
           mailCode: [
@@ -206,18 +163,20 @@ import qs from 'qs'
        * @Author: zky
        * @Date:
        */
-      register(formName) {
-
-        console.log(this.$refs[formName]);
+      change(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$store.dispatch('register', this.user).then((response) => {
-              console.log('注册成功');
-              this.$message.success(response.message);
-              this.$router.push('/');
-            }).catch((response) => {
-              this.$message.error(response.message)
-            })
+            let prom = {
+              newPassword:this.forget.newPassword,
+              mailCode:this.forget.mailCode,
+              mailAdress:this.forget.mailAdress,
+            };
+            console.log(prom)
+            this.$api.http('post', "/api/forgetPassword", prom).then(res => {
+              this.$message.success(res.message);
+            }).catch((error) => {
+              this.$message.error(error.message)
+            });
           } else {
             console.log('error submit!!');
             return false;
@@ -232,15 +191,14 @@ import qs from 'qs'
        * @Date:
        */
       getMailCode(email) {
-        console.log('++++++++++++++++')
         this.focusState = true;
-        if (this.user.email === '') {
+        if (this.forget.mailAdress === '') {
           alert('请输入邮箱');
         } else if (this.flag === 2) {
           alert("邮箱已被注册");
         } else if (this.flag === 1) {
           let params = {
-            mailAdress: this.user.email
+            mailAdress: this.forget.mailAdress
           };
           this.$api.http('get', "/api/getMailCode", params).then(res => {
           }).catch((error) => {
@@ -287,12 +245,14 @@ import qs from 'qs'
       DetermineIfmailExists(rule, value, callBank) {
         this.flag = 0;
         let params = {
-          mailAdress: this.user.email,
+          mailAdress: this.forget.mailAdress,
         };
         if (value === '') {
           callBank(new Error('请输入账户邮箱'));
         } else {
-          this.$api.http('get', '/api/determineIfMailExists', params).then(res => {
+          console.log(params);
+          console.log('+++++++++++++')
+          this.$api.http('get', '/api/determineIfMailExists2', params).then(res => {
             this.flag = 1;
             callBank()
           }).catch((error) => {
@@ -303,29 +263,7 @@ import qs from 'qs'
         }
       }
       ,
-      /**
-       * 判断userName是否存在
-       * @param rule
-       * @param value
-       * @param callBank
-       * @constructor
-       */
-      DetermineIfUserNameExists(rule, value, callBank) {
-        let prom = {
-          userName: this.user.username,
-        };
-        if (value === '') {
-          callBank(new Error('请输入账户名'));
-        } else {
-          this.$api.http('get', "/api/determineIfUserNameExists", prom).then(res => {
-            callBank()
-          }).catch((error) => {
-            callBank(error.message)
-          })
-        }
-      }
     }
-    ,
   }
 
 </script>

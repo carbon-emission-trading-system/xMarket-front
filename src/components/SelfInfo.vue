@@ -72,7 +72,7 @@
                       prop="inputUserName"
                       :rules="[
                         { required:true, validator: DetermineIfUserNameExists, trigger: 'blur'},
-                        {pattern: /^([a-zA-Z0-9|_|\_|\.]{0,16})$/, message: '请输入8-16位字母,数字,下划线和“.”',}
+                        {pattern: /^([a-zA-Z0-9|_|\_|\.]{1,16})$/, message: '请输入1-16位字母,数字,下划线和“.”',}
                         ]">
                       <el-input v-model="ium.inputUserName" placeholder="请输入用户名"></el-input>
                     </el-form-item>

@@ -27,6 +27,7 @@ import SelfInfo from "../components/SelfInfo";
 import ForPasVal from "../components/ForPasVal";
 import Rank from "../components/Rank";
 import NotFund from "../components/404";
+import ForgetPassword from "../components/ForgetPassword"
 
 Vue.use(Router)
 //配置路由
@@ -143,6 +144,10 @@ export default new Router({
       path: '/404',
       name: 'notFund',
       component: NotFund
+    }, {
+      path: '/ForgetPassword',
+      name: 'forgetPassword',
+      component: ForgetPassword
     }, {
       path: '*',
       redirect: '/404'
