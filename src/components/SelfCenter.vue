@@ -61,7 +61,8 @@
                     总资产: {{ this.UserFundsInformation.totalFunds}}
                   </td>
                   <td style="padding-bottom: 2%;">
-                    持仓盈亏: {{this.UserFundsInformation.holdPosProAndLos}}
+                    <span v-if="this.UserFundsInformation.holdPosProAndLos.indexOf('-')===-1" style="color: #ff3434 " >持仓盈亏: {{ this.UserFundsInformation.holdPosProAndLos}}</span>
+                    <span v-else style="color: #02e602" >持仓盈亏: {{ this.UserFundsInformation.holdPosProAndLos}}</span>
                   </td>
                   <td style="padding-bottom: 2%;">
                     可用资金: {{ this.UserFundsInformation.balance}}
@@ -72,7 +73,8 @@
                     总市值: {{ this.UserFundsInformation.totalMarketValue}}
                   </td>
                   <td style="align-content: left;padding-bottom: 2%;">
-                    当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}
+                    <span v-if="this.UserFundsInformation.todayProAndLos.indexOf('-')===-1" style="color: #ff3434 " >当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}</span>
+                    <span v-else style="color: #02e602" >当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}</span>
                   </td>
                   <td style="align-content: left;padding-bottom: 2%;">
                     冻结资金: {{ this.UserFundsInformation.frozenAmount}}
@@ -210,7 +212,6 @@
 </template>
 
 <script>
-  import api from './../api/index.js'
 
   export default {
     name: "SelfCenter",
@@ -309,8 +310,6 @@
           let amountBalance2 = amountBalance1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
           this.UserFundsInformation.amountBalance  = amountBalance1.replace(amountBalance2,"$1,")
 
-
-         // this.UserFundsInformation = res.data;
         }).catch((error) => {
           this.$message.error(error.message)
         })
