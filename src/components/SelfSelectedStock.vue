@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;width: 100%">
     <div>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
@@ -7,13 +7,13 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b"
-               v-bind:router= true>
+               v-bind:router=true>
 
         <el-menu-item style="margin-left: 15%" index="AfterLogin">首页</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="3">
+        <el-submenu style="margin-left: 5%" index="3">
           <template slot="title">行情中心</template>
-          <el-menu-item index="StockList" >股票列表</el-menu-item>
-          <el-menu-item index="Rank" >排行榜</el-menu-item>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
         <el-menu-item style="margin-left: 5%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
         <el-menu-item style="margin-left: 5%" index="Guide">股票指南</el-menu-item>
@@ -26,38 +26,35 @@
         </el-submenu>
 
         <el-menu-item style="margin-left: 5%" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 5%" index="2">
-          <template slot="title" ><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-submenu style="margin-left: 5%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
 
 
-    <div>
+    <div style="height: 90%;width: 100%;float: left">
       <!-------左侧导航栏--->
-      <div style="float: left">
-        <el-container style="height: 500px; border: 1px solid #eee">
-          <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      <div style="float: left;height: 100%;width: 15%">
+        <el-container style="height: 100%; border: 1px solid #eee">
+          <el-aside width="100%" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-active="activeIndexSelfCenter"
                      router>
               <el-menu-item index="SelfCenter">资产信息</el-menu-item>
               <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
-              <el-menu-item index="1-3" strle="">个人信息</el-menu-item>
+              <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
             </el-menu>
           </el-aside>
         </el-container>
       </div>
-    </div>
-    <div>
       <!-----右侧栏------>
 
-
-      <!-----右侧栏第二栏------>
-      <div>
-        <el-card class="rightCard">
+      <div style="height: 100%;float: left;width: 70%">
+        <el-card class="rightCard" style="margin-left: 10%;width:100%;margin-top: 8%;height: auto">
           <div slot="header">
-            <span style="float: left">自选股</span>
+            <span style="float: left; margin-bottom: 2%;">自选股</span>
           </div>
           <div style="width: 100%;font-size: 6px">
             <el-table
@@ -83,7 +80,7 @@
                 label="最新价"
                 align="center">
                 <template slot-scope="scope">
-                  <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 " >{{scope.row.lastTradePrice}}</span>
+                  <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.lastTradePrice}}</span>
                   <span v-else style="color: #02e602 ">{{scope.row.lastTradePrice}}</span>
                 </template>
               </el-table-column>
@@ -92,7 +89,7 @@
                 prop="increase"
                 align="center">
                 <template slot-scope="scope">
-                  <span v-if="scope.row.increase>=0" style="color: #ff3434 " >{{scope.row.increase}}</span>
+                  <span v-if="scope.row.increase>=0" style="color: #ff3434 ">{{scope.row.increase}}</span>
                   <span v-else style="color: #02e602 ">{{scope.row.increase}}</span>
                 </template>
               </el-table-column>
@@ -116,7 +113,7 @@
                 label="今开盘"
                 align="center">
                 <template slot-scope="scope">
-                  <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 " >{{scope.row.openPrice}}</span>
+                  <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.openPrice}}</span>
                   <span v-else style="color: #02e602 ">{{scope.row.openPrice}}</span>
                 </template>
               </el-table-column>
@@ -124,7 +121,7 @@
                 prop="tradeAmount"
                 label="成交额"
                 align="center"
-              width="100">
+                width="100">
               </el-table-column>
               <el-table-column
                 prop="totalMarketCapitalization"
@@ -156,9 +153,8 @@
           </div>
         </el-card>
       </div>
+
     </div>
-
-
   </div>
 </template>
 
@@ -210,7 +206,7 @@
             type: 'success',
             message: '删除成功!',
             // 删除自选股消息
-              mess:this.deleteSelfSelectStock(id),
+            mess: this.deleteSelfSelectStock(id),
             if(mess = 200) {
               message: '删除成功!';
             }
@@ -238,12 +234,12 @@
         }
         this.$api.http('get', "/api/selfSelectStockList", poem).then(res => {
           let data = res.data
-          for(let i =0;i<data.length;i++){
-            if(data[i].highestPrice===5e-324){
-              data[i].highestPrice=null
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].highestPrice === 5e-324) {
+              data[i].highestPrice = null
             }
-            if(data[i].lowestPrice===1.7976931348623157e+308){
-              data[i].lowestPrice=null
+            if (data[i].lowestPrice === 1.7976931348623157e+308) {
+              data[i].lowestPrice = null
             }
           }
           this.tableData = data;
@@ -300,7 +296,8 @@
   .rightCard {
     margin-left: 20%;
     margin-right: 10%;
-    margin-top: 2%;
+    width: 90%;
+    margin-top: 3%;
   }
 
   .NavigationBar {
@@ -317,7 +314,6 @@
     width: 70%;
     margin: 0 auto;
   }
-
 
   /*.weigh_el-table-column {*/
   /**/
