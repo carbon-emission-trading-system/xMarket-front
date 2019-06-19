@@ -147,8 +147,11 @@
         name: "OneRank",
       data(){
           return{
-
+            tableData:[],
           }
+      },
+      created(){
+        this.getOneRankApi();
       },
       computed:{
           rankName(){
@@ -165,6 +168,45 @@
             else{
               return '换手排名'
             }
+          }
+      },
+      methods:{
+        toFirst(){
+          if(this.$store.getters.isLogin){
+            this.$router.push('AfterLogin')
+          }else{
+            this.$router.push('/')
+          }
+        },
+        toRouterOrAlert(index){
+          if(this.$store.getters.isLogin){
+            this.$router.push(index)
+          }else{
+            this.$alert('请先登录！', {
+              confirmButtonText: '确定',
+            });
+          }
+        },
+          getOneRankApi(){
+          console.log(this.$store.state.index)
+            let params = {
+              type:this.$store.state.rankIndex
+            }
+            this.$api.http('get', '/api/rankList',params).then(res => {
+              let data = res.data
+              for(let i =0;i<data.length;i++){
+                if(data[i].highestPrice===5e-324){
+                  data[i].highestPrice=null
+                }
+                if(data[i].lowestPrice===1.7976931348623157e+308){
+                  data[i].lowestPrice=null
+                }
+              }
+              this.tableData = data
+              }).catch((error) => {
+              this.$message.error(error.message)
+            })
+
           }
       }
     }
