@@ -278,6 +278,7 @@
         };
         this.$api.http('get', "/api/getFunds", poem).then(res => {
 
+
           let totalFunds1 = res.data.totalFunds.toString()
           let totalFunds2 = totalFunds1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
           this.UserFundsInformation.totalFunds  = totalFunds1.replace(totalFunds2,"$1,")
@@ -303,7 +304,7 @@
           this.UserFundsInformation.todayProAndLos  = todayProAndLos1.replace(todayProAndLos2,"$1,")
 
           //frozenAmount
-          let frozenAmount1 = res.data.todayProAndLos.toString()
+          let frozenAmount1 = res.data.frozenAmount.toString()
           let frozenAmount2 = frozenAmount1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
           this.UserFundsInformation.frozenAmount  = frozenAmount1.replace(frozenAmount2,"$1,")
 
