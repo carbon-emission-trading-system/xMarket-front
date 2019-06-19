@@ -38,10 +38,10 @@
       <search></search>
       </div>
       <div id="sright">
-        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434">深证成指：{{shenIndex.lastIndex}}</el-button>
-        <el-button v-else type="text" class="index" style="color: #02e602">深证成指：{{shenIndex.lastIndex}}</el-button>
-        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434">上证指数：{{shangIndex.lastIndex}}</el-button>
-        <el-button v-else type="text" class="index" style="color: #02e602">上证指数：{{shangIndex.lastIndex}}</el-button>
+        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(0)">深证成指：{{shenIndex.lastIndex}}</el-button>
+        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(0)">深证成指：{{shenIndex.lastIndex}}</el-button>
+        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(1)">上证指数：{{shangIndex.lastIndex}}</el-button>
+        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(1)">上证指数：{{shangIndex.lastIndex}}</el-button>
     </div>
 
     </div>
@@ -243,6 +243,10 @@
         this.$store.commit('title',row.title)
         this.$router.push('OneNew')
       },
+      gotoIndexDisplay(index){
+        this.$store.commit('marketIndex',index)
+        this.$router.push('IndexDisplay')
+      },
       //获取公告
       setNewsApi:function () {
         this.$api.http('get','/api/getNews').then(res=>{
@@ -271,7 +275,6 @@
               this.shenIndex.yesterdayCloseIndex = data[i].yesterdayCloseIndex
             }
           }
-          // this.shenIndex = res.
         }).catch((error) => {
           this.$message.error(error.message)
         })
