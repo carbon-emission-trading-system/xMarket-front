@@ -339,5 +339,9 @@
   .in {
     margin-top: 200px;
   }
+  .index{
+    font-size: 20px;
+    font-family: "Century Gothic";
+  }
 
 </style>
