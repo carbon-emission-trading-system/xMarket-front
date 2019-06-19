@@ -124,8 +124,6 @@
               </el-form-item>
               <div style="float: left;width: 60%;margin-top: 5%">
                 <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
-                <!-- ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-                <!--<el-button @click="ajaxSubmit" style="width: 92px;">提交</el-button>-->
                 <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
               </div>
             </div>
@@ -211,6 +209,8 @@
        */
       verifyStockCode(rule, value, callback) {
         console.log('验证股票代码');
+        console.log('this.stockTrading.orderAmount');
+        console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入股票代码'))
@@ -221,6 +221,7 @@
             if (this.msg === this.stockTrading.stockId) {
               callback()
             } else {
+              console.log('else')
               this.firstReturnStockRealtimeInformation();
               callback();
             }
@@ -229,6 +230,8 @@
             callback("请输入数字")
           }
         }
+        console.log('verifyStockCode????????????????????')
+        console.log(this.stockTrading.orderAmount);
       },
       /**
        *
@@ -253,7 +256,6 @@
             } else {
               callback();
               this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value);
-              this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
               // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
               this.$forceUpdate();
               // this.updataStock()
@@ -262,6 +264,8 @@
             callback("请输入数字")
           }
         }
+        console.log('verifyStockCode!!!!!!!!')
+        console.log(this.stockTrading.orderAmount);
       },
       /**
        * 自定义验证买入数量
@@ -269,14 +273,15 @@
       DetermineTheNumberOfPurchases(rule, value, callback) {
         console.log('DetermineTheNumberOfPurchases')
         this.stockTrading.orderAmount = value;
+        this.$set(this.stockTrading,'orderAmount',value);
+        console.log('111111111111111')
+        console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
         if (!value) {
-          console.log('333333333333333')
           callback(new Error('请输入买入数量'))
           console.log('请输入买入数量')
         } else {
-          console.log('111111111111111111')
-          value = Number(value)
+          value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (value > this.stockTrading.canorderAmount) {
               callback(new Error('超出可买数量'))
@@ -286,7 +291,6 @@
               callback('请输入100的整数倍')
             } else {
               // alert('a'+this.stockTrading.orderAmount);
-              this.$forceUpdate();
               callback();
               // Vue.set(this.stockTrading, this.stockTrading.orderPrice, this.stockTrading.orderPrice);
             }
@@ -408,7 +412,6 @@
           || this.stockTrading.orderAmount == null) {
           this.alertBox('错误', '有东西未输入');
         } else {
-
           let SentstockTrading = {
             // userId: store.state.user.userId,
             userId: this.$store.getters.getUserId,
@@ -418,9 +421,17 @@
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
           };
-
           api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
+
             this.$message.success('提交成功')
+            // this.$router.go(0)
+            // this.$store.commit('temStockId', this.stockTrading.stockId)
+
+            this.isRouterAlive = false
+            this.$nextTick(function () {
+              this.isRouterAlive = true
+            })
+            
           }).catch((res) => {
             this.$message.error(res.message)
           })
