@@ -38,7 +38,7 @@
     </div>
 
 
-    <div id="in" >
+    <div id="in">
       <el-collapse v-model="activeNames" @change="handleChange"
                    style="float: left;display: inline;width: 65%;  margin-top: 6%;margin-left: 5%">
         <el-collapse-item title="筛选 " name="1">
@@ -49,7 +49,7 @@
               <div style="width: 50%;height: 80%;float: left">
                 <p style="float: left">总市值</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
-                  {{this.maxMinData.maxTotalMarketCapitalization }}
+                  {{ this.maxMinData.minTotalMarketCapitalization }}
                   <!--<el-input v-model="this.maxMinData.maxTotalMarketCapitalization"-->
                   <!--style="width: 55%;float: left"></el-input>-->
                 </div>
@@ -65,7 +65,7 @@
                   </el-slider>
                 </div>
                 <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
-                  {{ this.maxMinData.minTotalMarketCapitalization }}
+                  {{this.maxMinData.maxTotalMarketCapitalization }}
                   <!--<el-input v-model="this.maxMinData.minTotalMarketCapitalization"-->
                   <!--style="width: 55%;float: left"></el-input>-->
                 </div>
@@ -76,7 +76,7 @@
                 <p style="float: left">成交额</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
                   <!--<el-input v-model="this.maxMinData.maxTradeAmount" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.maxTradeAmount}}
+                  {{ this.maxMinData.minTradeAmount}}
                 </div>
 
                 <div style="float: left;width: 50%;align-content: center">
@@ -91,7 +91,7 @@
                 </div>
                 <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
                   <!--<el-input v-model="this.maxMinData.minTradeAmount" style="width: 55%;float: left"></el-input>-->
-                  {{ this.maxMinData.minTradeAmount}}
+                  {{this.maxMinData.maxTradeAmount}}
                 </div>
               </div>
 
@@ -100,7 +100,7 @@
                 <p style="float: left">市盈率</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
                   <!--<el-input v-model="this.maxMinData.maxPeRatio" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.maxPeRatio }}
+                  {{this.maxMinData.minPeRatio}}
                 </div>
 
                 <div style="float: left;width: 50%;align-content: center">
@@ -115,7 +115,7 @@
                 </div>
                 <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
                   <!--<el-input v-model="this.maxMinData.minPeRatio" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.minPeRatio}}
+                  {{this.maxMinData.maxPeRatio }}
                 </div>
 
               </div>
@@ -125,7 +125,7 @@
                 <p style="float: left">涨跌幅</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
                   <!--<el-input v-model="this.maxMinData.maxIncrease" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.maxIncrease}}
+                  {{ this.maxMinData.minIncrease }}
                 </div>
 
                 <div style="float: left;width: 50%;align-content: center">
@@ -140,7 +140,7 @@
                 </div>
                 <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
                   <!--<el-input v-model="this.maxMinData.minIncrease" style="width: 55%;float: left"></el-input>-->
-                  {{ this.maxMinData.minIncrease }}
+                  {{this.maxMinData.maxIncrease}}
                 </div>
 
               </div>
