@@ -273,9 +273,44 @@
           userId: this.userId
         };
         this.$api.http('get', "/api/getFunds", poem).then(res => {
-          // console.log(res);
-          // console.log('到这里了');
-          this.UserFundsInformation = res.data;
+
+
+          let totalFunds1 = res.data.totalFunds.toString()
+          let totalFunds2 = totalFunds1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.totalFunds  = totalFunds1.replace(totalFunds2,"$1,")
+
+          //holdPosProAndLos
+          let holdPosProAndLos1 = res.data.holdPosProAndLos.toString()
+          let holdPosProAndLos2 = holdPosProAndLos1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.holdPosProAndLos  = holdPosProAndLos1.replace(holdPosProAndLos2,"$1,")
+
+          //balance
+          let balance1 = res.data.balance.toString()
+          let balance2 = balance1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.balance  = balance1.replace(balance2,"$1,")
+
+          //totalMarketValue
+          let totalMarketValue1 = res.data.totalMarketValue.toString()
+          let totalMarketValue2 = totalMarketValue1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.totalMarketValue  = totalMarketValue1.replace(totalMarketValue2,"$1,")
+
+          //todayProAndLos
+          let todayProAndLos1 = res.data.todayProAndLos.toString()
+          let todayProAndLos2 = todayProAndLos1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.todayProAndLos  = todayProAndLos1.replace(todayProAndLos2,"$1,")
+
+          //frozenAmount
+          let frozenAmount1 = res.data.frozenAmount.toString()
+          let frozenAmount2 = frozenAmount1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.frozenAmount  = frozenAmount1.replace(frozenAmount2,"$1,")
+
+          //amountBalance
+          let amountBalance1 = res.data.amountBalance.toString()
+          let amountBalance2 = amountBalance1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+          this.UserFundsInformation.amountBalance  = amountBalance1.replace(amountBalance2,"$1,")
+
+
+         // this.UserFundsInformation = res.data;
         }).catch((error) => {
           this.$message.error(error.message)
         })
