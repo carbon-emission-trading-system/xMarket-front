@@ -59,7 +59,7 @@
           let stockPinyins= []
           for (let i = 0; i < stockList.length; i++) {
             let stockId = stockList[i].stockId
-            stockId = stockId.toString()
+            // stockId = stockId.toString()
             let stockName = stockList[i].stockName
             let stockPinyin = stockList[i].stockPinyin
             stockIds.push(stockId)

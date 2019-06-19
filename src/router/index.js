@@ -30,7 +30,8 @@ import OneRank from "../components/OneRank";
 import NotFund from "../components/404";
 import ForgetPassword from "../components/ForgetPassword"
 import FundCurve from "../components/FundCurve"
-import StockScreening from "../components/StockScreening"
+import   from "../components/StockScreening"
+import IndexDisplay from "../components/IndexDisplay"
 
 Vue.use(Router)
 //配置路由
@@ -115,6 +116,11 @@ export default new Router({
       path: '/OneNew',
       name: 'oneNew',
       component: OneNew
+    },
+    {
+      path: '/IndexDisplay',
+      name: 'indexDisplay',
+      component: IndexDisplay
     },
     {
       path: '/SelfCenter',

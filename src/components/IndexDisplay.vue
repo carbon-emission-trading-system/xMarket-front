@@ -48,29 +48,19 @@
         </el-breadcrumb-item>
 
         <!--<el-breadcrumb-item v-else :to="{ path:'/StockList' }">股票列表</el-breadcrumb-item>-->
-        <el-breadcrumb-item>{{this.stockName}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{this.indexName}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+
     <div id="both">
       <div id="card">
+
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>{{this.stockName}}</span>
-            <span v-if="this.chosen===false">
-        <el-tooltip class="item" effect="dark" content="添加自选股" placement="top-start">
-        <i class="el-icon-circle-plus-outline" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%"
-           @click="add()"></i>
-        </el-tooltip>
-          </span>
-            <span v-if="this.chosen===true">
-        <el-tooltip class="item" effect="dark" content="删除自选股" placement="top-start">
-        <i class="el-icon-remove-outline" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%"
-           @click="remove()"></i>
-        </el-tooltip>
-          </span>
-            <el-button style="float: right; padding: 1% 3%" type="text" @click="sell">卖出</el-button>
-            <el-button style="float: right; padding: 1% 0" type="text" @click="buy">买入</el-button>
+            <span>{{this.indexName}}</span>
+
           </div>
+
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
@@ -82,13 +72,16 @@
                 <div id="myChart" style="width: 700px;height: 450px"></div>
               </el-tab-pane>
             </el-tabs>
+
           </div>
         </el-card>
       </div>
+
       <div id="table">
         <realTime></realTime>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -97,7 +90,6 @@
   import RealTime from './SelfRealTime'
   import echarts from 'echarts' //引入echarts
   import Vue from 'vue'
-  import {formatDate} from "../util/data-format";
 
   Vue.prototype.$echarts = echarts //引入组件
 
@@ -131,7 +123,8 @@
       return {
         activeIndex: 'StockList',
         activeName: 'first',
-        chosen: false,     //后端返回该股是否为用户的自选股
+        //指数种类
+        marketIndex:this.$store.state.marketIndex,
         kChartData: {
           columns: ['date', 'openPrice', 'closePrice', 'lowestPrice', 'highestPrice', 'volume'],
           rows: []
@@ -157,8 +150,13 @@
       isLogin: function () {
         return this.$store.state.isLogin
       },
-      stockName: function () {
-        return this.$store.getters.getStockName
+      indexName: function () {
+        if(this.marketIndex===1){
+          return '上证指数'
+        }
+        else{
+          return '深证成指'
+        }
       },
     },
 
@@ -167,10 +165,7 @@
       onConnected(frame) {
         console.log("Connected: " + frame);
         let exchange = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
-
         this.client.subscribe(exchange, this.onmessage);
-
-
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -209,7 +204,7 @@
       },
 
 
-      exit () {
+      exit() {
         this.$store.commit('logout')
         this.$router.push('/')
       },
@@ -229,74 +224,13 @@
           });
         }
       },
-      //添加自选股
-      add() {
-        this.chosen = true
-        let params = {
-          userId: this.$store.getters.getUserId,
-          stockId: this.$store.getters.getStockId
-        }
-        this.$api.http('post', "/api/addSelfSelectStock", params).then(res => {
-          if (res.code === 200) {
-            this.$message({
-              message: '自选股添加成功！',
-              type: 'success',
-              center: true
-            }).catch((error) => {
-              this.$message.error(error.message)
-            });
-          }
-        })
 
-      },
-      //删除自选股
-      remove() {
-        this.chosen = false
-        let params = {
-          userId: this.$store.getters.getUserId,
-          stockId: this.$store.getters.getStockId
-        }
-        this.$api.http('post', "/api/deleteSelfSelectStock", params).then(res => {
-          if (res.code === 200) {
-            this.$message({
-              message: '自选股删除成功！',
-              type: 'success',
-              center: true
-            }).catch((error) => {
-              this.$message.error(error.message)
-            });
-          }
-        })
-      },
-      sell: function () {
-        this.$store.commit('temStockId', this.$store.state.stockId)
-        this.$router.push('SellAtLimitPrice')
-      },
-      buy: function () {
-        this.$store.commit('temStockId', this.$store.state.stockId)
-        this.$router.push('BuyAtLimitPrice')
-      },
-      //查看该股票是否为自选股
-      setSelfApi: function () {
-        let params = {
-          stockId: this.$store.getters.getStockId,
-          userId: this.$store.getters.getUserId
-        }
-        this.$api.http('get', '/api/isSelfSelectStock', params).then(res => {
-          console.log(res);
-          this.chosen = res.data;
-        }).catch((error) => {
-          this.$message.error(error.message)
-        });
-      },
       //获取k线图数据
       setKlineApi: function () {
         let params = {
-          stockId: this.$store.getters.getStockId
+          indexId: this.$store.state.marketIndex
         }
-        console.log("dawe")
-        console.log(this.$store.getters.getStockId)
-        this.$api.http('get', '/api/KlineDiagramDisplay', params).then(res => {
+        this.$api.http('get', '/api/indexKlineDiagramDisplay', params).then(res => {
           console.log(res);
           this.kChartData.rows = res.data;
         }).catch((error) => {
@@ -306,12 +240,11 @@
       //首次获取分时图数据
       setFirstTimeApi: function () {
         let params = {
-          stockId: this.$store.getters.getStockId
+          indexId: this.$store.state.marketIndex
         }
-        this.$api.http('get', '/api/firstTimeSharingDisplay', params).then(res => {
+        this.$api.http('get', '/api/firstIndexTimeSharingDisplay', params).then(res => {
           let data = res.data
           for (let i = 0; i < data.length; i++) {
-
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
             this.lastTradePrice.push(data[i].lastTradePrice)
@@ -322,29 +255,6 @@
           this.$message.error(error.message)
         });
       },
-
-      // //后次获取分时图数据
-      // setTimeApi:function () {
-      //   let params={
-      //     stockId: this.$store.getters.getStockId
-      //   }
-      //   this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
-      //     let data = res.data
-      //     for(let i =0;i<data.length;i++){
-      //       this.timeData.push(data[i].realTime)
-      //       this.averagePrice.push(data[i].averagePrice)
-      //       this.latestPrice.push(data[i].latestPrice)
-      //       this.volume.push(data[i].volume)
-      //     }
-      //     this.drawLine()
-      //     let timer = setTimeout(()=>{
-      //       this.setTimeApi()
-      //     },60000)
-      //     this.$once('hook:beforeDestroy',()=>{
-      //       clearInterval(timer)
-      //     })
-      //   });
-      // },
 
       drawLine() {
         // 基于准备好的dom，初始化echarts实例
@@ -363,22 +273,6 @@
           axisPointer: {
             link: {xAxisIndex: 'all'}
           },
-          // dataZoom: [
-          //   {
-          //     show: true,
-          //     realtime: true,
-          //     start: 0,
-          //     end: 100,
-          //     xAxisIndex: [0, 1]
-          //   },
-          //   {
-          //     type: 'inside',
-          //     realtime: true,
-          //     start: 0,
-          //     end: 100,
-          //     xAxisIndex: [0, 1]
-          //   }
-          // ],
           grid: [{
             height: '50%'
           }, {
@@ -479,8 +373,5 @@
     width: 30%;
   }
 
-  #exit {
-    margin-top: 1.5%;
-  }
 
 </style>
