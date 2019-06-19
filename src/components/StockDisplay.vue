@@ -84,7 +84,7 @@
                            :colors="kColor"></ve-candle>
               </el-tab-pane>
 
-              <el-tab-pane label="分时" name="second" style="background-color: ">
+              <el-tab-pane label="分时" name="second" >
                 <div id="myChart" style="width: 700px;height: 450px"></div>
               </el-tab-pane>
             </el-tabs>
