@@ -151,7 +151,7 @@
         return this.$store.state.isLogin
       },
       indexName: function () {
-        if(this.$store.state.marketIndex===1){
+        if(this.marketIndex===1){
           return '上证指数'
         }
         else{
@@ -228,11 +228,9 @@
       //获取k线图数据
       setKlineApi: function () {
         let params = {
-          stockId: this.$store.getters.getStockId
+          indexId: this.$store.state.marketIndex
         }
-        console.log("dawe")
-        console.log(this.$store.getters.getStockId)
-        this.$api.http('get', '/api/KlineDiagramDisplay', params).then(res => {
+        this.$api.http('get', '/api/indexKlineDiagramDisplay', params).then(res => {
           console.log(res);
           this.kChartData.rows = res.data;
         }).catch((error) => {
@@ -242,12 +240,11 @@
       //首次获取分时图数据
       setFirstTimeApi: function () {
         let params = {
-          stockId: this.$store.getters.getStockId
+          indexId: this.$store.state.marketIndex
         }
-        this.$api.http('get', '/api/firstTimeSharingDisplay', params).then(res => {
+        this.$api.http('get', '/api/firstIndexTimeSharingDisplay', params).then(res => {
           let data = res.data
           for (let i = 0; i < data.length; i++) {
-
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
             this.lastTradePrice.push(data[i].lastTradePrice)
