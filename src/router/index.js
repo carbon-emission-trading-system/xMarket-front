@@ -29,6 +29,8 @@ import Rank from "../components/Rank";
 import OneRank from "../components/OneRank";
 import NotFund from "../components/404";
 import ForgetPassword from "../components/ForgetPassword"
+import FundCurve from "../components/FundCurve"
+import StockScreening from "../components/StockScreening"
 
 Vue.use(Router)
 //配置路由
@@ -154,6 +156,14 @@ export default new Router({
       path: '/ForgetPassword',
       name: 'forgetPassword',
       component: ForgetPassword
+    }, {
+      path: '/FundCurve',
+      name: 'fundCurve',
+      component: FundCurve
+    }, {
+      path: '/StockScreening',
+      name: 'stockScreening',
+      component: StockScreening
     }, {
       path: '*',
       redirect: '/404'

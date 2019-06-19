@@ -323,7 +323,6 @@
           if (valid) {
             this.ajaxSubmit();
           } else {
-            alert('error submit!!');
             console.log('error submit!!');
             return false;
           }
@@ -431,7 +430,6 @@
             this.$nextTick(function () {
               this.isRouterAlive = true
             })
-            
           }).catch((res) => {
             this.$message.error(res.message)
           })

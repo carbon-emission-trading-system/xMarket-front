@@ -14,6 +14,7 @@
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList" >股票列表</el-menu-item>
           <el-menu-item index="Rank" >排行榜</el-menu-item>
+          <el-menu-item index="StockScreening" >股票筛选</el-menu-item>
         </el-submenu>
         <el-menu-item style = "margin-left: 5%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
         <el-menu-item style = "margin-left: 5%" index="Guide">股票指南</el-menu-item>
