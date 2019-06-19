@@ -30,7 +30,19 @@
       </el-menu>
     </div>
 
-    <search></search>
+    <div id="sin">
+
+      <div id="sleft">
+        <search></search>
+      </div>
+      <div id="sright">
+        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434">深证成指：{{shenIndex.lastIndex}}</el-button>
+        <el-button v-else type="text" class="index" style="color: #02e602">深证成指：{{shenIndex.lastIndex}}</el-button>
+        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434">上证指数：{{shangIndex.lastIndex}}</el-button>
+        <el-button v-else type="text" class="index" style="color: #02e602">上证指数：{{shangIndex.lastIndex}}</el-button>
+      </div>
+
+    </div>
     <div id="in">
       <!--公告-->
       <div id="left">
@@ -124,6 +136,14 @@
       return {
         activeIndex: '/',
         news: [],
+        shenIndex:{
+          lastIndex:'',
+          yesterdayCloseIndex:''
+        },
+        shangIndex:{
+          lastIndex:'',
+          yesterdayCloseIndex:''
+        },
         user: {
           username: '',
           loginPassword: '',
@@ -149,6 +169,7 @@
     },
     created() {
       this.setNewsApi();
+      this.setIndexApi();
     },
     methods: {
 
@@ -181,8 +202,6 @@
 
 
     //获取公告
-
-
     setNewsApi: function () {
       this.$api.http('get', '/api/getNews').then(res => {
         let data = res.data
@@ -195,6 +214,26 @@
         this.$message.error(error.message)
       })
     },
+
+      //获取指数
+      setIndexApi:function () {
+        this.$api.http('get','/api/getIndex').then(res=>{
+          let data = res.data
+          for(let i = 0; i<data.length; i++){
+            if(data[i].indexName ==='上证指数'){
+              this.shangIndex.lastIndex = data[i].lastIndex
+              this.shangIndex.yesterdayCloseIndex = data[i].yesterdayCloseIndex
+            }
+            else{
+              this.shenIndex.lastIndex = data[i].lastIndex
+              this.shenIndex.yesterdayCloseIndex = data[i].yesterdayCloseIndex
+            }
+          }
+          // this.shenIndex = res.
+        }).catch((error) => {
+          this.$message.error(error.message)
+        })
+      },
     login(formName) {
       let self = this;
       let userId
@@ -253,6 +292,23 @@
 
   a {
     text-decoration: none;
+  }
+  #sin{
+    display: inline-block;
+    width: 70%;
+    margin: 0 auto;
+  }
+  #sleft{
+    margin-top: 3%;
+    float:left;
+    width:60%;
+    height: 50%
+  }
+  #sright{
+    margin-top: 6%;
+    float: right;
+    width: 35%;
+    height: 50%
   }
 
   .clearfix:before,
