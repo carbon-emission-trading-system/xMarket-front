@@ -197,58 +197,6 @@
         this.$store.commit('logout')
         this.$router.push('/')
       },
-      //
-      // realTimeDataDisplay() {
-      //   var self = this;
-      //   Vue.axios.get('/api/realTimeDataDisplay')
-      //     .then(function (response) {
-      //       self.$message.success(response.data)
-      //     })
-      //     .catch(function (error) {
-      //       self.$message.error(response.data)
-      //     });
-      // },
-      //
-      // onConnected(frame) {
-      //   console.log("Connected: " + frame);
-      //   var exchange1 = "/exchange/realTimeExchange/stock.SZSE.600446";
-      //   var exchange3 = "/exchange/timeShareExchange/stock.SZSE.600000";
-      //
-      //   this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, "来个订单");
-      //
-      //   var subscription = this.client.subscribe(exchange1, this.onmessage);
-      //   console.log(subscription);
-      //
-      //   var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-      //   console.log(subscription3);
-      // },
-      // onFailed(frame) {
-      //   console.log("Failed: " + frame.body);
-      //   //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-      //
-      // },
-      // onmessage(message) {
-      //   console.log("得到消息");
-      // },
-      //
-      // responseCallback(frame) {
-      //   console.log("得到的消息 msg=>" + frame.body);
-      //   //接收到服务器推送消息，向服务器发送确认消息
-      //   // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
-      // },
-      // connect() {
-      //   console.log("开始连接");
-      //   this.client = Stomp.client("ws://localhost:15674/ws")
-      //   console.log("创建");
-      //   var headers = {
-      //     "login": "guest",
-      //     "passcode": "guest",
-      //     //虚拟主机，默认“/”
-      //     "heart-beat": "0,0"
-      //   };
-      //   this.client.connect(headers, this.onConnected, this.onFailed);
-      //   console.log("连接结束");
-      // },
       /**
        *
        * 验证股票代码

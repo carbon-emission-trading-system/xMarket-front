@@ -32,7 +32,9 @@
           </el-submenu>
         </el-menu>
       </div>
+      <div id="search">
       <search></search>
+      </div>
 
       <div id="in">
         <div id="select">
@@ -268,5 +270,9 @@
   }
   #stock{
     margin-top: 15%;
+  }
+  #search{
+    width: 50%;
+    margin: auto;
   }
 </style>
