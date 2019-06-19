@@ -323,7 +323,7 @@ import qs from 'qs'
             callBank(error.message)
           })
         }
-      }
+      },
     }
     ,
   }
