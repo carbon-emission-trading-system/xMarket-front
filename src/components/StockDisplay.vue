@@ -51,10 +51,8 @@
         <el-breadcrumb-item>{{this.stockName}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-
     <div id="both">
       <div id="card">
-
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{this.stockName}}</span>
@@ -63,7 +61,6 @@
         <i class="el-icon-circle-plus-outline" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%"
            @click="add()"></i>
         </el-tooltip>
-
           </span>
             <span v-if="this.chosen===true">
         <el-tooltip class="item" effect="dark" content="删除自选股" placement="top-start">
@@ -73,10 +70,7 @@
           </span>
             <el-button style="float: right; padding: 1% 3%" type="text" @click="sell">卖出</el-button>
             <el-button style="float: right; padding: 1% 0" type="text" @click="buy">买入</el-button>
-
-
           </div>
-
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
@@ -88,16 +82,13 @@
                 <div id="myChart" style="width: 700px;height: 450px"></div>
               </el-tab-pane>
             </el-tabs>
-
           </div>
         </el-card>
       </div>
-
       <div id="table">
         <realTime></realTime>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -218,7 +209,7 @@
       },
 
 
-      exit() {
+      exit () {
         this.$store.commit('logout')
         this.$router.push('/')
       },
