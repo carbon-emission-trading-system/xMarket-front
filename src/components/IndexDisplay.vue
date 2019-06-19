@@ -78,7 +78,7 @@
       </div>
 
       <div id="table">
-        <realTime></realTime>
+<!--        <realTime></realTime>-->
       </div>
     </div>
 

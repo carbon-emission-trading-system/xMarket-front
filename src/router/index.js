@@ -30,7 +30,7 @@ import OneRank from "../components/OneRank";
 import NotFund from "../components/404";
 import ForgetPassword from "../components/ForgetPassword"
 import FundCurve from "../components/FundCurve"
-import   from "../components/StockScreening"
+// import   from "../components/StockScreening"
 import IndexDisplay from "../components/IndexDisplay"
 
 Vue.use(Router)
