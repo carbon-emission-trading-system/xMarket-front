@@ -222,7 +222,12 @@
       onConnected(frame) {
         console.log("Connected: " + frame);
         let exchange = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
-        this.client.subscribe(exchange, this.onmessage);
+        let subscription=this.client.subscribe(exchange, this.onmessage);
+        console.log(subscription);
+
+        let exchange2 = "/exchange/realTimeExchange/index." + this.indexId;
+        let subscription2 = this.client.subscribe(exchange2, this.onmessage2);
+        console.log(subscription2);
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -240,6 +245,10 @@
         this.volume.push(data.volume)
 
         this.drawLine()
+      },
+      onmessage2(message) {
+        console.log("得到消息");
+        this.realTimeData = JSON.parse(message.body);
       },
       responseCallback(frame) {
         console.log("得到的消息 msg=>" + frame.body);
