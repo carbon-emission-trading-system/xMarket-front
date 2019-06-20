@@ -402,19 +402,19 @@
       onConnected(frame) {
         console.log("Connected: " + frame);
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE." + this.$store.state.stockId;
-        var exchange2 = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
+       // var exchange2 = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
 
 
-        var subscription2 = this.client.subscribe(exchange2, this.onmessage);
-        console.log(subscription2);
-
-        var exchange3 = "/exchange/realTimeExchange/index.1" ;
-
-        var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        console.log(subscription3);
+        // var subscription2 = this.client.subscribe(exchange2, this.onmessage);
+        // console.log(subscription2);
+        //
+        // var exchange3 = "/exchange/realTimeExchange/index.1" ;
+        //
+        // var subscription3 = this.client.subscribe(exchange3, this.onmessage);
+        // console.log(subscription3);
 
 
       },
