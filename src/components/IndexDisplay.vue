@@ -79,8 +79,64 @@
 
       <div id="table">
 <!--        <realTime></realTime>-->
+        <el-card class="list1">
+          <table class="mailTabl" :style="styleObject">
+            <tr>
+              <td class="column">最新指数</td>
+              <td v-if="this.realTimeData.yesterdayCloseIndex<=this.realTimeData.lastIndex" style="color:#ff3434;">{{this.realTimeData.lastIndex}}</td>
+              <td v-else style="color:#02e602;">{{this.realTimeData.lastIndex}}</td>
+
+            </tr>
+            <tr>
+              <td class="column">今日开盘</td>
+              <td >{{this.realTimeData.todayOpenIndex}}</td>
+            </tr>
+            <tr>
+              <td class="column">指数涨跌</td>
+              <td >{{this.realTimeData.upsAndDowns}}</td>
+            </tr>
+            <tr>
+              <td class="column">指数涨幅</td>
+              <td >{{this.realTimeData.increase}}</td>
+            </tr>
+            <tr>
+              <td class="column">总成交量</td>
+              <td >{{this.realTimeData.volume}}</td>
+            </tr>
+            <tr>
+              <td class="column">最高指数</td>
+              <td >{{this.realTimeData.highestIndex}}</td>
+            </tr>
+            <tr>
+              <td class="column">最低指数</td>
+              <td >{{this.realTimeData.lowestIndex}}</td>
+            </tr>
+<!--            <tr>-->
+<!--              <td class="column">总股份</td>-->
+<!--              <td class="column">{{this.realTimeData.}}</td>-->
+<!--            </tr>-->
+            <tr>
+              <td class="column">总市值</td>
+              <td >{{this.realTimeData.marketCapitalization}}</td>
+            </tr>
+            <tr>
+              <td class="column">涨家数</td>
+              <td style="color: #ff3434">{{this.realTimeData.increaseStocks}}</td>
+            </tr>
+            <tr>
+              <td class="column">跌家数</td>
+              <td style="color: #02e602">{{this.realTimeData.decreaseStocks}}</td>
+            </tr>
+            <tr>
+              <td class="column">持平家数</td>
+              <td >{{this.realTimeData.flatStocks}}</td>
+            </tr>
+          </table>
+        </el-card>
       </div>
-    </div>
+
+
+      </div>
 
   </div>
 </template>
@@ -128,6 +184,7 @@
           columns: ['date', 'openPrice', 'closePrice', 'lowestPrice', 'highestPrice', 'volume'],
           rows: []
         },
+        realTimeData:{},
         //分时图的横坐标
         timeData: [],
         averagePrice: [],
@@ -138,7 +195,7 @@
     created() {
       this.setKlineApi();
       this.setFirstTimeApi();
-      this.setSelfApi()
+      this.realTimeDataDisplay()
     },
     mounted() {
       // this.drawLine();
@@ -168,7 +225,7 @@
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
-        //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
+        //this.client.send("/exchange/orderExchange/o rderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
 
       },
       onmessage(message) {
@@ -253,6 +310,15 @@
         }).catch((error) => {
           this.$message.error(error.message)
         });
+      },
+      realTimeDataDisplay() {
+        let params = {
+          indexId: this.$store.state.indexId
+        }
+        this.$api.http('get', '/api/indexInfo', params).then(res => {
+          console.log(res.data)
+          this.realTimeData = res.data
+        })
       },
 
       drawLine() {
@@ -348,7 +414,40 @@
 
   }
 </script>
-<style scoped>
+
+<style lang="scss">
+
+  .mailTabl {
+    font-size: 14px;
+    color: #71787E;
+  }
+
+  .mailTabl tr td {
+    width: 120px;
+    height: 40px;
+    line-height: 20px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    border: 0.5px solid #E6EAEE;
+  }
+
+  .mailTabl tr td.column {
+    background-color: #EFF3F6;
+    color: #393C3E;
+  }
+
+
+  .list1 {
+    width: 90%;
+    float: left;
+    height: 95%;
+    text-align: center;
+  }
+
+  .column {
+    width: 5%;
+  }
+
   #bread {
     margin-top: 3%;
     margin-left: 15%;
@@ -371,6 +470,5 @@
     float: right;
     width: 30%;
   }
-
 
 </style>

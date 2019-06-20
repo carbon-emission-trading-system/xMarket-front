@@ -109,7 +109,6 @@
       RealTime,
     },
     data() {
-      pa:0,
         this.kChartSettings = {
           symbol: 'none',
           showMA: true,
