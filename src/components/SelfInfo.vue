@@ -277,7 +277,7 @@
               userId: this.userId,
               newUserName: this.ium.inputUserName,
             };
-            this.$api.http('get', "/api/changeUserName", prom).then(res => {
+            this.$api.http('post', "/api/changeUserName", prom).then(res => {
               this.$message.success(res.message);
               this.$store.commit('changeUserName', this.ium.inputUserName);
               this.user.UserName = this.ium.inputUserName;
@@ -286,13 +286,6 @@
             }).catch((error) => {
               this.$message.error(error.message)
             });
-
-            this.$store.dispatch('register', this.ium).then((response) => {
-              console.log('修改成功');
-              this.$message.success(response.message);
-            }).catch((response) => {
-              this.$message.error(response.message)
-            })
 
           } else {
             console.log('error submit!!');
@@ -425,7 +418,7 @@
               mailAdress: this.Tiue.inputUserEmailTwo,
               mailCode: this.Tiue.mailCode,
             };
-            this.$api.http('get', "/api/changeMailAddress", prom).then(res => {
+            this.$api.http('post', "/api/changeMailAddress", prom).then(res => {
               this.$message.success(res.message);
               this.reviseUserEmail = true;
               this.changeUserEmail();
@@ -465,8 +458,7 @@
             callBank(error.message)
           })
         }
-      }
-      ,
+      },
       changeUserName() {
         this.seenUserName = false;
         this.judgeUserName = true;
