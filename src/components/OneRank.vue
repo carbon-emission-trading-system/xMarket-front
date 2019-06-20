@@ -48,13 +48,13 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
@@ -116,7 +116,7 @@
             <el-table-column
               prop="totalMarketCapitalization"
               label="市值"
-              width="70"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
@@ -200,6 +200,14 @@
                 }
                 if(data[i].lowestPrice===1.7976931348623157e+308){
                   data[i].lowestPrice=null
+                }
+              }
+              //设置保留小数点后两位
+              for(let i = 0; i<data.length; i++){
+                for(let key in data[i]){
+                  if(typeof(data[i][key])=="number"){
+                    data[i][key] = data[i][key].toFixed(2)
+                  }
                 }
               }
               this.tableData = data
