@@ -49,8 +49,8 @@
         </el-container>
       </div>
       <div style="height: 100%;float: left;width: 70%">
-        <div class="rightCard" style="height: auto;float: left;">
-          <el-card style="margin-top:2%;margin-bottom: 2%" shadow="hover">
+        <div class="rightCard" style="height: 50%;width:100%;float: left;">
+          <el-card style="margin-top:2%;margin-bottom: 2%;height: 50%;width: 100%;" shadow="hover">
             <div slot="header">
               <span style="float: left">资金信息</span>
             </div>
@@ -67,9 +67,7 @@
                   <td style="padding-bottom: 2%;">
                     可用资金: {{ this.UserFundsInformation.balance}}
                   </td>
-                  <td style="padding-bottom: 2%;">
-                    资金余额: {{ this.UserFundsInformation.amountBalance}}
-                  </td>
+
                 </tr>
                 <tr>
                   <td style="padding-bottom: 2%;;padding-left:5%;">
@@ -83,13 +81,21 @@
                     冻结资金: {{ this.UserFundsInformation.frozenAmount}}
                   </td>
                 </tr>
+                <tr>
+                  <td style="padding-bottom: 2%;;padding-left:5%;">
+                    资金余额: {{ this.UserFundsInformation.amountBalance}}
+                  </td>
+                </tr>
 
               </table>
             </div>
           </el-card>
+          <el-card style="width: 100%;height: 85%"  shadow="hover">
+            <StockScreening style="width: 100%;height: auto"></StockScreening>
+          </el-card>
         </div>
         <!-----右侧栏第二栏------>
-        <el-card class="rightCard" shadow="hover" style="float: left;">
+        <el-card class="rightCard" shadow="hover" style="float: left;height: 50%;width:100%;margin-top: 20%">
           <div slot="header">
             <span style="float: left">持仓信息</span>
           </div>
@@ -212,9 +218,11 @@
 
 <script>
 
+  import StockScreening from "./StockScreening";
+
   export default {
     name: "SelfCenter",
-
+    components: {StockScreening},
     data() {
       return {
         userId: this.$store.getters.getUserId,

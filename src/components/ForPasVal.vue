@@ -187,6 +187,7 @@
   }
 
   a {
+    color: rgba(0, 0, 0, 0.81);
     text-decoration: none;
   }
 
