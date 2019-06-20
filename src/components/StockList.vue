@@ -39,126 +39,130 @@
 
 
     <div id="in">
-      <el-collapse v-model="activeNames" @change="handleChange"
-                   style="float: left;display: inline;width: 65%;  margin-top: 6%;margin-left: 5%">
-        <el-collapse-item title="筛选 " name="1">
-          <el-card style="height: 100%;width: 100%;float: left">
-            <div style="width: 100%;">
 
-              <!--总市值--->
-              <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">总市值</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
-                  {{ this.maxMinData.minTotalMarketCapitalization }}
-                  <!--<el-input v-model="this.maxMinData.maxTotalMarketCapitalization"-->
-                  <!--style="width: 55%;float: left"></el-input>-->
-                </div>
-
-                <div style="float: left;width: 50%;align-content: center">
-                  <el-slider
-                    v-model="TotalMarketCapitalizationValue"
-                    range
-                    step="0.01"
-                    :min=this.maxMinData.minTotalMarketCapitalization
-                    :max=this.maxMinData.maxTotalMarketCapitalization
-                    style="margin-top: 2%">
-                  </el-slider>
-                </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
-                  {{this.maxMinData.maxTotalMarketCapitalization }}
-                  <!--<el-input v-model="this.maxMinData.minTotalMarketCapitalization"-->
-                  <!--style="width: 55%;float: left"></el-input>-->
-                </div>
-              </div>
-
-              <!---成交额--->
-              <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">成交额</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
-                  <!--<el-input v-model="this.maxMinData.maxTradeAmount" style="width: 55%;float: left"></el-input>-->
-                  {{ this.maxMinData.minTradeAmount}}
-                </div>
-
-                <div style="float: left;width: 50%;align-content: center">
-                  <el-slider
-                    v-model="TradeAmountValue"
-                    range
-                    step="0.01"
-                    :min=this.maxMinData.minTradeAmount
-                    :max=this.maxMinData.maxTradeAmount
-                    style="margin-top: 2%">
-                  </el-slider>
-                </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
-                  <!--<el-input v-model="this.maxMinData.minTradeAmount" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.maxTradeAmount}}
-                </div>
-              </div>
-
-              <!---市盈率--->
-              <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">市盈率</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
-                  <!--<el-input v-model="this.maxMinData.maxPeRatio" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.minPeRatio}}
-                </div>
-
-                <div style="float: left;width: 50%;align-content: center">
-                  <el-slider
-                    v-model="PeRatioValue"
-                    range
-                    step="0.01"
-                    :min=this.maxMinData.minPeRatio
-                    :max=this.maxMinData.maxPeRatio
-                    style="margin-top: 2%">
-                  </el-slider>
-                </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
-                  <!--<el-input v-model="this.maxMinData.minPeRatio" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.maxPeRatio }}
-                </div>
-
-              </div>
-
-              <!---涨跌幅  --->
-              <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">涨跌幅</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
-                  <!--<el-input v-model="this.maxMinData.maxIncrease" style="width: 55%;float: left"></el-input>-->
-                  {{ this.maxMinData.minIncrease }}
-                </div>
-
-                <div style="float: left;width: 50%;align-content: center">
-                  <el-slider
-                    v-model="IncreaseValue"
-                    range
-                    step="0.01"
-                    :min=this.maxMinData.minIncrease
-                    :max=this.maxMinData.maxIncrease
-                    style="margin-top: 2%">
-                  </el-slider>
-                </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
-                  <!--<el-input v-model="this.maxMinData.minIncrease" style="width: 55%;float: left"></el-input>-->
-                  {{this.maxMinData.maxIncrease}}
-                </div>
-
-              </div>
-
-            </div>
-            <el-button type="primary" @click="submit">筛选</el-button>
-            <el-button type="primary" @click="restart">重置</el-button>
-          </el-card>
-        </el-collapse-item>
-      </el-collapse>
       <div id="select" style="display: inline">
-        <el-button-group v-model="stockType">
+        <div style="display: inline;width: 20%;float: left;">
+          <el-button type="primary" @click="screening" v-show="seen">筛选</el-button>
+          <el-button type="primary" @click="ret" v-show="!seen">撤回</el-button>
+        </div>
+        <el-button-group v-model="stockType" >
           <el-button v-bind:class="{selectOn:this.index===2}" @click="typeList(2)">全部股票</el-button>
           <el-button v-bind:class="{selectOn:this.index===0}" @click="typeList(0)">深A</el-button>
           <el-button v-bind:class="{selectOn:this.index===1}" @click="typeList(1)">沪A</el-button>
         </el-button-group>
       </div>
 
+
+      <el-collapse-transition>
+        <el-card style="height: 100%;width: 80%;float: left;margin-top: 2%;margin-left: 10%;margin-bottom: 2%"
+                 v-show="!seen">
+          <div style="width: 100%;">
+
+            <!--总市值--->
+            <div style="width: 50%;height: 80%;float: left">
+              <p style="float: left">总市值</p>
+              <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                {{ this.maxMinData.minTotalMarketCapitalization }}
+                <!--<el-input v-model="this.maxMinData.maxTotalMarketCapitalization"-->
+                <!--style="width: 55%;float: left"></el-input>-->
+              </div>
+
+              <div style="float: left;width: 50%;align-content: center">
+                <el-slider
+                  v-model="TotalMarketCapitalizationValue"
+                  range
+                  step="0.01"
+                  :min=this.maxMinData.minTotalMarketCapitalization
+                  :max=this.maxMinData.maxTotalMarketCapitalization
+                  style="margin-top: 2%">
+                </el-slider>
+              </div>
+              <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                {{this.maxMinData.maxTotalMarketCapitalization }}
+                <!--<el-input v-model="this.maxMinData.minTotalMarketCapitalization"-->
+                <!--style="width: 55%;float: left"></el-input>-->
+              </div>
+            </div>
+
+            <!---成交额--->
+            <div style="width: 50%;height: 80%;float: left">
+              <p style="float: left">成交额</p>
+              <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                <!--<el-input v-model="this.maxMinData.maxTradeAmount" style="width: 55%;float: left"></el-input>-->
+                {{ this.maxMinData.minTradeAmount}}
+              </div>
+
+              <div style="float: left;width: 50%;align-content: center">
+                <el-slider
+                  v-model="TradeAmountValue"
+                  range
+                  step="0.01"
+                  :min=this.maxMinData.minTradeAmount
+                  :max=this.maxMinData.maxTradeAmount
+                  style="margin-top: 2%">
+                </el-slider>
+              </div>
+              <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                <!--<el-input v-model="this.maxMinData.minTradeAmount" style="width: 55%;float: left"></el-input>-->
+                {{this.maxMinData.maxTradeAmount}}
+              </div>
+            </div>
+
+            <!---市盈率--->
+            <div style="width: 50%;height: 80%;float: left">
+              <p style="float: left">市盈率</p>
+              <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                <!--<el-input v-model="this.maxMinData.maxPeRatio" style="width: 55%;float: left"></el-input>-->
+                {{this.maxMinData.minPeRatio}}
+              </div>
+
+              <div style="float: left;width: 50%;align-content: center">
+                <el-slider
+                  v-model="PeRatioValue"
+                  range
+                  step="0.01"
+                  :min=this.maxMinData.minPeRatio
+                  :max=this.maxMinData.maxPeRatio
+                  style="margin-top: 2%">
+                </el-slider>
+              </div>
+              <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                <!--<el-input v-model="this.maxMinData.minPeRatio" style="width: 55%;float: left"></el-input>-->
+                {{this.maxMinData.maxPeRatio }}
+              </div>
+
+            </div>
+
+            <!---涨跌幅  --->
+            <div style="width: 50%;height: 80%;float: left">
+              <p style="float: left">涨跌幅</p>
+              <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                <!--<el-input v-model="this.maxMinData.maxIncrease" style="width: 55%;float: left"></el-input>-->
+                {{ this.maxMinData.minIncrease }}
+              </div>
+
+              <div style="float: left;width: 50%;align-content: center">
+                <el-slider
+                  v-model="IncreaseValue"
+                  range
+                  step="0.01"
+                  :min=this.maxMinData.minIncrease
+                  :max=this.maxMinData.maxIncrease
+                  style="margin-top: 2%">
+                </el-slider>
+              </div>
+              <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                <!--<el-input v-model="this.maxMinData.minIncrease" style="width: 55%;float: left"></el-input>-->
+                {{this.maxMinData.maxIncrease}}
+              </div>
+
+            </div>
+
+          </div>
+          <el-button type="primary" @click="submit">筛选</el-button>
+          <el-button type="primary" @click="restart">重置</el-button>
+        </el-card>
+      </el-collapse-transition>
       <!--background-color: gainsboro-->
       <div id="stock">
         <el-table
@@ -290,6 +294,7 @@
         pageSize: 20,
         index: 2,
         tableData: this.$store.state.stockList,
+        seen: true,
         maxMinData: {
           // 涨跌幅
           minIncrease: 0,
@@ -316,6 +321,7 @@
     }
     ,
     created() {
+      this.tableData = this.$store.state.stockList;
       let prom = {};
       console.log(prom)
       this.$api.http('get', "/api/getCondition", prom).then(res => {
@@ -334,6 +340,7 @@
         this.TotalMarketCapitalizationValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTotalMarketCapitalization];
         this.PeRatioValue = [this.maxMinData.minPeRatio, this.maxMinData.maxPeRatio];
         console.log('+++++++++++++++')
+
       }).catch((error) => {
         this.$message.error(error.message)
       })
@@ -345,6 +352,7 @@
 
     },
     methods: {
+
       exit() {
         this.$store.commit('logout')
         this.$router.push('/')
@@ -420,6 +428,12 @@
         this.TradeAmountValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTradeAmount];
         this.TotalMarketCapitalizationValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTotalMarketCapitalization];
         this.PeRatioValue = [this.maxMinData.minPeRatio, this.maxMinData.maxPeRatio];
+      },
+      screening() {
+        this.seen = false;
+      },
+      ret() {
+        this.seen = true;
       },
     }
     ,
