@@ -293,7 +293,7 @@
         total: 20,
         pageSize: 20,
         index: 2,
-        tableData: this.$store.state.stockList,
+        // tableData: this.$store.state.stockList,
         seen: true,
         maxMinData: {
           // 涨跌幅
@@ -441,9 +441,12 @@
       isLogin: function () {
         console.log('isLogin')
         return this.$store.state.isLogin
-      }
-      ,
+      },
+      tableData:function(){
+        return this.$store.state.stockList
+      },
       list: function () {
+        console.log(this.tableData)
         console.log('list')
         let list = []
         for (let i = 0; i < this.tableData.length; i++) {
