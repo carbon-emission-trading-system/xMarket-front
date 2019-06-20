@@ -101,7 +101,6 @@
       RealTime,
     },
     data() {
-      pa:0,
         this.kChartSettings = {
           symbol: 'none',
           showMA: true,
@@ -124,7 +123,7 @@
         activeIndex: 'StockList',
         activeName: 'first',
         //指数种类
-        marketIndex:this.$store.state.marketIndex,
+        indexId:this.$store.state.indexId,
         kChartData: {
           columns: ['date', 'openPrice', 'closePrice', 'lowestPrice', 'highestPrice', 'volume'],
           rows: []
@@ -151,7 +150,7 @@
         return this.$store.state.isLogin
       },
       indexName: function () {
-        if(this.marketIndex===1){
+        if(this.indexId==='100000'){
           return '上证指数'
         }
         else{
@@ -228,7 +227,7 @@
       //获取k线图数据
       setKlineApi: function () {
         let params = {
-          indexId: this.$store.state.marketIndex
+          indexId: this.$store.state.indexId
         }
         this.$api.http('get', '/api/indexKlineDiagramDisplay', params).then(res => {
           console.log(res);
@@ -240,7 +239,7 @@
       //首次获取分时图数据
       setFirstTimeApi: function () {
         let params = {
-          indexId: this.$store.state.marketIndex
+          indexId: this.$store.state.indexId
         }
         this.$api.http('get', '/api/firstIndexTimeSharingDisplay', params).then(res => {
           let data = res.data

@@ -36,10 +36,10 @@
         <search></search>
       </div>
       <div id="sright">
-        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(0)">深证成指：{{shenIndex.lastIndex}}</el-button>
-        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(0)">深证成指：{{shenIndex.lastIndex}}</el-button>
-        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(1)">上证指数：{{shangIndex.lastIndex}}</el-button>
-        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(1)">上证指数：{{shangIndex.lastIndex}}</el-button>
+        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>
+        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>
+        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
+        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
       </div>
 
     </div>
@@ -138,11 +138,13 @@
         news: [],
         shenIndex:{
           lastIndex:'',
-          yesterdayCloseIndex:''
+          yesterdayCloseIndex:'',
+          indexId:'',
         },
         shangIndex:{
           lastIndex:'',
-          yesterdayCloseIndex:''
+          yesterdayCloseIndex:'',
+          indexId:'',
         },
         user: {
           username: '',
@@ -185,7 +187,7 @@
       },
 
       gotoIndexDisplay(index){
-        this.$store.commit('marketIndex',index)
+        this.$store.commit('indexId',index)
         this.$router.push('IndexDisplay')
       },
 
@@ -229,10 +231,12 @@
             if(data[i].indexName ==='上证指数'){
               this.shangIndex.lastIndex = data[i].lastIndex
               this.shangIndex.yesterdayCloseIndex = data[i].yesterdayCloseIndex
+              this.shangIndex.indexId = data[i].indexId
             }
             else{
               this.shenIndex.lastIndex = data[i].lastIndex
               this.shenIndex.yesterdayCloseIndex = data[i].yesterdayCloseIndex
+              this.shenIndex.indexId = data[i].indexId
             }
           }
           // this.shenIndex = res.
