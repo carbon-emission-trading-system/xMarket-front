@@ -67,6 +67,9 @@
                   <td style="padding-bottom: 2%;">
                     可用资金: {{ this.UserFundsInformation.balance}}
                   </td>
+                  <td style="padding-bottom: 2%;">
+                    资金余额: {{ this.UserFundsInformation.amountBalance}}
+                  </td>
                 </tr>
                 <tr>
                   <td style="padding-bottom: 2%;;padding-left:5%;">
@@ -80,11 +83,7 @@
                     冻结资金: {{ this.UserFundsInformation.frozenAmount}}
                   </td>
                 </tr>
-                <tr>
-                  <td style="align-content: left;padding-left: 5%;">
-                    资金余额: {{ this.UserFundsInformation.amountBalance}}
-                  </td>
-                </tr>
+
               </table>
             </div>
           </el-card>
