@@ -49,7 +49,6 @@
         <el-card shadow="hover" style="margin-left: 15%;margin-top: 10%;height: auto">
           <div slot="header">
             <span style="float: left;margin-bottom: 2%;">个人信息</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
           </div>
           <div style="margin-left: 5%;float: left;width: 100%;text-align: left;height: 100%;margin-bottom: 5%">
             <i class="el-icon-user" style=" font-size: 40px;margin-left:45%;margin-bottom: 2%"></i>

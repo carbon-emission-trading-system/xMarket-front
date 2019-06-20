@@ -133,7 +133,7 @@
               align="center">
             </el-table-column>
               <el-table-column
-                prop="otherFee"
+                prop="transferFee"
                 label="其他杂费"
                 width="80"
                 align="center">
@@ -272,21 +272,33 @@
         }
         this.$api.http('get','/api/historyExchangeInfo',params).then(res => {
             console.log(res);
-            this.tableData = res.data;
-          for(let i =0;i<this.tableData.length;i++){
-            if(this.tableData[i].type===0){
-              this.tableData[i].type="买入"
+            let data = res.data;
+          for(let i =0;i<data.length;i++){
+            if(data[i].type===0){
+              data[i].type="买入"
             }
             else{
-              this.tableData[i].type="卖出"
+              data[i].type="卖出"
             }
-            if(this.tableData[i].tradeMarket===0){
-              this.tableData[i].tradeMarket="深市"
+            if(data[i].tradeMarket===0){
+              data[i].tradeMarket="深市"
             }
             else{
-              this.tableData[i].tradeMarket="沪市"
+              data[i].tradeMarket="沪市"
             }
           }
+          //设置保留小数点后两位
+          for(let i = 0; i<data.length; i++){
+            for(let key in data[i]){
+              if(key=='tradePrice' || key=='totalExchangeMoney'){
+                data[i][key] = data[i][key].toFixed(2)
+              }
+              if(key=='serviceTax'|| key=='stampTax'|| key=='transferFee'|| key=='actualAmount'){
+                data[i][key] = data[i][key].toFixed(3)
+              }
+            }
+          }
+          this.tableData = data
           }).catch((error) => {
           this.$message.error(error.message)
         });
