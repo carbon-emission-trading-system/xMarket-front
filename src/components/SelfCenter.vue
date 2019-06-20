@@ -273,6 +273,9 @@
           userId: this.userId
         };
         this.$api.http('get', "/api/getFunds", poem).then(res => {
+          let a = 3
+          a.toFixed(2)
+          console.log(a.toFixed(2))
 
 
           //totalFunds
@@ -301,21 +304,9 @@
         })
       },
       changeIntoFloat(value){
-        value = Math.round(parseFloat(value)*100)/100
-        let value1 = value.toString().split(".")
-        if(value1.length===1){
-          value = value.toString()+".00"
-
-        }
-        if(value1.length>1){
-          if(value1[1].length<2){
-            value = value.toString()+"0"
-          }else{
-            value = value.toString()
-          }
-        }
-        let value2 = value.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-        return value.replace(value2,"$1,")
+        value = value.toFixed(2)
+        let value1 = value.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+        return value.replace(value1,"$1,")
       },
 
       /**
