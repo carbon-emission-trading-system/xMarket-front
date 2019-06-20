@@ -80,7 +80,7 @@
       <div id="table">
 <!--        <realTime></realTime>-->
         <el-card class="list1">
-          <table class="mailTabl" :style="styleObject">
+          <table class="mailTab2" :style="styleObject">
             <tr>
               <td class="column">最新指数</td>
               <td v-if="this.realTimeData.yesterdayCloseIndex<=this.realTimeData.lastIndex" style="color:#ff3434;">{{this.realTimeData.lastIndex}}</td>
@@ -417,12 +417,12 @@
 
 <style lang="scss">
 
-  .mailTabl {
+  .mailTab2 {
     font-size: 14px;
     color: #71787E;
   }
 
-  .mailTabl tr td {
+  .mailTab2 tr td {
     width: 120px;
     height: 40px;
     line-height: 20px;
@@ -431,7 +431,7 @@
     border: 0.5px solid #E6EAEE;
   }
 
-  .mailTabl tr td.column {
+  .mailTab2 tr td.column {
     background-color: #EFF3F6;
     color: #393C3E;
   }
