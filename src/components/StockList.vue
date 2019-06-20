@@ -241,7 +241,7 @@
           </el-table-column>
           <el-table-column
             prop="totalMarketCapitalization"
-            label="市值"
+            label="市值(亿)"
             width="70"
             align="center">
           </el-table-column>
@@ -445,7 +445,7 @@
         if (this.srFlag === 0) {
           this.srFlag = 1;
           this.seen = false;
-          this.screenRestart = "收齐筛选器";
+          this.screenRestart = "收起筛选器";
         } else {
           this.srFlag = 0;
           this.seen = true;
@@ -465,6 +465,8 @@
         if (this.submitTrue === 0) {
           this.tableData = this.$store.state.stockList
         }
+
+
         let list = []
         for (let i = 0; i < this.tableData.length; i++) {
           if (this.index === 2) {
@@ -474,6 +476,16 @@
             if (this.tableData[i].tradeMarket === this.index) {
               list.push(this.tableData[i])
             }
+          }
+        }
+
+        //设置保留小数点后两位
+        for(let i = 0; i<list.length; i++){
+          for(let key in list[i]){
+            if(typeof(list[i][key])=="number"){
+              list[i][key] = list[i][key].toFixed(2)
+            }
+
           }
         }
         console.log(list)

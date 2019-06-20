@@ -223,60 +223,68 @@
         this.$api.http('get','/api/todayOrder',params).then(res=>{
 
           console.log('请求成功')
-          this.tableData = res.data;
-          for(let i =0;i<this.tableData.length;i++) {
-            if (this.tableData[i].type === 0) {
-              this.tableData[i].type = "买入"
+          let data = res.data
+          for(let i =0;i<data.length;i++) {
+            if (data[i].type === 0) {
+              data[i].type = "买入"
             } else {
-              this.tableData[i].type = "卖出"
+              data[i].type = "卖出"
             }
 
-            if(this.tableData[i].tradeMarket===0){
-              this.tableData[i].tradeMarket="深市"
+            if(data[i].tradeMarket===0){
+              data[i].tradeMarket="深市"
             }
             else{
-              this.tableData[i].tradeMarket="沪市"
+              data[i].tradeMarket="沪市"
             }
 
-            if(this.tableData[i].state===0){
-              this.tableData[i].state="未成交"
+            if(data[i].state===0){
+              data[i].state="未成交"
             }
-            else if(this.tableData[i].state===1){
-              this.tableData[i].state="正在撤单"
+            else if(data[i].state===1){
+              data[i].state="正在撤单"
             }
-            else if(this.tableData[i].state===2){
-              this.tableData[i].state="已成交"
+            else if(data[i].state===2){
+              data[i].state="已成交"
             }
-            else if(this.tableData[i].state===3){
-              this.tableData[i].state="部分撤单"
+            else if(data[i].state===3){
+              data[i].state="部分撤单"
             }
-            else if(this.tableData[i].state===4){
-              this.tableData[i].state="全部撤单"
+            else if(data[i].state===4){
+              data[i].state="全部撤单"
             }
             else{
-              this.tableData[i].tradeMarket="部分成交"
+              data[i].tradeMarket="部分成交"
             }
 
 
-            if(this.tableData[i].tradeStraregy===0){
-              this.tableData[i].tradeStraregy="限价委托"
-            }else if(this.tableData[i].tradeStraregy===1){
-              this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
-            }else if(this.tableData[i].tradeStraregy===2){
-              this.tableData[i].tradeStraregy="最优五档即时成交剩余转限价"
-            }else if(this.tableData[i].tradeStraregy===3){
-              this.tableData[i].tradeStraregy="对手方最优价格"
-            }else if(this.tableData[i].tradeStraregy===4){
-              this.tableData[i].tradeStraregy="本方最优价格"
-            }else if(this.tableData[i].tradeStraregy===5){
-              this.tableData[i].tradeStraregy="最优五档即时成交剩余撤销"
-            }else if(this.tableData[i].tradeStraregy===6){
-              this.tableData[i].tradeStraregy="即时成交并撤销"
-            }else if(this.tableData[i].tradeStraregy===7){
-              this.tableData[i].tradeStraregy="全额成交或撤销"
+            if(data[i].tradeStraregy===0){
+              data[i].tradeStraregy="限价委托"
+            }else if(data[i].tradeStraregy===1){
+              data[i].tradeStraregy="最优五档即时成交剩余撤销"
+            }else if(data[i].tradeStraregy===2){
+              data[i].tradeStraregy="最优五档即时成交剩余转限价"
+            }else if(data[i].tradeStraregy===3){
+              data[i].tradeStraregy="对手方最优价格"
+            }else if(data[i].tradeStraregy===4){
+              data[i].tradeStraregy="本方最优价格"
+            }else if(data[i].tradeStraregy===5){
+              data[i].tradeStraregy="最优五档即时成交剩余撤销"
+            }else if(data[i].tradeStraregy===6){
+              data[i].tradeStraregy="即时成交并撤销"
+            }else if(data[i].tradeStraregy===7){
+              data[i].tradeStraregy="全额成交或撤销"
             }
-
           }
+          //设置保留小数点后两位
+          for(let i = 0; i<data.length; i++){
+            for(let key in data[i]){
+              if(key=='orderPrice'||key=='exchangeAveragePrice'){
+                data[i][key] = data[i][key].toFixed(2)
+              }
+            }
+          }
+          this.tableData = data
 
           let timer = setTimeout(()=>{
             this.setTodayOrderApi()

@@ -211,20 +211,30 @@
           this.$api.http('get','/api/todayExchange',params).then(res=>{
 
               console.log(res.data)
-              this.tableData = res.data;
-              for(let i =0;i<this.tableData.length;i++){
-                if(this.tableData[i].type===0){
-                  this.tableData[i].type="买入"
+              let data = res.data;
+              for(let i =0;i<data.length;i++){
+                if(data[i].type===0){
+                  data[i].type="买入"
                 }
                 else{
-                  this.tableData[i].type="卖出"
+                  data[i].type="卖出"
                 }
-                if(this.tableData[i].tradeMarket===0){
-                  this.tableData[i].tradeMarket="深市"
+                if(data.tradeMarket===0){
+                  data.tradeMarket="深市"
                 }
                 else{
-                  this.tableData[i].tradeMarket="沪市"
+                  data.tradeMarket="沪市"
                 }
+                //设置保留小数点后两位
+                for(let i = 0; i<data.length; i++){
+                  for(let key in data[i]){
+                    if(typeof(data[i][key])=="number"&& (key!='orderId') &&(key!='transactionOrderId') &&(key!='exchangeAmount')&&(key!='cancelNumber')&&(key!='stockBalance')){
+                      data[i][key] = data[i][key].toFixed(2)
+                    }
+                  }
+                }
+
+                this.tableData = data;
               }
           }).catch((error) => {
             this.$message.error(error.message)

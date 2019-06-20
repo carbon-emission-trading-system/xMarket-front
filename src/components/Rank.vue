@@ -305,6 +305,14 @@
                 data[i].lowestPrice=null
               }
             }
+            //设置保留小数点后两位
+            for(let i = 0; i<data.length; i++){
+              for(let key in data[i]){
+                if(typeof(data[i][key])=="number"){
+                  data[i][key] = data[i][key].toFixed(2)
+                }
+              }
+            }
             if(data.length>=4){
               this.rankByIncrease = data.slice(0,4)
             }
@@ -327,6 +335,14 @@
               }
               if(data[i].lowestPrice===1.7976931348623157e+308){
                 data[i].lowestPrice=null
+              }
+            }
+            //设置保留小数点后两位
+            for(let i = 0; i<data.length; i++){
+              for(let key in data[i]){
+                if(typeof(data[i][key])=="number"){
+                  data[i][key] = data[i][key].toFixed(2)
+                }
               }
             }
             if(data.length>=4){
@@ -353,6 +369,14 @@
                 data[i].lowestPrice=null
               }
             }
+            //设置保留小数点后两位
+            for(let i = 0; i<data.length; i++){
+              for(let key in data[i]){
+                if(typeof(data[i][key])=="number"){
+                  data[i][key] = data[i][key].toFixed(2)
+                }
+              }
+            }
             if(data.length>=4){
               this.rankByTradeAmount = data.slice(0,4)
             }
@@ -375,6 +399,14 @@
               }
               if(data[i].lowestPrice===1.7976931348623157e+308){
                 data[i].lowestPrice=null
+              }
+            }
+            //设置保留小数点后两位
+            for(let i = 0; i<data.length; i++){
+              for(let key in data[i]){
+                if(typeof(data[i][key])=="number"){
+                  data[i][key] = data[i][key].toFixed(2)
+                }
               }
             }
             if(data.length>=4){
