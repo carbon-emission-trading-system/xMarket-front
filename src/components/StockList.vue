@@ -40,12 +40,12 @@
 
     <div id="in">
 
-      <div id="select" style="display: inline">
-        <div style="display: inline;width: 20%;float: left;">
-          <el-button type="primary" @click="screening" v-show="seen">筛选</el-button>
-          <el-button type="primary" @click="ret" v-show="!seen">撤回</el-button>
+      <div id="select" style="display: inline;max-width: 100%;float: right ">
+        <div style="display: inline;width: 20%;float: left;max-width: 5%">
+          <el-button type="primary" @click="screening">{{ screenRestart }}</el-button>
+          <!--<el-button type="primary" @click="ret" v-show="!seen">收起筛选器</el-button>-->
         </div>
-        <el-button-group v-model="stockType" >
+        <el-button-group v-model="stockType" style="max-width: 70%">
           <el-button v-bind:class="{selectOn:this.index===2}" @click="typeList(2)">全部股票</el-button>
           <el-button v-bind:class="{selectOn:this.index===0}" @click="typeList(0)">深A</el-button>
           <el-button v-bind:class="{selectOn:this.index===1}" @click="typeList(1)">沪A</el-button>
@@ -159,7 +159,7 @@
             </div>
 
           </div>
-          <el-button type="primary" @click="submit">筛选</el-button>
+          <el-button type="primary" @click="submit"> 筛选</el-button>
           <el-button type="primary" @click="restart">重置</el-button>
         </el-card>
       </el-collapse-transition>
@@ -293,8 +293,11 @@
         total: 20,
         pageSize: 20,
         index: 2,
-        // tableData: this.$store.state.stockList,
+        submitTrue: 0,
+        tableData: '',
         seen: true,
+        screenRestart: '展开筛选器',
+        srFlag: 0,
         maxMinData: {
           // 涨跌幅
           minIncrease: 0,
@@ -321,29 +324,7 @@
     }
     ,
     created() {
-      this.tableData = this.$store.state.stockList;
-      let prom = {};
-      console.log(prom)
-      this.$api.http('get', "/api/getCondition", prom).then(res => {
-        console.log(res)
-        this.$set(this.maxMinData, 'minIncrease', res.data.minIncrease);
-        this.$set(this.maxMinData, 'maxIncrease', res.data.maxIncrease);
-        this.$set(this.maxMinData, 'minTradeAmount', res.data.minTradeAmount);
-        this.$set(this.maxMinData, 'maxTradeAmount', res.data.maxTradeAmount);
-        this.$set(this.maxMinData, 'minPeRatio', res.data.minPeRatio);
-        this.$set(this.maxMinData, 'maxPeRatio', res.data.maxPeRatio);
-        this.$set(this.maxMinData, 'minTotalMarketCapitalization', res.data.minTotalMarketCapitalization);
-        this.$set(this.maxMinData, 'maxTotalMarketCapitalization', res.data.maxTotalMarketCapitalization);
-        console.log(this.maxMinData.maxTradeAmount)
-        this.IncreaseValue = [this.maxMinData.minIncrease, this.maxMinData.maxIncrease];
-        this.TradeAmountValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTradeAmount];
-        this.TotalMarketCapitalizationValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTotalMarketCapitalization];
-        this.PeRatioValue = [this.maxMinData.minPeRatio, this.maxMinData.maxPeRatio];
-        console.log('+++++++++++++++')
-
-      }).catch((error) => {
-        this.$message.error(error.message)
-      })
+      this.getRange()
     },
     watch: {
       IncreaseValue(val, oldVal) {
@@ -352,6 +333,30 @@
 
     },
     methods: {
+      getRange() {
+        let prom = {};
+        console.log(prom)
+        this.$api.http('get', "/api/getCondition", prom).then(res => {
+          console.log(res)
+          this.$set(this.maxMinData, 'minIncrease', res.data.minIncrease);
+          this.$set(this.maxMinData, 'maxIncrease', res.data.maxIncrease);
+          this.$set(this.maxMinData, 'minTradeAmount', res.data.minTradeAmount);
+          this.$set(this.maxMinData, 'maxTradeAmount', res.data.maxTradeAmount);
+          this.$set(this.maxMinData, 'minPeRatio', res.data.minPeRatio);
+          this.$set(this.maxMinData, 'maxPeRatio', res.data.maxPeRatio);
+          this.$set(this.maxMinData, 'minTotalMarketCapitalization', res.data.minTotalMarketCapitalization);
+          this.$set(this.maxMinData, 'maxTotalMarketCapitalization', res.data.maxTotalMarketCapitalization);
+          console.log(this.maxMinData.maxTradeAmount)
+          this.IncreaseValue = [this.maxMinData.minIncrease, this.maxMinData.maxIncrease];
+          this.TradeAmountValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTradeAmount];
+          this.TotalMarketCapitalizationValue = [this.maxMinData.minTradeAmount, this.maxMinData.maxTotalMarketCapitalization];
+          this.PeRatioValue = [this.maxMinData.minPeRatio, this.maxMinData.maxPeRatio];
+          console.log('+++++++++++++++')
+
+        }).catch((error) => {
+          this.$message.error(error.message)
+        })
+      },
 
       exit() {
         this.$store.commit('logout')
@@ -398,8 +403,7 @@
         this.$store.commit('stockName', row.stockName);
         this.$store.commit('changeRout', 0);
         this.$router.push('StockDisplay')
-      }
-      ,
+      },
       submit() {
         let prom = {
           minIncrease: this.IncreaseValue[0],
@@ -416,9 +420,17 @@
         };
         console.log(prom);
         this.$api.http('post', "/api/conditionalStockList", prom).then(res => {
-          console.log('555555555555555');
-          console.log(res);
-          this.tableData = res.data
+          this.submitTrue = 1;
+          let data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].highestPrice === 5e-324) {
+              data[i].highestPrice = null
+            }
+            if (data[i].lowestPrice === 1.7976931348623157e+308) {
+              data[i].lowestPrice = null
+            }
+          }
+          this.tableData = data
         }).catch((error) => {
           this.$message.error(error.message)
         })
@@ -430,24 +442,29 @@
         this.PeRatioValue = [this.maxMinData.minPeRatio, this.maxMinData.maxPeRatio];
       },
       screening() {
-        this.seen = false;
+        if (this.srFlag === 0) {
+          this.srFlag = 1;
+          this.seen = false;
+          this.screenRestart = "收齐筛选器";
+        } else {
+          this.srFlag = 0;
+          this.seen = true;
+          this.screenRestart = "展开筛选器";
+        }
       },
-      ret() {
-        this.seen = true;
-      },
-    }
-    ,
+    },
+
     computed: {
       isLogin: function () {
         console.log('isLogin')
         return this.$store.state.isLogin
       },
-      tableData:function(){
-        return this.$store.state.stockList
-      },
       list: function () {
         console.log(this.tableData)
         console.log('list')
+        if (this.submitTrue === 0) {
+          this.tableData = this.$store.state.stockList
+        }
         let list = []
         for (let i = 0; i < this.tableData.length; i++) {
           if (this.index === 2) {
@@ -486,7 +503,7 @@
   #select {
     margin-top: 6%;
     float: right;
-    width: 30%;
+    width: 50%;
   }
 
   #stock {

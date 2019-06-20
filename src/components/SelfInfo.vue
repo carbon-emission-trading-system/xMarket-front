@@ -305,7 +305,7 @@
        */
       DetermineIfUserNameExists(rule, value, callBank) {
         let prom = {
-          userName: this.user.UserName,
+          userName: this.ium.inputUserName,
         };
         if (value === '') {
           callBank(new Error('请输入账户名'));
@@ -325,14 +325,17 @@
        * @Date:
        */
       getMailCode(email) {
+
         if (this.Tiue.inputUserEmailTwo === '') {
           alert('请输入邮箱');
         } else if (this.flag === 2) {
           alert("邮箱已被注册");
         } else if (this.flag === 1) {
           let params = {
-            mailAdress: this.user.UserEmail
+            mailAdress: this.Tiue.inputUserEmailTwo
           };
+          console.log('emile');
+          console.log(params)
           this.$api.http('get', "/api/getMailCode", params).then(res => {
           }).catch((error) => {
             this.$message.error(error.message)
