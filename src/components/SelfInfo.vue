@@ -62,7 +62,9 @@
               </div>
               <div style="width: 70%;float: left;">
                 <div v-show="!judgeUserName">
-                  <P style="float: left;margin-top: 3%;">{{ this.user.UserName}}</P>
+                  <P style="float: left;margin-top: 3%;">
+                    {{this.user.UserName}}
+                  </P>
                   <span v-show="seenUserName">
                     <li class="el-icon-edit" style="font-size:16px;float: left;margin-top: 5%;color: #8ca4c2"
                         @click="changeUserName">修改</li>
@@ -277,9 +279,10 @@
             };
             this.$api.http('get', "/api/changeUserName", prom).then(res => {
               this.$message.success(res.message);
-              this.$store.commit('changeUserName', this.ium.inputUserName)
-              this.$set(this.user, 'userName', this.ium.inputUserName);
+              this.$store.commit('changeUserName', this.ium.inputUserName);
+              this.user.UserName = this.ium.inputUserName;
               this.disChangeUserName('ium');
+
             }).catch((error) => {
               this.$message.error(error.message)
             });
@@ -394,7 +397,7 @@
               this.$message.success(res.message);
               this.reviseUserEmail = false;
               this.$refs[formName].resetFields();
-              this.dischangeUSerEmailAll('Tiue');
+
             }).catch((error) => {
               this.$message.error(error.message)
             });
@@ -426,8 +429,9 @@
               this.$message.success(res.message);
               this.reviseUserEmail = true;
               this.changeUserEmail();
-              this.$set(this.user, 'userEmail', this.Tiue.inputUserEmailTwo);
+              this.user.UserEmail = this.Tiue.inputUserEmailTwo;
               this.$refs[formName].resetFields();
+              this.dischangeUSerEmailAll('Tiue');
             }).catch((error) => {
               this.$message.error(error.message)
             });
