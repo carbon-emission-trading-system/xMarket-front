@@ -220,22 +220,25 @@
                   data[i].type="卖出"
                 }
                 if(data.tradeMarket===0){
-                  data.tradeMarket="深市"
+                  data[i].tradeMarket="深市"
                 }
                 else{
-                  data.tradeMarket="沪市"
+                  data[i].tradeMarket="沪市"
                 }
-                //设置保留小数点后两位
-                for(let i = 0; i<data.length; i++){
-                  for(let key in data[i]){
-                    if(typeof(data[i][key])=="number"&& (key!='orderId') &&(key!='transactionOrderId') &&(key!='exchangeAmount')&&(key!='cancelNumber')&&(key!='stockBalance')){
-                      data[i][key] = data[i][key].toFixed(2)
-                    }
-                  }
-                }
-
-                this.tableData = data;
               }
+            //设置保留小数点后两位
+            for(let i = 0; i<data.length; i++){
+              for(let key in data[i]){
+                if(key=='tradePrice' || key=='totalExchangeMoney'){
+                  data[i][key] = data[i][key].toFixed(2)
+                }
+                if(key=='serviceTax'|| key=='stampTax'|| key=='transferFee'|| key=='actualAmount'){
+                  data[i][key] = data[i][key].toFixed(3)
+                }
+              }
+            }
+
+            this.tableData = data;
           }).catch((error) => {
             this.$message.error(error.message)
           });
