@@ -339,7 +339,7 @@
   #sright{
     margin-top: 6%;
     float: right;
-    width: 35%;
+    width: 40%;
     height: 50%
   }
 

@@ -140,6 +140,7 @@ export default new Vuex.Store({
     },
     changeUserName:(state,payload)=>{
       state.user.username=payload
+      sessionStorage.setItem("username", payload)
     },
     changeRout:(state,payload)=>{
       state.rout = payload
