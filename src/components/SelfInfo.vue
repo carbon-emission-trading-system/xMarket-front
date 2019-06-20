@@ -279,6 +279,7 @@
               this.$message.success(res.message);
               this.$store.commit('changeUserName', this.ium.inputUserName)
               this.$set(this.user, 'userName', this.ium.inputUserName);
+              this.disChangeUserName('ium');
             }).catch((error) => {
               this.$message.error(error.message)
             });
@@ -393,6 +394,7 @@
               this.$message.success(res.message);
               this.reviseUserEmail = false;
               this.$refs[formName].resetFields();
+              this.dischangeUSerEmailAll('Tiue');
             }).catch((error) => {
               this.$message.error(error.message)
             });
