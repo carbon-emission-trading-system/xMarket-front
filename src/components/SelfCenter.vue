@@ -275,43 +275,47 @@
         this.$api.http('get', "/api/getFunds", poem).then(res => {
 
 
-          let totalFunds1 = res.data.totalFunds.toString()
-          let totalFunds2 = totalFunds1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.totalFunds  = totalFunds1.replace(totalFunds2,"$1,")
+          //totalFunds
+          this.UserFundsInformation.totalFunds = this.changeIntoFloat(res.data.totalFunds)
 
           //holdPosProAndLos
-          let holdPosProAndLos1 = res.data.holdPosProAndLos.toString()
-          let holdPosProAndLos2 = holdPosProAndLos1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.holdPosProAndLos  = holdPosProAndLos1.replace(holdPosProAndLos2,"$1,")
+          this.UserFundsInformation.holdPosProAndLos = this.changeIntoFloat(res.data.holdPosProAndLos)
 
           //balance
-          let balance1 = res.data.balance.toString()
-          let balance2 = balance1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.balance  = balance1.replace(balance2,"$1,")
+          this.UserFundsInformation.balance = this.changeIntoFloat(res.data.balance)
 
           //totalMarketValue
-          let totalMarketValue1 = res.data.totalMarketValue.toString()
-          let totalMarketValue2 = totalMarketValue1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.totalMarketValue  = totalMarketValue1.replace(totalMarketValue2,"$1,")
+          this.UserFundsInformation.totalMarketValue = this.changeIntoFloat(res.data.totalMarketValue)
 
           //todayProAndLos
-          let todayProAndLos1 = res.data.todayProAndLos.toString()
-          let todayProAndLos2 = todayProAndLos1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.todayProAndLos  = todayProAndLos1.replace(todayProAndLos2,"$1,")
+          this.UserFundsInformation.todayProAndLos = this.changeIntoFloat(res.data.todayProAndLos)
 
           //frozenAmount
-          let frozenAmount1 = res.data.frozenAmount.toString()
-          let frozenAmount2 = frozenAmount1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.frozenAmount  = frozenAmount1.replace(frozenAmount2,"$1,")
+          this.UserFundsInformation.frozenAmount = this.changeIntoFloat(res.data.frozenAmount)
 
           //amountBalance
-          let amountBalance1 = res.data.amountBalance.toString()
-          let amountBalance2 = amountBalance1.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-          this.UserFundsInformation.amountBalance  = amountBalance1.replace(amountBalance2,"$1,")
+          this.UserFundsInformation.amountBalance = this.changeIntoFloat(res.data.amountBalance)
 
         }).catch((error) => {
           this.$message.error(error.message)
         })
+      },
+      changeIntoFloat(value){
+        value = Math.round(parseFloat(value)*100)/100
+        let value1 = value.toString().split(".")
+        if(value1.length===1){
+          value = value.toString()+".00"
+
+        }
+        if(value1.length>1){
+          if(value1[1].length<2){
+            value = value.toString()+"0"
+          }else{
+            value = value.toString()
+          }
+        }
+        let value2 = value.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+        return value.replace(value2,"$1,")
       },
 
       /**
