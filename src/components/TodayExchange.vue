@@ -1,6 +1,6 @@
 <template>
   <div style="height: 90%">
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -32,7 +32,7 @@
         </el-submenu>
       </el-menu>
     </div>
-
+    <div style="z-index: 1;position:relative;" >
     <div id="in">
       <div id="tag">
         <el-divider >当日成交</el-divider>
@@ -157,6 +157,7 @@
       </div>
 
     </div>
+    </div>
   </div>
 
 </template>
@@ -263,6 +264,13 @@
   #tag{
     margin-top: 5%;
     margin-bottom: 4%;
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
 </style>

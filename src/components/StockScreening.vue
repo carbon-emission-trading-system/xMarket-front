@@ -1,7 +1,7 @@
 <!----股票筛选------->
 <template>
   <div style="width: 100%;height: 100%">
-    <div style="width: 100%;height:10%">
+    <div style="width: 100%;height:10%" id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -35,6 +35,7 @@
         </el-submenu>
       </el-menu>
     </div>
+    <div style="z-index: 1;position:relative;" >
     <div style="width: 100%;height: 80%">
 
 
@@ -269,6 +270,7 @@
       </div>
 
     </div>
+    </div>
 
   </div>
 </template>
@@ -465,5 +467,12 @@
   #search {
     width: 50%;
     margin: auto;
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 </style>

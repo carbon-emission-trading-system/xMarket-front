@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <div id="navigator">
     <el-menu :default-active="this.activeIndex"
              class="el-menu-demo"
              mode="horizontal"
@@ -31,7 +31,8 @@
         <el-menu-item @click="exit">退出</el-menu-item>
       </el-submenu>
     </el-menu>
-
+    </div>
+    <div style="z-index: 1;position:relative;" >
     <div id="bread">
       <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
         <el-breadcrumb-item :to="{ path: '' }"><span @click="toFirst">首页</span></el-breadcrumb-item>
@@ -58,6 +59,7 @@
         </el-table-column>
       </el-table>
 
+    </div>
     </div>
 
   </div>
@@ -131,6 +133,13 @@
     margin-left: 15%;
     width: 60%;
 
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
 </style>

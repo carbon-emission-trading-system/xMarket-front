@@ -1,7 +1,7 @@
 <template>
   <div style=" height: 100%;margin: 0px; padding: 0px;">
 
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -35,7 +35,7 @@
 
       </el-menu>
     </div>
-
+    <div style="z-index: 1;position:relative;" >
     <div style="height:100%;float: left;width: 100%;">
       <el-tabs :tab-position="tabPosition"
                style="height:auto;width: 80%;margin-left: 10%;margin-top: 5%" type="border-card"
@@ -384,6 +384,7 @@
 
       </el-tabs>
     </div>
+    </div>
 
 
   </div>
@@ -481,6 +482,13 @@
   .el-tabs__nav{
     /*position:fixed;*/
     text-align: left;
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
 </style>

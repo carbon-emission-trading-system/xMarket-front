@@ -1,7 +1,7 @@
 <!--委托市价卖出页面-->
 <template>
   <div>
-    <div class="NavigationBar">
+    <div class="NavigationBar" id="navigator">
       <el-menu :default-active="activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -35,6 +35,7 @@
       </el-menu>
 
     </div>
+    <div style="z-index: 1;position:relative;" >
     <div class="Subtitle">
       <el-menu :default-active="activeIndexBS"
                class="el-menu-demo"
@@ -54,7 +55,6 @@
 
       </el-menu>
     </div>
-
 
     <div class="all">
 
@@ -119,6 +119,7 @@
       <div class="list2">
         <RealTime></RealTime>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -536,5 +537,12 @@
   }
   .dx {
     width: 60%;
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 </style>

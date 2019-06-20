@@ -1,6 +1,6 @@
 <template>
   <div style="height: 90%">
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -33,7 +33,7 @@
       </el-menu>
 
     </div>
-
+    <div style="z-index: 1;position:relative;" >
     <div id="in">
 
       <div id="tag">
@@ -161,6 +161,7 @@
         </div>
       </div>
 
+    </div>
     </div>
   </div>
 
@@ -353,6 +354,12 @@
     margin-top: 5%;
     margin-bottom: 4%;
   }
-
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 </style>
 

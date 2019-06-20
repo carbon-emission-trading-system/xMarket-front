@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -28,7 +28,7 @@
         <el-menu-item style="margin-left: 5%" @click="warning">个人中心</el-menu-item>
       </el-menu>
     </div>
-
+    <div style="z-index: 1;position:relative;" >
     <div id="register">
       <el-card class="box-card" style="margin-top: 5%">
         <el-form label-position="left" label-width="120px"
@@ -71,6 +71,7 @@
 
 
       </el-card>
+    </div>
     </div>
   </div>
 </template>
@@ -277,5 +278,12 @@ import qs from 'qs'
 
   .box-card {
     width: 100%;
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 </style>

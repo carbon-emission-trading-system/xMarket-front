@@ -1,6 +1,6 @@
 <template>
   <div >
-  <div>
+  <div id="navigator">
     <el-menu :default-active="this.activeIndex"
              class="el-menu-demo"
              mode="horizontal"
@@ -33,25 +33,27 @@
     </el-menu>
 
   </div>
-<div id="all">
-  <div id="bread">
-    <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
-      <el-breadcrumb-item :to="{ path: '' }"><span @click="toFirst">首页</span></el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/News' }">更多公告</el-breadcrumb-item>
-      <el-breadcrumb-item >公告详情</el-breadcrumb-item>
-    </el-breadcrumb>
-  </div>
-  <div id="title" style="margin-top: 50px">
-    <h2>{{this.news.title}}</h2>
-    <span style="float: right">{{this.news.date}}</span>
-  </div>
+    <div style="z-index: 1;position:relative;" >
+      <div id="all">
+      <div id="bread">
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
+          <el-breadcrumb-item :to="{ path: '' }"><span @click="toFirst">首页</span></el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/News' }">更多公告</el-breadcrumb-item>
+          <el-breadcrumb-item >公告详情</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div id="title" style="margin-top: 50px">
+        <h2>{{this.news.title}}</h2>
+        <span style="float: right">{{this.news.date}}</span>
+      </div>
 
-    <div id="tag">
-      <el-divider ></el-divider>
+        <div id="tag">
+          <el-divider ></el-divider>
+        </div>
+        <p>{{this.news.content}}</p>
+
+      </div>
     </div>
-    <p>{{this.news.content}}</p>
-
-  </div>
 
   </div>
 </template>
@@ -119,6 +121,13 @@
     margin-top: 5%;
     margin-bottom: 3%;
 
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
 </style>
