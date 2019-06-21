@@ -49,10 +49,10 @@
   <div id="in">
     <!--公告 background-color: lavender -->
     <div id="left">
-      <el-card class="box-card" style="height: 350px; ">
-        <div slot="header" class="clearfix">
+      <el-card class="box-card" style="height: 350px;  ">
+        <div slot="header" class="clearfix" >
           <i class="el-icon-postcard" style="font-size: 25px"></i>
-          <span style="font-size: 25px">公告</span>
+          <span style="font-size: 25px;">公告</span>
           <router-link to="/News">
           <el-button style="float: right; padding: 3px 0" type="text">更多公告</el-button>
           </router-link>

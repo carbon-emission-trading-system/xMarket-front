@@ -35,106 +35,110 @@
       </el-menu>
 
     </div>
-    <div style="z-index: 1;position:relative;" >
-    <div class="Subtitle">
-      <el-menu :default-active="activeIndexBS"
-               class="el-menu-demo"
-               mode="horizontal"
-               background-color="#909399"
-               text-color="#fff"
-               active-text-color="#ffd04b"
-               router>
-        <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
-        </el-menu-item>
-        <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
-        </el-menu-item>
-        <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
-        </el-menu-item>
-        <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
-        </el-menu-item>
+    <div style="z-index: 1;position:relative;">
 
-      </el-menu>
-    </div>
+      <div class="Subtitle">
+
+          <el-menu :default-active="activeIndexBS"
+                   class="el-menu-demo"
+                   mode="horizontal"
+                   background-color="#909399"
+                   text-color="#fff"
+                   active-text-color="#ffd04b"
+                   router>
+            <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
+            </el-menu-item>
+            <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
+            </el-menu-item>
+            <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
+            </el-menu-item>
+            <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
+            </el-menu-item>
+
+          </el-menu>
+      </div>
 
 
-    <div class="all">
-      <div class="list1">
-        <el-card class="card1">
-          <el-button v-show="rout" type="text" icon="el-icon-edit" style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图</el-button>
-          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-            <p style="font-size: 30px; margin-top:10%;"> {{ buyOrSell }} </p>
-            <div style="text-align: center;float: left;width: 100%" class="elementInput">
-              <el-form-item label="证券代码"
-                            style="float: left;width: 100%"
-                            onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
-                            prop="stockId"
-                            :rules="[{
+      <div class="all">
+        <div class="list1">
+          <el-card class="card1">
+            <el-button v-show="rout" type="text" icon="el-icon-edit"
+                       style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
+            </el-button>
+            <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
+              <p style="font-size: 30px; margin-top:10%;"> {{ buyOrSell }} </p>
+              <div style="text-align: center;float: left;width: 100%" class="elementInput">
+                <el-form-item label="证券代码"
+                              style="float: left;width: 100%"
+                              onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
+                              prop="stockId"
+                              :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model="stockTrading.stockId" class="dx"
-                          placeholder="请输入证券代码"></el-input>
-                <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
-              </el-form-item>
+                  <el-input v-model="stockTrading.stockId" class="dx"
+                            placeholder="请输入证券代码"></el-input>
+                  <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
+                </el-form-item>
 
-              <el-form-item label="证券名称">
-                {{ stockTrading.stockName }}
-                <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
-              </el-form-item>
+                <el-form-item label="证券名称">
+                  {{ stockTrading.stockName }}
+                  <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
+                </el-form-item>
 
-              <el-form-item label="买入价格"
-                            style="float: left;width: 100%"
-                            prop="orderPrice"
-                            :rules="[
+                <el-form-item label="买入价格"
+                              style="float: left;width: 100%"
+                              prop="orderPrice"
+                              :rules="[
                             { validator: LimitPrice, // 自定义验证
                               trigger: 'change',
                             }]">
-                <el-input v-model="stockTrading.orderPrice" class="dx" type="number" step="0.01"
-                          placeholder="请输入买入价格"></el-input>
-                <!--@blur.prevent="LimitPrice()"-->
-              </el-form-item>
-              <el-form-item label="可买数量"
-                            style="float: left;"
-              >
-                {{ stockTrading.canorderAmount }}
+                  <el-input v-model="stockTrading.orderPrice" class="dx" type="number" step="0.01"
+                            placeholder="请输入买入价格"></el-input>
+                  <!--@blur.prevent="LimitPrice()"-->
+                </el-form-item>
+                <el-form-item label="可买数量"
+                              style="float: left;"
+                >
+                  {{ stockTrading.canorderAmount }}
 
-                <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
-              </el-form-item>
+                  <!--<el-input v-model="stockTrading.canorderAmount" placeholder="可买数量" :disabled="true"></el-input>-->
+                </el-form-item>
 
-              <div class="proportion">
-                <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
-                <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
-                <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
-                <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
-              </div>
+                <div class="proportion">
+                  <el-button type="text" @click="change1" class="TxTbutton">1/4</el-button>
+                  <el-button type="text" @click="change2" class="TxTbutton">1/2</el-button>
+                  <el-button type="text" @click="change3" class="TxTbutton">3/4</el-button>
+                  <el-button type="text" @click="change4" class="TxTbutton">全部</el-button>
+                </div>
 
-              <el-form-item label="买入数量"
-                            prop="orderAmount"
-                            :rules="[
+                <el-form-item label="买入数量"
+                              prop="orderAmount"
+                              :rules="[
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'change'
                             }]"
-                            style="float: left;width: 100%"
-              >
-                <el-input v-model="stockTrading.orderAmount"
-                          type="number"
-                          step="100"
-                          placeholder="请输入买入股数"
-                          class="dx"
-                          ></el-input>
-              </el-form-item>
-              <div style="float: left;width: 60%;margin-top: 5%">
-                <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
-                <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
+                              style="float: left;width: 100%"
+                >
+                  <el-input v-model="stockTrading.orderAmount"
+                            type="number"
+                            step="100"
+                            placeholder="请输入买入股数"
+                            class="dx"
+                  ></el-input>
+                </el-form-item>
+                <div style="float: left;width: 60%;margin-top: 5%">
+                  <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
+                  <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
+                </div>
               </div>
-            </div>
-          </el-form>
-        </el-card>
+            </el-form>
+          </el-card>
+        </div>
+        <div class="list2">
+          <RealTime></RealTime>
+        </div>
       </div>
-      <div class="list2">
-        <RealTime></RealTime>
-      </div>
-    </div>
     </div>
   </div>
 </template>
@@ -150,7 +154,7 @@
     name: "BuyAtLimitPrice",
     data() {
       return {
-        rout:false,
+        rout: false,
         activeIndex: 'BuyAtLimitPrice',
         activeIndexBS: 'BuyAtLimitPrice',
         buyOrSell: '买入股票',
@@ -197,7 +201,7 @@
       linkKline() {
         this.$store.commit('stockId', this.stockTrading.stockId);
         this.$store.commit('stockName', this.stockTrading.stockName);
-        this.$store.commit('changeRout',1);
+        this.$store.commit('changeRout', 1);
         this.$router.push('/StockDisplay')
       },
       exit() {
@@ -275,7 +279,7 @@
       DetermineTheNumberOfPurchases(rule, value, callback) {
         console.log('DetermineTheNumberOfPurchases')
         this.stockTrading.orderAmount = value;
-        this.$set(this.stockTrading,'orderAmount',value);
+        this.$set(this.stockTrading, 'orderAmount', value);
         console.log('111111111111111')
         console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
@@ -337,7 +341,7 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
-        this.rout=false;
+        this.rout = false;
         console.log('firstReturnStockRealtimeInformation')
         let prom = {
           stockId: this.stockTrading.stockId,
@@ -345,7 +349,7 @@
         };
 
         api.http('get', "/api/QueryStockInformation", prom).then(res => {
-          this.rout=true;
+          this.rout = true;
           this.msg = this.stockTrading.stockId;
           this.stockTrading = res.data;
           // this.stockTrading.openPrice = res.data.yesterdayClosePrice;
@@ -607,7 +611,8 @@
   .dx {
     width: 60%;
   }
-  #navigator{
+
+  #navigator {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;

@@ -2,7 +2,7 @@
 <template>
 
   <div style="width: 100%;height: 100%">
-    <div id="fundLine" style="width:100%;height:300px;"></div>
+    <div id="fundLine" style="width:100%;height:260px;"></div>
     <!--<ve-line :data="fundLine" :settings="fundLineSettings"></ve-line>-->
   </div>
 
