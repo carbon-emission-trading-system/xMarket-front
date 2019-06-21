@@ -143,7 +143,7 @@
 
   #sin {
     margin: auto;
-    width: 60%;
+    width: 70%;
   }
   #input{
     margin-top: 6%;
