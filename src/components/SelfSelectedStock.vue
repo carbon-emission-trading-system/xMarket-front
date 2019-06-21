@@ -125,7 +125,7 @@
               </el-table-column>
               <el-table-column
                 prop="totalMarketCapitalization"
-                label="市值"
+                label="市值(亿)"
                 align="center">
               </el-table-column>
               <el-table-column
