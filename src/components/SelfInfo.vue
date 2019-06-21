@@ -322,25 +322,37 @@
        * @Date:
        */
       getMailCode(email) {
-
+        let params = {
+          mailAdress: this.Tiue.inputUserEmailTwo,
+        };
         if (this.Tiue.inputUserEmailTwo === '') {
-          alert('请输入邮箱');
-        } else if (this.flag === 2) {
-          alert("邮箱已被注册");
-        } else if (this.flag === 1) {
-          let params = {
-            mailAdress: this.Tiue.inputUserEmailTwo
-          };
-          console.log('emile');
-          console.log(params)
-          this.$api.http('get', "/api/getMailCode", params).then(res => {
+          alert('请输入账户邮箱');
+        } else {
+          this.$api.http('get', '/api/determineIfMailExists', params).then(res => {
+            this.getCode();
           }).catch((error) => {
             this.$message.error(error.message)
-          });
-          this.getCode();
-        } else {
-          alert('未知错误')
+          })
         }
+        //
+        // if (this.Tiue.inputUserEmailTwo === '') {
+        //   alert('请输入邮箱');
+        // } else if (this.flag === 2) {
+        //   alert("邮箱已被注册");
+        // } else if (this.flag === 1) {
+        //   let params = {
+        //     mailAdress: this.Tiue.inputUserEmailTwo
+        //   };
+        //   console.log('emile');
+        //   console.log(params)
+        //   this.$api.http('get', "/api/getMailCode", params).then(res => {
+        //   }).catch((error) => {
+        //     this.$message.error(error.message)
+        //   });
+        //   this.getCode();
+        // } else {
+        //   alert('未知错误')
+        // }
       },
       /**
        * @Description: 倒计时60秒
