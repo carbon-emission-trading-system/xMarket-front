@@ -30,8 +30,9 @@ import OneRank from "../components/OneRank";
 import NotFund from "../components/404";
 import ForgetPassword from "../components/ForgetPassword"
 import FundCurve from "../components/FundCurve"
-import StockScreening  from "../components/StockScreening"
+import StockScreening from "../components/StockScreening"
 import IndexDisplay from "../components/IndexDisplay"
+import PositionStock from "../components/PositionStock"
 
 Vue.use(Router)
 //配置路由
@@ -171,9 +172,12 @@ export default new Router({
       name: 'stockScreening',
       component: StockScreening
     }, {
+      path: '/PositionStock',
+      name: 'positionStock',
+      component: PositionStock
+    }, {
       path: '*',
       redirect: '/404'
     }
-
   ]
 })

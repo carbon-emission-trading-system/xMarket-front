@@ -33,190 +33,190 @@
         </el-submenu>
       </el-menu>
     </div>
-    <div style="z-index: 1;position:relative;" >
-    <div style="height: 90%;width: 100%;float: left">
-      <!-------左侧导航栏--->
-      <div style="float: left;height: 100%;width: 15%">
-        <el-container style="height: 100%; border: 1px solid #eee">
-          <el-aside width="100%" style="background-color: rgb(238, 241, 246)">
-            <el-menu :default-active="activeIndexSelfCenter"
-                     style="background-color: #f0f8fa "
-                     router>
-              <el-menu-item index="SelfCenter">资产信息</el-menu-item>
-              <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
-              <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
-            </el-menu>
-          </el-aside>
-        </el-container>
-      </div>
-      <div style="height: 100%;float: left;width: 70%">
-        <div class="rightCard" style="height: 50%;width:100%;float: left;">
-          <el-card style="margin-top:1%;margin-bottom: 2%;height: 50%;width: 100%;" shadow="hover">
-            <div slot="header">
-              <span style="float: left">资金信息</span>
-            </div>
-            <div class="text item">
-              <table style="align-content: left">
-                <tr>
-                  <td style="padding-bottom: 2%; padding-left: 5%;">
-                    总资产: {{ this.UserFundsInformation.totalFunds}}
-                  </td>
-                  <td style="padding-bottom: 2%;">
-                    <span v-if="this.UserFundsInformation.holdPosProAndLos.indexOf('-')===-1" style="color: #ff3434 " >持仓盈亏: {{ this.UserFundsInformation.holdPosProAndLos}}</span>
-                    <span v-else style="color: #02e602" >持仓盈亏: {{ this.UserFundsInformation.holdPosProAndLos}}</span>
-                  </td>
-                  <td style="padding-bottom: 2%;">
-                    可用资金: {{ this.UserFundsInformation.balance}}
-                  </td>
-
-                </tr>
-                <tr>
-                  <td style="padding-bottom: 2%;;padding-left:5%;">
-                    总市值: {{ this.UserFundsInformation.totalMarketValue}}
-                  </td>
-                  <td style="align-content: left;padding-bottom: 2%;">
-                    <span v-if="this.UserFundsInformation.todayProAndLos.indexOf('-')===-1" style="color: #ff3434 " >当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}</span>
-                    <span v-else style="color: #02e602" >当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}</span>
-                  </td>
-                  <td style="align-content: left;padding-bottom: 2%;">
-                    冻结资金: {{ this.UserFundsInformation.frozenAmount}}
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding-bottom: 2%;;padding-left:5%;">
-                    资金余额: {{ this.UserFundsInformation.amountBalance}}
-                  </td>
-                </tr>
-
-              </table>
-            </div>
-          </el-card>
-          <el-card style="width: 100%;height: 50%;text-align: center"  shadow="hover">
-            <div slot="header">
-              <span style="float: left">资产曲线</span>
-            </div>
-            <StockScreening style="width: 100%;"></StockScreening>
-          </el-card>
+    <div style="z-index: 1;position:relative;">
+      <div style="height: 90%;width: 100%;float: left">
+        <!-------左侧导航栏--->
+        <div style="float: left;height: 100%;width: 15%">
+          <el-container style="height: 100%;">
+            <el-aside width="100%">
+              <el-menu :default-active="activeIndexSelfCenter"
+                       router>
+                <el-menu-item index="SelfCenter">资产信息</el-menu-item>
+                <el-menu-item index="PositionStock">持仓股</el-menu-item>
+                <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
+                <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
+              </el-menu>
+            </el-aside>
+          </el-container>
         </div>
-        <!-----右侧栏第二栏------>
-        <el-card class="rightCard" shadow="hover" style="float: left;height: 50%;width:100%;margin-top: 3%">
-          <div slot="header">
-            <span style="float: left">持仓信息</span>
-          </div>
-          <div style="width: 100%;">
-            <el-table
-              :data="tableData"
-              :header-cell-style="{background:'#eef1f6',color:'#606266'}"
-              border
-              height="250px"
-              @row-dblclick="handle"
-              style="width:100%;font-size: 6px;cursor: pointer">
-              <el-table-column
-                prop="stockId"
-                label="股票代码"
-                align="center"
-                fixed
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="stockName"
-                label="股票简称"
-                fixed
-                align="center"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="presentPrice"
-                label="现价"
-                sortable
-                align="center"
-                width="80">
-              </el-table-column>
-              <el-table-column
-                prop="costPrice"
-                label="成本价"
-                sortable
-                align="center"
-                width="100">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.costPrice<=scope.row.presentPrice" style="color: #ff3434 ">{{scope.row.costPrice}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.costPrice}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="positionNumber"
-                label="股票余额"
-                sortable
-                align="center"
-                width="100">
-              </el-table-column>
+        <div style="height: 100%;float: left;width: 70%">
+          <div class="rightCard" style="height: 50%;width:95%;float: left;">
+            <el-card style="margin-top:1%;margin-bottom: 2%;height: 50%;width: 100%;" shadow="hover">
+              <div slot="header">
+                <span style="float: left">资金信息</span>
+              </div>
+              <div class="text item">
+                <table style="align-content: left">
+                  <tr>
+                    <td style="padding-bottom: 2%; padding-left: 5%;">
+                      总资产: {{ this.UserFundsInformation.totalFunds}}
+                    </td>
+                    <td style="padding-bottom: 2%;">
+                      <span v-if="this.UserFundsInformation.holdPosProAndLos.indexOf('-')===-1" style="color: #ff3434 ">持仓盈亏: {{ this.UserFundsInformation.holdPosProAndLos}}</span>
+                      <span v-else style="color: #02e602">持仓盈亏: {{ this.UserFundsInformation.holdPosProAndLos}}</span>
+                    </td>
+                    <td style="padding-bottom: 2%;">
+                      可用资金: {{ this.UserFundsInformation.balance}}
+                    </td>
 
-              <el-table-column
-                prop="availableNumber"
-                label="可用数量"
-                align="center"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="frozenNumber"
-                label="冻结数量"
-                align="center"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="totalProfitAndLoss"
-                label="总盈亏"
-                sortable
-                align="center"
-                width="100">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.totalProfitAndLoss>=0"
-                        style="color: #ff3434 ">{{scope.row.totalProfitAndLoss}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.totalProfitAndLoss}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="todayProfitAndLoss"
-                label="当日盈亏"
-                align="center"
-                width="100">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.todayProfitAndLoss>=0"
-                        style="color: #ff3434 ">{{scope.row.todayProfitAndLoss}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.todayProfitAndLoss}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="profitAndLossRatio"
-                label="盈亏比例%"
-                align="center"
-                width="100">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.profitAndLossRatio>=0"
-                        style="color: #ff3434 ">{{scope.row.profitAndLossRatio}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="marketValue"
-                label="市值"
-                sortable
-                align="center"
-                width="75">
-              </el-table-column>
-              <el-table-column
-                prop="positionRatio"
-                label="仓位占比%"
-                sortable
-                align="center"
-                width="105">
-              </el-table-column>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom: 2%;;padding-left:5%;">
+                      总市值: {{ this.UserFundsInformation.totalMarketValue}}
+                    </td>
+                    <td style="align-content: left;padding-bottom: 2%;">
+                      <span v-if="this.UserFundsInformation.todayProAndLos.indexOf('-')===-1" style="color: #ff3434 ">当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}</span>
+                      <span v-else style="color: #02e602">当日盈亏: {{ this.UserFundsInformation.todayProAndLos}}</span>
+                    </td>
+                    <td style="align-content: left;padding-bottom: 2%;">
+                      冻结资金: {{ this.UserFundsInformation.frozenAmount}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom: 2%;;padding-left:5%;">
+                      资金余额: {{ this.UserFundsInformation.amountBalance}}
+                    </td>
+                  </tr>
 
-            </el-table>
+                </table>
+              </div>
+            </el-card>
+            <el-card style="width: 100%;height: 40%;text-align: center" shadow="hover">
+              <div slot="header">
+                <span style="float: left">资产曲线</span>
+              </div>
+              <StockScreening style="width: 100%;"></StockScreening>
+            </el-card>
           </div>
-        </el-card>
+          <!-----右侧栏第二栏------>
+          <!--<el-card class="rightCard" shadow="hover" style="float: left;height: 50%;width:100%;margin-top: 3%">-->
+          <!--<div slot="header">-->
+          <!--<span style="float: left">持仓信息</span>-->
+          <!--</div>-->
+          <!--<div style="width: 100%;">-->
+          <!--<el-table-->
+          <!--:data="tableData"-->
+          <!--:header-cell-style="{background:'#eef1f6',color:'#606266'}"-->
+          <!--border-->
+          <!--height="250px"-->
+          <!--@row-dblclick="handle"-->
+          <!--style="width:100%;font-size: 6px;cursor: pointer">-->
+          <!--<el-table-column-->
+          <!--prop="stockId"-->
+          <!--label="股票代码"-->
+          <!--align="center"-->
+          <!--fixed-->
+          <!--width="100">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="stockName"-->
+          <!--label="股票简称"-->
+          <!--fixed-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="presentPrice"-->
+          <!--label="现价"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="80">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="costPrice"-->
+          <!--label="成本价"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--<template slot-scope="scope">-->
+          <!--<span v-if="scope.row.costPrice<=scope.row.presentPrice" style="color: #ff3434 ">{{scope.row.costPrice}}</span>-->
+          <!--<span v-else style="color: #02e602 ">{{scope.row.costPrice}}</span>-->
+          <!--</template>-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="positionNumber"-->
+          <!--label="股票余额"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--</el-table-column>-->
+
+          <!--<el-table-column-->
+          <!--prop="availableNumber"-->
+          <!--label="可用数量"-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="frozenNumber"-->
+          <!--label="冻结数量"-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="totalProfitAndLoss"-->
+          <!--label="总盈亏"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--<template slot-scope="scope">-->
+          <!--<span v-if="scope.row.totalProfitAndLoss>=0"-->
+          <!--style="color: #ff3434 ">{{scope.row.totalProfitAndLoss}}</span>-->
+          <!--<span v-else style="color: #02e602 ">{{scope.row.totalProfitAndLoss}}</span>-->
+          <!--</template>-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="todayProfitAndLoss"-->
+          <!--label="当日盈亏"-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--<template slot-scope="scope">-->
+          <!--<span v-if="scope.row.todayProfitAndLoss>=0"-->
+          <!--style="color: #ff3434 ">{{scope.row.todayProfitAndLoss}}</span>-->
+          <!--<span v-else style="color: #02e602 ">{{scope.row.todayProfitAndLoss}}</span>-->
+          <!--</template>-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="profitAndLossRatio"-->
+          <!--label="盈亏比例%"-->
+          <!--align="center"-->
+          <!--width="100">-->
+          <!--<template slot-scope="scope">-->
+          <!--<span v-if="scope.row.profitAndLossRatio>=0"-->
+          <!--style="color: #ff3434 ">{{scope.row.profitAndLossRatio}}</span>-->
+          <!--<span v-else style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>-->
+          <!--</template>-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="marketValue"-->
+          <!--label="市值"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="75">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+          <!--prop="positionRatio"-->
+          <!--label="仓位占比%"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="105">-->
+          <!--</el-table-column>-->
+
+          <!--</el-table>-->
+          <!--</div>-->
+          <!--</el-card>-->
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -316,10 +316,10 @@
           this.$message.error(error.message)
         })
       },
-      changeIntoFloat(value){
+      changeIntoFloat(value) {
         value = value.toFixed(2)
         let value1 = value.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
-        return value.replace(value1,"$1,")
+        return value.replace(value1, "$1,")
       },
 
       /**
@@ -339,9 +339,9 @@
           // console.log('到这里了');
           //设置保留小数点后两位
           let data = res.data
-          for(let i = 0; i<data.length; i++){
-            for(let key in data[i]){
-              if(key=='presentPrice'||key=='costPrice'||key=='totalProfitAndLoss'||key=='todayProfitAndLoss'){
+          for (let i = 0; i < data.length; i++) {
+            for (let key in data[i]) {
+              if (key == 'presentPrice' || key == 'costPrice' || key == 'totalProfitAndLoss' || key == 'todayProfitAndLoss') {
                 data[i][key] = data[i][key].toFixed(2)
               }
             }
@@ -395,7 +395,8 @@
   body .el-table th.gutter {
     display: table-cell !important;
   }
-  #navigator{
+
+  #navigator {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;

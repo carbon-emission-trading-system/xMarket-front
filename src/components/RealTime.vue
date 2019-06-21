@@ -107,14 +107,14 @@
           <td v-else></td>
         </tr>
       </table>
-      <!--      <table class="mailTable" :style="styleObject">-->
-      <!--        <tr>-->
-      <!--          <td class="column">涨停</td>-->
-      <!--          <td class="column">{{this.realTimeData.dailyLimit }}</td>-->
-      <!--          <td class="column">跌停</td>-->
-      <!--          <td class="column">{{this.realTimeData.downLimit }}</td>-->
-      <!--        </tr>-->
-      <!--      </table>-->
+      <table class="mailTable" :style="styleObject">
+        <tr>
+          <td class="column">涨停</td>
+          <td class="column">{{this.realTimeData.dailyLimit }}</td>
+          <td class="column">跌停</td>
+          <td class="column">{{this.realTimeData.downLimit }}</td>
+        </tr>
+      </table>
 
       <table class="mailTable" :style="styleObject">
         <!--卖一-->
@@ -218,13 +218,13 @@
           <td v-else></td>
         </tr>
       </table>
-      <!--      <table class="mailTable" :style="styleObject" style="width: 100%">-->
-      <!--        <tr>-->
-      <!--          <td class="column " >开盘价</td>-->
-      <!--          <td class="column">{{this.realTimeData.openPrice}}</td>-->
-      <!--        </tr>-->
-      <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
-      <!--      </table>-->
+      <table class="mailTable" :style="styleObject" style="width: 100%">
+        <tr>
+          <td class="column ">开盘价</td>
+          <td class="column">{{this.realTimeData.openPrice}}</td>
+        </tr>
+        <!--<td>{{realTimeData.buyone.value}}</td>-->
+      </table>
       <p style="display:none">
         {{ this.$store.state.buyOrSellStock}}
 
@@ -237,11 +237,6 @@
         <tr>
           <td class="column"></td>
           <td class="column">数值</td>
-        </tr>
-
-        <tr>
-          <td class="column ">开盘价</td>
-          <td>{{this.realTimeData.openPrice}}</td>
         </tr>
 
         <tr>
@@ -270,29 +265,22 @@
           <td class="column">涨幅</td>
           <td>{{this.realTimeData.increase }}</td>
         </tr>
+
+
         <tr>
-          <td class="column">涨停</td>
-          <td>{{this.realTimeData.dailyLimit }}</td>
-        </tr>
-        <tr>
-          <td class="column">跌停</td>
-          <td>{{this.realTimeData.downLimit }}</td>
+          <td class="column">外盘</td>
+          <td>{{this.realTimeData.outMarket }}</td>
         </tr>
 
-        <!--        <tr>-->
-        <!--          <td class="column">外盘</td>-->
-        <!--          <td>{{this.realTimeData.outMarket }}</td>-->
-        <!--        </tr>-->
+        <tr>
+          <td class="column">内盘</td>
+          <td>{{this.realTimeData.inMarket}}</td>
+        </tr>
 
-        <!--        <tr>-->
-        <!--          <td class="column">内盘</td>-->
-        <!--          <td>{{this.realTimeData.inMarket}}</td>-->
-        <!--        </tr>-->
-
-        <!--        <tr>-->
-        <!--          <td class="column">换手</td>-->
-        <!--          <td>{{this.realTimeData.conversionHand }}</td>-->
-        <!--        </tr>-->
+        <tr>
+          <td class="column">换手</td>
+          <td>{{this.realTimeData.conversionHand }}</td>
+        </tr>
 
         <tr>
           <td class="column">总市值</td>

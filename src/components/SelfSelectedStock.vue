@@ -43,6 +43,7 @@
             <el-menu :default-active="activeIndexSelfCenter"
                      router>
               <el-menu-item index="SelfCenter">资产信息</el-menu-item>
+              <el-menu-item index="PositionStock">持仓股</el-menu-item>
               <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
               <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
             </el-menu>
