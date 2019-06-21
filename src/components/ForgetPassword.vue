@@ -57,10 +57,10 @@
             </el-col>
           </el-form-item>
 
-          <el-form-item label="密码" prop="loginPassword">
+          <el-form-item label="密码" prop="newPassword">
             <el-input type="password" v-model="forget.newPassword" placeholder="请输入8-16位密码 "></el-input>
           </el-form-item>
-          <el-form-item label="确认登录密码" prop="loginRepassword">
+          <el-form-item label="确认登录密码" prop="ReNewPassword">
             <el-input type="password" v-model="forget.ReNewPassword" placeholder="请确认登录密码  "></el-input>
           </el-form-item>
           <router-link to="/">
