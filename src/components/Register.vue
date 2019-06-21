@@ -258,7 +258,7 @@ import qs from 'qs'
         if (this.user.email === '') {
           alert('请输入账户邮箱');
         } else {
-          this.$api.http('get', '/api/determineIfMailExists', params).then(res => {
+          this.$api.http('get', '/api/getMailCode', params).then(res => {
             this.getCode();
           }).catch((error) => {
             this.$message.error(error.message)

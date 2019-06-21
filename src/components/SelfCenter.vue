@@ -40,6 +40,7 @@
         <el-container style="height: 100%; border: 1px solid #eee">
           <el-aside width="100%" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-active="activeIndexSelfCenter"
+                     style="background-color: #f0f8fa "
                      router>
               <el-menu-item index="SelfCenter">资产信息</el-menu-item>
               <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
@@ -50,7 +51,7 @@
       </div>
       <div style="height: 100%;float: left;width: 70%">
         <div class="rightCard" style="height: 50%;width:100%;float: left;">
-          <el-card style="margin-top:2%;margin-bottom: 2%;height: 50%;width: 100%;" shadow="hover">
+          <el-card style="margin-top:1%;margin-bottom: 2%;height: 50%;width: 100%;" shadow="hover">
             <div slot="header">
               <span style="float: left">资金信息</span>
             </div>
@@ -90,12 +91,15 @@
               </table>
             </div>
           </el-card>
-          <el-card style="width: 100%;height: 85%"  shadow="hover">
-            <StockScreening style="width: 100%;height: auto"></StockScreening>
+          <el-card style="width: 100%;height: 50%;text-align: center"  shadow="hover">
+            <div slot="header">
+              <span style="float: left">资产曲线</span>
+            </div>
+            <StockScreening style="width: 100%;"></StockScreening>
           </el-card>
         </div>
         <!-----右侧栏第二栏------>
-        <el-card class="rightCard" shadow="hover" style="float: left;height: 50%;width:100%;margin-top: 20%">
+        <el-card class="rightCard" shadow="hover" style="float: left;height: 50%;width:100%;margin-top: 3%">
           <div slot="header">
             <span style="float: left">持仓信息</span>
           </div>

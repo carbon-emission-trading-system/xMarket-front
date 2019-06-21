@@ -246,8 +246,7 @@
       };
 
       this.$api.http('get', "/api/getUserInfo", prom).then(res => {
-        console.log(res)
-        this.$message.success(res.message);
+
         this.$set(this.user, 'UserName', res.data.userName);
         this.$set(this.user, 'UserEmail', res.data.email)
 
@@ -328,8 +327,10 @@
         if (this.Tiue.inputUserEmailTwo === '') {
           alert('请输入账户邮箱');
         } else {
-          this.$api.http('get', '/api/determineIfMailExists', params).then(res => {
+
+          this.$api.http('get', '/api/getMailCode', params).then(res => {
             this.getCode();
+
           }).catch((error) => {
             this.$message.error(error.message)
           })
@@ -397,7 +398,6 @@
               userId: this.userId,
               loginPassword: this.iue.inputUserPassword,
             };
-            console.log(prom)
             this.$api.http('post', "/api/validateLoginPassword", prom).then(res => {
               this.$message.success(res.message);
               this.reviseUserEmail = false;
@@ -423,13 +423,13 @@
       submitUserEmailTwo(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log('+++++++++++')
-            //***************需要确定接口名字*******************************
+
             let prom = {
               userId: this.userId,
               mailAdress: this.Tiue.inputUserEmailTwo,
               mailCode: this.Tiue.mailCode,
             };
+
             this.$api.http('post', "/api/changeMailAddress", prom).then(res => {
               this.$message.success(res.message);
               this.reviseUserEmail = true;
@@ -465,7 +465,6 @@
             this.flag = 1;
             callBank()
           }).catch((error) => {
-            console.log(error);
             this.flag = 2;
             callBank(error.message)
           })
