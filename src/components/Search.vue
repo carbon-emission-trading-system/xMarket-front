@@ -1,19 +1,15 @@
 <template>
   <div id="sin">
-    <div id="sLeft">
-
+    <div id="input">
       <el-autocomplete
         class="inline-input"
         v-model="input"
-        prefix-icon="el-icon-search"
         :fetch-suggestions="querySearch"
-        placeholder="请输入股票简称或代码"
+        placeholder="请输入股票简称、代码或缩写"
         :trigger-on-focus="false"
         style="width: 100%;">
+        <el-button slot="append" icon="el-icon-search" @click="find"></el-button>
       </el-autocomplete>
-    </div>
-    <div id="sRight">
-      <el-button type="primary" icon="el-icon-search" @click="find">搜索</el-button>
     </div>
   </div>
 </template>
@@ -146,20 +142,12 @@
   }
 
   #sin {
-    display: inline-block;
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  #sLeft {
-    margin-top: 7%;
-    float: left;
+    margin: auto;
     width: 60%;
   }
-
-  #sRight {
-    margin-top: 7%;
-    float: right;
-    width: 35%;
+  #input{
+    margin-top: 6%;
+    width: 100%;
   }
+
 </style>

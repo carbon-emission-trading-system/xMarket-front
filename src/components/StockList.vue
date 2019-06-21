@@ -164,6 +164,8 @@
             <el-button type="primary" @click="restart">重置</el-button>
           </el-card>
         </el-collapse-transition>
+
+<!--        <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>-->
         <!--background-color: gainsboro-->
         <div id="stock">
           <el-table
@@ -271,7 +273,9 @@
         </div>
 
       </div>
+
     </div>
+
 
   </div>
 </template>
