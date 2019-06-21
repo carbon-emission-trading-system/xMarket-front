@@ -47,7 +47,7 @@
             border
             height="500"
             style="font-size: 6px;cursor: pointer"
-            :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+            :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
             <el-table-column
               prop="stockId"
               label="股票代码"

@@ -44,6 +44,7 @@
               <el-table
                 :data="rankByIncrease"
                 @row-dblclick="handleStock"
+
                 style="width: 100%;font-size: 6px;cursor: pointer">
                 <el-table-column
                   prop="stockId"

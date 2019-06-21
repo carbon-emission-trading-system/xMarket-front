@@ -45,7 +45,7 @@
         height=500
         @row-dblclick="handle"
         style="width: 100%;font-size: 6px;cursor: pointer"
-        :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+        :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
         <el-table-column
           prop="time"
           label="成交时间"

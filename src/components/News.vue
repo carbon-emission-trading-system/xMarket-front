@@ -44,7 +44,8 @@
         :data="news"
         stripe
         @row-click="handle"
-        style="width: 100%">
+        style="width: 100%"
+        :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
         <el-table-column
           prop="title"
           label="标题"

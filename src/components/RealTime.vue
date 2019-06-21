@@ -2,7 +2,7 @@
   <div class="allRealTime">
 
     <el-card class="list1RealTime">
-      <table class="mailTable" :style="styleObject">
+      <table class="mailTable" :style="styleObject" :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
         <tr>
           <td class="column"></td>
           <td class="column">价格</td>

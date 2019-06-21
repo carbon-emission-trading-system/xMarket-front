@@ -60,7 +60,7 @@
             <div style="width: 100%;font-size: 6px">
               <el-table
                 :data="tableData"
-                :header-cell-style="{background:'#eef1f6',color:'#606266'}"
+                :header-cell-style="{background:'#c2ccd0',color:'#606266'}"
                 border
                 height="250px"
                 @row-dblclick="handle"

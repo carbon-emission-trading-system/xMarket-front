@@ -1,7 +1,7 @@
 <template>
 
   <el-card class="list1">
-    <table class="mailTabl" :style="styleObject">
+    <table class="mailTabl" :style="styleObject" :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
       <tr>
         <td class="column"></td>
         <td class="column">价格</td>
