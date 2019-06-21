@@ -1,7 +1,7 @@
 <!-- 个人中心信息--->
 <template>
   <div style="height: 100%;width: 100%">
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -30,7 +30,7 @@
         </el-submenu>
       </el-menu>
     </div>
-
+    <div style="z-index: 1;position:relative;" >
     <div style="height: 90%;width: 100%;float: left">
       <!-------左侧导航栏--->
       <div style="float: left;height: 100%;width: 15%">
@@ -195,6 +195,7 @@
           </div>
         </el-card>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -578,6 +579,12 @@
   .el-col.el-col-14 {
     padding-right: 0%;
   }
-
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 </style>
 

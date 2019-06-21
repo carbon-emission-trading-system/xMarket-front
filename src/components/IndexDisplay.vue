@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -33,7 +33,7 @@
         </el-submenu>
       </el-menu>
     </div>
-
+    <div style="z-index: 1;position:relative;" >
     <div id="bread">
       <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
         <el-breadcrumb-item v-if="this.$store.state.rout===0" :to="{ path:'/StockList' }">股票列表
@@ -137,6 +137,7 @@
 
 
       </div>
+    </div>
 
   </div>
 </template>
@@ -479,5 +480,11 @@
     float: right;
     width: 30%;
   }
-
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 </style>

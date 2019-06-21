@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div id="navigator">
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -32,6 +32,7 @@
 
       </el-menu>
     </div>
+    <div style="z-index: 1;position:relative;" >
     <div id="sin">
 
       <div id="sleft">
@@ -182,6 +183,7 @@
 
     </div>
   </div>
+    </div>
 
 
   </div>
@@ -369,6 +371,13 @@
   .index{
     font-size: 20px;
     font-family: "Century Gothic";
+  }
+  #navigator{
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
 </style>

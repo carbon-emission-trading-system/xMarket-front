@@ -181,4 +181,12 @@
     width: 50%;
     margin: auto;
   }
+
+  #navigator {
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 </style>
