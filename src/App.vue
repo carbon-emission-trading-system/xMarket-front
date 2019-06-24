@@ -146,15 +146,17 @@
     /*background-color: #d6ecf0;*/
     /*background-color: #f3f9f1;//茶色*/
     /*//玄青*/
-    background-image: url("../static/images/xushixiaozhang.png");
-    background-repeat:no-repeat;
-    width:100%;
-    background-size:cover;
-    background-color: #e9f1f6;
+
   }
 
   html, body, #app {
-
+    background-image: url("../static/images/xushixiaozhang.png");
+    background-repeat:no-repeat;
+    width:100%;
+    height: 100%;
+    background-size:cover;
+    background-color: #e9f1f6;
+    background-attachment:fixed;
   }
   /*.el-button{*/
   /*background-color: #15c616;*/
