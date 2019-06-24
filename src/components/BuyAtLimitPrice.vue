@@ -1,7 +1,7 @@
 <!-- 委托限价买入页面-->
 <template>
-  <div>
-    <div class="NavigationBar" id="navigator">
+  <div style="height: 100%;width: 100%">
+    <div class="NavigationBar">
       <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
@@ -9,7 +9,6 @@
                text-color="#000000"
                active-text-color="#ffd04b"
                v-bind:router=true
-
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item index="AfterLogin">首页</el-menu-item>
@@ -45,17 +44,18 @@
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
                  mode="horizontal"
-                 background-color="#909399"
-                 text-color="#fff"
+                 text-color="#000000"
                  active-text-color="#ffd04b"
-                 router>
-          <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
+
+                 style="background-color: rgba(0, 0, 0, 0);width: 30%;float: left;margin-left: 41%;"
+                 v-bind:router=true>
+          <el-menu-item style="width: 25%;text-align: center" index="BuyAtLimitPrice">买入
           </el-menu-item>
-          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
+          <el-menu-item style="width: 25%;text-align: center" index="SellAtLimitPrice">卖出
           </el-menu-item>
-          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
+          <el-menu-item style="width: 25%;text-align: center" index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
+          <el-menu-item style="width: 25%;text-align: center" index="SellAtMarketPrice">市价卖出
           </el-menu-item>
 
         </el-menu>
@@ -484,11 +484,6 @@
     margin-inline-end: 0px;
   }
 
-  #exit {
-    margin-top: 1.5%;
-    margin-left: 5%;
-  }
-
   div {
     float: left;
     display: block;
@@ -496,18 +491,18 @@
 
   .NavigationBar {
     width: 100%;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: inline-block;
   }
 
   .Subtitle {
     width: 100%;
     margin-bottom: 2%;
 
-  }
-
-  .breadC {
-    display: block;
-    margin-left: 10%;
-    margin-bottom: 2%;
   }
 
   .all {
@@ -517,10 +512,7 @@
     float: left;
   }
 
-  .miniButton {
-    width: 40%;
-    margin-left: 5%;
-  }
+
 
   .TxTbutton {
     width: 30px;
@@ -567,13 +559,6 @@
     height: 600px;
   }
 
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    margin-bottom: 18px;
-  }
 
   .clearfix:before,
   .clearfix:after {
@@ -593,11 +578,6 @@
     border: 1px solid #E6EAEE;
   }
 
-  .mailTable {
-    font-size: 12px;
-    color: #71787E;
-  }
-
   .mailTable tr td {
     border: 1px solid #E6EAEE;
     width: 150px;
@@ -614,15 +594,6 @@
 
   .dx {
     width: 60%;
-  }
-
-  #navigator {
-    width: 100%;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    display: inline-block;
   }
 
 </style>
