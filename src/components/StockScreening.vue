@@ -2,7 +2,9 @@
 <template>
 
   <div style="width: 100%;height: 100%">
-    <div id="fundLine" style="width:100%;height:260px;"></div>
+    <div id="fundLine" style="width:100%;height:260px;" v-show="StockScreening"></div>
+    <div v-show="!StockScreening"
+    style="font-weight: 900;font-size: 15px;color: rgba(0,0,0,0.27);">暂无资金曲线</div>
     <!--<ve-line :data="fundLine" :settings="fundLineSettings"></ve-line>-->
   </div>
 
@@ -29,6 +31,7 @@
         totalFunds: [],
         activeIndex: 'StockScreening',
         // 'data', '总资产','持仓盈亏: ','上证指数','深圳成指'
+        StockScreening: true,
 
       }
     },
@@ -58,7 +61,11 @@
           console.log(this.timeDate);
           this.drawLine();
         }).catch((error) => {
-          this.$message.error(error.message)
+          if (error.code === 10003) {
+            this.StockScreening = false;
+          } else {
+            this.$message.error(error.message)
+          }
         });
       }
       ,
