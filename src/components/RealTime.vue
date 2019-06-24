@@ -263,7 +263,7 @@
 
         <tr>
           <td class="column">涨幅</td>
-          <td>{{this.realTimeData.increase }}</td>
+          <td>{{this.realTimeData.increase }}%</td>
         </tr>
 
 
@@ -284,7 +284,7 @@
 
         <tr>
           <td class="column">总市值</td>
-          <td>{{this.realTimeData.totalMarketCapitalization }}</td>
+          <td>{{this.realTimeData.totalMarketCapitalization }} 亿</td>
         </tr>
 
         <tr>
