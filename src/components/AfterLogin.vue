@@ -36,19 +36,36 @@
       </el-menu>
     </div>
     <div style="z-index: 1;position:relative;" >
-    <div id="sin">
+      <div>
 
-      <div id="sleft">
-      <search></search>
       </div>
-      <div id="sright">
-        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>
-        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>
-        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
-        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
-    </div>
+      <div style="width: 50%;margin: auto">
+        <search></search>
+      </div>
 
-    </div>
+      <div style="margin-top: 2%;display: inline-block;width: 30%">
+        <div style="float: left;width: 40%">
+          <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>
+          <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>
+        </div>
+        <div style="float: right;width: 40%">
+          <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
+          <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
+        </div>
+      </div>
+<!--    <div id="sin">-->
+
+<!--      <div id="sleft">-->
+<!--      <search></search>-->
+<!--      </div>-->
+<!--      <div id="sright">-->
+<!--        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>-->
+<!--        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>-->
+<!--        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>-->
+<!--        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>-->
+<!--    </div>-->
+
+<!--    </div>-->
   <div id="in">
     <!--公告 background-color: lavender -->
     <div id="left">
@@ -372,7 +389,7 @@
     width: 100%;
   }
   .index{
-    font-size: 20px;
+    font-size: 16px;
     font-family: "Century Gothic";
   }
   #navigator{

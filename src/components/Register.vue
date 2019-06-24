@@ -325,8 +325,23 @@ import qs from 'qs'
             callBank(error.message)
           })
         }
-      }
-      ,
+      },
+      toRouterOrAlert(index) {
+        if (this.$store.getters.isLogin) {
+          this.$router.push(index)
+        } else {
+          this.$alert('请先登录！', {
+            confirmButtonText: '确定',
+          });
+        }
+      },
+      toFirst(){
+        if(this.$store.getters.isLogin){
+          this.$router.push('AfterLogin')
+        }else{
+          this.$router.push('/')
+        }
+      },
       /**
        * 判断userName是否存在
        * @param rule
