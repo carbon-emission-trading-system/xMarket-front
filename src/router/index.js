@@ -68,7 +68,7 @@ export default new Router({
       path: '/Guide',
       name: 'guide',
       component: Guide
-    }, {
+    },{
       path: '/TodayExchange',
       name: 'todayExchange',
       component: TodayExchange
