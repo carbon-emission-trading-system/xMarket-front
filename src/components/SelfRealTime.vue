@@ -1,6 +1,6 @@
 <template>
 
-  <el-card class="list1">
+  <el-card class="list1" shadow="hover">
     <table class="mailTabl" :style="styleObject" :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
       <tr>
         <td class="column"></td>

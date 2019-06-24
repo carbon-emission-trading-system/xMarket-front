@@ -55,7 +55,7 @@
     </div>
     <div id="both">
       <div id="card">
-        <el-card class="box-card">
+        <el-card class="box-card" shadow="hover">
           <div slot="header" class="clearfix">
             <span>{{this.stockName}}</span>
             <span v-if="this.chosen===false">

@@ -59,7 +59,8 @@
 
         <el-collapse-transition>
           <el-card style="height: 100%;width: 80%;float: left;margin-top: 2%;margin-left: 10%;margin-bottom: 2%"
-                   v-show="!seen">
+                   v-show="!seen"
+                   shadow="hover">
             <div style="width: 100%;">
 
               <!--总市值--->
