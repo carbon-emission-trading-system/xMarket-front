@@ -142,14 +142,19 @@
     /*background-image: url("./assets/e.jpg");*/
     /*background-size:100% 100%;*/
     /*background-repeat: repeat-  x,repeat-y;*/
-  }
 
-  html, body, #app {
-    height: 100%;
     /*background-color: #d6ecf0;*/
     /*background-color: #f3f9f1;//茶色*/
     /*//玄青*/
+    background-image: url("../static/images/xushixiaozhang.png");
+    background-repeat:no-repeat;
+    width:100%;
+    background-size:cover;
     background-color: #e9f1f6;
+  }
+
+  html, body, #app {
+
   }
   /*.el-button{*/
   /*background-color: #15c616;*/
