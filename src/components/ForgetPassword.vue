@@ -8,78 +8,79 @@
                mode="horizontal"
                text-color="#000000"
                active-text-color="#ffd04b"
-               v-bind:router= true
+               v-bind:router=true
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item  index="AfterLogin" >首页</el-menu-item>
-        <el-submenu style = "padding-left: 2%" index="3">
+        <el-menu-item index="AfterLogin">首页</el-menu-item>
+        <el-submenu style="padding-left: 2%" index="3">
           <template slot="title">行情中心</template>
-          <el-menu-item index="StockList" >股票列表</el-menu-item>
-          <el-menu-item index="Rank" >排行榜</el-menu-item>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "padding-left: 1%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "padding-left: 1%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "padding-left: 1%" index="1">
+        <el-menu-item style="padding-left: 1%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="padding-left: 1%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="padding-left: 1%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "padding-left: 4%" index="2">
-          <template slot="title" ><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-menu-item style="padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
+        <el-submenu style="padding-left: 4%" index="2">
+          <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
 
 
       </el-menu>
     </div>
-    <div style="z-index: 1;position:relative;" >
-    <div id="register">
-      <el-card class="box-card" style="margin-top: 5%">
-        <el-form label-position="left" label-width="120px"
-                 :model="forget"
-                 :rules="rules"
-                 ref="forget">
-          <el-form-item label="邮箱"
-                        prop="mailAdress"
-                        :rules="[{
+    <div style="z-index: 1;position:relative;">
+      <div id="register">
+        <el-card class="box-card" style="margin-top: 5%">
+          <el-form label-position="left" label-width="120px"
+                   :model="forget"
+                   :rules="rules"
+                   ref="forget">
+            <el-form-item label="邮箱"
+                          prop="mailAdress"
+                          :rules="[{
                         required: true,
                         validator: DetermineIfmailExists,
                         trigger: 'blur'
                         }]">
-            <el-input v-model="forget.mailAdress" placeholder="请输电子邮箱"></el-input>
-          </el-form-item>
-          <el-form-item label="验证码" prop="mailCode">
-            <el-col :span="14">
-              <el-input v-model="forget.mailCode" placeholder="请输入邮箱验证码"
-                        @blur="focusState = false"
-                        v-focus="focusState"></el-input>
-            </el-col>
-            <el-col class="line" :span="2">-</el-col>
-            <el-col :span="6">
-              <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
-              <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
-            </el-col>
-          </el-form-item>
+              <el-input v-model="forget.mailAdress" placeholder="请输电子邮箱"></el-input>
+            </el-form-item>
+            <el-form-item label="验证码" prop="mailCode">
+              <el-col :span="14">
+                <el-input v-model="forget.mailCode" placeholder="请输入邮箱验证码"
+                          @blur="focusState = false"
+                          v-focus="focusState"></el-input>
+              </el-col>
+              <el-col class="line" :span="2">-</el-col>
+              <el-col :span="6">
+                <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
+                <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
+              </el-col>
+            </el-form-item>
 
-          <el-form-item label="密码" prop="newPassword">
-            <el-input type="password" v-model="forget.newPassword" placeholder="请输入8-16位密码 "></el-input>
-          </el-form-item>
-          <el-form-item label="确认登录密码" prop="ReNewPassword">
-            <el-input type="password" v-model="forget.ReNewPassword" placeholder="请确认登录密码  "></el-input>
-          </el-form-item>
-          <router-link to="/">
-            <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
-          </router-link>
-          <el-button class="submit-btn" type="primary" @click="change('forget')">修改</el-button>
-        </el-form>
+            <el-form-item label="密码" prop="newPassword">
+              <el-input type="password" v-model="forget.newPassword" placeholder="请输入8-16位密码 "></el-input>
+            </el-form-item>
+            <el-form-item label="确认登录密码" prop="ReNewPassword">
+              <el-input type="password" v-model="forget.ReNewPassword" placeholder="请确认登录密码  "></el-input>
+            </el-form-item>
+            <router-link to="/">
+              <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
+            </router-link>
+            <el-button class="submit-btn" type="primary" @click="change('forget')">修改</el-button>
+          </el-form>
 
 
-      </el-card>
-    </div>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -90,17 +91,17 @@ import qs from 'qs'
   import Vue from 'vue'
 
   export default {
-    name:'forgetPassword',
+    name: 'forgetPassword',
     data() {
       return {
-        url:'../../../static/images/xMarket.png',
-        focusState:'',
+        url: '../../../static/images/xMarket.png',
+        focusState: '',
         activeIndex: '/',
         forget: {
-          newPassword:'',
-          mailCode:'',
-          mailAdress:'',
-          ReNewPassword:'',
+          newPassword: '',
+          mailCode: '',
+          mailAdress: '',
+          ReNewPassword: '',
         },
         show: true,
         flag: 1,
@@ -177,9 +178,9 @@ import qs from 'qs'
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let prom = {
-              newPassword:this.forget.newPassword,
-              mailCode:this.forget.mailCode,
-              mailAdress:this.forget.mailAdress,
+              newPassword: this.forget.newPassword,
+              mailCode: this.forget.mailCode,
+              mailAdress: this.forget.mailAdress,
             };
             console.log(prom)
             this.$api.http('post', "/api/forgetPassword", prom).then(res => {
@@ -301,7 +302,8 @@ import qs from 'qs'
   .box-card {
     width: 100%;
   }
-  #navigator{
+
+  #navigator {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;

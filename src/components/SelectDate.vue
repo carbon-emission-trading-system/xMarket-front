@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div id="sdin">
     <div id="sdleft">
       <el-date-picker
@@ -23,21 +23,21 @@
     data() {
       return {
         value: '',
-        beginDate:'',
-        endDate:'',
-        pickerBeginDateBefore:{
-          disabledDate(time){
-            return time.getTime()>Date.now();
+        beginDate: '',
+        endDate: '',
+        pickerBeginDateBefore: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
           }
         },
 
       };
     },
-    methods:{
-      select(){
-        this.beginDate=this.value[0]
-        this.endDate=this.value[1]
-        this.$emit("select",[this.beginDate,this.endDate])
+    methods: {
+      select() {
+        this.beginDate = this.value[0]
+        this.endDate = this.value[1]
+        this.$emit("select", [this.beginDate, this.endDate])
       }
     }
   };
@@ -49,16 +49,17 @@
     width: 40%;
     margin: 0 auto;
   }
-  #sdleft{
+
+  #sdleft {
     margin-top: 7%;
-    float:left;
-    width:60%;
+    float: left;
+    width: 60%;
   }
 
-  #sdright{
+  #sdright {
     margin-top: 7%;
-    float:right;
-    width:35%;
+    float: right;
+    width: 35%;
   }
 
 </style>

@@ -2,62 +2,63 @@
 <template>
   <div>
     <div class="NavigationBar" id="navigator">
-        <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
-        <el-menu :default-active="this.activeIndex"
-                 class="el-menu-demo"
-                 mode="horizontal"
-                 text-color="#000000"
-                 active-text-color="#ffd04b"
-                 v-bind:router= true
+      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-menu :default-active="this.activeIndex"
+               class="el-menu-demo"
+               mode="horizontal"
+               text-color="#000000"
+               active-text-color="#ffd04b"
+               v-bind:router=true
 
-                 style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
+               style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-          <el-menu-item  index="AfterLogin" >首页</el-menu-item>
-          <el-submenu style = "padding-left: 2%" index="3">
-            <template slot="title">行情中心</template>
-            <el-menu-item index="StockList" >股票列表</el-menu-item>
-            <el-menu-item index="Rank" >排行榜</el-menu-item>
-          </el-submenu>
-          <el-menu-item style = "padding-left: 1%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-          <el-menu-item style = "padding-left: 1%" index="Guide">股票指南</el-menu-item>
-          <el-submenu style = "padding-left: 1%" index="1">
-            <template slot="title">信息统计</template>
-            <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-            <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-            <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-            <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
-          </el-submenu>
-          <el-menu-item style = "padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
-          <el-submenu style = "padding-left: 4%" index="2">
-            <template slot="title" ><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
-            <el-menu-item @click="exit">退出</el-menu-item>
-          </el-submenu>
+        <el-menu-item index="AfterLogin">首页</el-menu-item>
+        <el-submenu style="padding-left: 2%" index="3">
+          <template slot="title">行情中心</template>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
+        </el-submenu>
+        <el-menu-item style="padding-left: 1%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="padding-left: 1%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="padding-left: 1%" index="1">
+          <template slot="title">信息统计</template>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
+        </el-submenu>
+        <el-menu-item style="padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
+        <el-submenu style="padding-left: 4%" index="2">
+          <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
+          <el-menu-item @click="exit">退出</el-menu-item>
+        </el-submenu>
 
 
-        </el-menu>
+      </el-menu>
 
     </div>
     <div style="z-index: 1;position:relative;">
 
       <div class="Subtitle">
 
-          <el-menu :default-active="activeIndexBS"
-                   class="el-menu-demo"
-                   mode="horizontal"
-                   background-color="#909399"
-                   text-color="#fff"
-                   active-text-color="#ffd04b"
-                   router>
-            <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
-            </el-menu-item>
-            <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
-            </el-menu-item>
-            <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
-            </el-menu-item>
-            <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
-            </el-menu-item>
+        <el-menu :default-active="activeIndexBS"
+                 class="el-menu-demo"
+                 mode="horizontal"
+                 background-color="#909399"
+                 text-color="#fff"
+                 active-text-color="#ffd04b"
+                 router>
+          <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
+          </el-menu-item>
+          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
+          </el-menu-item>
+          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
+          </el-menu-item>
+          <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
+          </el-menu-item>
 
-          </el-menu>
+        </el-menu>
       </div>
 
 
@@ -157,7 +158,7 @@
     data() {
       return {
         rout: false,
-        url:'../../../static/images/xMarket.png',
+        url: '../../../static/images/xMarket.png',
         activeIndex: 'BuyAtLimitPrice',
         activeIndexBS: 'BuyAtLimitPrice',
         buyOrSell: '买入股票',

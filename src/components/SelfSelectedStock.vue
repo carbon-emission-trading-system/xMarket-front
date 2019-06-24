@@ -7,28 +7,29 @@
                mode="horizontal"
                text-color="#000000"
                active-text-color="#ffd04b"
-               v-bind:router= true
+               v-bind:router=true
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item  index="AfterLogin" >首页</el-menu-item>
-        <el-submenu style = "padding-left: 2%" index="3">
+        <el-menu-item index="AfterLogin">首页</el-menu-item>
+        <el-submenu style="padding-left: 2%" index="3">
           <template slot="title">行情中心</template>
-          <el-menu-item index="StockList" >股票列表</el-menu-item>
-          <el-menu-item index="Rank" >排行榜</el-menu-item>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "padding-left: 1%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "padding-left: 1%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "padding-left: 1%" index="1">
+        <el-menu-item style="padding-left: 1%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="padding-left: 1%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="padding-left: 1%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-          <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-          <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-          <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "padding-left: 4%" index="2">
-          <template slot="title" ><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+        <el-menu-item style="padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
+        <el-submenu style="padding-left: 4%" index="2">
+          <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
 
@@ -36,128 +37,128 @@
       </el-menu>
     </div>
 
-    <div style="z-index: 1;position:relative;" >
-    <div style="height: 90%;width: 100%;float: left">
-      <!-------左侧导航栏--->
-      <div style="float: left;height: 100%;width: 15%">
-        <el-container style="height: 100%; border: 1px solid #eee">
-          <el-aside width="100%" style="background-color: rgb(238, 241, 246)">
-            <el-menu :default-active="activeIndexSelfCenter"
-                     router>
-              <el-menu-item index="SelfCenter">资产信息</el-menu-item>
-              <el-menu-item index="PositionStock">持仓股</el-menu-item>
-              <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
-              <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
-            </el-menu>
-          </el-aside>
-        </el-container>
+    <div style="z-index: 1;position:relative;">
+      <div style="height: 90%;width: 100%;float: left">
+        <!-------左侧导航栏--->
+        <div style="float: left;height: 100%;width: 15%">
+          <el-container style="height: 100%; border: 1px solid #eee">
+            <el-aside width="100%" style="background-color: rgb(238, 241, 246)">
+              <el-menu :default-active="activeIndexSelfCenter"
+                       router>
+                <el-menu-item index="SelfCenter">资产信息</el-menu-item>
+                <el-menu-item index="PositionStock">持仓股</el-menu-item>
+                <el-menu-item index="SelfSelectedStock">自选股</el-menu-item>
+                <el-menu-item index="SelfInfo" strle="">个人信息</el-menu-item>
+              </el-menu>
+            </el-aside>
+          </el-container>
+        </div>
+        <!-----右侧栏------>
+
+        <div style="height: 100%;float: left;width: 70%">
+          <el-card class="rightCard" style="margin-left: 10%;width:100%;margin-top: 8%;height: auto">
+            <div slot="header">
+              <span style="float: left; margin-bottom: 2%;">自选股</span>
+            </div>
+            <div style="width: 100%;font-size: 6px">
+              <el-table
+                :data="tableData"
+                @row-dblclick="handle"
+                border
+                style="width:100%;cursor: pointer;font-size: 6px;"
+                :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
+                <el-table-column
+                  prop="stockId"
+                  label="股票代码"
+                  fixed
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="stockName"
+                  label="股票简称"
+                  fixed
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="lastTradePrice"
+                  label="最新价"
+                  align="center">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.lastTradePrice}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.lastTradePrice}}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="今日涨幅%"
+                  prop="increase"
+                  align="center">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.increase>=0" style="color: #ff3434 ">{{scope.row.increase}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.increase}}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="lowestPrice"
+                  label="最低价"
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="highestPrice"
+                  label="最高价"
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="yesterdayClosePrice"
+                  label="昨收盘"
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="openPrice"
+                  label="今开盘"
+                  align="center">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.openPrice}}</span>
+                    <span v-else style="color: #02e602 ">{{scope.row.openPrice}}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="tradeAmount"
+                  label="成交额"
+                  align="center"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="totalMarketCapitalization"
+                  label="市值(亿)"
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="peRatio"
+                  label="市盈率"
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  prop="pbRatio"
+                  label="市净率"
+                  align="center">
+                </el-table-column>
+                <el-table-column
+                  fixed="right"
+                  label="操作"
+                  width="70"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row.stockId,scope.row.stockName)" type="text" size="small">删除
+                    </el-button>
+                  </template>
+                </el-table-column>
+
+              </el-table>
+            </div>
+          </el-card>
+        </div>
+
       </div>
-      <!-----右侧栏------>
-
-      <div style="height: 100%;float: left;width: 70%">
-        <el-card class="rightCard" style="margin-left: 10%;width:100%;margin-top: 8%;height: auto">
-          <div slot="header">
-            <span style="float: left; margin-bottom: 2%;">自选股</span>
-          </div>
-          <div style="width: 100%;font-size: 6px">
-            <el-table
-              :data="tableData"
-              @row-dblclick="handle"
-              border
-              style="width:100%;cursor: pointer;font-size: 6px;"
-              :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
-              <el-table-column
-                prop="stockId"
-                label="股票代码"
-                fixed
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="stockName"
-                label="股票简称"
-                fixed
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="lastTradePrice"
-                label="最新价"
-                align="center">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.lastTradePrice}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.lastTradePrice}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                label="今日涨幅%"
-                prop="increase"
-                align="center">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.increase>=0" style="color: #ff3434 ">{{scope.row.increase}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.increase}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="lowestPrice"
-                label="最低价"
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="highestPrice"
-                label="最高价"
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="yesterdayClosePrice"
-                label="昨收盘"
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="openPrice"
-                label="今开盘"
-                align="center">
-                <template slot-scope="scope">
-                  <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.openPrice}}</span>
-                  <span v-else style="color: #02e602 ">{{scope.row.openPrice}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="tradeAmount"
-                label="成交额"
-                align="center"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="totalMarketCapitalization"
-                label="市值(亿)"
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="peRatio"
-                label="市盈率"
-                align="center">
-              </el-table-column>
-              <el-table-column
-                prop="pbRatio"
-                label="市净率"
-                align="center">
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                label="操作"
-                width="70"
-                align="center">
-                <template slot-scope="scope">
-                  <el-button @click="handleClick(scope.row.stockId,scope.row.stockName)" type="text" size="small">删除
-                  </el-button>
-                </template>
-              </el-table-column>
-
-            </el-table>
-          </div>
-        </el-card>
-      </div>
-
-    </div>
     </div>
   </div>
 </template>
@@ -168,7 +169,7 @@
     data() {
       return {
         userId: this.$store.getters.getUserId,
-        url:'../../../static/images/xMarket.png',
+        url: '../../../static/images/xMarket.png',
         activeIndex: 'SelfCenter',
         activeIndexSelfCenter: 'SelfSelectedStock',
         //持仓信息
@@ -248,9 +249,9 @@
             }
           }
           //设置保留小数点后两位
-          for(let i = 0; i<data.length; i++){
-            for(let key in data[i]){
-              if(typeof(data[i][key])=="number"){
+          for (let i = 0; i < data.length; i++) {
+            for (let key in data[i]) {
+              if (typeof(data[i][key]) == "number") {
                 data[i][key] = data[i][key].toFixed(2)
               }
 
@@ -345,7 +346,8 @@
   body .el-table th.gutter {
     display: table-cell !important;
   }
-  #navigator{
+
+  #navigator {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;

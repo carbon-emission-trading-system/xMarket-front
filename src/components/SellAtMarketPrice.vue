@@ -2,126 +2,130 @@
 <template>
   <div>
     <div class="NavigationBar" id="navigator">
-        <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
-        <el-menu :default-active="this.activeIndex"
-                 class="el-menu-demo"
-                 mode="horizontal"
-                 text-color="#000000"
-                 active-text-color="#ffd04b"
-                 v-bind:router= true
-
-                 style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
-
-          <el-menu-item  index="AfterLogin" >首页</el-menu-item>
-          <el-submenu style = "padding-left: 2%" index="3">
-            <template slot="title">行情中心</template>
-            <el-menu-item index="StockList" >股票列表</el-menu-item>
-            <el-menu-item index="Rank" >排行榜</el-menu-item>
-          </el-submenu>
-          <el-menu-item style = "padding-left: 1%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-          <el-menu-item style = "padding-left: 1%" index="Guide">股票指南</el-menu-item>
-          <el-submenu style = "padding-left: 1%" index="1">
-            <template slot="title">信息统计</template>
-            <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
-            <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
-            <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
-            <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
-          </el-submenu>
-          <el-menu-item style = "padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
-          <el-submenu style = "padding-left: 4%" index="2">
-            <template slot="title" ><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
-            <el-menu-item @click="exit">退出</el-menu-item>
-          </el-submenu>
-
-
-        </el-menu>
-
-    </div>
-    <div style="z-index: 1;position:relative;" >
-    <div class="Subtitle">
-      <el-menu :default-active="activeIndexBS"
+      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
-               background-color="#909399"
-               text-color="#fff"
+               text-color="#000000"
                active-text-color="#ffd04b"
-               router>
-        <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
-        </el-menu-item>
-        <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
-        </el-menu-item>
-        <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
-        </el-menu-item>
-        <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
-        </el-menu-item>
+               v-bind:router=true
+
+               style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
+
+        <el-menu-item index="AfterLogin">首页</el-menu-item>
+        <el-submenu style="padding-left: 2%" index="3">
+          <template slot="title">行情中心</template>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
+        </el-submenu>
+        <el-menu-item style="padding-left: 1%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item style="padding-left: 1%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="padding-left: 1%" index="1">
+          <template slot="title">信息统计</template>
+          <el-menu-item index="TodayExchange">当日成交</el-menu-item>
+          <el-menu-item index="TodayOrder">当日委托</el-menu-item>
+          <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
+          <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
+        </el-submenu>
+        <el-menu-item style="padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
+        <el-submenu style="padding-left: 4%" index="2">
+          <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
+          <el-menu-item @click="exit">退出</el-menu-item>
+        </el-submenu>
+
 
       </el-menu>
+
     </div>
+    <div style="z-index: 1;position:relative;">
+      <div class="Subtitle">
+        <el-menu :default-active="activeIndexBS"
+                 class="el-menu-demo"
+                 mode="horizontal"
+                 background-color="#909399"
+                 text-color="#fff"
+                 active-text-color="#ffd04b"
+                 router>
+          <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
+          </el-menu-item>
+          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
+          </el-menu-item>
+          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
+          </el-menu-item>
+          <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
+          </el-menu-item>
 
-    <div class="all">
+        </el-menu>
+      </div>
 
-      <div class="list1">
-        <el-card class="card1">
-          <el-button v-show="rout" type="text" icon="el-icon-edit" style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图</el-button>
-          <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-            <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-            <div style="text-align: center;float: left;width: 100%" class="elementInput">
-              <el-form-item label="证券代码"
-                            style="float: left;width: 100%"
-                            onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
-                            prop="stockId"
-                            :rules="[{
+      <div class="all">
+
+        <div class="list1">
+          <el-card class="card1">
+            <el-button v-show="rout" type="text" icon="el-icon-edit"
+                       style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
+            </el-button>
+            <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
+              <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
+              <div style="text-align: center;float: left;width: 100%" class="elementInput">
+                <el-form-item label="证券代码"
+                              style="float: left;width: 100%"
+                              onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
+                              prop="stockId"
+                              :rules="[{
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                <el-input v-model="stockTrading.stockId" class="dx"  placeholder="请输入证券代码"></el-input>
-              </el-form-item>
-              <el-form-item label="证券名称">
-                {{ stockTrading.stockName}}
-                <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
-              </el-form-item>
-              <el-form-item label="交易策略"
-                            prop="value"
-                            style="float: left;width: 100%">
-                <el-select v-model="stockTrading.DelegateType" placeholder="请选择委托方案" class="dx">
-                  <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
-                             :value="item.value"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="可卖数量"
-                            style="float: left">
-                {{ stockTrading.availableNumber }}
-                <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
-              </el-form-item>
+                  <el-input v-model="stockTrading.stockId" class="dx" placeholder="请输入证券代码"></el-input>
+                </el-form-item>
+                <el-form-item label="证券名称">
+                  {{ stockTrading.stockName}}
+                  <!--<el-input v-model="stockTrading.stockName" placeholder="证券名称" :disabled="true"></el-input>-->
+                </el-form-item>
+                <el-form-item label="交易策略"
+                              prop="value"
+                              style="float: left;width: 100%">
+                  <el-select v-model="stockTrading.DelegateType" placeholder="请选择委托方案" class="dx">
+                    <el-option v-for="item in allDelegateType" :key="item.value" :label="item.label"
+                               :value="item.value"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="可卖数量"
+                              style="float: left">
+                  {{ stockTrading.availableNumber }}
+                  <!--<el-input v-model="stockTrading.availableNumber" placeholder="可卖数量" :disabled="true"></el-input>-->
+                </el-form-item>
 
-              <div class="proportion">
-                <el-button type="text" @click="change1()" class="TxTbutton">1/4</el-button>
-                <el-button type="text" @click="change2()" class="TxTbutton">1/2</el-button>
-                <el-button type="text" @click="change3()" class="TxTbutton">3/4</el-button>
-                <el-button type="text" @click="change4()" class="TxTbutton">全部</el-button>
-              </div>
+                <div class="proportion">
+                  <el-button type="text" @click="change1()" class="TxTbutton">1/4</el-button>
+                  <el-button type="text" @click="change2()" class="TxTbutton">1/2</el-button>
+                  <el-button type="text" @click="change3()" class="TxTbutton">3/4</el-button>
+                  <el-button type="text" @click="change4()" class="TxTbutton">全部</el-button>
+                </div>
 
-              <el-form-item label="卖出数量"
-                            style="float: left;width: 100%"
-                            prop="orderAmount"
-                            :rules="[
+                <el-form-item label="卖出数量"
+                              style="float: left;width: 100%"
+                              prop="orderAmount"
+                              :rules="[
                              { validator: DetermineTheNumberOfPurchases, // 自定义验证
                               trigger: 'change'
                             }]">
-                <el-input v-model="stockTrading.orderAmount" class="dx"  type="number" step="100" placeholder="请输入卖出股数"></el-input>
-              </el-form-item>
-              <div style="float: left;width: 60%;margin-top: 5%">
-                <el-button @click="resetForm('stockTrading')" style="width:50%;">重新填写</el-button>
-                <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
+                  <el-input v-model="stockTrading.orderAmount" class="dx" type="number" step="100"
+                            placeholder="请输入卖出股数"></el-input>
+                </el-form-item>
+                <div style="float: left;width: 60%;margin-top: 5%">
+                  <el-button @click="resetForm('stockTrading')" style="width:50%;">重新填写</el-button>
+                  <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
+                </div>
               </div>
-            </div>
-          </el-form>
-        </el-card>
+            </el-form>
+          </el-card>
+        </div>
+        <div class="list2">
+          <RealTime></RealTime>
+        </div>
       </div>
-      <div class="list2">
-        <RealTime></RealTime>
-      </div>
-    </div>
     </div>
   </div>
 </template>
@@ -137,12 +141,12 @@
     name: "buyOrSale",
     data() {
       return {
-        url:'../../../static/images/xMarket.png',
+        url: '../../../static/images/xMarket.png',
         activeIndex: 'BuyAtLimitPrice',
         activeIndexBS: 'SellAtMarketPrice',
         buyOrSell: '市价卖出',
         client: null,
-        rout:false,
+        rout: false,
         stockTrading: {
           stockId: '',
           stockName: '',
@@ -190,7 +194,7 @@
       linkKline() {
         this.$store.commit('stockId', this.stockTrading.stockId);
         this.$store.commit('stockName', this.stockTrading.stockName);
-        this.$store.commit('changeRout',4);
+        this.$store.commit('changeRout', 4);
         this.$router.push('/StockDisplay')
       },
       changeSelect(id) {
@@ -274,7 +278,7 @@
         this.stockTrading.canorderAmount = null;
         this.stockTrading.orderAmount = null;
         this.stockTrading.stockName = null;
-        this.msg='';
+        this.msg = '';
       }
       ,
       /**
@@ -302,7 +306,7 @@
        * @since 第一次传输股票代码,与账户ID，服务器返回实时信息与账户金额
        */
       firstReturnStockRealtimeInformation() {
-        this.rout=false;
+        this.rout = false;
         let prom = {
           stockId: this.stockTrading.stockId,
           // userId: store.state.user.userI
@@ -310,7 +314,7 @@
         };
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
-          this.rout=true;
+          this.rout = true;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
@@ -538,10 +542,12 @@
     height: 95%;
 
   }
+
   .dx {
     width: 60%;
   }
-  #navigator{
+
+  #navigator {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;

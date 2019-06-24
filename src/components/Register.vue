@@ -8,93 +8,94 @@
                mode="horizontal"
                text-color="#000000"
                active-text-color="#ffd04b"
-               v-bind:router= true
+               v-bind:router=true
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item  index="AfterLogin"  @click="toFirst">首页</el-menu-item>
-        <el-submenu style = "padding-left: 2%" index="3">
+        <el-menu-item index="AfterLogin" @click="toFirst">首页</el-menu-item>
+        <el-submenu style="padding-left: 2%" index="3">
           <template slot="title">行情中心</template>
-          <el-menu-item index="StockList" >股票列表</el-menu-item>
-          <el-menu-item index="Rank" >排行榜</el-menu-item>
+          <el-menu-item index="StockList">股票列表</el-menu-item>
+          <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "padding-left: 1%"  @click="toRouterOrAlert('BuyAtLimitPrice')">股票买卖</el-menu-item>
-        <el-menu-item style = "padding-left: 1%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "padding-left: 1%" index="1">
+        <el-menu-item style="padding-left: 1%" @click="toRouterOrAlert('BuyAtLimitPrice')">股票买卖</el-menu-item>
+        <el-menu-item style="padding-left: 1%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style="padding-left: 1%" index="1">
           <template slot="title">信息统计</template>
-          <el-menu-item @click="toRouterOrAlert('TodayExchange')" >当日成交</el-menu-item>
-          <el-menu-item  @click="toRouterOrAlert('TodayOrder')" >当日委托</el-menu-item>
-          <el-menu-item @click="toRouterOrAlert('HistoryHoldPositionInfo')" >历史持仓</el-menu-item>
+          <el-menu-item @click="toRouterOrAlert('TodayExchange')">当日成交</el-menu-item>
+          <el-menu-item @click="toRouterOrAlert('TodayOrder')">当日委托</el-menu-item>
+          <el-menu-item @click="toRouterOrAlert('HistoryHoldPositionInfo')">历史持仓</el-menu-item>
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "padding-left: 1%" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
+        <el-menu-item style="padding-left: 1%" @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
         <el-submenu v-if="this.$store.getters.isLogin" style="padding-left: 4%" index="2">
-          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
+          </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
 
 
       </el-menu>
     </div>
-    <div style="z-index: 1;position:relative;" >
-    <div id="register">
-      <el-card class="box-card" style="margin-top: 5%">
-        <el-form label-position="left" label-width="120px"
-                 :model="user"
-                 :rules="rules"
-                 ref="user">
-          <el-form-item label="邮箱"
-                        prop="email"
-                        :rules="[{
+    <div style="z-index: 1;position:relative;">
+      <div id="register">
+        <el-card class="box-card" style="margin-top: 5%">
+          <el-form label-position="left" label-width="120px"
+                   :model="user"
+                   :rules="rules"
+                   ref="user">
+            <el-form-item label="邮箱"
+                          prop="email"
+                          :rules="[{
                         required: true,
                         validator: DetermineIfmailExists,
                         trigger: 'blur'
                         }]">
-            <el-input v-model="user.email" placeholder="请输电子邮箱"></el-input>
-          </el-form-item>
-          <el-form-item label="验证码" prop="mailCode">
-            <el-col :span="14">
-              <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"
-                        @blur="focusState = false"
-                        v-focus="focusState"></el-input>
-            </el-col>
-            <el-col class="line" :span="2">-</el-col>
-            <el-col :span="6">
-              <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
-              <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="用户名"
-                        prop="username"
-                        :rules="[
+              <el-input v-model="user.email" placeholder="请输电子邮箱"></el-input>
+            </el-form-item>
+            <el-form-item label="验证码" prop="mailCode">
+              <el-col :span="14">
+                <el-input v-model="user.mailCode" placeholder="请输入邮箱验证码"
+                          @blur="focusState = false"
+                          v-focus="focusState"></el-input>
+              </el-col>
+              <el-col class="line" :span="2">-</el-col>
+              <el-col :span="6">
+                <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
+                <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
+              </el-col>
+            </el-form-item>
+            <el-form-item label="用户名"
+                          prop="username"
+                          :rules="[
                         {
                           required:true, validator: DetermineIfUserNameExists, trigger: 'blur'
                         },
                         {pattern: /^([a-zA-Z0-9|_|\_|\.]{1,16})$/, message: '请输入1-16位字母,数字,下划线和“.” ', trigger: 'blur'},
                         ]">
-            <el-input v-model="user.username" placeholder="请输入最多16位用户名 "></el-input>
-          </el-form-item>
-          <el-form-item label="登录密码" prop="loginPassword">
-            <el-input type="password" v-model="user.loginPassword" placeholder="请输入8-16位密码 "></el-input>
-          </el-form-item>
-          <el-form-item label="确认登录密码" prop="loginRepassword">
-            <el-input type="password" v-model="user.loginRepassword" placeholder="请确认登录密码  "></el-input>
-          </el-form-item>
-          <el-form-item label="交易密码" prop="transactionPassword">
-            <el-input type="password" v-model="user.transactionPassword" placeholder="只能输入6位数字  "></el-input>
-          </el-form-item>
-          <el-form-item label="确认交易密码" prop="transactionRepassword">
-            <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
-          </el-form-item>
-          <router-link to="/">
-            <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
-          </router-link>
-          <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
-        </el-form>
+              <el-input v-model="user.username" placeholder="请输入最多16位用户名 "></el-input>
+            </el-form-item>
+            <el-form-item label="登录密码" prop="loginPassword">
+              <el-input type="password" v-model="user.loginPassword" placeholder="请输入8-16位密码 "></el-input>
+            </el-form-item>
+            <el-form-item label="确认登录密码" prop="loginRepassword">
+              <el-input type="password" v-model="user.loginRepassword" placeholder="请确认登录密码  "></el-input>
+            </el-form-item>
+            <el-form-item label="交易密码" prop="transactionPassword">
+              <el-input type="password" v-model="user.transactionPassword" placeholder="只能输入6位数字  "></el-input>
+            </el-form-item>
+            <el-form-item label="确认交易密码" prop="transactionRepassword">
+              <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
+            </el-form-item>
+            <router-link to="/">
+              <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
+            </router-link>
+            <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
+          </el-form>
 
 
-      </el-card>
-    </div>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -107,8 +108,8 @@ import qs from 'qs'
   export default {
     data() {
       return {
-        url:'../../../static/images/xMarket.png',
-        focusState:'',
+        url: '../../../static/images/xMarket.png',
+        focusState: '',
         activeIndex: '/',
         user: {
           username: '',
@@ -364,7 +365,8 @@ import qs from 'qs'
   .box-card {
     width: 100%;
   }
-  #navigator{
+
+  #navigator {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;

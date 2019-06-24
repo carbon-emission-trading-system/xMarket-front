@@ -305,20 +305,20 @@
         <td>{{this.realTimeData.increase }}</td>
       </tr>
 
-              <tr>
-                <td class="column">外盘</td>
-                <td>{{this.realTimeData.outMarket  }}</td>
-              </tr>
+      <tr>
+        <td class="column">外盘</td>
+        <td>{{this.realTimeData.outMarket }}</td>
+      </tr>
 
-              <tr>
-                <td class="column">内盘</td>
-                <td>{{this.realTimeData.inMarket}}</td>
-              </tr>
+      <tr>
+        <td class="column">内盘</td>
+        <td>{{this.realTimeData.inMarket}}</td>
+      </tr>
 
-              <tr>
-                <td class="column">换手</td>
-                <td>{{this.realTimeData.conversionHand }}</td>
-              </tr>
+      <tr>
+        <td class="column">换手</td>
+        <td>{{this.realTimeData.conversionHand }}</td>
+      </tr>
 
       <tr>
         <td class="column">总市值</td>
@@ -402,7 +402,7 @@
       onConnected(frame) {
         console.log("Connected: " + frame);
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE." + this.$store.state.stockId;
-       // var exchange2 = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
+        // var exchange2 = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
 
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);

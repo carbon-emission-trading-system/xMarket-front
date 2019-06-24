@@ -35,7 +35,7 @@
         let theStocksList = [];
         for (let i = 0; i < theStocks.length; i++) {
           let id = theStocks[i].stockId
-          let theStock = id + ":" + theStocks[i].stockName+":"+theStocks[i].stockPinyin
+          let theStock = id + ":" + theStocks[i].stockName + ":" + theStocks[i].stockPinyin
           let stock = {value: theStock}
           theStocksList.push(stock)
         }
@@ -52,7 +52,7 @@
           console.log("用户未按搜索建议")
           let stockIds = []
           let stockNames = []
-          let stockPinyins= []
+          let stockPinyins = []
           for (let i = 0; i < stockList.length; i++) {
             let stockId = stockList[i].stockId
             // stockId = stockId.toString()
@@ -65,10 +65,10 @@
           console.log(stockPinyins)
           console.log(stockNames)
           //判断是否存在该股票
-          if (stockIds.indexOf(input) !== -1 || stockPinyins.indexOf(input.toUpperCase()) !== -1|| stockNames.indexOf(input) !== -1 ) {
+          if (stockIds.indexOf(input) !== -1 || stockPinyins.indexOf(input.toUpperCase()) !== -1 || stockNames.indexOf(input) !== -1) {
             //如果用户输入的是股票拼音
             console.log("进来了吗")
-            if (input.replace(/[\u0391-\uFFE5]/g,"aa").length===4) {
+            if (input.replace(/[\u0391-\uFFE5]/g, "aa").length === 4) {
               let index = stockPinyins.indexOf(input.toUpperCase())
               let stockId = stockIds[index]
               let stockName = stockNames[index]
@@ -76,14 +76,14 @@
               this.$store.commit('stockName', stockName)
               console.log("pinyin")
             }//如果用户输入的是股票代码
-            else if(input.length===6){
+            else if (input.length === 6) {
               this.$store.commit('stockId', input)
               let index = stockIds.indexOf(input)
               let stockName = stockNames[index]
               this.$store.commit('stockName', stockName)
               console.log("id")
             }//如果用户输入的是股票名称
-            else{
+            else {
               this.$store.commit('stockName', input)
               let index = stockNames.indexOf(input)
               let stockId = stockIds[index]
@@ -116,10 +116,10 @@
         let theResults = []
 
         //设置返回建议列表的数据不包含缩写
-        for(let i=0;i<results.length;i++){
+        for (let i = 0; i < results.length; i++) {
           let result = results[i].value
-          let theResult = {value:result.split(":")[0]+":"+result.split(":")[1]}
-       //   console.log(theResult)
+          let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
+          //   console.log(theResult)
           theResults.push(theResult)
         }
         console.log(theResults)
@@ -145,7 +145,8 @@
     margin: auto;
     width: 70%;
   }
-  #input{
+
+  #input {
     margin-top: 6%;
     width: 100%;
   }
