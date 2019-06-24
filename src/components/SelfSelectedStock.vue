@@ -56,7 +56,7 @@
         <!-----右侧栏------>
 
         <div style="height: 100%;float: left;width: 70%">
-          <el-card class="rightCard" style="margin-left: 10%;width:100%;margin-top: 8%;height: auto">
+          <el-card class="rightCard" style="margin-left: 10%;width:100%;margin-top: 8%;height: auto" shadow="hover">
             <div slot="header">
               <span style="float: left; margin-bottom: 2%;">自选股</span>
             </div>

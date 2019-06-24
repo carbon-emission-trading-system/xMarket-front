@@ -1,7 +1,7 @@
 <template>
   <div class="allRealTime">
 
-    <el-card class="list1RealTime">
+    <el-card class="list1RealTime" shadow="hover">
       <table class="mailTable" :style="styleObject" :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
         <tr>
           <td class="column"></td>
@@ -232,7 +232,7 @@
 
 
     </el-card>
-    <el-card class="list2RealTime">
+    <el-card class="list2RealTime" shadow="hover">
       <table class="mailTable" :style="styleObject">
         <tr>
           <td class="column"></td>
