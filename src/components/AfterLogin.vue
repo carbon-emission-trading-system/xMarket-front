@@ -9,7 +9,7 @@
                active-text-color="#ffd04b"
                v-bind:router= true
 
-      style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
+               style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item  index="AfterLogin" >首页</el-menu-item>
         <el-submenu style = "padding-left: 2%" index="3">
@@ -381,6 +381,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    display: inline-block;
   }
 
 </style>

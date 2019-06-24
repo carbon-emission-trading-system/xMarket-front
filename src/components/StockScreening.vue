@@ -159,41 +159,10 @@
 </script>
 
 <style scoped>
-  .selectOn {
-    background-color: #409EFF;
-    color: black;
-  }
 
   a {
     text-decoration: none;
   }
 
-  #in {
-    display: inline-block;
-    width: 70%;
-    margin: 0 auto;
-  }
 
-  #select {
-    margin-top: 6%;
-    float: right;
-    width: 30%;
-  }
-
-  #stock {
-    margin-top: 15%;
-  }
-
-  #search {
-    width: 50%;
-    margin: auto;
-  }
-
-  #navigator {
-    width: 100%;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
 </style>

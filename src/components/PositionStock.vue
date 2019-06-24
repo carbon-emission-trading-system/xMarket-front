@@ -339,5 +339,6 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    display: inline-block;
   }
 </style>

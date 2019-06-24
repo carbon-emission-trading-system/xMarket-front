@@ -36,9 +36,9 @@
     </div>
     <div style="z-index: 1;position:relative;" >
     <div id="in">
-<!--      <div id="tag">-->
-<!--        <el-divider >当日成交</el-divider>-->
-<!--      </div>-->
+      <div id="tag">
+        <el-divider >当日成交</el-divider>
+      </div>
 
       <div id="stock">
       <el-table
@@ -274,6 +274,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    display: inline-block;
   }
 
 </style>

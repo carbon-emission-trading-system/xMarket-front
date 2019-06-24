@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <div id="navigator">
       <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
@@ -12,22 +12,22 @@
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item  index="AfterLogin" >首页</el-menu-item>
-        <el-submenu style = "margin-left: 2%" index="3">
+        <el-submenu style = "padding-left: 2%" index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList" >股票列表</el-menu-item>
           <el-menu-item index="Rank" >排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "margin-left: 1%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
-        <el-menu-item style = "margin-left: 1%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style = "margin-left: 1%" index="1">
+        <el-menu-item style = "padding-left: 1%" index="BuyAtLimitPrice" >股票买卖</el-menu-item>
+        <el-menu-item style = "padding-left: 1%" index="Guide">股票指南</el-menu-item>
+        <el-submenu style = "padding-left: 1%" index="1">
           <template slot="title">信息统计</template>
           <el-menu-item index="TodayExchange" >当日成交</el-menu-item>
           <el-menu-item index="TodayOrder" >当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo" >历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo" >历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item style = "margin-left: 1%" index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style = "margin-left: 4%" index="2">
+        <el-menu-item style = "padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
+        <el-submenu style = "padding-left: 4%" index="2">
           <template slot="title" ><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
@@ -38,10 +38,16 @@
     <div style="z-index: 1;position:relative;" >
     <div id="in">
 
-<!--      <div id="tag">-->
-<!--        <el-divider >当日委托</el-divider>-->
-<!--      </div>-->
-
+      <div id="tag">
+        <el-divider >当日委托</el-divider>
+      </div>
+<!--      <el-table-column-->
+<!--        prop="date"-->
+<!--        label="委托日期"-->
+<!--        width="100"-->
+<!--        fixed-->
+<!--        align="center">-->
+<!--      </el-table-column>-->
       <div id="stock">
         <el-table
           :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
@@ -357,6 +363,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    display: inline-block;
   }
 </style>
 
