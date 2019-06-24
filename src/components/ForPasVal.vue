@@ -134,15 +134,7 @@
           this.$router.push('/')
         }
       },
-      toRouterOrAlert(index) {
-        if (this.$store.getters.isLogin) {
-          this.$router.push(index)
-        } else {
-          this.$alert('请先登录！', {
-            confirmButtonText: '确定',
-          });
-        }
-      },
+
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -161,6 +153,15 @@
             return false;
           }
         })
+      },
+      toRouterOrAlert(index) {
+        if (this.$store.getters.isLogin) {
+          this.$router.push(index)
+        } else {
+          this.$alert('请先登录！', {
+            confirmButtonText: '确定',
+          });
+        }
       },
       /**
        * 重新提交

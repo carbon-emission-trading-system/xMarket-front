@@ -58,7 +58,7 @@
       <div id="both">
         <div id="card">
 
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <span>{{this.indexName}}</span>
 
@@ -82,7 +82,7 @@
 
         <div id="table">
           <!--        <realTime></realTime>-->
-          <el-card class="list1">
+          <el-card class="list1" shadow="hover">
             <table class="mailTab2" :style="styleObject">
               <tr>
                 <td class="column">最新指数</td>

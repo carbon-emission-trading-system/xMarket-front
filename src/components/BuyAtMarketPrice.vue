@@ -62,7 +62,7 @@
       <div class="all">
 
         <div class="list1">
-          <el-card class="card1">
+          <el-card class="card1" shadow="hover">
             <el-button v-show="rout" type="text" icon="el-icon-edit"
                        style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
             </el-button>

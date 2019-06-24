@@ -39,7 +39,7 @@
     </div>
     <div style="z-index: 1;position:relative;">
       <div id="register">
-        <el-card class="box-card" style="margin-top: 5%">
+        <el-card class="box-card" style="margin-top: 5%" shadow="hover">
           <el-form label-position="left" label-width="120px"
                    :model="forget"
                    :rules="rules"

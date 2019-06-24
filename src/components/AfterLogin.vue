@@ -69,7 +69,7 @@
   <div id="in">
     <!--公告 background-color: lavender -->
     <div id="left">
-      <el-card class="box-card" style="height: 350px;  ">
+      <el-card class="box-card" style="height: 350px;  " shadow="hover">
         <div slot="header" class="clearfix" >
           <i class="el-icon-postcard" style="font-size: 25px"></i>
           <span style="font-size: 25px;">公告</span>
@@ -100,7 +100,7 @@
     </div>
     <!--自选股-->
     <div id="right">
-      <el-card class="box-card" style="height: 350px; ">
+      <el-card class="box-card" style="height: 350px; "shadow="hover">
         <div slot="header" class="clearfix">
           <i class="el-icon-setting" style="font-size: 25px"></i>
           <span style="font-size: 25px">自选股</span>
