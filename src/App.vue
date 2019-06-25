@@ -2,7 +2,7 @@
 
   <div id="app">
     <router-view></router-view>
-    <div style="margin-top: 8%;width: 100%">
+    <div style="margin-top: 8%;width: 100%;float: left">
       <the-footer></the-footer>
     </div>
 

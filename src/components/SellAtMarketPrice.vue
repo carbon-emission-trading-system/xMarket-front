@@ -43,17 +43,17 @@
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
                  mode="horizontal"
-                 background-color="#909399"
-                 text-color="#fff"
+                 text-color="#000000"
                  active-text-color="#ffd04b"
-                 router>
-          <el-menu-item style="padding-left: 2%; padding-right: 2%;margin-left: 31%" index="BuyAtLimitPrice">买入
+                 style="background-color: rgba(0, 0, 0, 0);width: 30%;float: left;margin-left: 41%;"
+                 v-bind:router=true>
+          <el-menu-item style="width: 25%;text-align: center" index="BuyAtLimitPrice">买入
           </el-menu-item>
-          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="SellAtLimitPrice">卖出
+          <el-menu-item style="width: 25%;text-align: center" index="SellAtLimitPrice">卖出
           </el-menu-item>
-          <el-menu-item style="padding-left: 2% ;padding-right: 2%;" index="BuyAtMarketPrice">市价买入
+          <el-menu-item style="width: 25%;text-align: center" index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="padding-left: 2%; padding-right: 2%; " index="SellAtMarketPrice">市价卖出
+          <el-menu-item style="width: 25%;text-align: center" index="SellAtMarketPrice">市价卖出
           </el-menu-item>
 
         </el-menu>
