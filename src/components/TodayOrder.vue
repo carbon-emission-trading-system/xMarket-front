@@ -12,21 +12,21 @@
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item index="AfterLogin">首页</el-menu-item>
-        <el-submenu style="padding-left: 2%" index="3">
+        <el-submenu  index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
           <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item style="padding-left: 1%" index="BuyAtLimitPrice">股票买卖</el-menu-item>
-        <el-menu-item style="padding-left: 1%" index="Guide">股票指南</el-menu-item>
-        <el-submenu style="padding-left: 1%" index="1">
+        <el-menu-item index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item  index="Guide">股票指南</el-menu-item>
+        <el-submenu  index="1">
           <template slot="title">信息统计</template>
           <el-menu-item index="TodayExchange">当日成交</el-menu-item>
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item style="padding-left: 1%" index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item  index="SelfCenter">个人中心</el-menu-item>
         <el-submenu style="padding-left: 4%" index="2">
           <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
           </template>
