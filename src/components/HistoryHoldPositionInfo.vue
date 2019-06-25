@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 90%">
+  <div >
     <div id="navigator">
       <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
@@ -37,7 +37,7 @@
       </el-menu>
     </div>
     <div style="z-index: 1;position:relative;">
-      <div style="height: 100%">
+      <div >
         <selectDate v-on:select="select"></selectDate>
         <div id="in">
           <div id="tag">
@@ -233,13 +233,11 @@
     width: 70%;
     margin: 0 auto;
     text-align: center;
-    height: 90%
   }
 
   #stock {
     margin: auto;
     width: 80%;
-    height: 100%;
   }
 
   #tag {
@@ -254,6 +252,7 @@
     top: 0;
     z-index: 2;
     display: inline-block;
+    background-color: #fff;
   }
 
 </style>

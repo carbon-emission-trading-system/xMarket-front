@@ -1,5 +1,5 @@
 <template>
-  <div style=" height: 100%;margin: 0px; padding: 0px;">
+  <div style=" margin: 0px; padding: 0px;">
 
     <div id="navigator">
       <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
@@ -38,9 +38,9 @@
       </el-menu>
     </div>
     <div style="z-index: 1;position:relative;">
-      <div style="height:100%;float: left;width: 100%;">
+      <div style="float: left;width: 100%;">
         <el-tabs :tab-position="tabPosition"
-                 style="height:auto;width: 80%;margin-left: 10%;margin-top: 5%" type="border-card"
+                 style="width: 80%;margin-left: 10%;margin-top: 5%" type="border-card"
 
                  pin="true">
           <!--<div style="width: 20%;height: 20%">-->
@@ -48,7 +48,7 @@
             <div class="rightCard">
               <span style="font-size:30px" sortable>交易规则</span>
               <el-divider content-position="right" style="width: 100%"></el-divider>
-              <div style="height:auto; margin-top:10%;margin-left:5%;margin-right: 5%;text-align: left">
+              <div style=" margin-top:10%;margin-left:5%;margin-right: 5%;text-align: left">
                 <p>
                   一、交易时间
                   周一至周五 (法定休假日除外)
@@ -108,7 +108,7 @@
             <div class="rightCard">
               <span style="font-size:30px" sortable>指标说明</span>
               <el-divider content-position="right" style="width: 100%"></el-divider>
-              <div style="height:auto; margin-top:10%;margin-left:5%;margin-right: 5%;text-align: left">
+              <div style="margin-top:10%;margin-left:5%;margin-right: 5%;text-align: left">
                 <h1>
                   K线图指标
                 </h1>
@@ -462,7 +462,6 @@
     margin-top: 5%;
     margin-left: 10%;
     margin-right: 10%;
-    height: 100%;
   }
 
   p {
@@ -475,7 +474,6 @@
 
   .leftBox {
     width: 100%;
-    height: auto;
   }
 
   .el-tabs__header {
@@ -496,6 +494,7 @@
     top: 0;
     z-index: 2;
     display: inline-block;
+    background-color: #fff;
   }
 
 </style>

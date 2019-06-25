@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '../components/Login'
+import TheFooter from '../components/TheFooter'
 import AfterLogin from '../components/AfterLogin'
 import Search from '../components/Search'
 import StockList from "../components/StockList";
@@ -102,6 +103,11 @@ export default new Router({
       path: '/News',
       name: 'news',
       component: News
+    },
+    {
+      path: '/TheFooter',
+      name: 'theFooter',
+      component: TheFooter
     },
     {
       path: '/Rank',

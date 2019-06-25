@@ -248,7 +248,7 @@
             <el-table-column
               prop="totalMarketCapitalization"
               label="市值(亿)"
-              width="70"
+              width="80"
               align="center">
             </el-table-column>
             <el-table-column
@@ -543,6 +543,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    background-color: #fff;
     display: inline-block;
   }
 </style>

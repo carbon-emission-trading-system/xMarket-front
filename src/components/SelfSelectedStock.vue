@@ -353,6 +353,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    background-color: #fff;
     display: inline-block;
   }
 </style>

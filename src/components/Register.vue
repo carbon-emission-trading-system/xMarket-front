@@ -388,5 +388,6 @@ import qs from 'qs'
     top: 0;
     z-index: 2;
     display: inline-block;
+    background-color: #fff;
   }
 </style>

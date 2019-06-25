@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 90%">
+  <div >
     <div id="navigator">
       <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
@@ -263,12 +263,10 @@
   #in {
     width: 70%;
     margin: 0 auto;
-    height: 90%;
   }
 
   #stock {
     margin-top: 2%;
-    height: 100%;
   }
 
   #tag {
@@ -283,6 +281,7 @@
     top: 0;
     z-index: 2;
     display: inline-block;
+    background-color: #fff;
   }
 
 </style>

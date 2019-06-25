@@ -2,6 +2,10 @@
 
   <div id="app">
     <router-view></router-view>
+    <div style="margin-top: 8%">
+      <the-footer></the-footer>
+    </div>
+
   </div>
 
 </template>
@@ -138,14 +142,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    /*background-color: rgba(64, 47, 34, 0.61);*/
-    /*background-image: url("./assets/e.jpg");*/
-    /*background-size:100% 100%;*/
-    /*background-repeat: repeat-  x,repeat-y;*/
-
-    /*background-color: #d6ecf0;*/
-    /*background-color: #f3f9f1;//茶色*/
-    /*//玄青*/
 
   }
 

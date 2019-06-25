@@ -353,12 +353,10 @@
   #in {
     width: 70%;
     margin: 0 auto;
-    height: 90%;
   }
 
   #stock {
     margin-top: 2%;
-    height: 100%;
   }
 
   #tag {
@@ -373,6 +371,7 @@
     top: 0;
     z-index: 2;
     display: inline-block;
+    background-color: #fff;
   }
 </style>
 
