@@ -37,16 +37,16 @@
     </div>
     <div style="z-index: 1;position:relative;" >
 
-      <div style="margin: auto;width: 100%;height: 40%">
-        <div class="block">
-          <el-carousel trigger="click" height=400px width="100%">
-            <el-carousel-item><el-image :src="url1"></el-image> </el-carousel-item>
-            <el-carousel-item><el-image :src="url2"></el-image> </el-carousel-item>
-            <el-carousel-item><el-image :src="url3"></el-image> </el-carousel-item>
-            <el-carousel-item><el-image :src="url4"></el-image> </el-carousel-item>
-          </el-carousel>
-        </div>
-      </div>
+<!--      <div style="margin: auto;width: 100%;height: 40%">-->
+<!--        <div class="block">-->
+<!--          <el-carousel trigger="click" height=400px width="100%">-->
+<!--            <el-carousel-item><el-image :src="url1"></el-image> </el-carousel-item>-->
+<!--            <el-carousel-item><el-image :src="url2"></el-image> </el-carousel-item>-->
+<!--            <el-carousel-item><el-image :src="url3"></el-image> </el-carousel-item>-->
+<!--            <el-carousel-item><el-image :src="url4"></el-image> </el-carousel-item>-->
+<!--          </el-carousel>-->
+<!--        </div>-->
+<!--      </div>-->
 <!--      搜索框-->
       <div style="width: 50%;margin: auto">
         <search></search>

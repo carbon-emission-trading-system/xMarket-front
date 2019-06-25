@@ -8,32 +8,6 @@
         <td class="column">数量</td>
       </tr>
 
-      <!--<tr>-->
-      <!--<td class="column">卖五</td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[4].price>=0">{{this.realTimeData.sellOneToFive[4].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">{{this.realTimeData.sellOneToFive[4].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">卖四</td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[3].price>=0">{{this.realTimeData.sellOneToFive[3].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">{{this.realTimeData.sellOneToFive[3].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">卖三</td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[2].price>=0">{{this.realTimeData.sellOneToFive[2].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">{{this.realTimeData.sellOneToFive[2].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">卖二</td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[1].price>=0">{{this.realTimeData.sellOneToFive[1].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">{{this.realTimeData.sellOneToFive[1].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">卖一</td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[0].price>=0">{{this.realTimeData.sellOneToFive[0].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">{{this.realTimeData.sellOneToFive[0].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-
       <tr>
         <td class="column">卖五</td>
         <td v-if="this.realTimeData.sellOneToFive[4].price>=0">
@@ -141,31 +115,7 @@
         <td class="column">价格</td>
         <td class="column">数量</td>
       </tr>
-      <!--<tr>-->
-      <!--<td class="column">买一</td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[0].price>=0">{{this.realTimeData.buyOneToFive[0].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">{{this.realTimeData.buyOneToFive[0].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">买二</td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[1].price>=0">{{this.realTimeData.buyOneToFive[1].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">{{this.realTimeData.buyOneToFive[1].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">买三</td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[2].price>=0">{{this.realTimeData.buyOneToFive[2].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">{{this.realTimeData.buyOneToFive[2].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">买四</td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[3].price>=0">{{this.realTimeData.buyOneToFive[3].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">{{this.realTimeData.buyOneToFive[3].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="column">买五</td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[4].price>=0">{{this.realTimeData.buyOneToFive[4].price}}</td><td v-else></td>-->
-      <!--<td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">{{this.realTimeData.buyOneToFive[4].quantity}}</td><td v-else></td>-->
-      <!--</tr>-->
+
       <tr>
         <td class="column">买一</td>
         <td v-if="this.realTimeData.buyOneToFive[0].price>=0">
