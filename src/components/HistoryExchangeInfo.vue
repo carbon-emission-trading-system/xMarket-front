@@ -53,7 +53,7 @@
               @row-dblclick="handle"
 
               :header-cell-style="{background:'#c2ccd0',color:'#606266'}"
-            ">
+            >
             <el-table-column
               prop="date"
               label="成交日期"
