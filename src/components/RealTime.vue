@@ -262,8 +262,8 @@
         </tr>
 
         <tr>
-          <td class="column">涨幅</td>
-          <td>{{this.realTimeData.increase }}%</td>
+          <td class="column">涨幅(%)</td>
+          <td>{{this.realTimeData.increase }}</td>
         </tr>
 
 
@@ -283,19 +283,19 @@
         </tr>
 
         <tr>
-          <td class="column">总市值</td>
-          <td>{{this.realTimeData.totalMarketCapitalization }} 亿</td>
+          <td class="column">总市值(亿)</td>
+          <td>{{this.realTimeData.totalMarketCapitalization }} </td>
         </tr>
 
         <tr>
           <!--//静态市盈率-->
-          <td class="column">市盈率</td>
+          <td class="column">市盈率(%)</td>
           <td>{{this.realTimeData.peRatio}}</td>
         </tr>
 
 
         <tr>
-          <td class="column">市净值</td>
+          <td class="column">市净值(%)</td>
           <td>{{this.realTimeData.pbRatio}}</td>
         </tr>
         <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
