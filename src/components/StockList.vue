@@ -181,13 +181,13 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="80"
+              width="75"
               align="center">
             </el-table-column>
             <el-table-column
@@ -203,8 +203,7 @@
             <el-table-column
               label="今日涨幅%"
               prop="increase"
-              width="105"
-              sortable
+              width="100"
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.increase>=0" style="color: #ff3434 ">{{scope.row.increase}}</span>

@@ -7,7 +7,7 @@
         :fetch-suggestions="querySearch"
         placeholder="请输入股票简称、代码或缩写"
         :trigger-on-focus="false"
-        style="width: 100%;">
+        style="width: 100%;border: 1px solid #409EFF ;border-radius:5px">
         <el-button slot="append" icon="el-icon-search" @click="find"></el-button>
       </el-autocomplete>
     </div>

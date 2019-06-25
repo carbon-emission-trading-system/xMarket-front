@@ -38,6 +38,16 @@
     </div>
 
     <div style="z-index: 1;position:relative;">
+      <div style="margin: auto;width: 100%;height: 40%">
+        <div class="block">
+          <el-carousel trigger="click" height=400px width="100%">
+            <el-carousel-item><el-image :src="url1"></el-image> </el-carousel-item>
+            <el-carousel-item><el-image :src="url2"></el-image> </el-carousel-item>
+            <el-carousel-item><el-image :src="url3"></el-image> </el-carousel-item>
+            <el-carousel-item><el-image :src="url4"></el-image> </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
       <!--    <div id="sin">-->
 
       <!--      <div id="sleft">-->
@@ -168,6 +178,10 @@
     data() {
       return {
         url: '../../../static/images/xMarket.png',
+        url1:'../../../static/images/jzgf.jpg',
+        url2:'../../../static/images/db1.png',
+        url3:'../../../static/images/db2.png',
+        url4:'../../../static/images/db3.png',
         activeIndex: '/',
         news: [],
         shenIndex: {

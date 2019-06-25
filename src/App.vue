@@ -150,7 +150,7 @@
   }
 
   html, body, #app {
-    background-image: url("../static/images/cow.png");
+    background-image: url("../static/images/6.png");
     background-repeat:no-repeat;
     width:100%;
     height: 100%;
