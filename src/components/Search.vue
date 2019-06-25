@@ -68,7 +68,7 @@
           if (stockIds.indexOf(input) !== -1 || stockPinyins.indexOf(input.toUpperCase()) !== -1 || stockNames.indexOf(input) !== -1) {
             //如果用户输入的是股票拼音
             console.log("进来了吗")
-            if (input.replace(/[\u0391-\uFFE5]/g, "aa").length === 4) {
+            if (input.replace(/[\u0391-\uFFE5]/g, "aa").length <8 ) {
               let index = stockPinyins.indexOf(input.toUpperCase())
               let stockId = stockIds[index]
               let stockName = stockNames[index]

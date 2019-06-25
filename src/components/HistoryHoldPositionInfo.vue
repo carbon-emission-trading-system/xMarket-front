@@ -68,33 +68,29 @@
                 prop="buildPositionDate"
                 label="建仓日期"
                 width="110"
-                align="center"
-                sortable>
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="clearPositionDate"
                 label="清仓日期"
                 width="110"
-                align="center"
-                sortable>
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="stockHoldDay"
                 label="持股天数"
                 width="110"
-                align="center"
-                sortable>
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="totalProfitAndLoss"
                 label="总盈亏"
                 width="100"
-                align="center"
-                sortable>
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="profitAndLossRatio"
-                label="盈亏比例"
+                label="盈亏比例%"
                 align="center"
               >
               </el-table-column>

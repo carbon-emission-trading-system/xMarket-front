@@ -58,7 +58,6 @@
               prop="date"
               label="成交日期"
               width="100"
-              sortable
               fixed
               align="center">
             </el-table-column>

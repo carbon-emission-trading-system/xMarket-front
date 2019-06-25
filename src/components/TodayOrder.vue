@@ -64,7 +64,6 @@
               label="委托时间"
               width="100"
               fixed
-              sortable
               align="center">
             </el-table-column>
             <el-table-column

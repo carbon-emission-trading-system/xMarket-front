@@ -56,7 +56,7 @@
               width="100"
               align="center"
               fixed
-              sortable>
+              >
             </el-table-column>
             <el-table-column
               prop="stockId"
