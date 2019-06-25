@@ -77,7 +77,7 @@
   <div id="in">
     <!--公告 background-color: lavender -->
     <div id="left">
-      <el-card class="box-card" style="height: 350px;  " shadow="hover">
+      <el-card class="box-card" style="height: 350px; border: 1px solid #409EFF ;border-radius:5px " shadow="hover">
         <div slot="header" class="clearfix" >
           <i class="el-icon-postcard" style="font-size: 25px"></i>
           <span style="font-size: 25px;">公告</span>
@@ -89,7 +89,7 @@
         <el-table
           :data="news"
           @row-dblclick="handleNews"
-          style="width: 100%;font-size: 6px;cursor: pointer"
+          style="width: 100%;font-size: 6px;cursor: pointer;"
           >
           <el-table-column
             prop="title"
