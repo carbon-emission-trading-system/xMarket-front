@@ -6,13 +6,24 @@
       </div>
       <div id="fright">
         <h4>友情链接</h4>
-        <p>东北大学</p>
-        <p>金证股份</p>
+        <p>
+          <a href="http://www.neu.edu.cn/main.htm">东北大学</a>
+        </p>
+        <p>
+          <a href="http://www.szkingdom.com/welcome.html">金证股份</a>
+        </p>
+
       </div>
       <div id="frightright">
         <h4>联系我们</h4>
-        <p>地址：辽宁省沈阳市浑南区智慧大街500号东北大学浑南校区</p>
-        <p>联系电话：188-8888-8888</p>
+        <p>
+          <i class="el-icon-location-information"></i>
+          <scan>地址：辽宁省沈阳市浑南区智慧大街500号东北大学浑南校区</scan>
+        </p>
+        <p>
+          <i class="el-icon-phone-outline"></i>
+          <scan>188-8888-8888</scan>
+        </p>
 
       </div>
     </div>
@@ -37,6 +48,7 @@
     background-color: #292929;
   }
   #fleft{
+    margin-left: 5%;
     margin-top: 3%;
     float: left;
     width: 30%;
@@ -45,7 +57,7 @@
     margin-top: 3%;
     float: right;
     width: 30%;
-    margin-right: 10%;
+    margin-right: 5%;
   }
   #frightright{
     margin-top: 3%;
@@ -56,12 +68,25 @@
   p{
     font-weight: 900;
     font-size: 15px;
-    color: #fff;
+    color: #8d8e93;
     font-family: "微软雅黑", "Microsoft Yahei", arial,"宋体";
   }
-  h4{
-    color: #fff;
+  /*h4{*/
+  /*  color: #fff;*/
+  /*  font-family: "微软雅黑", "Microsoft Yahei", arial,"宋体";*/
+  /*}*/
+  a {
+    text-decoration: none;
     font-family: "微软雅黑", "Microsoft Yahei", arial,"宋体";
+    color: #8d8e93;
+  }
+
+  h4{
+    font-size: 20px;
+    color: #fff;
+    line-height: 25px;
+    margin: 0 0 25px 0;
+    font-weight: normal;
   }
 
 </style>
