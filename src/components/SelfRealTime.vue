@@ -251,7 +251,7 @@
       </tr>
 
       <tr>
-        <td class="column">涨幅</td>
+        <td class="column">涨幅(%)</td>
         <td>{{this.realTimeData.increase }}</td>
       </tr>
 
@@ -271,7 +271,7 @@
       </tr>
 
       <tr>
-        <td class="column">总市值</td>
+        <td class="column">总市值(亿)</td>
         <td>{{this.realTimeData.totalMarketCapitalization }}</td>
       </tr>
 
