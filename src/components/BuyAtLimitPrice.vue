@@ -1,7 +1,7 @@
 <!-- 委托限价买入页面-->
 <template>
   <div style="height: 100%;width: 100%">
-    <div class="NavigationBar">
+    <div class="NavigationBar" id="navigator">
       <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
@@ -594,6 +594,15 @@
 
   .dx {
     width: 60%;
+  }
+  #navigator {
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: inline-block;
+    background-color: #fff;
   }
 
 </style>
