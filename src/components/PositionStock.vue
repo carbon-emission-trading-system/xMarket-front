@@ -85,14 +85,12 @@
                 <el-table-column
                   prop="presentPrice"
                   label="现价"
-                  sortable
                   align="center"
                   width="80">
                 </el-table-column>
                 <el-table-column
                   prop="costPrice"
                   label="成本价"
-                  sortable
                   align="center"
                   width="100">
                   <template slot-scope="scope">
@@ -103,7 +101,6 @@
                 <el-table-column
                   prop="positionNumber"
                   label="股票余额"
-                  sortable
                   align="center"
                   width="100">
                 </el-table-column>
@@ -123,7 +120,6 @@
                 <el-table-column
                   prop="totalProfitAndLoss"
                   label="总盈亏"
-                  sortable
                   align="center"
                   width="100">
                   <template slot-scope="scope">
@@ -157,14 +153,12 @@
                 <el-table-column
                   prop="marketValue"
                   label="市值"
-                  sortable
                   align="center"
                   width="75">
                 </el-table-column>
                 <el-table-column
                   prop="positionRatio"
                   label="仓位占比%"
-                  sortable
                   align="center"
                   width="105">
                 </el-table-column>

@@ -408,7 +408,7 @@
   }
 
   .mailTabl tr td {
-    width: 120px;
+    width: 125px;
     height: 20px;
     line-height: 20px;
     box-sizing: border-box;
