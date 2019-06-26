@@ -13,13 +13,13 @@
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item index="AfterLogin">首页</el-menu-item>
-        <el-submenu  index="3">
+        <el-submenu index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
           <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item  index="BuyAtLimitPrice">股票买卖</el-menu-item>
-        <el-menu-item  index="Guide">股票指南</el-menu-item>
+        <el-menu-item index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item index="Guide">股票指南</el-menu-item>
         <el-submenu index="1">
           <template slot="title">信息统计</template>
           <el-menu-item index="TodayExchange">当日成交</el-menu-item>
@@ -27,7 +27,7 @@
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item  index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item index="SelfCenter">个人中心</el-menu-item>
         <el-submenu style="padding-left: 4%" index="2">
           <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
           </template>
@@ -253,20 +253,21 @@
         if (!value) {
           callback(new Error('请输入买入数量'))
           console.log('请输入买入数量')
-        }
-        value = Number(value)
-        if (typeof value === 'number' && !isNaN(value)) {
-          if (value > this.stockTrading.canorderAmount) {
-            callback(new Error('超出可买数量'))
-          } else if (value < 0) {
-            callback(new Error('请输入合适数量'))
-          } else if (Math.floor(value / 100) * 100 != value) {
-            callback('请输入100的整数倍')
-          } else {
-            callback()
-          }
         } else {
-          callback("请输入数字")
+          value = Number(value)
+          if (typeof value === 'number' && !isNaN(value)) {
+            if (value > this.stockTrading.canorderAmount) {
+              callback(new Error('超出可买数量'))
+            } else if (value < 0) {
+              callback(new Error('请输入合适数量'))
+            } else if (Math.floor(value / 100) * 100 != value) {
+              callback('请输入100的整数倍')
+            } else {
+              callback()
+            }
+          } else {
+            callback("请输入数字")
+          }
         }
       },
       /**
@@ -274,9 +275,11 @@
        *
        */
       tradingStrategyVerification(rule, value, callback) {
-        if (!value) {
+        if (!this.stockTrading.DelegateType) {
           callback(new Error('请选择交易策略'));
           console.log('请选择交易策略')
+        } else {
+          callback();
         }
       },
       /**
@@ -511,18 +514,16 @@
   }
 
   .list1 {
-    margin-left: 10%;
-    margin-right: 2%;
+    margin-left: 18%;
     width: 28%;
     font-size: 14px;
-    height: 600px;
+    height: 535px;
   }
 
   .list2 {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
     width: 50%;
-    height: 600px;
+    height: 510px;
   }
 
   .text {
