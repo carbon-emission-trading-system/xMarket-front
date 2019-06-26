@@ -76,6 +76,7 @@
 
 <!--    </div>-->
     <div id="in">
+      <el-button @click="test"></el-button>
       <!--公告 background-color: lavender -->
       <div id="left">
         <el-card class="box-card" style="height: 350px; " shadow="hover">
@@ -225,6 +226,7 @@
   import Vue from 'vue'
   import Search from './Search'
   import TheFooter from './TheFooter'
+  import notification from '../util/notification'
 
   Vue.component( 'search',Search);
   Vue.component( 'theFooter',TheFooter);
@@ -270,6 +272,10 @@
     },
     methods: {
 
+      test(){
+
+        notification.connectNotify()
+      },
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')
