@@ -270,6 +270,16 @@
         }
       },
       /**
+       * 验证交易策略
+       *
+       */
+      tradingStrategyVerification(rule, value, callback) {
+        if (!value) {
+          callback(new Error('请选择交易策略'));
+          console.log('请选择交易策略')
+        }
+      },
+      /**
        * 重新提交
        */
       resetForm(formName) {
