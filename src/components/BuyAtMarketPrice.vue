@@ -514,18 +514,16 @@
   }
 
   .list1 {
-    margin-left: 10%;
-    margin-right: 2%;
+    margin-left: 18%;
     width: 28%;
     font-size: 14px;
-    height: 600px;
+    height: 535px;
   }
 
   .list2 {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
     width: 50%;
-    height: 600px;
+    height: 510px;
   }
 
   .text {
