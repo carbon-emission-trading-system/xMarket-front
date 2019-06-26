@@ -17,13 +17,23 @@
     name: 'App',
     data() {
       return {
-        client: null,
+        clientNotify: null,
         message:'qiqiqi',
       }
     },
-    updated(){
+    created(){
       this.connectNotify();
     },
+
+    destroyed(){
+      if (this.clientNotify != null) {
+        this.clientNotify.disconnect(
+         function () {
+            console.log("断开连接");
+           });
+  }
+    },
+
     methods:{
       onConnectedNotify(frame)
       {
