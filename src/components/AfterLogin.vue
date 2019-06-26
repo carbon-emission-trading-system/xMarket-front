@@ -270,7 +270,7 @@
       }
     },
     methods: {
-      
+
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')

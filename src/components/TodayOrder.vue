@@ -313,34 +313,27 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let code = this.cancelOrder(orderId)
-          let message = ''
-          if (code === 200) {
-            message = '撤单成功!';
+
+          let params = {
+            orderId: orderId
           }
-          this.$message({
-            type: 'success',
-            message: message,
-          });
+          this.$api.http('post', '/api/cancelOrder', params).then(res => {
+            this.setTodayOrderApi()
+            this.$message({
+              type: 'success',
+              message: '撤单成功',
+            });
+          }).catch((error) => {
+            this.$message.error(error.message)
+          })
         }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消撤单'
           });
         });
+      },
 
-      },
-      cancelOrder(orderId) {
-        let params = {
-          orderId: orderId
-        }
-        this.$api.http('post', '/api/cancelOrder', params).then(res => {
-          this.setTodayOrderApi()
-          return res.code;
-        }).catch((error) => {
-          this.$message.error(error.message)
-        })
-      },
     }
   }
 </script>

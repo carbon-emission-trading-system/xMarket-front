@@ -52,7 +52,7 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="75"
+              width="70"
               align="center">
             </el-table-column>
             <el-table-column
@@ -64,7 +64,7 @@
             <el-table-column
               prop="lastTradePrice"
               label="最新成交价"
-              width="90"
+              width="85"
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 " >{{scope.row.lastTradePrice}}</span>
