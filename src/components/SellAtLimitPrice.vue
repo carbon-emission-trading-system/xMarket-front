@@ -256,16 +256,6 @@
         }
       },
       /**
-       * 验证交易策略
-       *
-       */
-      tradingStrategyVerification(rule, value, callback) {
-        if (!value) {
-          callback(new Error('请选择交易策略'));
-          console.log('请选择交易策略')
-        }
-      },
-      /**
        *
        * 自定义验证卖出数量
        */
