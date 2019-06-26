@@ -61,14 +61,14 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="80"
+              width="75"
               fixed
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="80"
+              width="75"
               fixed
               align="center">
             </el-table-column>
@@ -106,7 +106,7 @@
             <el-table-column
               prop="stockBalance"
               label="股票余额"
-              width="80"
+              width="90"
               align="center">
             </el-table-column>
             <el-table-column

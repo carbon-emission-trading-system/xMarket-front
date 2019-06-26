@@ -261,6 +261,7 @@
               prop="pbRatio"
               label="市净率"
               align="center"
+              width="70"
 
             >
             </el-table-column>

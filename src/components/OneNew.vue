@@ -115,7 +115,7 @@
   #all {
     width: 60%;
     margin: 0 auto;
-    height: 90%;
+    height: 500px;
   }
 
   #tag {
