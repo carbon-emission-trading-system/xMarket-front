@@ -486,7 +486,6 @@
 
   .mailTabl tr td.column {
     background-color: #EFF3F6;
-    width: 120px;
     height: 20px;
     color: #393C3E;
   }
