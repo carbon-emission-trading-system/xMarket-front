@@ -260,7 +260,7 @@
       this.setNewsApi();
       this.setStocksApi();
       this.setIndexApi();
-      this.connectNotify();
+      // this.connectNotify();
 
     },
     beforeMount(){
