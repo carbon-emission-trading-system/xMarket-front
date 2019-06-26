@@ -216,6 +216,7 @@
     },
     mounted: function () {
       this.refreshCode();//需要触发的函数
+      this.$store.dispatch('stockList')
     },
     created() {
       this.setNewsApi();
