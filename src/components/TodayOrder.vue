@@ -129,9 +129,17 @@
               width="80"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.orderPrice<=scope.row.exchangeAveragePrice" style="color: #ff3434">{{scope.row.orderPrice}}</span>
+                <span v-if="scope.row.orderPrice===0"></span>
+                <span v-else-if="scope.row.orderPrice<=scope.row.exchangeAveragePrice" style="color: #ff3434">{{scope.row.orderPrice}}</span>
                 <span v-else style="color: #02e602">{{scope.row.orderPrice}}</span>
               </template>
+            </el-table-column>
+
+            <el-table-column
+              prop="tradeMarket"
+              label="交易市场"
+              width="80"
+              align="center">
             </el-table-column>
             <el-table-column
               prop="orderId"
@@ -139,12 +147,6 @@
               align="center"
               width="120"
             >
-            </el-table-column>
-            <el-table-column
-              prop="tradeMarket"
-              label="交易市场"
-              width="80"
-              align="center">
             </el-table-column>
             <el-table-column
               label="操作"
@@ -312,34 +314,27 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let code = this.cancelOrder(orderId)
-          let message = ''
-          if (code === 200) {
-            message = '撤单成功!';
+
+          let params = {
+            orderId: orderId
           }
-          this.$message({
-            type: 'success',
-            message: message,
-          });
+          this.$api.http('post', '/api/cancelOrder', params).then(res => {
+            this.setTodayOrderApi()
+            this.$message({
+              type: 'success',
+              message: '撤单成功',
+            });
+          }).catch((error) => {
+            this.$message.error(error.message)
+          })
         }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消撤单'
           });
         });
+      },
 
-      },
-      cancelOrder(orderId) {
-        let params = {
-          orderId: orderId
-        }
-        this.$api.http('post', '/api/cancelOrder', params).then(res => {
-          this.setTodayOrderApi()
-          return res.code;
-        }).catch((error) => {
-          this.$message.error(error.message)
-        })
-      },
     }
   }
 </script>

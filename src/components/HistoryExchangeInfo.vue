@@ -110,18 +110,6 @@
             <el-table-column
               prop="stockBalance"
               label="股票余额"
-              width="80"
-              align="center">
-            </el-table-column>
-            <el-table-column
-              prop="orderId"
-              label="合同编号"
-              width="120"
-              align="center">
-            </el-table-column>
-            <el-table-column
-              prop="transactionOrderId"
-              label="成交编号"
               width="100"
               align="center">
             </el-table-column>
@@ -161,6 +149,18 @@
               width="80"
               align="center">
             </el-table-column>
+              <el-table-column
+                prop="orderId"
+                label="合同编号"
+                width="120"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="transactionOrderId"
+                label="成交编号"
+                width="100"
+                align="center">
+              </el-table-column>
 
             </el-table>
             <div class="block" style="margin-top:30px;">

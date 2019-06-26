@@ -61,14 +61,14 @@
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="80"
+              width="75"
               fixed
               align="center">
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
-              width="80"
+              width="75"
               fixed
               align="center">
             </el-table-column>
@@ -104,24 +104,6 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="stockBalance"
-              label="股票余额"
-              width="80"
-              align="center">
-            </el-table-column>
-            <el-table-column
-              prop="orderId"
-              label="合同编号"
-              width="120"
-              align="center">
-            </el-table-column>
-            <el-table-column
-              prop="transactionOrderId"
-              label="成交编号"
-              width="100"
-              align="center">
-            </el-table-column>
-            <el-table-column
               prop="serviceTax"
               label="手续费"
               width="80"
@@ -146,9 +128,27 @@
               align="center">
             </el-table-column>
             <el-table-column
+              prop="stockBalance"
+              label="股票余额"
+              width="90"
+              align="center">
+            </el-table-column>
+            <el-table-column
               prop="tradeMarket"
               label="交易市场"
               width="80"
+              align="center">
+            </el-table-column>
+            <el-table-column
+              prop="orderId"
+              label="合同编号"
+              width="120"
+              align="center">
+            </el-table-column>
+            <el-table-column
+              prop="transactionOrderId"
+              label="成交编号"
+              width="100"
               align="center">
             </el-table-column>
 

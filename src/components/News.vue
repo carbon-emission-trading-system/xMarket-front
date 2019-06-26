@@ -49,6 +49,7 @@
           stripe
           @row-click="handle"
           style="width: 100%"
+          height="500"
           :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
           <el-table-column
             prop="title"
@@ -136,7 +137,7 @@
   }
 
   #table {
-    margin-left: 15%;
+    margin: auto;
     width: 60%;
 
   }

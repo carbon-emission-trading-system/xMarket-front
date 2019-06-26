@@ -46,25 +46,27 @@
           <el-table
             :data="tableData"
             border
-            @row-dblclick="handle"
+            @row-dblclick="handleStock"
             style="width: 100%;font-size: 6px; cursor: pointer ;"
             :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column
               prop="stockId"
               label="股票代码"
-              width="75"
-              align="center">
+              width="70"
+              align="center"
+            fixed>
             </el-table-column>
             <el-table-column
               prop="stockName"
               label="股票简称"
               width="75"
-              align="center">
+              align="center"
+            fixed>
             </el-table-column>
             <el-table-column
               prop="lastTradePrice"
               label="最新成交价"
-              width="90"
+              width="85"
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 " >{{scope.row.lastTradePrice}}</span>
@@ -75,12 +77,17 @@
               label="今日涨幅%"
               prop="increase"
               width="105"
-              sortable
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.increase>=0" style="color: #ff3434 " >{{scope.row.increase}}</span>
                 <span v-else style="color: #02e602 ">{{scope.row.increase}}</span>
               </template>
+            </el-table-column>
+            <el-table-column
+              prop="conversionHand"
+              label="换手"
+              width="70"
+              align="center">
             </el-table-column>
             <el-table-column
               prop="highestPrice"
@@ -177,6 +184,11 @@
           }
       },
       methods:{
+        handleStock(row) {
+          this.$store.commit('stockId', row.stockId)
+          this.$store.commit('stockName', row.stockName)
+          this.$router.push('StockDisplay')
+        },
         toFirst(){
           if(this.$store.getters.isLogin){
             this.$router.push('AfterLogin')

@@ -158,7 +158,7 @@
                   prop="stockId"
                   label="股票代码"
                   align="center"
-                  width="75">
+                  width="70">
                 </el-table-column>
                 <el-table-column
                   prop="stockName"
@@ -170,7 +170,7 @@
                   prop="tradeAmount"
                   label="成交额"
                   align="center"
-                  width="75">
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="lastTradePrice"

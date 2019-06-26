@@ -76,7 +76,6 @@
 
 <!--    </div>-->
     <div id="in">
-      <el-button @click="test"></el-button>
       <!--公告 background-color: lavender -->
       <div id="left">
         <el-card class="box-card" style="height: 350px; " shadow="hover">
@@ -226,7 +225,6 @@
   import Vue from 'vue'
   import Search from './Search'
   import TheFooter from './TheFooter'
-  import notification from '../util/notification'
 
   Vue.component( 'search',Search);
   Vue.component( 'theFooter',TheFooter);
@@ -260,7 +258,6 @@
       this.setNewsApi();
       this.setStocksApi();
       this.setIndexApi();
-      this.connectNotify();
 
     },
     beforeMount(){
@@ -273,69 +270,7 @@
       }
     },
     methods: {
-        onConnectedNotify(frame)
-        {
-          console.log("Connected: " + frame);
-          let exchange1 = "/exchange/notifyExchange/" + this.$store.state.user.userId;
-          console.log(this.$store.state.user.userId);
-          this.clientNotify.subscribe(exchange1, this.onmessageNotify);
 
-        },
-        onFailedNotify(frame)
-        {
-          console.log("Failed: " + frame.body);
-          //this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type":"text/plain"}, "订阅失败");
-
-        },
-        onmessageNotify(message)
-        {
-          console.log("得到消息");
-          this.message = message.body;
-          console.log(this.message)
-        },
-
-        connectNotify()
-        {
-
-          console.log("开始连接");
-          this.clientNotify = Stomp.client("ws://192.168.137.1:15674/ws")
-          console.log("创建");
-          var headers = {
-            "login": "zhang",
-            "passcode": "648810",
-            //虚拟主机，默认“/”
-            "heart-beat": "0,0"
-          };
-          this.clientNotify.connect(headers, this.onConnectedNotify, this.onFailedNotify);
-          console.log("连接结束");
-        },
-
-        notifiSuccess()
-        {
-          v.$notify({
-            message: this.message,
-            type: 'success'
-          });
-          console.log(v.$store.state.user.userId)
-          console.log('notifisuccess')
-        },
-        notifiFailed()
-        {
-          v.$notify.error({
-            message: this.message
-          });
-        },
-
-
-
-
-
-
-
-      test(){
-
-        notification.connectNotify()
-      },
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')

@@ -65,7 +65,7 @@
                 :data="tableData"
                 :header-cell-style="{background:'#c2ccd0',color:'#606266'}"
                 border
-                height="250px"
+                height="400px"
                 @row-dblclick="handle"
                 style="width:100%; font-size: 6px;cursor: pointer">
                 <el-table-column
@@ -73,14 +73,14 @@
                   label="股票代码"
                   align="center"
                   fixed
-                  width="100">
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="stockName"
                   label="股票简称"
                   fixed
                   align="center"
-                  width="100">
+                  width="80">
                 </el-table-column>
                 <el-table-column
                   prop="presentPrice"
@@ -92,7 +92,7 @@
                   prop="costPrice"
                   label="成本价"
                   align="center"
-                  width="100">
+                  width="80">
                   <template slot-scope="scope">
                     <span v-if="scope.row.costPrice<=scope.row.presentPrice" style="color: #ff3434 ">{{scope.row.costPrice}}</span>
                     <span v-else style="color: #02e602 ">{{scope.row.costPrice}}</span>
@@ -121,7 +121,7 @@
                   prop="totalProfitAndLoss"
                   label="总盈亏"
                   align="center"
-                  width="100">
+                  width="110">
                   <template slot-scope="scope">
                   <span v-if="scope.row.totalProfitAndLoss>=0"
                         style="color: #ff3434 ">{{scope.row.totalProfitAndLoss}}</span>
@@ -132,7 +132,7 @@
                   prop="todayProfitAndLoss"
                   label="当日盈亏"
                   align="center"
-                  width="100">
+                  width="110">
                   <template slot-scope="scope">
                   <span v-if="scope.row.todayProfitAndLoss>=0"
                         style="color: #ff3434 ">{{scope.row.todayProfitAndLoss}}</span>
@@ -154,7 +154,7 @@
                   prop="marketValue"
                   label="市值"
                   align="center"
-                  width="75">
+                  width="100">
                 </el-table-column>
                 <el-table-column
                   prop="positionRatio"
