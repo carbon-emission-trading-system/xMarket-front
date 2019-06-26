@@ -6,6 +6,7 @@
         <td class="column"></td>
         <td class="column">价格</td>
         <td class="column">数量</td>
+        <td class="column">数量比</td>
       </tr>
 
       <tr>
@@ -24,8 +25,11 @@
               {{this.realTimeData.sellOneToFive[4].quantity}}
             </span>
           <span v-else style="color:#02e602">   {{this.realTimeData.sellOneToFive[4].quantity}}</span>
-
         <td v-else></td>
+
+
+        <td v-if="this.realTimeData.sellOneToFive[4].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[4] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.sell[4] status="success" :show-text="false"></el-progress></td>
 
       </tr>
       <tr>
@@ -37,7 +41,6 @@
             </span>
           <span v-else style="color: #02e602">     {{this.realTimeData.sellOneToFive[3].price}} </span>
         </td>
-
         <td v-else></td>
         <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">
             <span v-if="this.realTimeData.sellOneToFive[3].price>=this.realTimeData.yesterdayClosePrice"
@@ -45,10 +48,14 @@
               {{this.realTimeData.sellOneToFive[3].quantity}}
             </span>
           <span v-else style="color:#02e602">  {{this.realTimeData.sellOneToFive[3].quantity}} </span>
-
-
         <td v-else></td>
+
+
+        <td v-if="this.realTimeData.sellOneToFive[3].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[3] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.sell[3] status="success" :show-text="false"></el-progress></td>
       </tr>
+
+
       <tr>
         <td class="column">卖三</td>
         <td v-if="this.realTimeData.sellOneToFive[2].price>=0">
@@ -65,9 +72,14 @@
               {{this.realTimeData.sellOneToFive[2].quantity}}
             </span>
           <span v-else style="color:#02e602">            {{this.realTimeData.sellOneToFive[2].quantity}} </span>
-
         <td v-else></td>
+
+
+        <td v-if="this.realTimeData.sellOneToFive[2].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[2] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.sell[2] status="success" :show-text="false"></el-progress></td>
       </tr>
+
+
       <tr>
         <td class="column">卖二</td>
         <td v-if="this.realTimeData.sellOneToFive[1].price>=0">
@@ -84,9 +96,14 @@
               {{this.realTimeData.sellOneToFive[1].quantity}}
             </span>
           <span v-else style="color:#02e602">  {{this.realTimeData.sellOneToFive[1].quantity}}</span>
-
         <td v-else></td>
+
+
+        <td v-if="this.realTimeData.sellOneToFive[1].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[1] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.sell[1] status="success" :show-text="false"></el-progress></td>
       </tr>
+
+
       <tr>
         <td class="column">卖一</td>
         <td v-if="this.realTimeData.sellOneToFive[0].price>=0">
@@ -103,17 +120,18 @@
               {{this.realTimeData.sellOneToFive[0].quantity}}
             </span>
           <span v-else style="color:#02e602">               {{this.realTimeData.sellOneToFive[0].quantity}} </span>
-
         <td v-else></td>
-      </tr>
-    </table>
 
-    <table class="mailTabl" :style="styleObject">
-      <!--卖一-->
+        <td v-if="this.realTimeData.sellOneToFive[0].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[0] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.sell[0] status="success" :show-text="false"></el-progress></td>
+      </tr>
+
+<!--   买-->
       <tr>
         <td class="column"></td>
         <td class="column">价格</td>
         <td class="column">数量</td>
+        <td class="column">数量比</td>
       </tr>
 
       <tr>
@@ -134,7 +152,13 @@
           <span v-else style="color:#02e602">{{this.realTimeData.buyOneToFive[0].quantity}} </span>
 
         <td v-else></td>
+
+        <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[0] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.buy[0] status="success" :show-text="false"></el-progress></td>
+
       </tr>
+
+
       <tr>
         <td class="column">买二</td>
         <td v-if="this.realTimeData.buyOneToFive[1].price>=0">
@@ -151,9 +175,13 @@
               {{this.realTimeData.buyOneToFive[1].quantity}}
             </span>
           <span v-else style="color:#02e602">{{this.realTimeData.buyOneToFive[1].quantity}}</span>
-
         <td v-else></td>
+
+        <td v-if="this.realTimeData.buyOneToFive[1].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[1] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.buy[1] status="success" :show-text="false"></el-progress></td>
       </tr>
+
+
       <tr>
         <td class="column">买三</td>
         <td v-if="this.realTimeData.buyOneToFive[2].price>=0">
@@ -170,9 +198,12 @@
               {{this.realTimeData.buyOneToFive[2].quantity}}
             </span>
           <span v-else style="color:#02e602"> {{this.realTimeData.buyOneToFive[2].quantity}}</span>
-
         <td v-else></td>
+
+        <td v-if="this.realTimeData.buyOneToFive[2].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[2] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.buy[2] status="success" :show-text="false"></el-progress></td>
       </tr>
+
       <tr>
         <td class="column">买四</td>
         <td v-if="this.realTimeData.buyOneToFive[3].price>=0">
@@ -189,9 +220,14 @@
               {{this.realTimeData.buyOneToFive[3].quantity}}
             </span>
           <span v-else style="color:#02e602"> {{this.realTimeData.buyOneToFive[3].quantity}} </span>
-
         <td v-else></td>
+
+
+        <td v-if="this.realTimeData.buyOneToFive[3].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[3] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.buy[3] status="success" :show-text="false"></el-progress></td>
       </tr>
+
+
       <tr>
         <td class="column">买五</td>
         <td v-if="this.realTimeData.buyOneToFive[4].price>=0">
@@ -209,16 +245,20 @@
             </span>
           <span v-else style="color:#02e602"> {{this.realTimeData.buyOneToFive[4].quantity}}</span>
         <td v-else></td>
+
+        <td v-if="this.realTimeData.buyOneToFive[4].price>=this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[4] status="exception" :show-text="false"></el-progress></td>
+        <td v-else><el-progress :percentage=this.percentage.buy[4] status="success" :show-text="false"></el-progress></td>
       </tr>
-    </table>
 
-
-    <table class="mailTabl" :style="styleObject">
+      <tr>
+        <td class="column"></td>
+        <td class="column"></td>
+        <td class="column"></td>
+        <td class="column"></td>
+      </tr>
       <tr>
         <td class="column">涨停</td>
         <td>{{this.realTimeData.dailyLimit }}</td>
-      </tr>
-      <tr>
         <td class="column">跌停</td>
         <td>{{this.realTimeData.downLimit }}</td>
       </tr>
@@ -226,67 +266,57 @@
       <tr>
         <td class="column">开盘价</td>
         <td>{{this.realTimeData.openPrice}}</td>
+        <td class="column">最新价</td>
+        <td>{{this.realTimeData.lastTradePrice }}</td>
       </tr>
 
       <tr>
         <td class="column">最高价</td>
         <td v-if="this.realTimeData.highestPrice!==5e-324">{{this.realTimeData.highestPrice }}</td>
         <td v-else></td>
-      </tr>
 
-      <tr>
         <td class="column">最低价</td>
         <td v-if="this.realTimeData.lowestPrice!==1.7976931348623157e+308">{{this.realTimeData.lowestPrice }}</td>
         <td v-else></td>
       </tr>
 
-      <tr>
-        <td class="column">最新价</td>
-        <td>{{this.realTimeData.lastTradePrice }}</td>
-      </tr>
 
       <tr>
         <td class="column">涨跌</td>
         <td>{{this.realTimeData.upsAndDowns }}</td>
-      </tr>
-
-      <tr>
         <td class="column">涨幅(%)</td>
         <td>{{this.realTimeData.increase }}</td>
       </tr>
 
+
       <tr>
         <td class="column">外盘</td>
         <td>{{this.realTimeData.outMarket }}</td>
-      </tr>
-
-      <tr>
         <td class="column">内盘</td>
         <td>{{this.realTimeData.inMarket}}</td>
       </tr>
 
+
       <tr>
         <td class="column">换手</td>
         <td>{{this.realTimeData.conversionHand }}</td>
-      </tr>
-
-      <tr>
         <td class="column">总市值(亿)</td>
         <td>{{this.realTimeData.totalMarketCapitalization }}</td>
       </tr>
+
 
       <tr>
         <!--//静态市盈率-->
         <td class="column">市盈率</td>
         <td>{{this.realTimeData.peRatio}}</td>
-      </tr>
-
-      <tr>
         <td class="column">市净率</td>
         <td>{{this.realTimeData.pbRatio }}</td>
       </tr>
 
+
     </table>
+
+
   </el-card>
 
 </template>
@@ -300,6 +330,10 @@
     data() {
       return {
         client: null,
+        percentage:{
+          sell:[0,0,0,0,0],
+          buy:[0,0,0,0,0],
+        },
         realTimeData: {
           sellOneToFive: [
             {price: '', quantity: ''},
@@ -346,6 +380,28 @@
         this.$api.http('get', '/api/realTimeInfo', params).then(res => {
           console.log(res.data)
           this.realTimeData = res.data
+          if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
+            this.realTimeData.conversionHand = '<0.01'
+          }
+          let sellSum = 0
+          let buySum = 0
+          for(let i = 0;i<5;i++){
+            if(this.realTimeData.sellOneToFive[i].quantity>0){
+              sellSum += this.realTimeData.sellOneToFive[i].quantity
+            }
+            if(this.realTimeData.buyOneToFive[i].quantity>0){
+              buySum += this.realTimeData.buyOneToFive[i].quantity
+            }
+          }
+          for(let i = 0;i<5;i++){
+            if(this.realTimeData.sellOneToFive[i].quantity>0){
+              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
+            }
+            if(this.realTimeData.buyOneToFive[i].quantity>0){
+              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
+            }
+          }
+
         })
       },
 
@@ -357,16 +413,6 @@
         var subscription = this.client.subscribe(exchange1, this.onmessage);
         console.log(subscription);
 
-
-        // var subscription2 = this.client.subscribe(exchange2, this.onmessage);
-        // console.log(subscription2);
-        //
-        // var exchange3 = "/exchange/realTimeExchange/index.1" ;
-        //
-        // var subscription3 = this.client.subscribe(exchange3, this.onmessage);
-        // console.log(subscription3);
-
-
       },
       onFailed(frame) {
         console.log("Failed: " + frame.body);
@@ -376,6 +422,28 @@
       onmessage(message) {
         console.log("得到消息");
         this.realTimeData = JSON.parse(message.body);
+        if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
+          this.realTimeData.conversionHand = '<0.01'
+        }
+        let sellSum = 0
+        let buySum = 0
+        for(let i = 0;i<5;i++){
+          if(this.realTimeData.sellOneToFive[i].quantity>0){
+            sellSum += this.realTimeData.sellOneToFive[i].quantity
+          }
+          if(this.realTimeData.buyOneToFive[i].quantity>0){
+            buySum += this.realTimeData.buyOneToFive[i].quantity
+          }
+        }
+        for(let i = 0;i<5;i++){
+          if(this.realTimeData.sellOneToFive[i].quantity>0){
+            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
+          }
+          if(this.realTimeData.buyOneToFive[i].quantity>0){
+            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
+          }
+        }
+
       },
       responseCallback(frame) {
         console.log("得到的消息 msg=>" + frame.body);
@@ -408,7 +476,7 @@
   }
 
   .mailTabl tr td {
-    width: 125px;
+    width: 120px;
     height: 20px;
     line-height: 20px;
     box-sizing: border-box;
@@ -418,11 +486,13 @@
 
   .mailTabl tr td.column {
     background-color: #EFF3F6;
+    width: 130px;
+    height: 20px;
     color: #393C3E;
   }
 
   .list1 {
-    width: 90%;
+    width: 100%;
     float: left;
     height: 95%;
     text-align: center;

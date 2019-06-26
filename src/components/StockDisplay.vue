@@ -76,12 +76,12 @@
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
-                <ve-candle :data="kChartData" width="700px" height="450px" :settings="kChartSettings"
+                <ve-candle :data="kChartData" width="780px" height="450px" :settings="kChartSettings"
                            :colors="kColor"></ve-candle>
               </el-tab-pane>
 
               <el-tab-pane label="分时" name="second" >
-                <div id="myChart" style="width: 700px;height: 450px"></div>
+                <div id="myChart" style="width: 780px;height: 450px"></div>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -170,7 +170,6 @@
       onConnected(frame) {
         console.log("Connected: " + frame);
         let exchange = "/exchange/timeShareExchange/stock.SZSE." + this.$store.state.stockId;
-
         this.client.subscribe(exchange, this.onmessage);
 
 
@@ -326,29 +325,6 @@
         });
       },
 
-      // //后次获取分时图数据
-      // setTimeApi:function () {
-      //   let params={
-      //     stockId: this.$store.getters.getStockId
-      //   }
-      //   this.$api.http('get','/api/timeSharingDisplay',params).then(res => {
-      //     let data = res.data
-      //     for(let i =0;i<data.length;i++){
-      //       this.timeData.push(data[i].realTime)
-      //       this.averagePrice.push(data[i].averagePrice)
-      //       this.latestPrice.push(data[i].latestPrice)
-      //       this.volume.push(data[i].volume)
-      //     }
-      //     this.drawLine()
-      //     let timer = setTimeout(()=>{
-      //       this.setTimeApi()
-      //     },60000)
-      //     this.$once('hook:beforeDestroy',()=>{
-      //       clearInterval(timer)
-      //     })
-      //   });
-      // },
-
       drawLine() {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'))
@@ -466,7 +442,7 @@
 
   #both {
     display: inline-block;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
   }
 
