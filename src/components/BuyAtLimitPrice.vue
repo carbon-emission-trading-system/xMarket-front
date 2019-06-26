@@ -543,22 +543,18 @@
     width: 245px;
     font-size: 14px;
   }
-
   .list1 {
-    margin-left: 10%;
-    margin-right: 2%;
-    width: 28%;
+    margin-left: 18%;
+    width: 25%;
     font-size: 14px;
-    height: 600px;
+    height: 535px;
   }
 
   .list2 {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
     width: 50%;
-    height: 600px;
+    height: 535px;
   }
-
 
   .clearfix:before,
   .clearfix:after {
@@ -571,7 +567,7 @@
   }
 
   .card1 {
-    height: 95%;
+    height: 100%;
   }
 
   .mailTable, .mailTable tr, .mailTable tr td {
