@@ -12,21 +12,21 @@
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item index="AfterLogin">首页</el-menu-item>
-        <el-submenu  index="3">
+        <el-submenu index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
           <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
-        <el-menu-item  index="BuyAtLimitPrice">股票买卖</el-menu-item>
-        <el-menu-item  index="Guide">股票指南</el-menu-item>
-        <el-submenu  index="1">
+        <el-menu-item index="BuyAtLimitPrice">股票买卖</el-menu-item>
+        <el-menu-item index="Guide">股票指南</el-menu-item>
+        <el-submenu index="1">
           <template slot="title">信息统计</template>
           <el-menu-item index="TodayExchange">当日成交</el-menu-item>
           <el-menu-item index="TodayOrder">当日委托</el-menu-item>
           <el-menu-item index="HistoryHoldPositionInfo">历史持仓</el-menu-item>
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
-        <el-menu-item  index="SelfCenter">个人中心</el-menu-item>
+        <el-menu-item index="SelfCenter">个人中心</el-menu-item>
         <el-submenu style="padding-left: 4%" index="2">
           <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
           </template>
@@ -38,15 +38,12 @@
 
     </div>
     <div style="z-index: 1;position:relative;">
-
       <div class="Subtitle">
-
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
                  mode="horizontal"
                  text-color="#000000"
                  active-text-color="#ffd04b"
-
                  style="background-color: rgba(0, 0, 0, 0);width: 30%;float: left;margin-left: 41%;"
                  v-bind:router=true>
           <el-menu-item style="width: 25%;text-align: center" index="BuyAtLimitPrice">买入
@@ -61,26 +58,30 @@
         </el-menu>
       </div>
 
-
       <div class="all">
         <div class="list1">
           <el-card class="card1" shadow="hover">
             <el-button v-show="rout" type="text" icon="el-icon-edit"
-                       style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
+                       style="float: right; margin-left:4%;position: absolute;" @click="linkKline">去K线图
             </el-button>
             <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-              <p style="font-size: 30px; margin-top:10%;"> {{ buyOrSell }} </p>
-              <div style="text-align: center;float: left;width: 100%" class="elementInput">
+              <p style="font-size: 30px; margin-top:10%;margin-left: -1%"> {{ buyOrSell }} </p>
+              <div style="text-align: center;float: left;width: 100%;margin-left: 11%" class="elementInput">
                 <el-form-item label="证券代码"
                               style="float: left;width: 100%"
                               onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                               prop="stockId"
                               :rules="[{
                               validator: verifyStockCode, // 自定义验证
-                              trigger: 'blur'
-                            }]">
-                  <el-input v-model="stockTrading.stockId" class="dx"
-                            placeholder="请输入证券代码"></el-input>
+                              trigger: 'change'
+                            },]">
+                  <el-autocomplete v-model="stockTrading.stockId"
+                                   :fetch-suggestions="querySearch"
+                                   class="dx"
+                                   @select="find"
+                                   placeholder="请输入证券代码"></el-autocomplete>
+                  <!--<el-input v-model="stockTrading.stockId" class="dx"-->
+                  <!--placeholder="请输入证券代码"></el-input>-->
                   <!--@blur.prevent="firstReturnStockRealtimeInformation()"-->
                 </el-form-item>
 
@@ -181,7 +182,22 @@
     },
     components: {
       RealTime,
+
     },
+    computed: {
+      stock: function () {
+        let theStocks = this.$store.state.stockList;
+        let theStocksList = [];
+        for (let i = 0; i < theStocks.length; i++) {
+          let id = theStocks[i].stockId;
+          let theStock = id + ":" + theStocks[i].stockName + ":" + theStocks[i].stockPinyin
+          let stock = {value: theStock};
+          theStocksList.push(stock)
+        }
+        return theStocksList
+      },
+    },
+
     created() {
       console.log(this.$store.state.temStockId);
       if (this.$store.state.temStockId !== '') {
@@ -200,7 +216,10 @@
         this.$router.push('/')
       }
     },
-
+    mounted() {
+      this.$store.dispatch('stockList')
+    }
+    ,
     methods: {
       linkKline() {
         this.$store.commit('stockId', this.stockTrading.stockId);
@@ -212,7 +231,33 @@
         this.$store.commit('logout');
         this.$router.push('/')
       },
+      find() {
+        let stockId = this.stockTrading.stockId;
+        stockId = stockId.split(":")[0];
+        this.$set(this.stockTrading, 'stockId', stockId);
+        this.firstReturnStockRealtimeInformation();
+      },
+      //搜索提示
+      querySearch(queryString, cb) {
 
+        let stocks = this.stock;
+        let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
+        let theResults = [];
+
+        //设置返回建议列表的数据不包含缩写
+        for (let i = 0; i < results.length; i++) {
+          let result = results[i].value;
+          let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
+          theResults.push(theResult)
+        }
+        cb(theResults);
+      },
+      createFilter(queryString) {
+        return (stocks) => {
+          //所有包含关键字的都作为提醒内容
+          return (stocks.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+        };
+      },
       /**
        *
        * 验证股票代码
@@ -223,15 +268,19 @@
         console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
         if (!value) {
-          callback(new Error('请输入股票代码'))
+          callback(new Error('请输入股票代码'));
           console.log('请输入股票代码')
         } else {
           value = Number(value);
           if (typeof value === 'number' && !isNaN(value)) {
             if (this.msg === this.stockTrading.stockId) {
               callback()
+            } else if( this.stockTrading.stockId.length<6){
+              callback(new Error("输入长度不足"))
             } else {
-              console.log('else')
+              this.find();
+              console.log(this.stockTrading.stockId);
+              console.log('else');
               this.firstReturnStockRealtimeInformation();
               callback();
             }
@@ -240,8 +289,6 @@
             callback("请输入数字")
           }
         }
-        console.log('verifyStockCode????????????????????')
-        console.log(this.stockTrading.orderAmount);
       },
       /**
        *
@@ -284,8 +331,6 @@
         console.log('DetermineTheNumberOfPurchases')
         this.stockTrading.orderAmount = value;
         this.$set(this.stockTrading, 'orderAmount', value);
-        console.log('111111111111111')
-        console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
         if (!value) {
           callback(new Error('请输入买入数量'))
@@ -509,10 +554,9 @@
     width: 100%;
     height: 100%;
     display: block;
-    float: left;
+    /*float: left;*/
+    margin: auto;
   }
-
-
 
   .TxTbutton {
     width: 30px;
@@ -543,11 +587,13 @@
     width: 245px;
     font-size: 14px;
   }
+
   .list1 {
-    margin-left: 18%;
+    margin-left: 16%;
     width: 25%;
     font-size: 14px;
     height: 535px;
+    float: left;
   }
 
   .list2 {
@@ -591,6 +637,7 @@
   .dx {
     width: 60%;
   }
+
   #navigator {
     width: 100%;
     position: -webkit-sticky;

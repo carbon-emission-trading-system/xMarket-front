@@ -162,9 +162,9 @@
             <!--<table class="mailTable" :style="styleObject" style="background:#ffffff">-->
             <tr>
               <td class="column">涨停</td>
-              <td class="column" style="background-color: white">{{this.realTimeData.dailyLimit }}</td>
+              <td class="column" >{{this.realTimeData.dailyLimit }}</td>
               <td class="column">跌停</td>
-              <td class="column" style="background-color: white">{{this.realTimeData.downLimit }}</td>
+              <td class="column">{{this.realTimeData.downLimit }}</td>
             </tr>
             <!--</table>-->
 

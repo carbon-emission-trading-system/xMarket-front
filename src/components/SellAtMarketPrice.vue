@@ -67,8 +67,8 @@
                        style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
             </el-button>
             <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
-              <p style="font-size: 30px; margin-top:10% "> {{ buyOrSell }} </p>
-              <div style="text-align: center;float: left;width: 100%" class="elementInput">
+              <p style="font-size: 30px; margin-top:10%;margin-left: -1% "> {{ buyOrSell }} </p>
+              <div style="text-align: center;float: left;width: 100%;margin-left: 11%" class="elementInput">
                 <el-form-item label="证券代码"
                               style="float: left;width: 100%"
                               onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
@@ -77,7 +77,11 @@
                               validator: verifyStockCode, // 自定义验证
                               trigger: 'blur'
                             }]">
-                  <el-input v-model="stockTrading.stockId" class="dx" placeholder="请输入证券代码"></el-input>
+                  <el-autocomplete v-model="stockTrading.stockId"
+                                   :fetch-suggestions="querySearch"
+                                   class="dx"
+                                   @select="find"
+                                   placeholder="请输入证券代码"></el-autocomplete>
                 </el-form-item>
                 <el-form-item label="证券名称">
                   {{ stockTrading.stockName}}
@@ -176,6 +180,10 @@
     components: {
       RealTime,
     },
+    mounted() {
+      this.$store.dispatch('stockList')
+    }
+    ,
     created() {
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
@@ -208,6 +216,40 @@
       exit() {
         this.$store.commit('logout')
         this.$router.push('/')
+      },
+      /***
+       * @Description: 搜索提醒
+       * @Param:
+       * @return:
+       * @Author: zky
+       * @Date:
+       */
+      find() {
+        let stockId = this.stockTrading.stockId;
+        stockId = stockId.split(":")[0];
+        this.$set(this.stockTrading, 'stockId', stockId);
+        this.firstReturnStockRealtimeInformation();
+      },
+      //搜索提示
+      querySearch(queryString, cb) {
+
+        let stocks = this.stock;
+        let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
+        let theResults = [];
+
+        //设置返回建议列表的数据不包含缩写
+        for (let i = 0; i < results.length; i++) {
+          let result = results[i].value;
+          let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
+          theResults.push(theResult)
+        }
+        cb(theResults);
+      },
+      createFilter(queryString) {
+        return (stocks) => {
+          //所有包含关键字的都作为提醒内容
+          return (stocks.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+        };
       },
       /**
        *
@@ -516,10 +558,11 @@
     font-size: 14px;
   }
   .list1 {
-    margin-left: 18%;
+    margin-left: 16%;
     width: 25%;
     font-size: 14px;
     height: 535px;
+    float: left;
   }
 
   .list2 {
@@ -527,6 +570,7 @@
     width: 50%;
     height: 535px;
   }
+
 
   .text {
     font-size: 14px;
@@ -551,7 +595,7 @@
   }
 
   .card1 {
-    height: 95%;
+    height: 100 %;
 
   }
 
