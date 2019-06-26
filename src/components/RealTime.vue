@@ -23,11 +23,14 @@
               </td>
 
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.sellFive status="exception" :show-text="false"></el-progress>
+
+              <td
+                v-if="this.realTimeData.sellOneToFive[4].price <0||this.realTimeData.sellOneToFive[4].price===''"></td>
+              <td v-else-if="this.realTimeData.sellOneToFive[4].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.sell[4] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.sellFive status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.sell[4] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">
             <span v-if="this.realTimeData.sellOneToFive[4].price>=this.realTimeData.yesterdayClosePrice"
@@ -50,11 +53,14 @@
               </td>
 
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.sellFour status="exception" :show-text="false"></el-progress>
+
+              <td
+                v-if="this.realTimeData.sellOneToFive[3].price <0||this.realTimeData.sellOneToFive[3].price===''"></td>
+              <td v-else-if="this.realTimeData.sellOneToFive[3].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.sell[3] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.sellFour status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.sell[3] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">
             <span v-if="this.realTimeData.sellOneToFive[3].price>=this.realTimeData.yesterdayClosePrice"
@@ -76,11 +82,14 @@
                 <span v-else style="color: #02e602"> {{this.realTimeData.sellOneToFive[2].price}} </span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.sellThree status="exception" :show-text="false"></el-progress>
+
+              <td
+                v-if="this.realTimeData.sellOneToFive[2].price <0||this.realTimeData.sellOneToFive[2].price===''"></td>
+              <td v-else-if="this.realTimeData.sellOneToFive[2].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.sell[2] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.sellThree status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.sell[2] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.sellOneToFive[2].quantity>=0">
             <span v-if="this.realTimeData.sellOneToFive[2].price>=this.realTimeData.yesterdayClosePrice"
@@ -101,11 +110,14 @@
                 <span v-else style="color: #02e602">   {{this.realTimeData.sellOneToFive[1].price}} </span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.sellTwo status="exception" :show-text="false"></el-progress>
+
+              <td
+                v-if="this.realTimeData.sellOneToFive[1].price <0||this.realTimeData.sellOneToFive[1].price===''"></td>
+              <td v-else-if="this.realTimeData.sellOneToFive[1].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.sell[1] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.sellTwo status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.sell[1] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">
             <span v-if="this.realTimeData.sellOneToFive[1].price>=this.realTimeData.yesterdayClosePrice"
@@ -126,11 +138,14 @@
                 <span v-else style="color: #02e602">      {{this.realTimeData.sellOneToFive[0].price}} </span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.sellOne status="exception" :show-text="false"></el-progress>
+
+              <td
+                v-if="this.realTimeData.sellOneToFive[0].price <0||this.realTimeData.sellOneToFive[0].price===''"></td>
+              <td v-else-if="this.realTimeData.sellOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.sell[0] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.sellOne status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.sell[0] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">
             <span v-if="this.realTimeData.sellOneToFive[0].price>=this.realTimeData.yesterdayClosePrice"
@@ -138,7 +153,7 @@
               {{this.realTimeData.sellOneToFive[0].quantity}}
             </span>
                 <span v-else
-                      style="color:#02e602">               {{this.realTimeData.sellOneToFive[0].quantity}} </span>
+                      style="color:#02e602">{{this.realTimeData.sellOneToFive[0].quantity}} </span>
 
               <td v-else></td>
             </tr>
@@ -169,11 +184,14 @@
             </span>
                 <span v-else style="color: #02e602"> {{this.realTimeData.buyOneToFive[0].price}} </span>
               </td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.buyOne status="exception" :show-text="false"></el-progress>
+              <td v-else></td>
+
+              <td v-if="this.realTimeData.buyOneToFive[0].price <0||this.realTimeData.buyOneToFive[0].price===''"></td>
+              <td v-else-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.buy[0] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.buyOne status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.buy[0] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">
             <span v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice"
@@ -194,11 +212,12 @@
                 <span v-else style="color: #02e602"> {{this.realTimeData.buyOneToFive[1].price}}</span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.buyTwo status="exception" :show-text="false"></el-progress>
+              <td v-if="this.realTimeData.buyOneToFive[1].price <0||this.realTimeData.buyOneToFive[1].price===''"></td>
+              <td v-else-if="this.realTimeData.buyOneToFive[1].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.buy[1] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.buyTwo status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.buy[1] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">
             <span v-if="this.realTimeData.buyOneToFive[1].price>=this.realTimeData.yesterdayClosePrice"
@@ -219,11 +238,12 @@
                 <span v-else style="color: #02e602">{{this.realTimeData.buyOneToFive[2].price}}</span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.buyThree status="exception" :show-text="false"></el-progress>
+              <td v-if="this.realTimeData.buyOneToFive[2].price <0||this.realTimeData.buyOneToFive[2].price ===''"></td>
+              <td v-else-if="this.realTimeData.buyOneToFive[2].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.buy[2] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.buyThree status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.buy[2] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">
             <span v-if="this.realTimeData.buyOneToFive[2].price>=this.realTimeData.yesterdayClosePrice"
@@ -244,11 +264,12 @@
                 <span v-else style="color: #02e602"> {{this.realTimeData.buyOneToFive[3].price}}</span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.buyFour status="exception" :show-text="false"></el-progress>
+              <td v-if="this.realTimeData.buyOneToFive[3].price <0||this.realTimeData.buyOneToFive[3].price===''"></td>
+              <td v-else-if="this.realTimeData.buyOneToFive[3].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.buy[3] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.buyFour status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.buy[3] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">
             <span v-if="this.realTimeData.buyOneToFive[3].price>=this.realTimeData.yesterdayClosePrice"
@@ -269,11 +290,12 @@
                 <span v-else style="color:#02e602">{{this.realTimeData.buyOneToFive[4].price}}</span>
               </td>
               <td v-else></td>
-              <td v-if="this.realTimeData.buyOneToFive[0].price>=this.realTimeData.yesterdayClosePrice">
-                <el-progress :percentage=this.percentage.buyFive status="exception" :show-text="false"></el-progress>
+              <td v-if="this.realTimeData.buyOneToFive[4].price <0||this.realTimeData.buyOneToFive[4].price===''"></td>
+              <td v-else-if="this.realTimeData.buyOneToFive[4].price>=this.realTimeData.yesterdayClosePrice">
+                <el-progress :percentage=this.percentage.buy[4] status="exception" :show-text="false"></el-progress>
               </td>
               <td v-else>
-                <el-progress :percentage=this.percentage.buyFive status="success" :show-text="false"></el-progress>
+                <el-progress :percentage=this.percentage.buy[4] status="success" :show-text="false"></el-progress>
               </td>
               <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">
             <span v-if="this.realTimeData.buyOneToFive[4].price>=this.realTimeData.yesterdayClosePrice"
@@ -409,16 +431,8 @@
 
         },
         percentage: {
-          sellFive: 0,
-          sellFour: 0,
-          sellThree: 0,
-          sellTwo: 0,
-          sellOne: 0,
-          buyFive: 0,
-          buyFour: 0,
-          buyThree: 0,
-          buyTwo: 0,
-          buyOne: 0,
+          sell: [0, 0, 0, 0, 0],
+          buy: [0, 0, 0, 0, 0],
         },
       }
     },
@@ -491,9 +505,31 @@
       realTimeDataDisplay() {
         let params = {
           stockId: this.buyOrSellStock,
-        }
+        };
         this.$api.http('get', '/api/realTimeInfo', params).then(res => {
-          this.realTimeData = res.data
+          this.realTimeData = res.data;
+          if (this.realTimeData.conversionHand > 0 && this.realTimeData.conversionHand < 0.01) {
+            this.realTimeData.conversionHand = '<0.01'
+          }
+          let sellSum = 0;
+          let buySum = 0;
+          for (let i = 0; i < 5; i++) {
+            if (this.realTimeData.sellOneToFive[i].quantity > 0) {
+              sellSum += this.realTimeData.sellOneToFive[i].quantity
+            }
+            if (this.realTimeData.buyOneToFive[i].quantity > 0) {
+              buySum += this.realTimeData.buyOneToFive[i].quantity
+            }
+          }
+          for (let i = 0; i < 5; i++) {
+            if (this.realTimeData.sellOneToFive[i].quantity > 0) {
+              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity * 100 / sellSum
+            }
+            if (this.realTimeData.buyOneToFive[i].quantity > 0) {
+              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity * 100 / buySum
+            }
+          }
+
         }).catch((res) => {
           this.$message.error(res.message)
         })
@@ -519,6 +555,28 @@
         // alert("haha"+message.body);
         //alert("wowo"+this.realTimeData);
         this.realTimeData = JSON.parse(message.body);
+        if (this.realTimeData.conversionHand > 0 && this.realTimeData.conversionHand < 0.01) {
+          this.realTimeData.conversionHand = '<0.01'
+        }
+        let sellSum = 0;
+        let buySum = 0;
+        for (let i = 0; i < 5; i++) {
+          if (this.realTimeData.sellOneToFive[i].quantity > 0) {
+            sellSum += this.realTimeData.sellOneToFive[i].quantity
+          }
+          if (this.realTimeData.buyOneToFive[i].quantity > 0) {
+            buySum += this.realTimeData.buyOneToFive[i].quantity
+          }
+        }
+        for (let i = 0; i < 5; i++) {
+          if (this.realTimeData.sellOneToFive[i].quantity > 0) {
+            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity * 100 / sellSum
+          }
+          if (this.realTimeData.buyOneToFive[i].quantity > 0) {
+            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity * 100 / buySum
+          }
+        }
+
       }
       ,
       responseCallback(frame) {
@@ -529,7 +587,7 @@
       ,
       connect() {
         console.log("开始连接");
-        this.client = Stomp.client("ws://192.168.137.1:15674/ws")
+        this.client = Stomp.client("ws://192.168.137.1:15674/ws");
         console.log("创建");
         var headers = {
           "login": "zhang",
