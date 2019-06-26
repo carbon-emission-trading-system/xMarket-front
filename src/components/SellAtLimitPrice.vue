@@ -503,18 +503,16 @@
   }
 
   .list1 {
-    margin-left: 10%;
-    margin-right: 2%;
-    width: 28%;
+    margin-left: 18%;
+    width: 25%;
     font-size: 14px;
-    height: 600px;
+    height: 535px;
   }
 
   .list2 {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
     width: 50%;
-    height: 600px;
+    height: 535px;
   }
 
   .text {
@@ -536,7 +534,7 @@
   }
 
   .card1 {
-    height: 95%;
+    height: 100%;
 
   }
 
