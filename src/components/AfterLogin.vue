@@ -292,6 +292,10 @@
           console.log("得到消息");
           this.message = message.body;
           console.log(this.message)
+          this.$notify({
+          message: this.message,
+          type: 'success'
+        });
         },
 
         connectNotify()
@@ -310,32 +314,6 @@
           console.log("连接结束");
         },
 
-        notifiSuccess()
-        {
-          v.$notify({
-            message: this.message,
-            type: 'success'
-          });
-          console.log(v.$store.state.user.userId)
-          console.log('notifisuccess')
-        },
-        notifiFailed()
-        {
-          v.$notify.error({
-            message: this.message
-          });
-        },
-
-
-
-
-
-
-
-      test(){
-
-        notification.connectNotify()
-      },
       exit(){
         this.$store.commit('logout')
         this.$router.push('/')
