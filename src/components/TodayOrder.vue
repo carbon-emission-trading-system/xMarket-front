@@ -134,18 +134,19 @@
                 <span v-else style="color: #02e602">{{scope.row.orderPrice}}</span>
               </template>
             </el-table-column>
+
+            <el-table-column
+              prop="tradeMarket"
+              label="交易市场"
+              width="80"
+              align="center">
+            </el-table-column>
             <el-table-column
               prop="orderId"
               label="合同编号"
               align="center"
               width="120"
             >
-            </el-table-column>
-            <el-table-column
-              prop="tradeMarket"
-              label="交易市场"
-              width="80"
-              align="center">
             </el-table-column>
             <el-table-column
               label="操作"
