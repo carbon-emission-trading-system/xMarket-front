@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="NavigationBar" id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -199,7 +199,19 @@
       this.$store.dispatch('stockList')
     }
     ,
-
+    computed: {
+      stock: function () {
+        let theStocks = this.$store.state.stockList;
+        let theStocksList = [];
+        for (let i = 0; i < theStocks.length; i++) {
+          let id = theStocks[i].stockId;
+          let theStock = id + ":" + theStocks[i].stockName + ":" + theStocks[i].stockPinyin
+          let stock = {value: theStock};
+          theStocksList.push(stock)
+        }
+        return theStocksList
+      },
+    },
     created() {
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
@@ -598,7 +610,6 @@
 
   .card1 {
     height: 100%;
-
   }
 
   .dx {
