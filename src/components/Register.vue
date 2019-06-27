@@ -12,7 +12,7 @@
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item index="/" @click="toFirst">首页</el-menu-item>
+        <el-menu-item index="/" >首页</el-menu-item>
         <el-submenu index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
@@ -341,13 +341,6 @@ import qs from 'qs'
           this.$alert('请先登录！', {
             confirmButtonText: '确定',
           });
-        }
-      },
-      toFirst() {
-        if (this.$store.getters.isLogin) {
-          this.$router.push('AfterLogin')
-        } else {
-          this.$router.push('/')
         }
       },
       /**
