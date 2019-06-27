@@ -327,7 +327,6 @@
             }
             self.$store.dispatch('login', payload)
               .then((response) => {
-                self.$message.success(response.message)
                 self.$router.push('/afterLogin');
               })
               .catch((response) => {

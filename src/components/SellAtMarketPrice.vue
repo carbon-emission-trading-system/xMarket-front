@@ -65,7 +65,7 @@
         <div class="list1">
           <el-card class="card1" shadow="hover">
             <el-button v-show="rout" type="text" icon="el-icon-edit"
-                       style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
+                       style="float: right; margin-left:4%;position: absolute;" @click="linkKline">去K线图
             </el-button>
             <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
               <p style="font-size: 30px; margin-top:10%;margin-left: -1% "> {{ buyOrSell }} </p>
