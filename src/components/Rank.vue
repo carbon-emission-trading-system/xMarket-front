@@ -40,7 +40,7 @@
       <div id="rank">
         <div class="line">
           <div class="left">
-            <el-card class="box-card" shadow="hover">
+            <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>涨幅排名</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(1)">查看更多</el-button>
@@ -91,7 +91,7 @@
           </div>
 
           <div class="right">
-            <el-card class="box-card" shadow="hover">
+            <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>跌幅排名</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(2)">查看更多</el-button>
@@ -145,7 +145,7 @@
 
         <div class="line">
           <div class="left">
-            <el-card class="box-card" shadow="hover">
+            <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>成交额</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(3)">查看更多</el-button>
@@ -195,7 +195,7 @@
           </div>
 
           <div class="right">
-            <el-card class="box-card" shadow="hover">
+            <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>换手排名</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(4)">查看更多</el-button>
