@@ -38,8 +38,8 @@
       onConnectedNotify(frame)
       {
         console.log("Connected: " + frame);
-        let exchange1 = "/exchange/notifyExchange/" + this.$store.state.user.userId;
-        console.log(this.$store.state.user.userId);
+        let exchange1 = "/exchange/notifyExchange/" + this.$store.getters.getUserId;
+        console.log("id:"+this.$store.state.user.userId);
         this.clientNotify.subscribe(exchange1, this.onmessageNotify);
 
       },
