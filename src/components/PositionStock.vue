@@ -147,7 +147,7 @@
                   width="100">
                   <template slot-scope="scope">
                   <span v-if="scope.row.profitAndLossRatio>0" style="color: #ff3434 ">{{scope.row.profitAndLossRatio}}</span>
-                    <span v-if="scope.row.profitAndLossRatio<0" style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>
+                    <span v-else-if="scope.row.profitAndLossRatio<0" style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>
                     <span v-else >{{scope.row.profitAndLossRatio}}</span>
                   </template>
                 </el-table-column>
