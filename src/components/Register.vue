@@ -12,7 +12,7 @@
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item index="AfterLogin" @click="toFirst">首页</el-menu-item>
+        <el-menu-item index="/" @click="toFirst">首页</el-menu-item>
         <el-submenu index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
@@ -87,10 +87,17 @@
             <el-form-item label="确认交易密码" prop="transactionRepassword">
               <el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>
             </el-form-item>
+
+
+
+         <div>
+            <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
+         </div>
+            <div>
             <router-link to="/">
               <el-button type="text" icon="el-icon-edit" style="float: right">去登录页</el-button>
             </router-link>
-            <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
+            </div>
           </el-form>
 
 

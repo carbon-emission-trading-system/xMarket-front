@@ -58,6 +58,9 @@
         <el-card class="box-card" shadow="hover">
           <div slot="header" class="clearfix">
             <span>{{this.stockName}}</span>
+
+
+            <div v-if="this.$store.getters.isLogin">
             <span v-if="this.chosen===false">
         <el-tooltip class="item" effect="dark" content="添加自选股" placement="top-start">
         <i class="el-icon-circle-plus-outline" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%"
@@ -72,6 +75,8 @@
           </span>
             <el-button style="float: right; padding: 1% 3%" type="text" @click="sell">卖出</el-button>
             <el-button style="float: right; padding: 1% 0" type="text" @click="buy">买入</el-button>
+            </div>
+            <div v-else></div>
           </div>
           <div>
             <el-tabs v-model="activeName">
@@ -149,7 +154,10 @@
     created() {
       this.setKlineApi();
       this.setFirstTimeApi();
-      this.setSelfApi()
+      if(this.$store.getters.isLogin){
+        this.setSelfApi()
+      }
+
     },
     mounted() {
       // this.drawLine();
@@ -437,7 +445,7 @@
 <style scoped>
   #bread {
     margin-top: 3%;
-    margin-left: 15%;
+    margin-left: 5%;
   }
 
   #both {
