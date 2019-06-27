@@ -189,6 +189,10 @@
           this.$store.commit('stockName', row.stockName)
           this.$router.push('StockDisplay')
         },
+        exit() {
+          this.$store.commit('logout')
+          this.$router.push('/')
+        },
         toFirst(){
           if(this.$store.getters.isLogin){
             this.$router.push('AfterLogin')

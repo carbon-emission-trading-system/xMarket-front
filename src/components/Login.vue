@@ -11,7 +11,7 @@
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item index="/" @click="toFirst">首页</el-menu-item>
+        <el-menu-item index="/" >首页</el-menu-item>
         <el-submenu  index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
@@ -147,14 +147,12 @@
 
                 <el-button class="submit-btn" type="primary" @click="login('ruleForm')">登录</el-button>
               </el-form>
-              <div>
               <router-link to="/forgetPassword">
                 <el-button type="text" icon="el-icon-edit" style="float: left">忘记密码</el-button>
               </router-link>
               <router-link to="/register">
                 <el-button type="text" icon="el-icon-edit" style="float: right">去注册页</el-button>
               </router-link>
-              </div>
             </div>
           </el-card>
 
