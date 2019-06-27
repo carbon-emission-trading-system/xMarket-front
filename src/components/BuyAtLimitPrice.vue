@@ -39,26 +39,33 @@
 
     </div>
     <div style="z-index: 1;position:relative;">
-      <div class="Subtitle" style="postion:fixed ">
-        <el-menu :default-active="activeIndexBS"
-                 class="el-menu-demo"
-                 mode="horizontal"
-                 text-color="#000000"
-                 active-text-color="#ffd04b"
-                 style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
-                 v-bind:router=true>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;" index="BuyAtLimitPrice">买入
-          </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtLimitPrice">卖出
-          </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtMarketPrice">市价买入
-          </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">市价卖出
-          </el-menu-item>
+      <el-collapse-transition>
+        <div class="Subtitle" style="postion:fixed " v-show="show">
+          <el-menu :default-active="activeIndexBS"
+                   class="el-menu-demo"
+                   mode="horizontal"
+                   text-color="#000000"
+                   active-text-color="#ffd04b"
+                   style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
+                   v-bind:router=true>
+            <el-menu-item
+              style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;"
+              index="BuyAtLimitPrice">买入
+            </el-menu-item>
+            <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                          index="SellAtLimitPrice">卖出
+            </el-menu-item>
+            <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                          index="BuyAtMarketPrice">市价买入
+            </el-menu-item>
+            <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                          index="SellAtMarketPrice">市价卖出
+            </el-menu-item>
 
-        </el-menu>
+          </el-menu>
 
-      </div>
+        </div>
+      </el-collapse-transition>
 
 
       <div class="all">
@@ -183,6 +190,7 @@
         },
         msg: 0,
         realTimeData: {},
+        show: true
       }
     },
     components: {
@@ -280,7 +288,7 @@
           if (typeof value === 'number' && !isNaN(value)) {
             if (this.msg === this.stockTrading.stockId) {
               callback()
-            } else if( this.stockTrading.stockId.length<6){
+            } else if (this.stockTrading.stockId.length < 6) {
               callback(new Error("输入长度不足"))
             } else {
               this.find();
@@ -321,10 +329,10 @@
               // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
               this.$forceUpdate();
               // this.updataStock()
-              if (value > this.stockTrading.openPrice ) {
-                document.getElementById('input').style.color ="#ff3434";
+              if (value > this.stockTrading.openPrice) {
+                document.getElementById('input').style.color = "#ff3434";
               } else {
-                document.getElementById('input').style.color ="#02e602";
+                document.getElementById('input').style.color = "#02e602";
               }
             }
           } else {
@@ -557,7 +565,7 @@
   .Subtitle {
     width: 100%;
     margin-bottom: 2%;
-margin-top: 1%;
+    margin-top: 1%;
 
   }
 
