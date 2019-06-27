@@ -78,7 +78,7 @@
                               prop="stockId"
                               :rules="[{
                               validator: verifyStockCode, // 自定义验证
-                              trigger: 'blur'
+                              trigger: 'change'
                             }]">
                   <el-autocomplete v-model="stockTrading.stockId"
                                    :fetch-suggestions="querySearch"
@@ -95,10 +95,11 @@
                               style="float: left;width: 100%"
                               :rules="[
                             { validator: LimitPrice, // 自定义验证
-                            trigger: 'blur'
+                            trigger: 'change'
                             }
                             ]">
                   <el-input v-model="stockTrading.orderPrice" class="dx" type="number" step="0.01"
+                            id="input"
                             placeholder="请输入卖出价格"></el-input>
                 </el-form-item>
                 <el-form-item label="可卖数量"
@@ -305,6 +306,11 @@
               callback(new Error('请输入合适价格'))
             } else {
               callback()
+              if (value > this.stockTrading.openPrice ) {
+                document.getElementById('input').style.color ="#ff3434";
+              } else {
+                document.getElementById('input').style.color ="#02e602";
+              }
             }
           } else {
             callback("请输入数字")

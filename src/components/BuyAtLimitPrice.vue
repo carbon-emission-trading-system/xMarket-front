@@ -101,7 +101,9 @@
                               trigger: 'change',
                             }]">
                   <el-input v-model="stockTrading.orderPrice" class="dx" type="number" step="0.01"
-                            placeholder="请输入买入价格"></el-input>
+                            id="input"
+                            placeholder="请输入买入价格">
+                  </el-input>
                   <!--@blur.prevent="LimitPrice()"-->
                 </el-form-item>
                 <el-form-item label="可买数量"
@@ -180,7 +182,7 @@
           tradeMarket: '',
         },
         msg: 0,
-        realTimeData: {}
+        realTimeData: {},
       }
     },
     components: {
@@ -319,6 +321,11 @@
               // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
               this.$forceUpdate();
               // this.updataStock()
+              if (value > this.stockTrading.openPrice ) {
+                document.getElementById('input').style.color ="#ff3434";
+              } else {
+                document.getElementById('input').style.color ="#02e602";
+              }
             }
           } else {
             callback("请输入数字")

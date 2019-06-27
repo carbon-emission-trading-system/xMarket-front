@@ -77,7 +77,7 @@
                                 prop="stockId"
                                 :rules="[{
                               validator: verifyStockCode, // 自定义验证
-                              trigger: 'blur'
+                              trigger: 'change'
                             }]">
                     <el-autocomplete v-model="stockTrading.stockId"
                                      :fetch-suggestions="querySearch"
