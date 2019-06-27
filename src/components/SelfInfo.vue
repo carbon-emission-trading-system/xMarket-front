@@ -2,7 +2,7 @@
 <template>
   <div style="height: 100%;width: 100%">
     <div id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"

@@ -168,7 +168,7 @@
             <el-table-column
               prop="openPrice"
               label="今开盘"
-              width="65"
+              width="80"
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434" >{{scope.row.openPrice}}</span>
@@ -178,7 +178,7 @@
             <el-table-column
               prop="yesterdayClosePrice"
               label="昨收盘"
-              width="65"
+              width="80"
               align="center">
             </el-table-column>
   <!--          <el-table-column-->
