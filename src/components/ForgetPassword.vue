@@ -160,6 +160,10 @@ import qs from 'qs'
       }
     },
     methods: {
+      exit() {
+        this.$store.commit('logout')
+        this.$router.push('/')
+      },
 
       warning() {
         this.$alert('请先登录！', {

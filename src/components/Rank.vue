@@ -288,6 +288,10 @@
           });
         }
       },
+      exit() {
+        this.$store.commit('logout')
+        this.$router.push('/')
+      },
       toOneRank(index) {
         this.$store.commit('rankIndex', index)
         this.$router.push('OneRank')
