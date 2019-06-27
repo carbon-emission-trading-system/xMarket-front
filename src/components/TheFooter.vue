@@ -18,11 +18,11 @@
         <h5 class="h">联系我们</h5>
         <p>
           <i class="el-icon-location-information"></i>
-          <scan class="sc">地址：辽宁省沈阳市浑南区智慧大街500号东北大学浑南校区</scan>
+          <span class="sc">地址：辽宁省沈阳市浑南区智慧大街500号东北大学浑南校区</span>
         </p>
         <p>
           <i class="el-icon-phone-outline"></i>
-          <scan class="sc">188-8888-8888</scan>
+          <span class="sc">188-8888-8888</span>
         </p>
 
       </div>
