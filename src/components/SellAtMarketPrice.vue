@@ -434,7 +434,6 @@
             userId: this.$store.getters.getUserId,
             stockId: this.stockTrading.stockId,
             type: 1,//买卖标识
-            orderAmount: this.stockTrading.orderAmount,
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: this.stockTrading.DelegateType,
           };
