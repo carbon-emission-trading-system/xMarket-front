@@ -36,18 +36,6 @@
       </el-menu>
     </div>
     <div style="z-index: 1;position:relative;" >
-
-<!--      <div style="margin: auto;width: 100%;height: 40%">-->
-<!--        <div class="block">-->
-<!--          <el-carousel trigger="click" height=400px width="100%">-->
-<!--            <el-carousel-item><el-image :src="url1"></el-image> </el-carousel-item>-->
-<!--            <el-carousel-item><el-image :src="url2"></el-image> </el-carousel-item>-->
-<!--            <el-carousel-item><el-image :src="url3"></el-image> </el-carousel-item>-->
-<!--            <el-carousel-item><el-image :src="url4"></el-image> </el-carousel-item>-->
-<!--          </el-carousel>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      搜索框-->
       <div style="width: 50%;margin: auto">
         <search></search>
       </div>
@@ -62,23 +50,10 @@
           <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>
         </div>
       </div>
-<!--    <div id="sin">-->
-
-<!--      <div id="sleft">-->
-<!--      <search></search>-->
-<!--      </div>-->
-<!--      <div id="sright">-->
-<!--        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>-->
-<!--        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>-->
-<!--        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>-->
-<!--        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>-->
-<!--    </div>-->
-
-<!--    </div>-->
     <div id="in">
       <!--公告 background-color: lavender -->
       <div id="left">
-        <el-card class="box-card" style="height: 350px; " shadow="hover">
+        <el-card class="box-card" style="height: 350px; " shadow="always">
           <div slot="header" class="clearfix" >
             <i class="el-icon-postcard" style="font-size: 25px"></i>
             <span style="font-size: 25px;">公告</span>
@@ -109,7 +84,7 @@
       </div>
       <!--自选股-->
       <div id="right">
-        <el-card class="box-card" style="height: 350px; "shadow="hover">
+        <el-card class="box-card" style="height: 350px; "shadow="always">
           <div slot="header" class="clearfix">
             <i class="el-icon-setting" style="font-size: 25px"></i>
             <span style="font-size: 25px">自选股</span>
@@ -120,13 +95,6 @@
             @row-dblclick="handle"
             style="width: 100%;font-size: 6px;cursor: pointer"
             height="250">
-  <!--          <el-table-column-->
-  <!--            prop="stockId"-->
-  <!--            label="股票代码"-->
-  <!--            width="85"-->
-  <!--            fixed-->
-  <!--            align="center">-->
-  <!--          </el-table-column>-->
             <el-table-column
               prop="stockName"
               label="股票简称"
@@ -139,7 +107,8 @@
               width="85"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434" >{{scope.row.lastTradePrice}}</span>
+                <span v-if="scope.row.lastTradePrice>scope.row.yesterdayClosePrice" style="color: #ff3434" >{{scope.row.lastTradePrice}}</span>
+                <span v-else-if="scope.row.lastTradePrice===scope.row.yesterdayClosePrice">{{scope.row.lastTradePrice}}</span>
                 <span v-else style="color: #02e602">{{scope.row.lastTradePrice}}</span>
               </template>
             </el-table-column>
@@ -149,29 +118,19 @@
               width="95"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.increase>=0" style="color: #ff3434" >{{scope.row.increase}}</span>
-                <span v-else style="color: #02e602">{{scope.row.increase}}</span>
+                <span v-if="scope.row.increase>0" style="color: #ff3434" >{{scope.row.increase}}</span>
+                <span v-else-if="scope.row.increase<0" style="color: #02e602">{{scope.row.increase}}</span>
+                <span v-else >{{scope.row.increase}}</span>
               </template>
             </el-table-column>
-  <!--          <el-table-column-->
-  <!--            prop="highestPrice"-->
-  <!--            label="最高价"-->
-  <!--            width="70"-->
-  <!--            align="center">-->
-  <!--          </el-table-column>-->
-  <!--          <el-table-column-->
-  <!--            prop="lowestPrice"-->
-  <!--            label="最低价"-->
-  <!--            width="70"-->
-  <!--            align="center">-->
-  <!--          </el-table-column>-->
             <el-table-column
               prop="openPrice"
               label="今开盘"
               width="80"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434" >{{scope.row.openPrice}}</span>
+                <span v-if="scope.row.openPrice>scope.row.yesterdayClosePrice" style="color: #ff3434" >{{scope.row.openPrice}}</span>
+                <span v-else-if="scope.row.openPrice===scope.row.yesterdayClosePrice">{{scope.row.openPrice}}</span>
                 <span v-else style="color: #02e602">{{scope.row.openPrice}}</span>
               </template>
             </el-table-column>
@@ -181,32 +140,6 @@
               width="80"
               align="center">
             </el-table-column>
-  <!--          <el-table-column-->
-  <!--            prop="tradeAmount"-->
-  <!--            label="成交额"-->
-  <!--            width="100"-->
-  <!--            align="center">-->
-  <!--          </el-table-column>-->
-  <!--          <el-table-column-->
-  <!--            prop="totalMarketCapitalization"-->
-  <!--            label="市值"-->
-  <!--            width="70"-->
-  <!--            align="center">-->
-  <!--          </el-table-column>-->
-  <!--          <el-table-column-->
-  <!--            prop="peRatio"-->
-  <!--            label="市盈率"-->
-  <!--            width="70"-->
-  <!--            align="center">-->
-  <!--          </el-table-column>-->
-  <!--          <el-table-column-->
-  <!--            prop="pbRatio"-->
-  <!--            label="市净率"-->
-  <!--            align="center"-->
-  <!--          >-->
-  <!--          </el-table-column>-->
-
-
           </el-table>
         </el-card>
 
