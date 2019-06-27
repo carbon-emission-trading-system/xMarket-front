@@ -491,8 +491,7 @@
   }
 
   .list1 {
-    width: 100%;
-    float: left;
+    width: 90%;
     height: 95%;
     text-align: center;
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -287,6 +287,10 @@
             confirmButtonText: '确定',
           });
         }
+      },
+      exit() {
+        this.$store.commit('logout')
+        this.$router.push('/')
       },
       toOneRank(index) {
         this.$store.commit('rankIndex', index)

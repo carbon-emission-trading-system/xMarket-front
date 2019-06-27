@@ -611,7 +611,7 @@
   }
 
   .mailTable {
-    font-size: 15px;
+    font-size: 13px;
     color: #71787E;
     border: 1px solid #E6EAEE;
   }

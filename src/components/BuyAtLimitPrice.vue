@@ -2,7 +2,7 @@
 <template>
   <div style="height: 100%;width: 100%">
     <div class="NavigationBar" id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -18,6 +18,7 @@
           <el-menu-item index="Rank">排行榜</el-menu-item>
         </el-submenu>
         <el-menu-item index="BuyAtLimitPrice">股票买卖</el-menu-item>
+
         <el-menu-item index="Guide">股票指南</el-menu-item>
         <el-submenu index="1">
           <template slot="title">信息统计</template>
@@ -38,25 +39,27 @@
 
     </div>
     <div style="z-index: 1;position:relative;">
-      <div class="Subtitle">
+      <div class="Subtitle" style="postion:fixed ">
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
                  mode="horizontal"
                  text-color="#000000"
                  active-text-color="#ffd04b"
-                 style="background-color: rgba(0, 0, 0, 0);width: 30%;float: left;margin-left: 41%;"
+                 style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
                  v-bind:router=true>
-          <el-menu-item style="width: 25%;text-align: center" index="BuyAtLimitPrice">买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;" index="BuyAtLimitPrice">买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;text-align: center" index="SellAtLimitPrice">卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtLimitPrice">卖出
           </el-menu-item>
-          <el-menu-item style="width: 25%;text-align: center" index="BuyAtMarketPrice">市价买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;text-align: center" index="SellAtMarketPrice">市价卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">市价卖出
           </el-menu-item>
 
         </el-menu>
+
       </div>
+
 
       <div class="all">
         <div class="list1">
@@ -547,6 +550,7 @@
   .Subtitle {
     width: 100%;
     margin-bottom: 2%;
+margin-top: 1%;
 
   }
 

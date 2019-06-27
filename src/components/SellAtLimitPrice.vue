@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="NavigationBar" id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -40,25 +40,26 @@
 
     </div>
     <div style="z-index: 1;position:relative;">
-      <div class="Subtitle">
+      <div class="Subtitle" style="postion:fixed ">
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
                  mode="horizontal"
                  text-color="#000000"
                  active-text-color="#ffd04b"
-                 style="background-color: rgba(0, 0, 0, 0);width: 30%;float: left;margin-left: 41%;"
+                 style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
                  v-bind:router=true>
-          <el-menu-item style="width: 25%;text-align: center" index="BuyAtLimitPrice">买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtLimitPrice">买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;text-align: center" index="SellAtLimitPrice">卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;border-left: 3px solid #ffd04c;" index="SellAtLimitPrice">卖出
           </el-menu-item>
-          <el-menu-item style="width: 25%;text-align: center" index="BuyAtMarketPrice">市价买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;text-align: center" index="SellAtMarketPrice">市价卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">市价卖出
           </el-menu-item>
-
         </el-menu>
+
       </div>
+
 
 
       <div class="all">
@@ -66,7 +67,7 @@
         <div class="list1">
           <el-card class="card1" shadow="hover">
             <el-button v-show="rout" type="text" icon="el-icon-edit"
-                       style="float: right; margin-left:6%;position: absolute;" @click="linkKline">去K线图
+                       style="float: right; margin-left:4%;position: absolute;" @click="linkKline">去K线图
             </el-button>
             <el-form label-position="left" label-width="80px" :model="stockTrading" ref="stockTrading" size="mini">
               <p style="font-size: 30px; margin-top:10% ;margin-left: -1%"> {{ buyOrSell }} </p>
@@ -184,6 +185,20 @@
       this.$store.dispatch('stockList')
     }
     ,
+    computed: {
+      stock: function () {
+        let theStocks = this.$store.state.stockList;
+        let theStocksList = [];
+        for (let i = 0; i < theStocks.length; i++) {
+          let id = theStocks[i].stockId;
+          let theStock = id + ":" + theStocks[i].stockName + ":" + theStocks[i].stockPinyin
+          let stock = {value: theStock};
+          theStocksList.push(stock)
+        }
+        return theStocksList
+      },
+    },
+
     created() {
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
@@ -492,7 +507,7 @@
 
     width: 100%;
     margin-bottom: 2%;
-
+    margin-top: 1%;
   }
 
   .breadC {

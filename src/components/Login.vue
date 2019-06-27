@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -11,7 +11,7 @@
 
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
-        <el-menu-item index="AfterLogin" @click="toFirst">首页</el-menu-item>
+        <el-menu-item index="/" >首页</el-menu-item>
         <el-submenu  index="3">
           <template slot="title">行情中心</template>
           <el-menu-item index="StockList">股票列表</el-menu-item>
@@ -40,7 +40,7 @@
     <div style="z-index: 1;position:relative;">
       <div style="margin: auto;width: 100%;height: 40%">
         <div class="block">
-          <el-carousel trigger="click" height=400px width="100%">
+          <el-carousel trigger="click" height=300px width="100%">
             <el-carousel-item><el-image :src="url1"></el-image> </el-carousel-item>
             <el-carousel-item><el-image :src="url2"></el-image> </el-carousel-item>
             <el-carousel-item><el-image :src="url3"></el-image> </el-carousel-item>
@@ -144,6 +144,7 @@
                   </el-col>
 
                 </el-form-item>
+
                 <el-button class="submit-btn" type="primary" @click="login('ruleForm')">登录</el-button>
               </el-form>
               <router-link to="/forgetPassword">
@@ -324,7 +325,6 @@
             }
             self.$store.dispatch('login', payload)
               .then((response) => {
-                self.$message.success(response.message)
                 self.$router.push('/afterLogin');
               })
               .catch((response) => {
@@ -384,14 +384,6 @@
     width: 40%;
     height: 50%
   }
-
-  #navigator {
-    width: 100%;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-  }
-
   .clearfix:before,
   .clearfix:after {
     display: table;
