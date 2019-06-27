@@ -73,7 +73,6 @@
                 <div style="text-align: center;float: left;width: 100%;margin-left: 11%" class="elementInput">
                   <el-form-item label="证券代码"
                                 style="float: left;width: 100%"
-                                onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                                 prop="stockId"
                                 :rules="[{
                               validator: verifyStockCode, // 自定义验证
@@ -264,14 +263,17 @@
         let stocks = this.stock;
         let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
         let theResults = [];
-
-        //设置返回建议列表的数据不包含缩写
-        for (let i = 0; i < results.length; i++) {
-          let result = results[i].value;
-          let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
-          theResults.push(theResult)
+        if(queryString.length===6){
+          cb([]);
+        }else {
+          //设置返回建议列表的数据不包含缩写
+          for (let i = 0; i < results.length; i++) {
+            let result = results[i].value;
+            let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
+            theResults.push(theResult)
+          }
+          cb(theResults);
         }
-        cb(theResults);
       },
       createFilter(queryString) {
         return (stocks) => {
@@ -286,23 +288,32 @@
       verifyStockCode(rule, value, callback) {
         console.log('验证股票代码');
         this.$forceUpdate();
-        if (!value) {
-          callback(new Error('请输入股票代码'))
-          console.log('请输入股票代码')
+        if (value.length === 6) {
+          callback()
+          this.firstReturnStockRealtimeInformation();
+        } else if (value.length > 6) {
+          callback()
+          this.stockTrading.stockId = '';
         } else {
-          value = Number(value);
-          if (typeof value === 'number' && !isNaN(value)) {
-            if (this.msg === this.stockTrading.stockId) {
-              callback()
-            } else {
-              this.firstReturnStockRealtimeInformation();
-              callback();
-            }
-          }
-          else {
-            callback("请输入数字")
-          }
+          callback(new Error('请输入股票代码'));
         }
+        // if (!value) {
+        //   callback(new Error('请输入股票代码'))
+        //   console.log('请输入股票代码')
+        // } else {
+        //   value = Number(value);
+        //   if (typeof value === 'number' && !isNaN(value)) {
+        //     if (this.msg === this.stockTrading.stockId) {
+        //       callback()
+        //     } else {
+        //       this.firstReturnStockRealtimeInformation();
+        //       callback();
+        //     }
+        //   }
+        //   else {
+        //     callback("请输入数字")
+        //   }
+        // }
       },
       /**
        *

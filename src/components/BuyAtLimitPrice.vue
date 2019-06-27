@@ -79,7 +79,6 @@
               <div style="text-align: center;float: left;width: 100%;margin-left: 11%" class="elementInput">
                 <el-form-item label="证券代码"
                               style="float: left;width: 100%"
-                              onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
                               prop="stockId"
                               :rules="[{
                               validator: verifyStockCode, // 自定义验证
@@ -252,18 +251,21 @@
       },
       //搜索提示
       querySearch(queryString, cb) {
-
         let stocks = this.stock;
         let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
         let theResults = [];
 
-        //设置返回建议列表的数据不包含缩写
-        for (let i = 0; i < results.length; i++) {
-          let result = results[i].value;
-          let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
-          theResults.push(theResult)
+        if(queryString.length===6){
+          cb([]);
+        }else {
+          //设置返回建议列表的数据不包含缩写
+          for (let i = 0; i < results.length; i++) {
+            let result = results[i].value;
+            let theResult = {value: result.split(":")[0] + ":" + result.split(":")[1]}
+            theResults.push(theResult)
+          }
+          cb(theResults);
         }
-        cb(theResults);
       },
       createFilter(queryString) {
         return (stocks) => {
@@ -280,28 +282,36 @@
         console.log('this.stockTrading.orderAmount');
         console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
-        if (!value) {
-          callback(new Error('请输入股票代码'));
-          console.log('请输入股票代码')
+        if (value.length === 6) {
+          callback()
+          this.firstReturnStockRealtimeInformation();
+        } else if (value.length > 6) {
+          callback()
+          this.stockTrading.stockId = '';
         } else {
-          value = Number(value);
-          if (typeof value === 'number' && !isNaN(value)) {
-            if (this.msg === this.stockTrading.stockId) {
-              callback()
-            } else if (this.stockTrading.stockId.length < 6) {
-              callback(new Error("输入长度不足"))
-            } else {
-              this.find();
-              console.log(this.stockTrading.stockId);
-              console.log('else');
-              this.firstReturnStockRealtimeInformation();
-              callback();
-            }
-          }
-          else {
-            callback("请输入数字")
-          }
+          callback(new Error('请输入股票代码'));
         }
+        // if (!value) {
+        //   callback(new Error('请输入股票代码'));
+        //   console.log('请输入股票代码')
+        // } else if (value.length === 6) {
+        //   this.firstReturnStockRealtimeInformation();
+        // } else if (value.length > 6) {
+        //   this.stockTrading.stockId = '';
+        // } else {
+        //   // value = Number(value);
+        //   // if (!isNaN(value)) {
+        //   //   if (this.msg === this.stockTrading.stockId) {
+        //   //     callback()
+        //   //   } else {
+        //   //     console.log(this.stockTrading.stockId);
+        //   //     console.log('else');
+        //   //     callback();
+        //   //   }
+        //   // } else {
+        //     callback("请输入数字")
+        //   }
+
       },
       /**
        *
