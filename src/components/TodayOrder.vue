@@ -272,7 +272,6 @@
               data[i].tradeMarket = "部分成交"
             }
 
-
             if (data[i].tradeStraregy === 0) {
               data[i].tradeStraregy = "限价委托"
             } else if (data[i].tradeStraregy === 1) {
@@ -291,6 +290,7 @@
               data[i].tradeStraregy = "全额成交或撤销"
             }
           }
+
           //设置保留小数点后两位
           for (let i = 0; i < data.length; i++) {
             for (let key in data[i]) {
@@ -299,6 +299,14 @@
               }
             }
           }
+
+          for (let i = 0; i < data.length; i++) {
+            if(data[i].tradeStraregy!=='限价委托'){
+              data[i].orderPrice='-'
+            }
+          }
+
+
           this.tableData = data
 
           let timer = setTimeout(() => {
