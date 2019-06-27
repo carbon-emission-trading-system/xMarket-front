@@ -5,7 +5,7 @@
         <p style="color: firebrick">自强不息，知行合一</p>
       </div>
       <div id="fright">
-        <h4 class="h">友情链接</h4>
+        <h5 class="h">友情链接</h5>
         <p>
           <a href="http://www.neu.edu.cn/main.htm">东北大学</a>
         </p>
@@ -15,7 +15,7 @@
 
       </div>
       <div id="frightright">
-        <h4 class="h">联系我们</h4>
+        <h5 class="h">联系我们</h5>
         <p>
           <i class="el-icon-location-information"></i>
           <scan class="sc">地址：辽宁省沈阳市浑南区智慧大街500号东北大学浑南校区</scan>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -294,7 +294,7 @@
           //设置保留小数点后两位
           for (let i = 0; i < data.length; i++) {
             for (let key in data[i]) {
-              if (key == 'orderPrice' || key == 'exchangeAveragePrice'||'key==frozenAmount') {
+              if (key == 'orderPrice' || key == 'exchangeAveragePrice'||key=='frozenAmount') {
                 data[i][key] = data[i][key].toFixed(2)
               }
             }

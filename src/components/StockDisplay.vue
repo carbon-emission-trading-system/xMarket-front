@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="navigator">
-      <el-image :src="url" style="height: 10%;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
+      <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
                class="el-menu-demo"
                mode="horizontal"
@@ -76,12 +76,12 @@
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
-                <ve-candle :data="kChartData" width="780px" height="450px" :settings="kChartSettings"
-                           :colors="kColor"></ve-candle>
+                <ve-candle :data="kChartData" width="800px" height="450px" :settings="kChartSettings"
+                           :colors="kColor"  ></ve-candle>
               </el-tab-pane>
 
               <el-tab-pane label="分时" name="second" >
-                <div id="myChart" style="width: 780px;height: 450px"></div>
+                <div id="myChart" style="width: 800px;height: 450px"></div>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -455,7 +455,7 @@
   #table {
     margin-top: 5%;
     float: right;
-    width: 30%;
+    width: 33%;
   }
 
   #navigator{
