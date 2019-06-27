@@ -505,27 +505,65 @@
         this.$api.http('get', '/api/realTimeInfo', params).then(res => {
           console.log(res.data)
           this.realTimeData = res.data
+
+          //设置保留小数点后两位
+          for (let key in this.realTimeData) {
+            if (key == 'dailyLimit' || key == 'downLimit'||key=='highestPrice'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='lowestPrice'||key=='pbRatio'||key=='peRatio') {
+              this.realTimeData[key] = this.realTimeData[key].toFixed(2)
+            }
+          }
+          for(let i  = 0 ;i<this.realTimeData.buyOneToFive.length;i++){
+            this.realTimeData.buyOneToFive[i].price = this.realTimeData.buyOneToFive[i].price.toFixed(2)
+          }
+          for(let i  = 0;i<this.realTimeData.sellOneToFive.length;i++){
+            this.realTimeData.sellOneToFive[i].price = this.realTimeData.sellOneToFive[i].price.toFixed(2)
+          }
+
+
+
           if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
             this.realTimeData.conversionHand = '<0.01'
           }
-          let sellSum = 0
-          let buySum = 0
+          // let sellSum = 0
+          // let buySum = 0
+          // for(let i = 0;i<5;i++){
+          //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+          //     sellSum += this.realTimeData.sellOneToFive[i].quantity
+          //   }
+          //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+          //     buySum += this.realTimeData.buyOneToFive[i].quantity
+          //   }
+          // }
+          // for(let i = 0;i<5;i++){
+          //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+          //     this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
+          //   }
+          //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+          //     this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
+          //   }
+          // }
+
+
+          //计算条
+          let sum = 0
           for(let i = 0;i<5;i++){
             if(this.realTimeData.sellOneToFive[i].quantity>0){
-              sellSum += this.realTimeData.sellOneToFive[i].quantity
+              sum += this.realTimeData.sellOneToFive[i].quantity
             }
             if(this.realTimeData.buyOneToFive[i].quantity>0){
-              buySum += this.realTimeData.buyOneToFive[i].quantity
+              sum += this.realTimeData.buyOneToFive[i].quantity
             }
           }
           for(let i = 0;i<5;i++){
             if(this.realTimeData.sellOneToFive[i].quantity>0){
-              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
+              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
             }
             if(this.realTimeData.buyOneToFive[i].quantity>0){
-              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
+              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
             }
           }
+
+
 
         })
       },
@@ -547,27 +585,60 @@
       onmessage(message) {
         console.log("得到消息");
         this.realTimeData = JSON.parse(message.body);
+        //设置保留小数点后两位
+        for (let key in this.realTimeData) {
+          if (key == 'dailyLimit' || key == 'downLimit'||key=='highestPrice'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='lowestPrice'||key=='pbRatio'||key=='peRatio') {
+            this.realTimeData[key] = this.realTimeData[key].toFixed(2)
+          }
+        }
+        for(let i  = 0 ;i<this.realTimeData.buyOneToFive.length;i++){
+          this.realTimeData.buyOneToFive[i].price = this.realTimeData.buyOneToFive[i].price.toFixed(2)
+        }
+        for(let i  = 0;i<this.realTimeData.sellOneToFive.length;i++){
+          this.realTimeData.sellOneToFive[i].price = this.realTimeData.sellOneToFive[i].price.toFixed(2)
+        }
+        //换手
         if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
           this.realTimeData.conversionHand = '<0.01'
         }
-        let sellSum = 0
-        let buySum = 0
+
+        // let sellSum = 0
+        // let buySum = 0
+        // for(let i = 0;i<5;i++){
+        //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+        //     sellSum += this.realTimeData.sellOneToFive[i].quantity
+        //   }
+        //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+        //     buySum += this.realTimeData.buyOneToFive[i].quantity
+        //   }
+        // }
+        // for(let i = 0;i<5;i++){
+        //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+        //     this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
+        //   }
+        //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+        //     this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
+        //   }
+        // }
+
+        let sum = 0
         for(let i = 0;i<5;i++){
           if(this.realTimeData.sellOneToFive[i].quantity>0){
-            sellSum += this.realTimeData.sellOneToFive[i].quantity
+            sum += this.realTimeData.sellOneToFive[i].quantity
           }
           if(this.realTimeData.buyOneToFive[i].quantity>0){
-            buySum += this.realTimeData.buyOneToFive[i].quantity
+            sum += this.realTimeData.buyOneToFive[i].quantity
           }
         }
         for(let i = 0;i<5;i++){
           if(this.realTimeData.sellOneToFive[i].quantity>0){
-            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
+            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
           }
           if(this.realTimeData.buyOneToFive[i].quantity>0){
-            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
+            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
           }
         }
+
 
       },
       responseCallback(frame) {
