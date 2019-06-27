@@ -271,6 +271,9 @@
             else {
               data[i].tradeMarket = "部分成交"
             }
+            if(data[i].tradeStraregy!==0){
+              data[i].orderPrice='-'
+            }
 
 
             if (data[i].tradeStraregy === 0) {
