@@ -134,7 +134,12 @@
                 <span v-else style="color: #02e602">{{scope.row.orderPrice}}</span>
               </template>
             </el-table-column>
-
+            <el-table-column
+              prop="frozenAmount"
+              label="冻结金额"
+              width="90"
+              align="center">
+            </el-table-column>
             <el-table-column
               prop="tradeMarket"
               label="交易市场"
@@ -289,7 +294,7 @@
           //设置保留小数点后两位
           for (let i = 0; i < data.length; i++) {
             for (let key in data[i]) {
-              if (key == 'orderPrice' || key == 'exchangeAveragePrice') {
+              if (key == 'orderPrice' || key == 'exchangeAveragePrice'||'key==frozenAmount') {
                 data[i][key] = data[i][key].toFixed(2)
               }
             }
