@@ -21,9 +21,28 @@
         message:'qiqiqi',
       }
     },
+
     created(){
       this.connectNotify();
     },
+    computed:{
+      userId: function () {
+        return this.$store.getters.getUserId
+      }
+    },
+    watch:{
+      userId(newValue,oldValue){
+        if (this.clientNotify != null) {
+          this.clientNotify.disconnect(
+            function () {
+              console.log("断开连接");
+            });
+        }
+        this.connectNotify()
+      }
+
+    },
+
 
     destroyed(){
       if (this.clientNotify != null) {
