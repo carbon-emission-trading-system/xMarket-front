@@ -56,6 +56,7 @@
           <div class="rightCard" style="height: 50%;width:95%;float: left;">
             <el-card style="margin-top:1%;margin-bottom: 2%;height: 50%;width: 100%;" shadow="hover">
               <div slot="header">
+                <li class="el-icon-view" style="float: left;font-size: 20px;"></li>
                 <span style="float: left">资金信息</span>
               </div>
               <div class="text item">
@@ -96,6 +97,7 @@
             </el-card>
             <el-card style="width: 100%;height: 40%;text-align: center" shadow="hover">
               <div slot="header">
+                <li class="el-icon-s-data" style="float: left;font-size: 20px;"></li>
                 <span style="float: left">资产曲线</span>
               </div>
               <StockScreening style="width: 100%;"></StockScreening>
