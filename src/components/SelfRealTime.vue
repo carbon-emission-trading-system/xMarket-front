@@ -33,10 +33,11 @@
           <span v-else >   {{this.realTimeData.sellOneToFive[4].quantity}}</span>
         <td v-else></td>
 
-
-        <td v-if="this.realTimeData.sellOneToFive[4].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[4] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.sellOneToFive[4].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[4] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.sell[4]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.sellOneToFive[4].quantity>=0">
+          <span v-if="this.realTimeData.sellOneToFive[4].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[4] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.sellOneToFive[4].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[4] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.sell[4]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
 
       </tr>
       <tr>
@@ -61,10 +62,12 @@
           <span v-else >  {{this.realTimeData.sellOneToFive[3].quantity}} </span>
         <td v-else></td>
 
+        <td v-if="this.realTimeData.sellOneToFive[3].quantity>=0">
+          <span v-if="this.realTimeData.sellOneToFive[3].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[3] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.sellOneToFive[3].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[3] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.sell[3]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
 
-        <td v-if="this.realTimeData.sellOneToFive[3].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[3] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.sellOneToFive[3].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[3] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.sell[3]  :show-text="false"></el-progress></td>
       </tr>
 
 
@@ -90,10 +93,11 @@
           <span v-else >{{this.realTimeData.sellOneToFive[2].quantity}} </span>
         <td v-else></td>
 
-
-        <td v-if="this.realTimeData.sellOneToFive[2].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[2] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.sellOneToFive[2].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[2] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.sell[2]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">
+          <span v-if="this.realTimeData.sellOneToFive[2].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[2] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.sellOneToFive[2].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[2] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.sell[2]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
 
@@ -119,10 +123,11 @@
           <span v-else >  {{this.realTimeData.sellOneToFive[1].quantity}}</span>
         <td v-else></td>
 
-
-        <td v-if="this.realTimeData.sellOneToFive[1].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[1] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.sellOneToFive[1].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[1] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.sell[1]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.sellOneToFive[1].quantity>=0">
+          <span v-if="this.realTimeData.sellOneToFive[1].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[1] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.sellOneToFive[1].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[1] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.sell[1]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
 
@@ -148,9 +153,11 @@
           <span v-else > {{this.realTimeData.sellOneToFive[0].quantity}} </span>
         <td v-else></td>
 
-        <td v-if="this.realTimeData.sellOneToFive[0].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[0] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.sellOneToFive[0].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[0] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.sell[0]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.sellOneToFive[0].quantity>=0">
+          <span v-if="this.realTimeData.sellOneToFive[0].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[0] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.sellOneToFive[0].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.sell[0] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.sell[0]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
 <!--   买-->
@@ -184,9 +191,11 @@
 
         <td v-else></td>
 
-        <td v-if="this.realTimeData.buyOneToFive[0].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[0] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.buyOneToFive[0].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[0] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.buy[0]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.buyOneToFive[0].quantity>=0">
+          <span v-if="this.realTimeData.buyOneToFive[0].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[0] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.buyOneToFive[0].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[0] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.buy[0]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
 
       </tr>
 
@@ -213,9 +222,11 @@
           <span v-else >{{this.realTimeData.buyOneToFive[1].quantity}}</span>
         <td v-else></td>
 
-        <td v-if="this.realTimeData.buyOneToFive[1].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[1] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.buyOneToFive[1].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[1] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.buy[1]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.buyOneToFive[1].quantity>=0">
+          <span v-if="this.realTimeData.buyOneToFive[1].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[1] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.buyOneToFive[1].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[1] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.buy[1]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
 
@@ -241,9 +252,11 @@
           <span v-else > {{this.realTimeData.buyOneToFive[2].quantity}}</span>
         <td v-else></td>
 
-        <td v-if="this.realTimeData.buyOneToFive[2].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[2] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.buyOneToFive[2].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[2] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.buy[2]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.buyOneToFive[2].quantity>=0">
+          <span v-if="this.realTimeData.buyOneToFive[2].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[2] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.buyOneToFive[2].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[2] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.buy[2]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
       <tr>
@@ -268,10 +281,11 @@
           <span v-else > {{this.realTimeData.buyOneToFive[3].quantity}} </span>
         <td v-else></td>
 
-
-        <td v-if="this.realTimeData.buyOneToFive[3].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[3] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.buyOneToFive[3].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[3] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.buy[3]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.buyOneToFive[3].quantity>=0">
+          <span v-if="this.realTimeData.buyOneToFive[3].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[3] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.buyOneToFive[3].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[3] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.buy[3]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
 
@@ -297,9 +311,11 @@
           <span v-else > {{this.realTimeData.buyOneToFive[4].quantity}}</span>
         <td v-else></td>
 
-        <td v-if="this.realTimeData.buyOneToFive[4].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[4] status="exception" :show-text="false"></el-progress></td>
-        <td v-else-if="this.realTimeData.buyOneToFive[4].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[4] status="success" :show-text="false"></el-progress></td>
-        <td v-else><el-progress :percentage=this.percentage.buy[4]  :show-text="false"></el-progress></td>
+        <td v-if="this.realTimeData.buyOneToFive[4].quantity>=0">
+          <span v-if="this.realTimeData.buyOneToFive[4].price>this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[4] status="exception" :show-text="false"></el-progress></span>
+          <span v-else-if="this.realTimeData.buyOneToFive[4].price<this.realTimeData.yesterdayClosePrice"><el-progress :percentage=this.percentage.buy[4] status="success" :show-text="false"></el-progress></span>
+          <span v-else><el-progress :percentage=this.percentage.buy[4]  :show-text="false"></el-progress></span></td>
+        <td v-else></td>
       </tr>
 
       <tr>
