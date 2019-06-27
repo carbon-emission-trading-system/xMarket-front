@@ -48,7 +48,7 @@ export default new Vuex.Store({
         value: 5, label: '最优五档即时成交剩余撤销',
       },
       {
-        value: 6, label: '即时成交并撤销',
+        value: 6, label: '即时成交剩余撤销',
       },
       {
         value: 7, label: '全额成交或撤销',
