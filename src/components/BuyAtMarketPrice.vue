@@ -405,6 +405,17 @@
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice * 1.1));
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
+
+          console.log(res.data.tradeMarket);
+          if (this.stockTrading.tradeMarket === 0) {
+            this.allDelegateType = store.state.SDelegateType;
+            console.log(this.allDelegateType)
+          } else {
+            this.allDelegateType = store.state.HDelegateType;
+            console.log(this.allDelegateType)
+          }
+
+          
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
