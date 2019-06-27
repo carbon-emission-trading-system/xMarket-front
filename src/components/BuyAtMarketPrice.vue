@@ -199,7 +199,19 @@
       this.$store.dispatch('stockList')
     }
     ,
-
+    computed: {
+      stock: function () {
+        let theStocks = this.$store.state.stockList;
+        let theStocksList = [];
+        for (let i = 0; i < theStocks.length; i++) {
+          let id = theStocks[i].stockId;
+          let theStock = id + ":" + theStocks[i].stockName + ":" + theStocks[i].stockPinyin
+          let stock = {value: theStock};
+          theStocksList.push(stock)
+        }
+        return theStocksList
+      },
+    },
     created() {
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
@@ -598,7 +610,6 @@
 
   .card1 {
     height: 100%;
-
   }
 
   .dx {
