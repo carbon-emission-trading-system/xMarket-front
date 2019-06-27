@@ -95,7 +95,8 @@
                   width="80">
                   <template slot-scope="scope">
                     <span v-if="scope.row.costPrice<=scope.row.presentPrice" style="color: #ff3434 ">{{scope.row.costPrice}}</span>
-                    <span v-else style="color: #02e602 ">{{scope.row.costPrice}}</span>
+                    <span v-else-if="scope.row.costPrice>scope.row.presentPrice" style="color: #02e602 ">{{scope.row.costPrice}}</span>
+                    <span v-else >{{scope.row.costPrice}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -123,9 +124,9 @@
                   align="center"
                   width="110">
                   <template slot-scope="scope">
-                  <span v-if="scope.row.totalProfitAndLoss>=0"
-                        style="color: #ff3434 ">{{scope.row.totalProfitAndLoss}}</span>
-                    <span v-else style="color: #02e602 ">{{scope.row.totalProfitAndLoss}}</span>
+                  <span v-if="scope.row.totalProfitAndLoss>0" style="color: #ff3434 ">{{scope.row.totalProfitAndLoss}}</span>
+                    <span v-else-if="scope.row.totalProfitAndLoss<0" style="color: #02e602 ">{{scope.row.totalProfitAndLoss}}</span>
+                    <span v-else >{{scope.row.totalProfitAndLoss}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -134,9 +135,9 @@
                   align="center"
                   width="110">
                   <template slot-scope="scope">
-                  <span v-if="scope.row.todayProfitAndLoss>=0"
-                        style="color: #ff3434 ">{{scope.row.todayProfitAndLoss}}</span>
-                    <span v-else style="color: #02e602 ">{{scope.row.todayProfitAndLoss}}</span>
+                  <span v-if="scope.row.todayProfitAndLoss>0" style="color: #ff3434 ">{{scope.row.todayProfitAndLoss}}</span>
+                    <span v-else-if="scope.row.todayProfitAndLoss<0"style="color: #02e602 ">{{scope.row.todayProfitAndLoss}}</span>
+                    <span v-else >{{scope.row.todayProfitAndLoss}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -145,9 +146,9 @@
                   align="center"
                   width="100">
                   <template slot-scope="scope">
-                  <span v-if="scope.row.profitAndLossRatio>=0"
-                        style="color: #ff3434 ">{{scope.row.profitAndLossRatio}}</span>
-                    <span v-else style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>
+                  <span v-if="scope.row.profitAndLossRatio>0" style="color: #ff3434 ">{{scope.row.profitAndLossRatio}}</span>
+                    <span v-if="scope.row.profitAndLossRatio<0" style="color: #02e602 ">{{scope.row.profitAndLossRatio}}</span>
+                    <span v-else >{{scope.row.profitAndLossRatio}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column

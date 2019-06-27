@@ -48,19 +48,6 @@
           </el-carousel>
         </div>
       </div>
-      <!--    <div id="sin">-->
-
-      <!--      <div id="sleft">-->
-      <!--        <search></search>-->
-      <!--      </div>-->
-      <!--      <div id="sright">-->
-      <!--        <el-button v-if="this.shenIndex.lastIndex>=this.shenIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>-->
-      <!--        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shenIndex.indexId)">深证成指：{{shenIndex.lastIndex}}</el-button>-->
-      <!--        <el-button v-if="this.shangIndex.lastIndex>=this.shangIndex.yesterdayCloseIndex" type="text" class="index" style="color: #ff3434" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>-->
-      <!--        <el-button v-else type="text" class="index" style="color: #02e602" @click="gotoIndexDisplay(shangIndex.indexId)">上证指数：{{shangIndex.lastIndex}}</el-button>-->
-      <!--      </div>-->
-
-      <!--    </div>-->
 
       <div style="width: 50%;margin: auto">
         <search></search>
@@ -88,7 +75,7 @@
       <div id="in">
         <!--公告-->
         <div id="left">
-          <el-card class="box-card" style="height: 350px;" shadow="hover">
+          <el-card class="box-card" style="height: 350px;" shadow="always">
             <div slot="header" class="clearfix">
               <i class="el-icon-postcard" style="font-size: 25px"></i>
               <span style="font-size: 25px">公告</span>
@@ -118,7 +105,7 @@
         </div>
         <!--自选股-->
         <div id="right">
-          <el-card class="box-card" style="height: 350px" shadow="hover">
+          <el-card class="box-card" style="height: 350px" shadow="always">
             <div slot="header" class="clearfix">
               <i class="el-icon-user" style="font-size: 25px"></i>
               <span style="font-size: 25px">登录</span>

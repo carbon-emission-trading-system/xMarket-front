@@ -196,8 +196,9 @@
               width="90"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.lastTradePrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.lastTradePrice}}</span>
-                <span v-else style="color: #02e602 ">{{scope.row.lastTradePrice}}</span>
+                <span v-if="scope.row.lastTradePrice>scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.lastTradePrice}}</span>
+                <span v-else-if="scope.row.lastTradePrice<scope.row.yesterdayClosePrice" style="color: #02e602 ">{{scope.row.lastTradePrice}}</span>
+                <span v-else >{{scope.row.lastTradePrice}}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -206,8 +207,9 @@
               width="100"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.increase>=0" style="color: #ff3434 ">{{scope.row.increase}}</span>
-                <span v-else style="color: #02e602 ">{{scope.row.increase}}</span>
+                <span v-if="scope.row.increase>0" style="color: #ff3434 ">{{scope.row.increase}}</span>
+                <span v-else-if="scope.row.increase<0" style="color: #02e602 ">{{scope.row.increase}}</span>
+                <span v-else >{{scope.row.increase}}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -234,8 +236,9 @@
               width="70"
               align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.openPrice>=scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.openPrice}}</span>
-                <span v-else style="color: #02e602 ">{{scope.row.openPrice}}</span>
+                <span v-if="scope.row.openPrice>scope.row.yesterdayClosePrice" style="color: #ff3434 ">{{scope.row.openPrice}}</span>
+                <span v-else-if="scope.row.openPrice<scope.row.yesterdayClosePrice" style="color: #02e602 ">{{scope.row.openPrice}}</span>
+                <span v-else >{{scope.row.openPrice}}</span>
               </template>
             </el-table-column>
 

@@ -130,8 +130,7 @@
               align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.orderPrice===0"></span>
-                <span v-else-if="scope.row.orderPrice<=scope.row.exchangeAveragePrice" style="color: #ff3434">{{scope.row.orderPrice}}</span>
-                <span v-else style="color: #02e602">{{scope.row.orderPrice}}</span>
+                <span v-else >{{scope.row.orderPrice}}</span>
               </template>
             </el-table-column>
             <el-table-column
