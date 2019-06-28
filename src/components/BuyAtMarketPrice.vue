@@ -407,7 +407,7 @@
 
 
         this.$msgbox({
-          title: '买入订单',
+          title: '市价买入订单',
           message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
             h('p', null, '证券代码:  ' + this.stockTrading.stockId),
             h('p', null, '证券名称:  ' + this.stockTrading.stockName),
