@@ -32,8 +32,9 @@
           </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
-        <el-menu-item v-else style="padding-left: 4%;color: #409EFF" @click="login">登录</el-menu-item>
-
+        <el-menu-item v-else style="padding-left: 4%;color: #409EFF" ><span @click="login">登录</span><span>/</span>
+          <span style="color: #409EFF" @click="register">注册</span>
+        </el-menu-item>
 
       </el-menu>
     </div>
@@ -49,7 +50,7 @@
           :data="news"
           stripe
           @row-click="handle"
-          style="width: 100%"
+          style="width: 100%;cursor: pointer ;"
           height="500"
           :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
           <el-table-column
@@ -96,7 +97,9 @@
           this.$message.error(error.message)
         })
       },
-
+      register(){
+        this.$router.push('/Register')
+      },
       exit() {
         this.$store.commit('logout')
         this.$router.push('/')

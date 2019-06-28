@@ -28,11 +28,9 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <el-submenu v-if="this.$store.getters.isLogin" style="padding-left: 4%" index="2">
-          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
-          </template>
-          <el-menu-item @click="exit">退出</el-menu-item>
-        </el-submenu>
+        <el-menu-item style="padding-left: 4%;color: #409EFF" ><span @click="loginn">登录</span><span>/</span>
+          <span style="color: #409EFF" @click="registerr">注册</span>
+        </el-menu-item>
 
 
       </el-menu>
@@ -215,6 +213,14 @@ import qs from 'qs'
         this.$alert('请先登录！', {
           confirmButtonText: '确定',
         });
+      },
+
+      loginn(){
+        this.$router.push('/')
+        this.$store.commit('position',1)
+      },
+      registerr(){
+        this.$router.push('/Register')
       },
 
       /**

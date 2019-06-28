@@ -27,7 +27,9 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item  @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <el-menu-item style="padding-left: 4%"><a href="#scrope" style="color: #409EFF">登录</a><span>/</span></el-menu-item>
+        <el-menu-item style="padding-left: 4%;color: #409EFF"><a href="#scrope" >登录</a><span>/</span>
+          <span  @click="register">注册</span>
+        </el-menu-item>
 
       </el-menu>
     </div>
@@ -70,7 +72,7 @@
       <div id="in">
         <!--公告-->
         <div id="left">
-          <el-card class="box-card" style="height: 350px;" shadow="always">
+          <el-card class="box-card" style="height: 350px;cursor: pointer ;" shadow="always">
             <div slot="header" class="clearfix">
               <i class="el-icon-postcard" style="font-size: 25px"></i>
               <span style="font-size: 25px">公告</span>
@@ -212,6 +214,9 @@
           document.documentElement.scrollTop=380;
         }
         this.$store.commit('position',0)
+      },
+      register(){
+        this.$router.push('/Register')
       },
 
       toRouterOrAlert(index) {
