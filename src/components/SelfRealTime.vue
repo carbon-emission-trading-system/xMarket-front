@@ -87,7 +87,7 @@
             <span v-if="this.realTimeData.sellOneToFive[2].price>this.realTimeData.yesterdayClosePrice" style="color: #ff3434">
               {{this.realTimeData.sellOneToFive[2].quantity}}
             </span>
-          <span v-if="this.realTimeData.sellOneToFive[2].price<this.realTimeData.yesterdayClosePrice" style="color:#02e602">
+          <span v-else-if="this.realTimeData.sellOneToFive[2].price<this.realTimeData.yesterdayClosePrice" style="color:#02e602">
               {{this.realTimeData.sellOneToFive[2].quantity}}
             </span>
           <span v-else >{{this.realTimeData.sellOneToFive[2].quantity}} </span>
@@ -522,9 +522,17 @@
           console.log(res.data)
           this.realTimeData = res.data
 
+          if(this.realTimeData.lowestPrice!==1.7976931348623157e+308){
+            this.realTimeData.lowestPrice  = this.realTimeData.lowestPrice.toFixed(2)
+          }
+          if(this.realTimeData.highestPrice!==5e-324){
+            this.realTimeData.highestPrice = this.realTimeData.highestPrice.toFixed(2)
+          }
+
           //设置保留小数点后两位
+
           for (let key in this.realTimeData) {
-            if (key == 'dailyLimit' || key == 'downLimit'||key=='highestPrice'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='lowestPrice'||key=='pbRatio'||key=='peRatio') {
+            if (key == 'dailyLimit' || key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
               this.realTimeData[key] = this.realTimeData[key].toFixed(2)
             }
           }
@@ -536,29 +544,9 @@
           }
 
 
-
           if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
             this.realTimeData.conversionHand = '<0.01'
           }
-          // let sellSum = 0
-          // let buySum = 0
-          // for(let i = 0;i<5;i++){
-          //   if(this.realTimeData.sellOneToFive[i].quantity>0){
-          //     sellSum += this.realTimeData.sellOneToFive[i].quantity
-          //   }
-          //   if(this.realTimeData.buyOneToFive[i].quantity>0){
-          //     buySum += this.realTimeData.buyOneToFive[i].quantity
-          //   }
-          // }
-          // for(let i = 0;i<5;i++){
-          //   if(this.realTimeData.sellOneToFive[i].quantity>0){
-          //     this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
-          //   }
-          //   if(this.realTimeData.buyOneToFive[i].quantity>0){
-          //     this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
-          //   }
-          // }
-
 
           //计算条
           let sum = 0
@@ -602,8 +590,15 @@
         console.log("得到消息");
         this.realTimeData = JSON.parse(message.body);
         //设置保留小数点后两位
+        if(this.realTimeData.lowestPrice!==1.7976931348623157e+308){
+          this.realTimeData.lowestPrice  = this.realTimeData.lowestPrice.toFixed(2)
+        }
+        if(this.realTimeData.highestPrice!==5e-324){
+          this.realTimeData.highestPrice = this.realTimeData.highestPrice.toFixed(2)
+        }
+
         for (let key in this.realTimeData) {
-          if (key == 'dailyLimit' || key == 'downLimit'||key=='highestPrice'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='lowestPrice'||key=='pbRatio'||key=='peRatio') {
+          if (key == 'dailyLimit' || key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
             this.realTimeData[key] = this.realTimeData[key].toFixed(2)
           }
         }
