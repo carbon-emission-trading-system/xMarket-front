@@ -440,9 +440,9 @@
 
       <tr>
         <td class="column">外盘</td>
-        <td>{{this.realTimeData.outMarket }}</td>
+        <td class="colorRed">{{this.realTimeData.outMarket }}</td>
         <td class="column">内盘</td>
-        <td>{{this.realTimeData.inMarket}}</td>
+        <td class="colorGreen">{{this.realTimeData.inMarket}}</td>
       </tr>
 
 

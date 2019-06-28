@@ -208,6 +208,7 @@
         // console.log(row.stockId)
         this.$store.commit('stockId', row.stockId)
         this.$store.commit('stockName', row.stockName)
+        this.$store.commit('changeRout', 9);
         this.$router.push('StockDisplay')
       },
 

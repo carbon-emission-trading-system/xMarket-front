@@ -218,6 +218,7 @@
         // console.log(row.stockId)
         this.$store.commit('stockId', row.stockId)
         this.$store.commit('stockName', row.stockName)
+        this.$store.commit('changeRout', 13);
         this.$router.push('StockDisplay')
       },
       handleSizeChange(val) {
@@ -331,11 +332,13 @@
             orderId: orderId
           }
           this.$api.http('post', '/api/cancelOrder', params).then(res => {
+            if(res.code === 200){
+              this.$message({
+                type: 'success',
+                message: '撤单成功',
+              });
+            }
             this.setTodayOrderApi()
-            this.$message({
-              type: 'success',
-              message: '撤单成功',
-            });
           }).catch((error) => {
             this.$message.error(error.message)
           })
