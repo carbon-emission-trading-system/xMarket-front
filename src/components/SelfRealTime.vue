@@ -332,7 +332,7 @@
       </tr>
 
       <tr>
-        <td class="column ">开盘价</td>
+        <td class="column ">今开盘</td>
         <td
           v-if="this.realTimeData.openPrice>this.realTimeData.yesterdayClosePrice"
           class="colorRed">{{this.realTimeData.openPrice }}
@@ -345,6 +345,11 @@
         <td v-else>
           {{this.realTimeData.openPrice }}
         </td>
+
+        <td class="column">昨收盘</td>
+        <td>{{this.realTimeData.yesterdayClosePrice}}</td>
+      </tr>
+      <tr>
         <td class="column">最新价</td>
         <td
           v-if="this.realTimeData.lastTradePrice>this.realTimeData.yesterdayClosePrice"
@@ -358,6 +363,8 @@
         <td v-else>
           {{this.realTimeData.lastTradePrice }}
         </td>
+        <td class="column">成交额</td>
+        <td>{{this.realTimeData.tradeAmount}}</td>
       </tr>
 
       <tr>
@@ -532,7 +539,7 @@
           //设置保留小数点后两位
 
           for (let key in this.realTimeData) {
-            if (key == 'dailyLimit' || key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
+            if (key == 'dailyLimit' ||key =='yesterdayClosePrice'|| key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
               this.realTimeData[key] = this.realTimeData[key].toFixed(2)
             }
           }
@@ -598,7 +605,7 @@
         }
 
         for (let key in this.realTimeData) {
-          if (key == 'dailyLimit' || key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
+          if (key == 'dailyLimit' ||key =='yesterdayClosePrice'|| key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
             this.realTimeData[key] = this.realTimeData[key].toFixed(2)
           }
         }
