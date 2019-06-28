@@ -36,10 +36,6 @@
 
 
       </el-menu>
-
-
-    </div>
-    <div style="z-index: 1;position:relative;">
       <div class="Subtitle" style="postion:fixed ">
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
@@ -48,18 +44,25 @@
                  active-text-color="#ffd04b"
                  style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
                  v-bind:router=true>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtLimitPrice">买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtLimitPrice">
+            买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;border-left: 3px solid #ffd04c;" index="SellAtLimitPrice">卖出
+          <el-menu-item
+            style="width: 25%;height: 100%;text-align: center;line-height: 20px;border-left: 3px solid #ffd04c;"
+            index="SellAtLimitPrice">卖出
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtMarketPrice">市价买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">市价卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="SellAtMarketPrice">市价卖出
           </el-menu-item>
         </el-menu>
 
       </div>
+    </div>
 
+    <div style="z-index: 1;position:relative;">
 
 
       <div class="all">
@@ -246,9 +249,9 @@
         let stocks = this.stock;
         let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
         let theResults = [];
-        if(queryString.length===6){
+        if (queryString.length === 6) {
           cb([]);
-        }else {
+        } else {
           //设置返回建议列表的数据不包含缩写
           for (let i = 0; i < results.length; i++) {
             let result = results[i].value;
@@ -275,8 +278,13 @@
           callback()
           this.firstReturnStockRealtimeInformation();
         } else if (value.length > 6) {
-          callback()
-          this.stockTrading.stockId = '';
+          if (this.msg === this.stockTrading.stockId) {
+            callback()
+          } else {
+            callback();
+            this.firstReturnStockRealtimeInformation();
+            this.msg === this.stockTrading.stockId;
+          }
         } else {
           callback(new Error('请输入股票代码'));
         }
@@ -317,10 +325,10 @@
               callback(new Error('请输入合适价格'))
             } else {
               callback()
-              if (value > this.stockTrading.openPrice ) {
-                document.getElementById('input').style.color ="#ff3434";
+              if (value > this.stockTrading.openPrice) {
+                document.getElementById('input').style.color = "#ff3434";
               } else {
-                document.getElementById('input').style.color ="#02e602";
+                document.getElementById('input').style.color = "#02e602";
               }
             }
           } else {
@@ -382,7 +390,7 @@
           if (valid) {
             //ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
             // this.ajaxSubmit();
-          this.open();
+            this.open();
           } else {
             console.log('error submit!!');
             return false;
@@ -393,7 +401,7 @@
         const h = this.$createElement;
         this.$msgbox({
           title: '卖出订单',
-          message: h('div', {style:"margin-left:30%;margin-bottom:5%;width:100%;"}, [
+          message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
             h('p', null, '证券代码:  ' + this.stockTrading.stockId),
             h('p', null, '证券名称:  ' + this.stockTrading.stockName),
             h('p', null, '卖出价格:  ' + this.stockTrading.orderPrice),
@@ -499,6 +507,7 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
+            this.firstReturnStockRealtimeInformation()
           }).catch((res) => {
             this.$message.error(res.message)
           })
@@ -555,10 +564,12 @@
   }
 
   .Subtitle {
-
     width: 100%;
-    margin-bottom: 2%;
     margin-top: 1%;
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 5;
+    display: inline-block;
   }
 
   .breadC {
@@ -572,6 +583,8 @@
     height: 100%;
     display: block;
     float: left;
+    margin-top: 2%;
+
   }
 
   .miniButton {

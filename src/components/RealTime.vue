@@ -8,9 +8,9 @@
                  style="height: 100%;width: 100%">
             <tr>
               <td class="column">涨停</td>
-              <td class="column">{{this.realTimeData.dailyLimit }}</td>
+              <td class="column" style="color: #ff3434">{{this.realTimeData.dailyLimit }}</td>
               <td class="column">跌停</td>
-              <td class="column">{{this.realTimeData.downLimit }}</td>
+              <td class="column" style="color: #02e602">{{this.realTimeData.downLimit }}</td>
             </tr>
             <tr>
               <td class="column">卖五</td>

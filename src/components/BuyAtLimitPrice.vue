@@ -36,36 +36,33 @@
 
 
       </el-menu>
+      <div class="Subtitle" v-show="show">
+        <el-menu :default-active="activeIndexBS"
+                 class="el-menu-demo"
+                 mode="horizontal"
+                 text-color="#000000"
+                 active-text-color="#ffd04b"
+                 style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px;"
+                 v-bind:router=true>
+          <el-menu-item
+            style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;"
+            index="BuyAtLimitPrice">买入
+          </el-menu-item>
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="SellAtLimitPrice">卖出
+          </el-menu-item>
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="BuyAtMarketPrice">市价买入
+          </el-menu-item>
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="SellAtMarketPrice">市价卖出
+          </el-menu-item>
 
+        </el-menu>
+
+      </div>
     </div>
     <div style="z-index: 1;position:relative;">
-      <el-collapse-transition>
-        <div class="Subtitle" style="postion:fixed " v-show="show">
-          <el-menu :default-active="activeIndexBS"
-                   class="el-menu-demo"
-                   mode="horizontal"
-                   text-color="#000000"
-                   active-text-color="#ffd04b"
-                   style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
-                   v-bind:router=true>
-            <el-menu-item
-              style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;"
-              index="BuyAtLimitPrice">买入
-            </el-menu-item>
-            <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
-                          index="SellAtLimitPrice">卖出
-            </el-menu-item>
-            <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
-                          index="BuyAtMarketPrice">市价买入
-            </el-menu-item>
-            <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
-                          index="SellAtMarketPrice">市价卖出
-            </el-menu-item>
-
-          </el-menu>
-
-        </div>
-      </el-collapse-transition>
 
 
       <div class="all">
@@ -283,10 +280,15 @@
         console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
         if (value.length === 6) {
-          callback()
-          this.firstReturnStockRealtimeInformation();
+          if (this.msg === this.stockTrading.stockId) {
+            callback()
+          } else {
+            callback();
+            this.firstReturnStockRealtimeInformation();
+            this.msg === this.stockTrading.stockId;
+          }
         } else if (value.length > 6) {
-          callback()
+          callback();
           this.stockTrading.stockId = '';
         } else {
           callback(new Error('请输入股票代码'));
@@ -349,7 +351,7 @@
             callback("请输入数字")
           }
         }
-        console.log('verifyStockCode!!!!!!!!')
+        console.log('verifyStockCode!!!!!!!!');
         console.log(this.stockTrading.orderAmount);
       },
       /**
@@ -401,7 +403,6 @@
        *提交
        */
       submitForm(formName) {
-        console.log(this.$refs[formName])
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.open();
@@ -414,9 +415,10 @@
       },
       open() {
         const h = this.$createElement;
+
         this.$msgbox({
           title: '买入订单',
-          message: h('div', {style:"margin-left:30%;margin-bottom:5%;width:100%;"}, [
+          message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
             h('p', null, '证券代码:  ' + this.stockTrading.stockId),
             h('p', null, '证券名称:  ' + this.stockTrading.stockName),
             h('p', null, '买入价格:  ' + this.stockTrading.orderPrice),
@@ -428,6 +430,8 @@
           cancelButtonText: '取消',
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
+              console.log('1')
+              console.log(this.stockTrading.orderAmount);
               this.ajaxSubmit();
               done()
             } else if (action === 'cancel') {
@@ -474,6 +478,7 @@
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.orderPrice));
 
           // this.stockTrading.orderAmount = this.stockTrading.canorderAmount;
+          console.log('5');
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
           this.msg = this.stockTrading.stockId;
@@ -539,16 +544,12 @@
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
           };
+          console.log('2')
+          console.log(SentstockTrading)
           api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
 
             this.$message.success('提交成功')
-            // this.$router.go(0)
-            // this.$store.commit('temStockId', this.stockTrading.stockId)
-
-            this.isRouterAlive = false
-            this.$nextTick(function () {
-              this.isRouterAlive = true
-            })
+            this.firstReturnStockRealtimeInformation()
           }).catch((res) => {
             this.$message.error(res.message)
           })
@@ -610,8 +611,11 @@
 
   .Subtitle {
     width: 100%;
-    margin-bottom: 2%;
     margin-top: 1%;
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 5;
+    display: inline-block;
 
   }
 
@@ -619,8 +623,8 @@
     width: 100%;
     height: 100%;
     display: block;
+    margin-top: 2%;
     /*float: left;*/
-    margin: auto;
   }
 
   .TxTbutton {
