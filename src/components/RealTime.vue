@@ -683,7 +683,6 @@
             console.log("断开连接");
           });
       }
-      ;
     },
 
     created() {
@@ -691,7 +690,6 @@
       if (this.showByRow !== undefined) {
         this.s_showByRow = this.showByRow;
       }
-      ;
     },
     /**
      * @Description: 监听store中的state buyOrSellStock看其改变则运行方法
@@ -706,10 +704,6 @@
       if (this.buyOrSellStock === this.x) {
       } else {
         this.x = this.buyOrSellStock;
-        console.log('----------')
-        console.log(this.x)
-        console.log(this.buyOrSellStock)
-        console.log('updated   else')
         this.realTimeDataDisplay();
         if (this.client != null) {
           this.client.disconnect(
@@ -764,7 +758,7 @@
           }
 
           //计算条
-          let sum = 0
+          let sum = 0;
           let x = 0;
           let y = 0;
           for (let i = 0; i < 5; i++) {
