@@ -27,12 +27,9 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item  @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <el-submenu v-if="this.$store.getters.isLogin" style="padding-left: 4%" index="2">
-          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
-          </template>
-          <el-menu-item @click="exit">退出</el-menu-item>
-        </el-submenu>
-
+        <el-menu-item style="padding-left: 4%;color: #409EFF"><a href="#scrope" >登录</a><span>/</span>
+          <span  @click="register">注册</span>
+        </el-menu-item>
 
       </el-menu>
     </div>
@@ -49,7 +46,7 @@
         </div>
       </div>
 
-      <div style="width: 50%;margin: auto">
+      <div style="width: 50%;margin: auto" id="scrope">
         <search></search>
       </div>
 
@@ -75,7 +72,7 @@
       <div id="in">
         <!--公告-->
         <div id="left">
-          <el-card class="box-card" style="height: 350px;" shadow="always">
+          <el-card class="box-card" style="height: 350px;cursor: pointer ;" shadow="always">
             <div slot="header" class="clearfix">
               <i class="el-icon-postcard" style="font-size: 25px"></i>
               <span style="font-size: 25px">公告</span>
@@ -209,14 +206,19 @@
     created() {
       this.setNewsApi();
       this.setIndexApi();
+      this.setPosition();
     },
     methods: {
-
-      warning() {
-        this.$alert('请先登录！', {
-          confirmButtonText: '确定',
-        });
+      setPosition(){
+        if(this.$store.state.position===1){
+          document.documentElement.scrollTop=380;
+        }
+        this.$store.commit('position',0)
       },
+      register(){
+        this.$router.push('/Register')
+      },
+
       toRouterOrAlert(index) {
         if (this.$store.getters.isLogin) {
           this.$router.push(index)
@@ -224,6 +226,7 @@
           this.$alert('请先登录！', {
             confirmButtonText: '确定',
           });
+          document.documentElement.scrollTop=380;
         }
       },
 

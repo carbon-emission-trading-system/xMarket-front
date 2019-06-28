@@ -31,7 +31,9 @@
           <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span></template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
-
+        <el-menu-item v-else style="padding-left: 4%;color: #409EFF" ><span @click="login">登录</span><span>/</span>
+          <span style="color: #409EFF" @click="register">注册</span>
+        </el-menu-item>
 
       </el-menu>
     </div>
@@ -74,11 +76,11 @@
     <div id="both">
       <div id="card">
         <el-card class="box-card" shadow="hover">
-          <div slot="header" class="clearfix">
+          <div slot="header" style="display: inline">
             <span>{{this.stockName}}</span>
 
 
-            <div v-if="this.$store.getters.isLogin">
+            <div v-if="this.$store.getters.isLogin" style="float: right;width: 100px">
             <span v-if="this.chosen===false">
         <el-tooltip class="item" effect="dark" content="添加自选股" placement="top-start">
         <i class="el-icon-circle-plus-outline" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%"
@@ -99,12 +101,12 @@
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
-                <ve-candle :data="kChartData" width="800px" height="450px" :settings="kChartSettings"
+                <ve-candle :data="kChartData" width="770px" height="470px" :settings="kChartSettings"
                            :colors="kColor"  ></ve-candle>
               </el-tab-pane>
 
               <el-tab-pane label="分时" name="second" >
-                <div id="myChart" style="width: 800px;height: 450px"></div>
+                <div id="myChart" style="width: 770px;height: 470px"></div>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -247,6 +249,13 @@
         } else {
           this.$router.push('/')
         }
+      },
+      login(){
+        this.$router.push('/')
+        this.$store.commit('position',1)
+      },
+      register(){
+        this.$router.push('/Register')
       },
       toRouterOrAlert(index) {
         if (this.$store.getters.isLogin) {

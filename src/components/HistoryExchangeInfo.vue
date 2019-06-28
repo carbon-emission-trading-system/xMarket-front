@@ -195,6 +195,7 @@
         activeIndex: 'HistoryExchangeInfo',
         url: '../../../static/images/xMarket.png',
         tableData: [],
+        originTableData:[],
         currentPage: 1,
         total: 20,
         pageSize: 15,
@@ -228,7 +229,6 @@
         this.$router.push('StockDisplay')
       },
       select: function (data) {
-
         //数据预处理
         this.beginDate = data[0]
         this.endDate = data[1]
@@ -253,8 +253,8 @@
         console.log(end)
 
         let list = []
-        for (let i = 0; i < this.tableData.length; i++) {
-          let date = new Date(this.tableData[i].date)
+        for (let i = 0; i < this.originTableData.length; i++) {
+          let date = new Date(this.originTableData[i].date)
           //   console.log(date)
           let theDate, year, month, day
           year = date.getFullYear()
@@ -265,7 +265,7 @@
 
           //日期范围筛选
           if (theDate >= begin && theDate <= end) {
-            list.push(this.tableData[i])
+            list.push(this.originTableData[i])
           }
         }
         this.tableData = list
@@ -309,7 +309,8 @@
               }
             }
           }
-          this.tableData = data
+          this.originTableData = data
+          this.tableData = this.originTableData
         }).catch((error) => {
           this.$message.error(error.message)
         });

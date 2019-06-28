@@ -723,8 +723,8 @@
 
   .mailTabl tr td {
     width: 120px;
-    height: 24px;
-    line-height: 24px;
+    height: 23px;
+    line-height: 23px;
     box-sizing: border-box;
     padding: 0 10px;
     border: 0.5px solid #E6EAEE;
@@ -732,7 +732,7 @@
 
   .mailTabl tr td.column {
     background-color: #EFF3F6;
-    height: 24px;
+    height: 23px;
     color: #393C3E;
   }
 

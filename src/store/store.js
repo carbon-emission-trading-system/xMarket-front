@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     stockList: [],
+    position:0,
     //搜索的股票id
     stockId: '',
     //搜索的股票Name
@@ -114,6 +115,9 @@ export default new Vuex.Store({
     },
     stockList: (state, payload) => {
       state.stockList = payload
+    },
+    position: (state, payload) => {
+      state.position = payload
     },
     stockId: (state, payload) => {
       state.stockId = payload

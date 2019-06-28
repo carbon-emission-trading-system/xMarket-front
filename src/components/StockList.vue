@@ -32,7 +32,9 @@
           </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
-
+        <el-menu-item v-else style="padding-left: 4%;color: #409EFF" ><span @click="login">登录</span><span>/</span>
+          <span style="color: #409EFF" @click="register">注册</span>
+        </el-menu-item>
 
       </el-menu>
     </div>
@@ -375,8 +377,14 @@
       exit() {
         this.$store.commit('logout')
         this.$router.push('/')
-      }
-      ,
+      },
+      login(){
+        this.$router.push('/')
+        this.$store.commit('position',1)
+      },
+      register(){
+        this.$router.push('/Register')
+      },
       toFirst() {
         if (this.$store.getters.isLogin) {
           this.$router.push('AfterLogin')
