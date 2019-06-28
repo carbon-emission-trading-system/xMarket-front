@@ -496,7 +496,7 @@
         //设置保留小数点后两位
         for (let i = 0; i < list.length; i++) {
           for (let key in list[i]) {
-            if (typeof(list[i][key]) == "number" && key != 'tradeMarket') {
+            if (typeof(list[i][key]) === "number" && key !== 'tradeMarket') {
               list[i][key] = list[i][key].toFixed(2)
             }
 

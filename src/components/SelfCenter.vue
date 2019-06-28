@@ -347,7 +347,7 @@
           let data = res.data
           for (let i = 0; i < data.length; i++) {
             for (let key in data[i]) {
-              if (key == 'presentPrice' || key == 'costPrice' || key == 'totalProfitAndLoss' || key == 'todayProfitAndLoss') {
+              if (key === 'presentPrice' || key === 'costPrice' || key === 'totalProfitAndLoss' || key === 'todayProfitAndLoss') {
                 data[i][key] = data[i][key].toFixed(2)
               }
             }

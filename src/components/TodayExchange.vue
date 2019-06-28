@@ -237,10 +237,10 @@
           //设置保留小数点后两位
           for (let i = 0; i < data.length; i++) {
             for (let key in data[i]) {
-              if (key == 'tradePrice' || key == 'totalExchangeMoney') {
+              if (key === 'tradePrice' || key === 'totalExchangeMoney') {
                 data[i][key] = data[i][key].toFixed(2)
               }
-              if (key == 'serviceTax' || key == 'stampTax' || key == 'transferFee' || key == 'actualAmount') {
+              if (key === 'serviceTax' || key === 'stampTax' || key === 'transferFee' || key === 'actualAmount') {
                 data[i][key] = data[i][key].toFixed(3)
               }
             }
