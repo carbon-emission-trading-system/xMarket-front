@@ -32,6 +32,7 @@
           </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
+        <el-menu-item v-else style="padding-left: 4%;color: #409EFF" @click="login">登录</el-menu-item>
 
 
       </el-menu>
@@ -301,6 +302,10 @@
         this.$store.commit('stockName', row.stockName)
         this.$store.commit('changeRout', 10);
         this.$router.push('StockDisplay')
+      },
+      login(){
+        this.$router.push('/')
+        this.$store.commit('position',1)
       },
 
       rankByIncreaseApi() {

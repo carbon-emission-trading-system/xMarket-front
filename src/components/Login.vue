@@ -27,12 +27,7 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item  @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <el-submenu v-if="this.$store.getters.isLogin" style="padding-left: 4%" index="2">
-          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
-          </template>
-          <el-menu-item @click="exit">退出</el-menu-item>
-        </el-submenu>
-
+        <el-menu-item style="padding-left: 4%"><a href="#scrope" style="color: #409EFF">登录</a></el-menu-item>
 
       </el-menu>
     </div>
@@ -49,7 +44,7 @@
         </div>
       </div>
 
-      <div style="width: 50%;margin: auto">
+      <div style="width: 50%;margin: auto" id="scrope">
         <search></search>
       </div>
 
@@ -209,14 +204,16 @@
     created() {
       this.setNewsApi();
       this.setIndexApi();
+      this.setPosition();
     },
     methods: {
-
-      warning() {
-        this.$alert('请先登录！', {
-          confirmButtonText: '确定',
-        });
+      setPosition(){
+        if(this.$store.state.position===1){
+          document.documentElement.scrollTop=380;
+        }
+        this.$store.commit('position',0)
       },
+
       toRouterOrAlert(index) {
         if (this.$store.getters.isLogin) {
           this.$router.push(index)
@@ -224,6 +221,7 @@
           this.$alert('请先登录！', {
             confirmButtonText: '确定',
           });
+          document.documentElement.scrollTop=380;
         }
       },
 

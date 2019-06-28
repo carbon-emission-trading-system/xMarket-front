@@ -27,11 +27,12 @@
           <el-menu-item index="HistoryExchangeInfo">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item  index="SelfCenter">个人中心</el-menu-item>
-        <el-submenu style="padding-left: 4%" index="2">
-          <template slot="title"><span style="color: #409EFF;font-size: 6px;margin:auto">欢迎您！{{this.$store.getters.getUsername}}</span>
+        <el-submenu v-if="this.$store.getters.isLogin" style="padding-left: 4%" index="2">
+          <template slot="title"><span style="color: #409EFF;margin: auto;font-size: 6px">欢迎您！{{this.$store.getters.getUsername}}</span>
           </template>
           <el-menu-item @click="exit">退出</el-menu-item>
         </el-submenu>
+        <el-menu-item v-else style="padding-left: 4%;color: #409EFF" @click="login">登录</el-menu-item>
 
 
       </el-menu>
@@ -295,6 +296,10 @@
             confirmButtonText: '确定',
           });
         }
+      },
+      login(){
+        this.$router.push('/')
+        this.$store.commit('position',1)
       },
 
       //获取k线图数据
