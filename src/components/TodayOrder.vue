@@ -56,7 +56,6 @@
             height=500
             @row-dblclick="handle"
             style="width: 100%;font-size: 8px;cursor: pointer"
-            fit="true"
             :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
 
             <el-table-column
@@ -218,6 +217,7 @@
         // console.log(row.stockId)
         this.$store.commit('stockId', row.stockId)
         this.$store.commit('stockName', row.stockName)
+        this.$store.commit('changeRout', 13);
         this.$router.push('StockDisplay')
       },
       handleSizeChange(val) {
@@ -331,11 +331,13 @@
             orderId: orderId
           }
           this.$api.http('post', '/api/cancelOrder', params).then(res => {
+            if(res.code === 200){
+              this.$message({
+                type: 'success',
+                message: '撤单成功',
+              });
+            }
             this.setTodayOrderApi()
-            this.$message({
-              type: 'success',
-              message: '撤单成功',
-            });
           }).catch((error) => {
             this.$message.error(error.message)
           })

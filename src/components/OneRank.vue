@@ -188,6 +188,7 @@
         handleStock(row) {
           this.$store.commit('stockId', row.stockId)
           this.$store.commit('stockName', row.stockName)
+          this.$store.commit('changeRout', 8);
           this.$router.push('StockDisplay')
         },
         exit() {

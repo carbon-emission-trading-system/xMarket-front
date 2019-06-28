@@ -48,6 +48,24 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item v-if="this.$store.state.rout===4" :to="{ path:'/SellAtMarketPrice'}">市价卖出
         </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===5" :to="{ path:'/AfterLogin' }">首页
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===6" :to="{ path:'/HistoryExchangeInfo' }">历史成交
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===7" :to="{ path:'/HistoryHoldPosition' }">历史持仓
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===8" :to="{ path:'/OneRank' }">股票排行
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===9" :to="{ path:'/PositionStock' }">持仓股
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===10" :to="{ path:'/Rank' }">排行榜
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===11" :to="{ path:'/SelfSelectedStock' }">自选股
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===12" :to="{ path:'/TodayExchange' }">当日成交
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="this.$store.state.rout===13" :to="{ path:'/TodayOrder' }">当日委托
+        </el-breadcrumb-item>
 
         <!--<el-breadcrumb-item v-else :to="{ path:'/StockList' }">股票列表</el-breadcrumb-item>-->
         <el-breadcrumb-item>{{this.stockName}}</el-breadcrumb-item>

@@ -46,7 +46,6 @@
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             border
             height=500
-            fit="true"
             @row-dblclick="handle"
             style="width: 100%;font-size: 6px;cursor: pointer"
             :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
@@ -203,6 +202,7 @@
         // console.log(row.stockId)
         this.$store.commit('stockId', row.stockId)
         this.$store.commit('stockName', row.stockName)
+        this.$store.commit('changeRout', 12);
         this.$router.push('StockDisplay')
       },
       handleSizeChange(val) {
