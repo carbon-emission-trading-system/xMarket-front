@@ -49,11 +49,15 @@
                  v-bind:router=true>
           <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtLimitPrice">买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtLimitPrice">卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtLimitPrice">
+            卖出
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;" index="BuyAtMarketPrice">市价买入
+          <el-menu-item
+            style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;"
+            index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">市价卖出
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">
+            市价卖出
           </el-menu-item>
         </el-menu>
 
@@ -131,7 +135,6 @@
                   <div style="float: left;width: 60%;margin-top: 5%">
                     <el-button @click="resetForm('stockTrading')" style="width: 50%;">重新填写</el-button>
                     <el-button @click="submitForm('stockTrading')" style="width: 40%;">提交</el-button>
-
                   </div>
                 </div>
               </el-form>
@@ -215,10 +218,7 @@
       if (this.$store.state.temStockId !== '') {
         this.stockTrading.stockId = this.$store.state.temStockId;
         this.firstReturnStockRealtimeInformation();
-        // this.$store.commit('temStockId', '');
       }
-      console.log('console.log(this.$store.state.temStockId)');
-      console.log(this.$store.state.temStockId)
     },
     beforeMount() {
       let isLogin = this.$store.getters.isLogin;
@@ -245,12 +245,12 @@
         this.$router.push('/')
       },
       /***
-      * @Description: 搜索提醒
-      * @Param:
-      * @return:
-      * @Author: zky
-      * @Date:
-      */
+       * @Description: 搜索提醒
+       * @Param:
+       * @return:
+       * @Author: zky
+       * @Date:
+       */
       find() {
         let stockId = this.stockTrading.stockId;
         stockId = stockId.split(":")[0];
@@ -263,9 +263,9 @@
         let stocks = this.stock;
         let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
         let theResults = [];
-        if(queryString.length===6){
+        if (queryString.length === 6) {
           cb([]);
-        }else {
+        } else {
           //设置返回建议列表的数据不包含缩写
           for (let i = 0; i < results.length; i++) {
             let result = results[i].value;
@@ -374,7 +374,8 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
-            this.ajaxSubmit();
+            // this.ajaxSubmit();
+            this.open();
             this.stockTrading.DelegateType = '';
           } else {
             console.log('error submit!!');
@@ -382,7 +383,55 @@
           }
         })
       },
+      open() {
+        const h = this.$createElement;
 
+        let DT = '';
+        if (this.stockTrading.DelegateType === 1) {
+          DT = "最优五档即时成交剩余撤销"
+        } else if (this.stockTrading.DelegateType === 2) {
+          DT = "最优五档即时成交剩余转限价"
+        } else if (this.stockTrading.DelegateType === 3) {
+          DT = "对手方最优价格"
+        } else if (this.stockTrading.DelegateType === 4) {
+          DT = "本方最优价格"
+        } else if (this.stockTrading.DelegateType === 5) {
+          DT = "最优五档即时成交剩余撤销"
+        } else if (this.stockTrading.DelegateType === 6) {
+          DT = "即时成交并撤销"
+        } else if (this.stockTrading.DelegateType === 7) {
+          DT = "全额成交或撤销"
+        } else {
+          DT = "未选择成交方案"
+        }
+
+
+        this.$msgbox({
+          title: '买入订单',
+          message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
+            h('p', null, '证券代码:  ' + this.stockTrading.stockId),
+            h('p', null, '证券名称:  ' + this.stockTrading.stockName),
+            h('p', null, '买入策略:  ' + DT),
+            h('p', null, '买入数量:  ' + this.stockTrading.orderAmount),
+            h('p', null, '预估金额:  ' + this.stockTrading.orderPrice*1.1*this.stockTrading.orderAmount),
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              this.ajaxSubmit();
+              done()
+            } else if (action === 'cancel') {
+              done();
+            } else {
+              done()
+            }
+          }
+        }).then(action => {
+        });
+
+      },
       /**
        * @author 郑科宇
        * @date 05/28
@@ -414,8 +463,6 @@
             this.allDelegateType = store.state.HDelegateType;
             console.log(this.allDelegateType)
           }
-
-          
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
@@ -523,7 +570,8 @@
         this.$forceUpdate();
         // this.stockTrading.orderAmount = this.stockTrading.canorderAmount
       },
-    },
+    }
+    ,
   }
 </script>
 
@@ -556,7 +604,7 @@
     /*margin-right: 30%;*/
     width: 100%;
     margin-bottom: 2%;
-margin-top: 1%;
+    margin-top: 1%;
   }
 
   .all {
@@ -595,12 +643,12 @@ margin-top: 1%;
   }
 
   .list1 {
-     margin-left: 16%;
-     width: 25%;
-     font-size: 14px;
-     height: 535px;
-     float: left;
-   }
+    margin-left: 16%;
+    width: 25%;
+    font-size: 14px;
+    height: 535px;
+    float: left;
+  }
 
   .list2 {
     margin-left: 2%;

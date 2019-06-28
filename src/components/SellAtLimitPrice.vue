@@ -381,15 +381,49 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             //ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交-->
-            this.ajaxSubmit();
+            // this.ajaxSubmit();
+          this.open();
           } else {
             console.log('error submit!!');
             return false;
           }
         });
       },
+      open() {
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '卖出订单',
+          message: h('div', {style:"margin-left:30%;margin-bottom:5%;width:100%;"}, [
+            h('p', null, '证券代码:  ' + this.stockTrading.stockId),
+            h('p', null, '证券名称:  ' + this.stockTrading.stockName),
+            h('p', null, '卖出价格:  ' + this.stockTrading.orderPrice),
+            h('p', null, '卖出数量:  ' + this.stockTrading.orderAmount),
+            h('p', null, '预估金额:  ' + this.estimatedAmount(this.stockTrading.orderPrice, this.stockTrading.orderAmount)),
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              this.ajaxSubmit();
+              done()
+            } else if (action === 'cancel') {
+              done();
+            } else {
+              done()
+            }
+          }
+        }).then(action => {
+        });
 
-
+      },
+      estimatedAmount(mo, co) {
+        if (mo * co * 1.00002 > 20000) {
+          return (mo * co * 0.99873).toFixed(2)
+        } else {
+          return (mo * co * 0.99898 - 5).toFixed(2)
+        }
+      },
       /**
        * @author 郑科宇
        * @date 05/28

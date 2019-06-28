@@ -571,13 +571,13 @@
 
 
             <tr>
-              <td class="column">外盘</td>
-              <td>{{this.realTimeData.outMarket }}</td>
+              <td class="column" >外盘</td>
+              <td style="color:#ff3434;">{{this.realTimeData.outMarket }}</td>
             </tr>
 
             <tr>
-              <td class="column">内盘</td>
-              <td>{{this.realTimeData.inMarket}}</td>
+              <td class="column" >内盘</td>
+              <td style="color: #02e602;">{{this.realTimeData.inMarket}}</td>
             </tr>
 
             <tr>
