@@ -75,11 +75,11 @@
     <div id="both">
       <div id="card">
         <el-card class="box-card" shadow="hover">
-          <div slot="header" class="clearfix">
+          <div slot="header" style="display: inline">
             <span>{{this.stockName}}</span>
 
 
-            <div v-if="this.$store.getters.isLogin">
+            <div v-if="this.$store.getters.isLogin" style="float: right;width: 100px">
             <span v-if="this.chosen===false">
         <el-tooltip class="item" effect="dark" content="添加自选股" placement="top-start">
         <i class="el-icon-circle-plus-outline" style="font-size: 20px; color: #409EFF; float: right; padding: 1% 2%"
@@ -100,12 +100,12 @@
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
-                <ve-candle :data="kChartData" width="800px" height="450px" :settings="kChartSettings"
+                <ve-candle :data="kChartData" width="770px" height="470px" :settings="kChartSettings"
                            :colors="kColor"  ></ve-candle>
               </el-tab-pane>
 
               <el-tab-pane label="分时" name="second" >
-                <div id="myChart" style="width: 800px;height: 450px"></div>
+                <div id="myChart" style="width: 770px;height: 470px"></div>
               </el-tab-pane>
             </el-tabs>
           </div>
