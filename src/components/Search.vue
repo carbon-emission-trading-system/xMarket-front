@@ -90,6 +90,7 @@
               this.$store.commit('stockId', stockId)
               console.log("name")
             }
+            this.$store.commit('changeRout', 0);
             this.$router.push('StockDisplay')
           } else { //不存在则提示
             this.$alert('该股票不存在，请重新输入', '搜索失败', {
@@ -101,6 +102,7 @@
           let stockName = this.input.split(":")[1]
           this.$store.commit('stockId', stockId)
           this.$store.commit('stockName', stockName)
+          this.$store.commit('changeRout', 0);
           this.$router.push('StockDisplay')
         }
 

@@ -9,7 +9,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         value-format="yyyy-MM-dd"
-        unlink-panels="false">
+        unlink-panels = false>
       </el-date-picker>
     </div>
     <div id="sdright">

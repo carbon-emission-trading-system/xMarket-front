@@ -56,7 +56,6 @@
             height=500
             @row-dblclick="handle"
             style="width: 100%;font-size: 8px;cursor: pointer"
-            fit="true"
             :header-cell-style="{background:'#c2ccd0',color:'#606266'}">
 
             <el-table-column
