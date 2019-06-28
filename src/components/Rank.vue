@@ -285,9 +285,7 @@
         if (this.$store.getters.isLogin) {
           this.$router.push(index)
         } else {
-          this.$alert('请先登录！', {
-            confirmButtonText: '确定',
-          });
+          this.$message('请先登录');
         }
       },
       exit() {

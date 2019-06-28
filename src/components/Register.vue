@@ -209,12 +209,6 @@ import qs from 'qs'
     },
     methods: {
 
-      warning() {
-        this.$alert('请先登录！', {
-          confirmButtonText: '确定',
-        });
-      },
-
       loginn(){
         this.$router.push('/')
         this.$store.commit('position',1)
@@ -344,9 +338,7 @@ import qs from 'qs'
         if (this.$store.getters.isLogin) {
           this.$router.push(index)
         } else {
-          this.$alert('请先登录！', {
-            confirmButtonText: '确定',
-          });
+          this.$message('请先登录');
         }
       },
       /**
