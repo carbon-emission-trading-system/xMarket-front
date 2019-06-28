@@ -325,6 +325,23 @@
         <td class="column"></td>
       </tr>
       <tr>
+        <td class="column">最新价</td>
+        <td
+          v-if="this.realTimeData.lastTradePrice>this.realTimeData.yesterdayClosePrice"
+          class="colorRed">{{this.realTimeData.lastTradePrice }}
+        </td>
+        <td
+          v-else-if="this.realTimeData.lastTradePrice<this.realTimeData.yesterdayClosePrice"
+          class="colorGreen">
+          {{this.realTimeData.lastTradePrice }}
+        </td>
+        <td v-else>
+          {{this.realTimeData.lastTradePrice }}
+        </td>
+        <td class="column">成交额</td>
+        <td>{{this.realTimeData.tradeAmount}}</td>
+      </tr>
+      <tr>
         <td class="column">涨停</td>
         <td class="colorRed">{{this.realTimeData.dailyLimit }}</td>
         <td class="column">跌停</td>
@@ -349,23 +366,7 @@
         <td class="column">昨收盘</td>
         <td>{{this.realTimeData.yesterdayClosePrice}}</td>
       </tr>
-      <tr>
-        <td class="column">最新价</td>
-        <td
-          v-if="this.realTimeData.lastTradePrice>this.realTimeData.yesterdayClosePrice"
-          class="colorRed">{{this.realTimeData.lastTradePrice }}
-        </td>
-        <td
-          v-else-if="this.realTimeData.lastTradePrice<this.realTimeData.yesterdayClosePrice"
-          class="colorGreen">
-          {{this.realTimeData.lastTradePrice }}
-        </td>
-        <td v-else>
-          {{this.realTimeData.lastTradePrice }}
-        </td>
-        <td class="column">成交额</td>
-        <td>{{this.realTimeData.tradeAmount}}</td>
-      </tr>
+
 
       <tr>
         <td class="column">最高价</td>
@@ -469,7 +470,6 @@
 
 </template>
 <script>
-  import Vue from 'vue'
   import Stomp from 'stompjs'
 
   export default {
@@ -539,7 +539,7 @@
           //设置保留小数点后两位
 
           for (let key in this.realTimeData) {
-            if (key == 'dailyLimit' ||key =='yesterdayClosePrice'|| key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
+            if (key === 'dailyLimit' ||key ==='yesterdayClosePrice'||key ==='tradeAmount'|| key === 'downLimit'||key==='increase'||key==='lastTradePrice'||key==='openPrice'||key==='pbRatio'||key==='peRatio') {
               this.realTimeData[key] = this.realTimeData[key].toFixed(2)
             }
           }
@@ -605,7 +605,7 @@
         }
 
         for (let key in this.realTimeData) {
-          if (key == 'dailyLimit' ||key =='yesterdayClosePrice'|| key == 'downLimit'||key=='increase'||key=='lastTradePrice'||key=='openPrice'||key=='pbRatio'||key=='peRatio') {
+          if (key === 'dailyLimit' ||key ==='yesterdayClosePrice'||key==='tradeAmount'|| key === 'downLimit'||key==='increase'||key==='lastTradePrice'||key==='openPrice'||key==='pbRatio'||key==='peRatio') {
             this.realTimeData[key] = this.realTimeData[key].toFixed(2)
           }
         }
@@ -619,25 +619,6 @@
         if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
           this.realTimeData.conversionHand = '<0.01'
         }
-
-        // let sellSum = 0
-        // let buySum = 0
-        // for(let i = 0;i<5;i++){
-        //   if(this.realTimeData.sellOneToFive[i].quantity>0){
-        //     sellSum += this.realTimeData.sellOneToFive[i].quantity
-        //   }
-        //   if(this.realTimeData.buyOneToFive[i].quantity>0){
-        //     buySum += this.realTimeData.buyOneToFive[i].quantity
-        //   }
-        // }
-        // for(let i = 0;i<5;i++){
-        //   if(this.realTimeData.sellOneToFive[i].quantity>0){
-        //     this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sellSum
-        //   }
-        //   if(this.realTimeData.buyOneToFive[i].quantity>0){
-        //     this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/buySum
-        //   }
-        // }
 
         let sum = 0
         for(let i = 0;i<5;i++){

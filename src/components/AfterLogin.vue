@@ -274,8 +274,8 @@
           //设置保留小数点后两位
           for(let i = 0; i<data.length; i++){
             for(let key in data[i]){
-              if(typeof(data[i][key])=="number"){
-                data[i][key] = data[i][key].toFixed(2)
+              if(typeof(data[i].key)==="number"){
+                data[i].key = data[i].key.toFixed(2)
               }
             }
           }
