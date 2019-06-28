@@ -361,8 +361,8 @@
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
 
-
-            this.ajaxSubmit();
+this.open();
+            // this.ajaxSubmit();
           } else {
             console.log('error submit!!');
             return false;
@@ -370,6 +370,53 @@
         });
       }
       ,
+      open() {
+        const h = this.$createElement;
+
+        let DT = '';
+        if (this.stockTrading.DelegateType === 1) {
+          DT = "最优五档即时成交剩余撤销"
+        } else if (this.stockTrading.DelegateType === 2) {
+          DT = "最优五档即时成交剩余转限价"
+        } else if (this.stockTrading.DelegateType === 3) {
+          DT = "对手方最优价格"
+        } else if (this.stockTrading.DelegateType === 4) {
+          DT = "本方最优价格"
+        } else if (this.stockTrading.DelegateType === 5) {
+          DT = "最优五档即时成交剩余撤销"
+        } else if (this.stockTrading.DelegateType === 6) {
+          DT = "即时成交并撤销"
+        } else if (this.stockTrading.DelegateType === 7) {
+          DT = "全额成交或撤销"
+        } else {
+          DT = "未选择成交方案"
+        }
+        this.$msgbox({
+          title: '市价卖出订单',
+          message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
+            h('p', null, '证券代码:  ' + this.stockTrading.stockId),
+            h('p', null, '证券名称:  ' + this.stockTrading.stockName),
+            h('p', null, '卖出策略:  ' + DT),
+            h('p', null, '卖出数量:  ' + this.stockTrading.orderAmount),
+            h('p', null, '预估金额:  ' + this.stockTrading.orderPrice*1.1*this.stockTrading.orderAmount),
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              this.ajaxSubmit();
+              done()
+            } else if (action === 'cancel') {
+              done();
+            } else {
+              done()
+            }
+          }
+        }).then(action => {
+        });
+
+      },
       /**
        * 验证交易策略
        *

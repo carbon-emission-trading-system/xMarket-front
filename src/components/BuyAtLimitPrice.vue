@@ -255,9 +255,9 @@
         let results = queryString ? stocks.filter(this.createFilter(queryString)) : stocks;
         let theResults = [];
 
-        if(queryString.length===6){
+        if (queryString.length === 6) {
           cb([]);
-        }else {
+        } else {
           //设置返回建议列表的数据不包含缩写
           for (let i = 0; i < results.length; i++) {
             let result = results[i].value;
@@ -404,12 +404,48 @@
         console.log(this.$refs[formName])
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.ajaxSubmit();
+            this.open();
+            //this.ajaxSubmit();
           } else {
             console.log('error submit!!');
             return false;
           }
         });
+      },
+      open() {
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '买入订单',
+          message: h('div', {style:"margin-left:30%;margin-bottom:5%;width:100%;"}, [
+            h('p', null, '证券代码:  ' + this.stockTrading.stockId),
+            h('p', null, '证券名称:  ' + this.stockTrading.stockName),
+            h('p', null, '买入价格:  ' + this.stockTrading.orderPrice),
+            h('p', null, '买入数量:  ' + this.stockTrading.orderAmount),
+            h('p', null, '预估金额:  ' + this.estimatedAmount(this.stockTrading.orderPrice, this.stockTrading.orderAmount)),
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              this.ajaxSubmit();
+              done()
+            } else if (action === 'cancel') {
+              done();
+            } else {
+              done()
+            }
+          }
+        }).then(action => {
+        });
+
+      },
+      estimatedAmount(mo, co) {
+        if (mo * co * 1.00002 > 20000) {
+          return (mo * co * 1.00027).toFixed(2)
+        } else {
+          return (mo * co * 1.00002 + 5).toFixed(2)
+        }
       },
       /**
        * @author 郑科宇
