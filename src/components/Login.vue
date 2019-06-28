@@ -27,7 +27,7 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item  @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <el-menu-item style="padding-left: 4%"><a href="#scrope" style="color: #409EFF">登录</a></el-menu-item>
+        <el-menu-item style="padding-left: 4%"><a href="#scrope" style="color: #409EFF">登录</a><span>/</span></el-menu-item>
 
       </el-menu>
     </div>
