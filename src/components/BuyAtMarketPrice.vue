@@ -36,9 +36,6 @@
 
 
       </el-menu>
-
-    </div>
-    <div style="z-index: 1;position:relative;">
       <div class="Subtitle" style="postion:fixed ">
         <el-menu :default-active="activeIndexBS"
                  class="el-menu-demo"
@@ -47,21 +44,27 @@
                  active-text-color="#ffd04b"
                  style="background-color: rgba(0,0,0,0);width: 30%;float: right;padding-right: 18%;height: 30px"
                  v-bind:router=true>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtLimitPrice">买入
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="BuyAtLimitPrice">
+            买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtLimitPrice">
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="SellAtLimitPrice">
             卖出
           </el-menu-item>
           <el-menu-item
             style="width: 25%;height: 100%;text-align: center;border-left: 3px solid #ffd04c;line-height: 20px;"
             index="BuyAtMarketPrice">市价买入
           </el-menu-item>
-          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;" index="SellAtMarketPrice">
+          <el-menu-item style="width: 25%;height: 100%;text-align: center;line-height: 20px;"
+                        index="SellAtMarketPrice">
             市价卖出
           </el-menu-item>
         </el-menu>
 
       </div>
+
+    </div>
+    <div style="z-index: 1;position:relative;">
 
       <div class="all">
 
@@ -289,11 +292,16 @@
         console.log('验证股票代码');
         this.$forceUpdate();
         if (value.length === 6) {
-          callback()
+          callback();
           this.firstReturnStockRealtimeInformation();
         } else if (value.length > 6) {
-          callback()
-          this.stockTrading.stockId = '';
+          if (this.msg === this.stockTrading.stockId) {
+            callback()
+          } else {
+            callback();
+            this.firstReturnStockRealtimeInformation();
+            this.msg === this.stockTrading.stockId;
+          }
         } else {
           callback(new Error('请输入股票代码'));
         }
@@ -413,7 +421,7 @@
             h('p', null, '证券名称:  ' + this.stockTrading.stockName),
             h('p', null, '买入策略:  ' + DT),
             h('p', null, '买入数量:  ' + this.stockTrading.orderAmount),
-            h('p', null, '预估金额:  ' + this.stockTrading.orderPrice*1.1*this.stockTrading.orderAmount),
+            h('p', null, '预估金额:  ' + this.stockTrading.orderPrice * 1.1 * this.stockTrading.orderAmount),
           ]),
           showCancelButton: true,
           confirmButtonText: '确定',
@@ -522,6 +530,8 @@
           console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
+
+            this.firstReturnStockRealtimeInformation()
           }).catch((res) => {
             this.$message.error(res.message)
           })
@@ -603,14 +613,19 @@
     /*margin-left: 27%;*/
     /*margin-right: 30%;*/
     width: 100%;
-    margin-bottom: 2%;
     margin-top: 1%;
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 5;
+    display: inline-block;
   }
 
   .all {
     width: 100%;
     height: 100%;
     display: block;
+    margin-top: 2%;
+
   }
 
   .miniButton {
