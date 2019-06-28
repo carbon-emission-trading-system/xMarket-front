@@ -7,10 +7,10 @@
           <table class="mailTable" :style="styleObject" :header-cell-style="{background:'#c2ccd0',color:'#606266'}"
                  style="height: 100%;width: 100%">
             <tr>
-              <td class="column"></td>
-              <td class="column">价格</td>
-              <td class="column"></td>
-              <td class="column">数量</td>
+              <td class="column">涨停</td>
+              <td class="column">{{this.realTimeData.dailyLimit }}</td>
+              <td class="column">跌停</td>
+              <td class="column">{{this.realTimeData.downLimit }}</td>
             </tr>
             <tr>
               <td class="column">卖五</td>
@@ -177,7 +177,7 @@
                   {{this.realTimeData.sellOneToFive[0].price}}
                 </span>
                 <span v-else-if="this.realTimeData.sellOneToFive[0].price===this.realTimeData.yesterdayClosePrice"
-                      >
+                >
                   {{this.realTimeData.sellOneToFive[0].price}}
                 </span>
                 <span v-else
@@ -204,7 +204,7 @@
                   class="colorRed">
               {{this.realTimeData.sellOneToFive[0].quantity}}
             </span>
-            <span v-else-if="this.realTimeData.sellOneToFive[0].price===this.realTimeData.yesterdayClosePrice">
+                <span v-else-if="this.realTimeData.sellOneToFive[0].price===this.realTimeData.yesterdayClosePrice">
               {{this.realTimeData.sellOneToFive[0].quantity}}
             </span>
                 <span v-else
@@ -463,6 +463,8 @@
               <td v-else></td>
 
             </tr>
+
+
           </table>
           <!--<table class="mailTable" :style="styleObject" style="width: 100%">-->
           <!--<tr>-->
@@ -572,30 +574,7 @@
               <td class="column">外盘</td>
               <td>{{this.realTimeData.outMarket }}</td>
             </tr>
-            <!--</table>-->
-            <!--<table class="mailTable" :style="styleObject">-->
-            <tr>
-              <td class="column ">开盘价</td>
-              <td
-                style="background-color: white"
-                v-if="this.realTimeData.openPrice>this.realTimeData.yesterdayClosePrice"
-                class="colorRed">{{this.realTimeData.openPrice }}
-              </td>
-              <td
-                style="background-color: white"
-                v-else-if="this.realTimeData.openPrice<this.realTimeData.yesterdayClosePrice"
-                class="colorGreen">
-                {{this.realTimeData.openPrice }}
-              </td>
-              <td v-else
-                  style="background-color: white">
-                {{this.realTimeData.openPrice }}
-              </td>
 
-
-            </tr>
-            <!--</table>-->
-            <!--<table class="mailTable" :style="styleObject">-->
             <tr>
               <td class="column">内盘</td>
               <td>{{this.realTimeData.inMarket}}</td>
@@ -623,12 +602,32 @@
               <td>{{this.realTimeData.pbRatio}}</td>
             </tr>
             <tr>
-              <td class="column">涨停</td>
-              <td>{{this.realTimeData.dailyLimit }}</td>
+              <td class="column">成交额</td>
+              <td>{{this.realTimeData.tradeAmount}}</td>
             </tr>
             <tr>
-              <td class="column">跌停</td>
-              <td>{{this.realTimeData.downLimit }}</td>
+              <td class="column ">开盘价</td>
+              <td
+                style="background-color: white"
+                v-if="this.realTimeData.openPrice>this.realTimeData.yesterdayClosePrice"
+                class="colorRed">{{this.realTimeData.openPrice }}
+              </td>
+              <td
+                style="background-color: white"
+                v-else-if="this.realTimeData.openPrice<this.realTimeData.yesterdayClosePrice"
+                class="colorGreen">
+                {{this.realTimeData.openPrice }}
+              </td>
+              <td v-else
+                  style="background-color: white">
+                {{this.realTimeData.openPrice }}
+              </td>
+
+
+            </tr>
+            <tr>
+              <td class="column">昨收盘</td>
+              <td>{{this.realTimeData.yesterdayClosePrice}}</td>
             </tr>
             <!--&lt;!&ndash;<td>{{realTimeData.buyone.value}}</td>&ndash;&gt;-->
           </table>
@@ -719,7 +718,7 @@
             });
         }
         ;
-         this.connect();
+        this.connect();
       }
     }
     ,
@@ -738,51 +737,55 @@
         this.$api.http('get', '/api/realTimeInfo', params).then(res => {
 
           this.realTimeData = res.data;
-          if(this.realTimeData.lowestPrice!==1.7976931348623157e+308){
-            this.realTimeData.lowestPrice  = this.realTimeData.lowestPrice.toFixed(2)
+          if (this.realTimeData.lowestPrice !== 1.7976931348623157e+308) {
+            this.realTimeData.lowestPrice = this.realTimeData.lowestPrice.toFixed(2)
           }
-          if(this.realTimeData.highestPrice!==5e-324){
+          if (this.realTimeData.highestPrice !== 5e-324) {
             this.realTimeData.highestPrice = this.realTimeData.highestPrice.toFixed(2)
           }
 
           //设置保留小数点后两位
 
           for (let key in this.realTimeData) {
-            if (key === 'dailyLimit' ||key ==='yesterdayClosePrice'||key ==='tradeAmount'|| key === 'downLimit'||key==='increase'||key==='lastTradePrice'||key==='openPrice'||key==='pbRatio'||key==='peRatio') {
+            if (key === 'dailyLimit' || key === 'yesterdayClosePrice' || key === 'tradeAmount' || key === 'downLimit' || key === 'increase' || key === 'lastTradePrice' || key === 'openPrice' || key === 'pbRatio' || key === 'peRatio') {
               this.realTimeData[key] = this.realTimeData[key].toFixed(2)
             }
           }
-          for(let i  = 0 ;i<this.realTimeData.buyOneToFive.length;i++){
+          for (let i = 0; i < this.realTimeData.buyOneToFive.length; i++) {
             this.realTimeData.buyOneToFive[i].price = this.realTimeData.buyOneToFive[i].price.toFixed(2)
           }
-          for(let i  = 0;i<this.realTimeData.sellOneToFive.length;i++){
+          for (let i = 0; i < this.realTimeData.sellOneToFive.length; i++) {
             this.realTimeData.sellOneToFive[i].price = this.realTimeData.sellOneToFive[i].price.toFixed(2)
           }
 
 
-          if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
+          if (this.realTimeData.conversionHand > 0 && this.realTimeData.conversionHand < 0.01) {
             this.realTimeData.conversionHand = '<0.01'
           }
 
           //计算条
           let sum = 0
-          for(let i = 0;i<5;i++){
-            if(this.realTimeData.sellOneToFive[i].quantity>0){
-              sum += this.realTimeData.sellOneToFive[i].quantity
+          let x = 0;
+          let y = 0;
+          for (let i = 0; i < 5; i++) {
+            if (this.realTimeData.sellOneToFive[i].quantity > x) {
+              x = this.realTimeData.sellOneToFive[i].quantity
             }
-            if(this.realTimeData.buyOneToFive[i].quantity>0){
-              sum += this.realTimeData.buyOneToFive[i].quantity
-            }
-          }
-          for(let i = 0;i<5;i++){
-            if(this.realTimeData.sellOneToFive[i].quantity>0){
-              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
-            }
-            if(this.realTimeData.buyOneToFive[i].quantity>0){
-              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
+            if (this.realTimeData.buyOneToFive[i].quantity > y) {
+              y = this.realTimeData.buyOneToFive[i].quantity
             }
           }
-
+          if (x < y) {
+            x = y;
+          }
+          for (let i = 0; i < 5; i++) {
+            if (this.realTimeData.sellOneToFive[i].quantity > 0) {
+              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity * 100 / x
+            }
+            if (this.realTimeData.buyOneToFive[i].quantity > 0) {
+              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity * 100 / x
+            }
+          }
 
 
         }).catch((res) => {
@@ -811,48 +814,53 @@
 
         this.realTimeData = JSON.parse(message.body);
 
-        if(this.realTimeData.lowestPrice!==1.7976931348623157e+308){
-          this.realTimeData.lowestPrice  = this.realTimeData.lowestPrice.toFixed(2)
+        if (this.realTimeData.lowestPrice !== 1.7976931348623157e+308) {
+          this.realTimeData.lowestPrice = this.realTimeData.lowestPrice.toFixed(2)
         }
-        if(this.realTimeData.highestPrice!==5e-324){
+        if (this.realTimeData.highestPrice !== 5e-324) {
           this.realTimeData.highestPrice = this.realTimeData.highestPrice.toFixed(2)
         }
 
         //设置保留小数点后两位
 
         for (let key in this.realTimeData) {
-          if (key === 'dailyLimit' ||key ==='yesterdayClosePrice'||key ==='tradeAmount'|| key === 'downLimit'||key==='increase'||key==='lastTradePrice'||key==='openPrice'||key==='pbRatio'||key==='peRatio') {
+          if (key === 'dailyLimit' || key === 'yesterdayClosePrice' || key === 'tradeAmount' || key === 'downLimit' || key === 'increase' || key === 'lastTradePrice' || key === 'openPrice' || key === 'pbRatio' || key === 'peRatio') {
             this.realTimeData[key] = this.realTimeData[key].toFixed(2)
           }
         }
-        for(let i  = 0 ;i<this.realTimeData.buyOneToFive.length;i++){
+        for (let i = 0; i < this.realTimeData.buyOneToFive.length; i++) {
           this.realTimeData.buyOneToFive[i].price = this.realTimeData.buyOneToFive[i].price.toFixed(2)
         }
-        for(let i  = 0;i<this.realTimeData.sellOneToFive.length;i++){
+        for (let i = 0; i < this.realTimeData.sellOneToFive.length; i++) {
           this.realTimeData.sellOneToFive[i].price = this.realTimeData.sellOneToFive[i].price.toFixed(2)
         }
 
 
-        if(this.realTimeData.conversionHand>0 &&this.realTimeData.conversionHand<0.01){
+        if (this.realTimeData.conversionHand > 0 && this.realTimeData.conversionHand < 0.01) {
           this.realTimeData.conversionHand = '<0.01'
         }
 
         //计算条
         let sum = 0
-        for(let i = 0;i<5;i++){
-          if(this.realTimeData.sellOneToFive[i].quantity>0){
-            sum += this.realTimeData.sellOneToFive[i].quantity
+        let x = 0;
+        let y = 0;
+        for (let i = 0; i < 5; i++) {
+          if (this.realTimeData.sellOneToFive[i].quantity > x) {
+            x = this.realTimeData.sellOneToFive[i].quantity
           }
-          if(this.realTimeData.buyOneToFive[i].quantity>0){
-            sum += this.realTimeData.buyOneToFive[i].quantity
+          if (this.realTimeData.buyOneToFive[i].quantity > y) {
+            y = this.realTimeData.buyOneToFive[i].quantity
           }
         }
-        for(let i = 0;i<5;i++){
-          if(this.realTimeData.sellOneToFive[i].quantity>0){
-            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
+        if (x < y) {
+          x = y;
+        }
+        for (let i = 0; i < 5; i++) {
+          if (this.realTimeData.sellOneToFive[i].quantity > 0) {
+            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity * 100 / x
           }
-          if(this.realTimeData.buyOneToFive[i].quantity>0){
-            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
+          if (this.realTimeData.buyOneToFive[i].quantity > 0) {
+            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity * 100 / x
           }
         }
 
