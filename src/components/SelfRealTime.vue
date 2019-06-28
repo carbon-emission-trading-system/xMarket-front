@@ -556,21 +556,46 @@
           }
 
           //计算条
+          // let sum = 0
+          // for(let i = 0;i<5;i++){
+          //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+          //     sum += this.realTimeData.sellOneToFive[i].quantity
+          //   }
+          //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+          //     sum += this.realTimeData.buyOneToFive[i].quantity
+          //   }
+          // }
+          // for(let i = 0;i<5;i++){
+          //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+          //     this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
+          //   }
+          //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+          //     this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
+          //   }
+          // }
+
+
+          //计算条条
           let sum = 0
+          let x=0;
+          let y=0;
           for(let i = 0;i<5;i++){
-            if(this.realTimeData.sellOneToFive[i].quantity>0){
-              sum += this.realTimeData.sellOneToFive[i].quantity
+            if(this.realTimeData.sellOneToFive[i].quantity>x){
+              x= this.realTimeData.sellOneToFive[i].quantity
             }
-            if(this.realTimeData.buyOneToFive[i].quantity>0){
-              sum += this.realTimeData.buyOneToFive[i].quantity
+            if(this.realTimeData.buyOneToFive[i].quantity>y){
+              y= this.realTimeData.buyOneToFive[i].quantity
             }
+          }
+          if(x<y){
+            x = y;
           }
           for(let i = 0;i<5;i++){
             if(this.realTimeData.sellOneToFive[i].quantity>0){
-              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
+              this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/x
             }
             if(this.realTimeData.buyOneToFive[i].quantity>0){
-              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
+              this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/x
             }
           }
 
@@ -620,23 +645,49 @@
           this.realTimeData.conversionHand = '<0.01'
         }
 
+        // let sum = 0
+        // for(let i = 0;i<5;i++){
+        //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+        //     sum += this.realTimeData.sellOneToFive[i].quantity
+        //   }
+        //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+        //     sum += this.realTimeData.buyOneToFive[i].quantity
+        //   }
+        // }
+        // for(let i = 0;i<5;i++){
+        //   if(this.realTimeData.sellOneToFive[i].quantity>0){
+        //     this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
+        //   }
+        //   if(this.realTimeData.buyOneToFive[i].quantity>0){
+        //     this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
+        //   }
+        // }
+
+
         let sum = 0
+        let x=0;
+        let y=0;
         for(let i = 0;i<5;i++){
-          if(this.realTimeData.sellOneToFive[i].quantity>0){
-            sum += this.realTimeData.sellOneToFive[i].quantity
+          if(this.realTimeData.sellOneToFive[i].quantity>x){
+            x= this.realTimeData.sellOneToFive[i].quantity
           }
-          if(this.realTimeData.buyOneToFive[i].quantity>0){
-            sum += this.realTimeData.buyOneToFive[i].quantity
+          if(this.realTimeData.buyOneToFive[i].quantity>y){
+            y= this.realTimeData.buyOneToFive[i].quantity
           }
+        }
+        if(x<y){
+          x = y;
         }
         for(let i = 0;i<5;i++){
           if(this.realTimeData.sellOneToFive[i].quantity>0){
-            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/sum
+            this.percentage.sell[i] = this.realTimeData.sellOneToFive[i].quantity*100/x
           }
           if(this.realTimeData.buyOneToFive[i].quantity>0){
-            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/sum
+            this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity*100/x
           }
         }
+
+
 
 
       },
