@@ -365,13 +365,14 @@
        */
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.stockTrading.DelegateType = '';
-        this.stockTrading.stockId = null;
-        this.stockTrading.orderPrice = null;
-        this.stockTrading.canorderAmount = null;
-        this.stockTrading.orderAmount = null;
-        this.stockTrading.stockName = null;
+        console.log('asd');
+        this.stockTrading.stockId = '';
+        this.stockTrading.orderPrice = '';
+        this.stockTrading.canorderAmount = '';
+        this.stockTrading.orderAmount = '';
+        this.stockTrading.stockName = '';
         this.msg = '';
+        this.stockTrading.DelegateType = '';
       }
       ,
       /**

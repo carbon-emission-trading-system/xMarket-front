@@ -279,6 +279,7 @@
         console.log('this.stockTrading.orderAmount');
         console.log(this.stockTrading.orderAmount);
         this.$forceUpdate();
+        console.log(value.length)
         if (value.length === 6) {
           if (this.msg === this.stockTrading.stockId) {
             callback()
@@ -391,11 +392,11 @@
         console.log('resetForm');
         this.$refs[formName].resetFields();
         console.log('asd');
-        this.stockTrading.stockId = null;
-        this.stockTrading.orderPrice = null;
-        this.stockTrading.canorderAmount = null;
-        this.stockTrading.orderAmount = null;
-        this.stockTrading.stockName = null;
+        this.stockTrading.stockId = '';
+        this.stockTrading.orderPrice = '';
+        this.stockTrading.canorderAmount = '';
+        this.stockTrading.orderAmount = '';
+        this.stockTrading.stockName = '';
         this.msg = '';
       }
       ,
