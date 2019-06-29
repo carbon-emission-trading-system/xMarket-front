@@ -1,6 +1,5 @@
 <template>
-  <div>
-
+  <div style="width: 100%;height: 100%">
     <div id="navigator">
       <el-image :src="url" style="height: 45px;width: 15%;float: left;margin-left: 3%;margin-top: 1%"></el-image>
       <el-menu :default-active="this.activeIndex"
@@ -38,6 +37,9 @@
     <div style="z-index: 1;position:relative;">
       <div id="register">
         <el-card class="box-card" style="margin-top: 5%" shadow="hover">
+          <div slot="header" class="clearfix">
+            <span style="font-size: 20px;">注册</span>
+          </div>
           <el-form label-position="left" label-width="120px"
                    :model="user"
                    :rules="rules"
@@ -85,8 +87,6 @@
             <!--<el-form-item label="确认交易密码" prop="transactionRepassword">-->
               <!--<el-input type="password" v-model="user.transactionRepassword" placeholder="请确认交易密码  "></el-input>-->
             <!--</el-form-item>-->
-
-
 
          <div>
             <el-button class="submit-btn" type="primary" @click="register('user')">注册</el-button>
@@ -206,7 +206,10 @@ import qs from 'qs'
       }
     },
     methods: {
-
+      handleNews(row) {
+        this.$store.commit('title', row.title)
+        this.$router.push('OneNew')
+      },
       loginn(){
         this.$router.push('/')
         this.$store.commit('position',1)
@@ -368,15 +371,36 @@ import qs from 'qs'
 
 <style lang="scss">
   #register {
-    width: 40%;
-    height: 40%;
+    width: 50%;
+    height: 80%;
+    margin: auto;
+    margin-left: 25%;
     margin-top: 5%;
-    margin-bottom: 5%;
   }
 
   .box-card {
-    width: 100%;
+
+    width: 60%;
+    margin: auto;
+    padding: 6%;
   }
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
 
   #navigator {
     width: 100%;

@@ -34,6 +34,7 @@ import FundCurve from "../components/FundCurve"
 import StockScreening from "../components/StockScreening"
 import IndexDisplay from "../components/IndexDisplay"
 import PositionStock from "../components/PositionStock"
+import LoginCompon from "../components/LoginCompon"
 
 Vue.use(Router)
 //配置路由
@@ -182,6 +183,10 @@ export default new Router({
       name: 'positionStock',
       component: PositionStock
     }, {
+    path:'/LoginCompon',
+      name:'loginCompon',
+      component:LoginCompon
+    },{
       path: '*',
       redirect: '/404'
     }
