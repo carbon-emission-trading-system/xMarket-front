@@ -67,7 +67,7 @@
 
               <!--总市值--->
               <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left;font-weight: bold">总市值</p>
+                <p style="float: left;">总市值</p>
                 <div style="float: left;width: 10%;align-content: center;margin-left:5%;margin-right: 7%;font-size:14px;margin-top: 4.5%">
                   {{ this.maxMinData.minTotalMarketCapitalization }}
                   <!--<el-input v-model="this.maxMinData.maxTotalMarketCapitalization"-->
@@ -93,7 +93,7 @@
 
               <!---成交额--->
               <div style="width: 50%;height: 80%;float: left;">
-                <p style="float: left;font-weight: bold">成交额</p>
+                <p style="float: left;">成交额</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 8%;font-size:14px;margin-left:5%;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.maxTradeAmount" style="width: 55%;float: left"></el-input>-->
                   {{ this.maxMinData.minTradeAmount}}
@@ -117,7 +117,7 @@
 
               <!---市盈率--->
               <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left;font-weight: bold;">市盈率</p>
+                <p style="float: left;">市盈率</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 8%;font-size:14px;margin-left:5%;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.maxPeRatio" style="width: 55%;float: left"></el-input>-->
                   {{this.maxMinData.minPeRatio}}
@@ -142,7 +142,7 @@
 
               <!---涨跌幅  --->
               <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left;font-weight: bold">涨跌幅</p>
+                <p style="float: left;">涨跌幅</p>
                 <div style="float: left;width: 10%;align-content: center;margin-right: 8%;font-size:14px;margin-left:5%;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.maxIncrease" style="width: 55%;float: left"></el-input>-->
                   {{ this.maxMinData.minIncrease }}
