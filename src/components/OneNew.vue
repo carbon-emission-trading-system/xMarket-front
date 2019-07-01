@@ -55,7 +55,7 @@
         <div id="tag">
           <el-divider></el-divider>
         </div>
-        <p>{{this.news.content}}</p>
+        <p v-html="this.news.content">{{this.news.content}}</p>
 
       </div>
     </div>
@@ -122,7 +122,6 @@
   #all {
     width: 60%;
     margin: 0 auto;
-    height: 500px;
   }
 
   #tag {
