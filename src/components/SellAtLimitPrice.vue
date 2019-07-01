@@ -275,16 +275,16 @@
         console.log('验证股票代码');
         this.$forceUpdate();
         if (value.length === 6) {
-          callback()
-          this.firstReturnStockRealtimeInformation();
-        } else if (value.length > 6) {
           if (this.msg === this.stockTrading.stockId) {
             callback()
           } else {
             callback();
             this.firstReturnStockRealtimeInformation();
-            this.msg === this.stockTrading.stockId;
+            this.msg = this.stockTrading.stockId;
           }
+        } else if (value.length > 6) {
+          callback();
+          this.stockTrading.stockId = '';
         } else {
           callback(new Error('请输入股票代码'));
         }

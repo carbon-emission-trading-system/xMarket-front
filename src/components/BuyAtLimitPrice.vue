@@ -285,8 +285,10 @@
             callback()
           } else {
             callback();
+            console.log("55555555")
+            console.log(this.msg)
             this.firstReturnStockRealtimeInformation();
-            this.msg === this.stockTrading.stockId;
+            this.msg = this.stockTrading.stockId;
           }
         } else if (value.length > 6) {
           callback();

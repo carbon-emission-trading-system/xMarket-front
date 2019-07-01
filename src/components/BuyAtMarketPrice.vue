@@ -258,6 +258,7 @@
         let stockId = this.stockTrading.stockId;
         stockId = stockId.split(":")[0];
         this.$set(this.stockTrading, 'stockId', stockId);
+        console.log('搜索提醒')
         this.firstReturnStockRealtimeInformation();
       },
       //搜索提示
@@ -292,16 +293,16 @@
         console.log('验证股票代码');
         this.$forceUpdate();
         if (value.length === 6) {
-          callback();
-          this.firstReturnStockRealtimeInformation();
-        } else if (value.length > 6) {
           if (this.msg === this.stockTrading.stockId) {
             callback()
           } else {
             callback();
             this.firstReturnStockRealtimeInformation();
-            this.msg === this.stockTrading.stockId;
+            this.msg = this.stockTrading.stockId;
           }
+        } else if (value.length > 6) {
+          callback();
+          this.stockTrading.stockId = '';
         } else {
           callback(new Error('请输入股票代码'));
         }
@@ -357,6 +358,7 @@
           callback(new Error('请选择交易策略'));
           console.log('请选择交易策略')
         } else {
+          console.log("验证交易策略");
           callback();
         }
       },
@@ -379,13 +381,14 @@
        *提交
        */
       submitForm(formName) {
-        console.log(this.stockTrading.DelegateType);
         this.$refs[formName].validate((valid) => {
+          console.log("sqs")
+          console.log(this.stockTrading.DelegateType)
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
             // this.ajaxSubmit();
             this.open();
-            this.stockTrading.DelegateType = '';
+            console.log("zhelia ")
           } else {
             console.log('error submit!!');
             return false;
@@ -414,7 +417,8 @@
           DT = "未选择成交方案"
         }
 
-
+        console.log("seeees")
+        console.log(this.stockTrading.DelegateType)
         this.$msgbox({
           title: '市价买入订单',
           message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
@@ -463,27 +467,23 @@
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice * 1.1));
           this.$set(this.stockTrading, 'orderAmount', this.stockTrading.canorderAmount);
 
-
-          console.log(res.data.tradeMarket);
           if (this.stockTrading.tradeMarket === 0) {
             this.allDelegateType = store.state.SDelegateType;
-            console.log(this.allDelegateType)
           } else {
             this.allDelegateType = store.state.HDelegateType;
-            console.log(this.allDelegateType)
           }
+
+
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
           this.$store.commit('temStockId', this.stockTrading.stockId)
+
+          console.log('firstReturnStockRealtimeInformation');
+          console.log(this.stockTrading)
         }).catch((res) => {
           this.$message.error(res.message)
-        })
-        if (this.tradeMarket === 0) {
-          this.allDelegateType = store.state.SDelegateType;
-        } else {
-          this.allDelegateType = store.state.HDelegateType;
-        }
+        });
       },
 
       /**
@@ -493,8 +493,6 @@
        */
       CalculatingTax(allFund, price) {
         if (Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price > 166.6) {
-          console.log('if');
-          console.log(allFund / (price * 1.030287 * 100));
           return Math.floor(allFund / (price * 1.030287 * 100)) * 100;
         } else {
           return Math.floor((allFund - 5) / (price * 1.000287 * 100)) * 100;
@@ -513,12 +511,11 @@
         console.log(this.stockTrading.stockId, this.stockTrading.orderAmount, this.stockTrading.DelegateType)
         if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
-        } else if (this.stockTrading.stockId === null
-          || this.stockTrading.orderAmount === null
-          || this.stockTrading.DelegateType === ''
-          || this.stockTrading.DelegateType === undefined) {
-          this.stockTrading.DelegateType = '',
-            alert('错误');
+        } else if (this.stockTrading.stockId === ''
+          || this.stockTrading.orderAmount === ''
+          || this.stockTrading.DelegateType === '') {
+          console.log(this.stockTrading);
+          alert('错误');
         } else {
           let SentstockTrading = {
             // userId: store.state.user.userId,

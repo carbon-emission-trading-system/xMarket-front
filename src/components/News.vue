@@ -8,7 +8,6 @@
                text-color="#000000"
                active-text-color="#ffd04b"
                v-bind:router=true
-
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item index="AfterLogin" @click="toFirst">首页</el-menu-item>
@@ -101,13 +100,13 @@
         this.$router.push('/Register')
       },
       exit() {
-        this.$store.commit('logout')
+        this.$store.commit('logout');
         this.$router.push('/')
       },
       //处理列表点击事件
       handle(row) {
         // console.log(row.stockId)
-        this.$store.commit('title', row.title)
+        this.$store.commit('title', row.title);
         this.$router.push('OneNew')
       },
       toFirst() {
@@ -118,7 +117,7 @@
         }
       },
       login(){
-        this.$router.push('/')
+        this.$router.push('/');
         this.$store.commit('position',1)
       },
       toRouterOrAlert(index) {
