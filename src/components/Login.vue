@@ -27,7 +27,7 @@
           <el-menu-item @click="toRouterOrAlert('HistoryExchangeInfo')">历史成交</el-menu-item>
         </el-submenu>
         <el-menu-item  @click="toRouterOrAlert('SelfCenter')">个人中心</el-menu-item>
-        <el-menu-item style="padding-left: 4%;color: #409EFF"><a href="#scrope" >登录</a><span>/</span>
+        <el-menu-item style="padding-left: 4%;color: #409EFF"><span @click="loginn">登录</span><span>/</span>
           <span  @click="register">注册</span>
         </el-menu-item>
 
@@ -211,9 +211,12 @@
     methods: {
       setPosition(){
         if(this.$store.state.position===1){
-          document.documentElement.scrollTop=380;
+          document.documentElement.scrollTop=370;
         }
         this.$store.commit('position',0)
+      },
+      loginn(){
+        document.documentElement.scrollTop=370;
       },
       register(){
         this.$router.push('/Register')
@@ -224,7 +227,7 @@
           this.$router.push(index)
         } else {
           this.$message('请先登录');
-          document.documentElement.scrollTop=380;
+          document.documentElement.scrollTop=370;
         }
       },
 
