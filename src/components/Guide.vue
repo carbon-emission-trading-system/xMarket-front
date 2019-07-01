@@ -49,7 +49,7 @@
           <!--<div style="width: 20%;height: 20%">-->
           <el-tab-pane label="交易规则" class="leftBox">
             <div class="rightCard">
-              <span style="font-size:30px" sortable>交易规则</span>
+              <span style="font-size:30px" sortable>虚市交易规则简章</span>
               <el-divider content-position="right" style="width: 100%"></el-divider>
               <div style=" margin-top:10%;margin-left:5%;margin-right: 5%;text-align: left">
                 <h class="chouh">
@@ -387,7 +387,7 @@
                 由上面算式可知RSI指标的技术含义，即以向上的力量与向下的力量进行比较，若向上的力量较大，则计算出来的指标上升；若向下的力量较大，则指标下降，由此测算出市场走势的强弱。
                 真实计算 N日RSIFS N日内收盘涨幅的平均值 N日内收盘跌幅均值
 
-                <h3>
+                <h3 >
                   MACDFS指标
                 </h3>
                 功能名称 MACDFS指标

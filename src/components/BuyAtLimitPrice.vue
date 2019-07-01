@@ -285,8 +285,10 @@
             callback()
           } else {
             callback();
+            console.log("55555555")
+            console.log(this.msg)
             this.firstReturnStockRealtimeInformation();
-            this.msg === this.stockTrading.stockId;
+            this.msg = this.stockTrading.stockId;
           }
         } else if (value.length > 6) {
           callback();
@@ -497,14 +499,11 @@
        * @return {{articles: {stockId: number, stockName: string, orderPrice: number, canorderAmount: number, soh: number}}}
        */
       CalculatingTax(allFund, price) {
-
         let res = '';
-        if (Math.floor(allFund / (price * 1.030287 * 100)) * 100 * price > 166.6) {
-          console.log('if');
-          console.log(allFund / (price * 1.030287 * 100));
-          res = Math.floor(allFund / (price * 1.030287 * 100)) * 100;
+        if (Math.floor(allFund / (price * 1.000027 * 100)) * 100 * price > 20000) {
+          res = Math.floor(allFund / (price * 1.000027 * 100)) * 100;
         } else {
-          res = Math.floor((allFund - 5) / (price * 1.000287 * 100)) * 100;
+          res = Math.floor((allFund - 5) / (price * 1.00002 * 100)) * 100;
         }
         return res;
       }

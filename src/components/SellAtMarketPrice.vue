@@ -286,10 +286,10 @@
           } else {
             callback();
             this.firstReturnStockRealtimeInformation();
-            this.msg === this.stockTrading.stockId;
+            this.msg = this.stockTrading.stockId;
           }
         } else if (value.length > 6) {
-          callback()
+          callback();
           this.stockTrading.stockId = '';
         } else {
           callback(new Error('请输入股票代码'));
