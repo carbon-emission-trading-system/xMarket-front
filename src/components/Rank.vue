@@ -149,7 +149,7 @@
           <div class="left">
             <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
-                <span>成交额</span>
+                <span>成交额排名</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="toOneRank(3)">查看更多</el-button>
               </div>
               <el-table
@@ -332,8 +332,8 @@
               }
             }
           }
-          if (data.length >= 4) {
-            this.rankByIncrease = data.slice(0, 4)
+          if (data.length >= 5) {
+            this.rankByIncrease = data.slice(0, 5)
           }
           else {
             this.rankByIncrease = data;
@@ -364,8 +364,8 @@
               }
             }
           }
-          if (data.length >= 4) {
-            this.rankByDecrease = data.slice(0, 4)
+          if (data.length >= 5) {
+            this.rankByDecrease = data.slice(0, 5)
           }
           else {
             this.rankByDecrease = data;
@@ -396,8 +396,8 @@
               }
             }
           }
-          if (data.length >= 4) {
-            this.rankByTradeAmount = data.slice(0, 4)
+          if (data.length >= 5) {
+            this.rankByTradeAmount = data.slice(0, 5)
           }
           else {
             this.rankByTradeAmount = data;
@@ -428,8 +428,8 @@
               }
             }
           }
-          if (data.length >= 4) {
-            this.rankByConversionHand = data.slice(0, 4)
+          if (data.length >= 5) {
+            this.rankByConversionHand = data.slice(0, 5)
           }
           else {
             this.rankByConversionHand = data;
