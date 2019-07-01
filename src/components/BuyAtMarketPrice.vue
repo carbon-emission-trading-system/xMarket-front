@@ -298,7 +298,6 @@
           } else {
             callback();
             this.firstReturnStockRealtimeInformation();
-            this.msg = this.stockTrading.stockId;
           }
         } else if (value.length > 6) {
           callback();
@@ -382,13 +381,10 @@
        */
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          console.log("sqs")
-          console.log(this.stockTrading.DelegateType)
           if (valid) {
             // ajaxSubmit()是ajax的提交，websocketSubmit()是websocket的提交
             // this.ajaxSubmit();
             this.open();
-            console.log("zhelia ")
           } else {
             console.log('error submit!!');
             return false;
@@ -417,8 +413,6 @@
           DT = "未选择成交方案"
         }
 
-        console.log("seeees")
-        console.log(this.stockTrading.DelegateType)
         this.$msgbox({
           title: '市价买入订单',
           message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
@@ -459,7 +453,6 @@
           userId: this.$store.getters.getUserId
         };
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
-          console.log(res);
           this.rout = true;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
@@ -477,10 +470,8 @@
           this.msg = this.stockTrading.stockId;
           this.$store.commit('buyOrSellStock', 0);
           this.$store.commit('buyOrSellStock', this.stockTrading.stockId);
-          this.$store.commit('temStockId', this.stockTrading.stockId)
+          this.$store.commit('temStockId', this.stockTrading.stockId);
 
-          console.log('firstReturnStockRealtimeInformation');
-          console.log(this.stockTrading)
         }).catch((res) => {
           this.$message.error(res.message)
         });
@@ -498,6 +489,7 @@
         } else {
           res = Math.floor((allFund - 5) / (price * 1.00002 * 100)) * 100;
         }
+        return res;
       }
       ,
 
@@ -508,15 +500,12 @@
        */
       ajaxSubmit() {
         // this.firstReturnStockRealtimeInformation()
-        console.log('***********************')
-        console.log(this.stockTrading.stockId, this.stockTrading.orderAmount, this.stockTrading.DelegateType)
         if (this.$store.getters.getUserId == null) {
           this.alertBox('错误', '用户未登陆');
         } else if (this.stockTrading.stockId === ''
           || this.stockTrading.orderAmount === ''
           || this.stockTrading.DelegateType === '') {
-          console.log(this.stockTrading);
-          alert('错误');
+               alert('错误');
         } else {
           let SentstockTrading = {
             // userId: store.state.user.userId,
@@ -526,7 +515,6 @@
             orderAmount: this.stockTrading.orderAmount,
             tradeStraregy: this.stockTrading.DelegateType,
           }
-          console.log(SentstockTrading);
           this.$api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
             this.$message.success('提交成功')
 
@@ -551,7 +539,7 @@
           orderPrice: this.stockTrading.orderPrice,
           tradeStraregy: this.stockTrading.DelegateType,
         }
-        console.log(SentstockTrading);
+
         this.client.send("/exchange/orderExchange/orderRoutingKey", {"content-type": "text/plain"}, SentstockTrading);
       },
       //0.25/0.5/0.75计算
@@ -559,7 +547,6 @@
         this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.openPrice * 1.1));
         this.$forceUpdate();
         // this.stockTrading.orderAmount = CalculatingTax(this.stockTrading.balance * 0.25, this.stockTrading.orderPrice)
-        console.log(this.stockTrading);
       },
       change2() {
         this.$set(this.stockTrading, 'orderAmount', this.CalculatingTax(this.stockTrading.balance * 0.5, this.stockTrading.openPrice * 1.1));
