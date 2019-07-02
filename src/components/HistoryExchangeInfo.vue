@@ -238,9 +238,7 @@
         day1 = date1.getDate()
         begin = year1.toString() + (month1 > 9 ? month1 : '0' + month1) + (day1 > 9 ? day1 : '0' + day1)
         begin = parseInt(begin)
-        console.log(begin)
 
-        console.log(this.endDate)
         let date2 = new Date(this.endDate)
         let end, year2, month2, day2
         year2 = date2.getFullYear()
@@ -248,12 +246,10 @@
         day2 = date2.getDate()
         end = year2.toString() + (month2 > 9 ? month2 : '0' + month2) + (day2 > 9 ? day2 : '0' + day2)
         end = parseInt(end)
-        console.log(end)
 
         let list = []
         for (let i = 0; i < this.originTableData.length; i++) {
           let date = new Date(this.originTableData[i].date)
-          //   console.log(date)
           let theDate, year, month, day
           year = date.getFullYear()
           month = date.getMonth() + 1
