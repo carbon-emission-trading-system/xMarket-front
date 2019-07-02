@@ -603,7 +603,19 @@
 
         })
       },
-
+      connect() {
+        console.log("开始连接");
+        this.client = Stomp.client("ws://192.168.137.1:15674/ws")
+        console.log("创建");
+        var headers = {
+          "login": "zhang",
+          "passcode": "648810",
+          //虚拟主机，默认“/”
+          "heart-beat": "0,0"
+        };
+        this.client.connect(headers, this.onConnected, this.onFailed);
+        console.log("连接结束");
+      },
       onConnected(frame) {
         console.log("Connected: " + frame);
         var exchange1 = "/exchange/realTimeExchange/stock.SZSE." + this.$store.state.stockId;
@@ -696,19 +708,7 @@
         //接收到服务器推送消息，向服务器发送确认消息
         // this.client.send("/exchange/exchange_pushmsg/rk_recivemsg", {"content-type":"text/plain"}, frame.body);
       },
-      connect() {
-        console.log("开始连接");
-        this.client = Stomp.client("ws://192.168.137.1:15674/ws")
-        console.log("创建");
-        var headers = {
-          "login": "zhang",
-          "passcode": "648810",
-          //虚拟主机，默认“/”
-          "heart-beat": "0,0"
-        };
-        this.client.connect(headers, this.onConnected, this.onFailed);
-        console.log("连接结束");
-      },
+
 
     }
   }
