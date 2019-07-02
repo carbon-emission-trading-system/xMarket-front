@@ -737,9 +737,7 @@
           if (this.realTimeData.highestPrice !== 5e-324) {
             this.realTimeData.highestPrice = this.realTimeData.highestPrice.toFixed(2)
           }
-
           //设置保留小数点后两位
-
           for (let key in this.realTimeData) {
             if (key === 'dailyLimit' || key === 'yesterdayClosePrice' || key === 'tradeAmount' || key === 'downLimit' || key === 'increase' || key === 'lastTradePrice' || key === 'openPrice' || key === 'pbRatio' || key === 'peRatio') {
               this.realTimeData[key] = this.realTimeData[key].toFixed(2)
@@ -756,7 +754,6 @@
           if (this.realTimeData.conversionHand > 0 && this.realTimeData.conversionHand < 0.01) {
             this.realTimeData.conversionHand = '<0.01'
           }
-
           //计算条
           let sum = 0;
           let x = 0;
@@ -780,8 +777,6 @@
               this.percentage.buy[i] = this.realTimeData.buyOneToFive[i].quantity * 100 / x
             }
           }
-
-
         }).catch((res) => {
           this.$message.error(res.message)
         })
@@ -789,11 +784,8 @@
       ,
       onConnected(frame) {
         console.log("Connected: " + frame);
-
         let exchange = "/exchange/realTimeExchange/stock.SZSE." + this.buyOrSellStock;
-
         this.client.subscribe(exchange, this.onmessage);
-
       }
       ,
       onFailed(frame) {
