@@ -329,10 +329,7 @@
         let params = {
           stockId: this.$store.getters.getStockId
         }
-        console.log("dawe")
-        console.log(this.$store.getters.getStockId)
         this.$api.http('get', '/api/KlineDiagramDisplay', params).then(res => {
-          console.log(res);
           this.kChartData.rows = res.data;
         }).catch((error) => {
           this.$message.error(error.message)
@@ -346,7 +343,6 @@
         this.$api.http('get', '/api/firstTimeSharingDisplay', params).then(res => {
           let data = res.data
           for (let i = 0; i < data.length; i++) {
-
             this.timeData.push(data[i].realTime)
             this.averagePrice.push(data[i].averagePrice)
             this.lastTradePrice.push(data[i].lastTradePrice)
@@ -375,22 +371,6 @@
           axisPointer: {
             link: {xAxisIndex: 'all'}
           },
-          // dataZoom: [
-          //   {
-          //     show: true,
-          //     realtime: true,
-          //     start: 0,
-          //     end: 100,
-          //     xAxisIndex: [0, 1]
-          //   },
-          //   {
-          //     type: 'inside',
-          //     realtime: true,
-          //     start: 0,
-          //     end: 100,
-          //     xAxisIndex: [0, 1]
-          //   }
-          // ],
           grid: [{
             height: '50%'
           }, {
@@ -402,7 +382,7 @@
               type: 'category',
               boundaryGap: true,
               axisLine: {onZero: false},
-              max: 330,
+              max: 720,
 
               data: this.timeData
             },
@@ -411,7 +391,7 @@
               show: false,
               type: 'category',
               boundaryGap: true,
-              max: 330,
+              max: 720,
               axisLine: {onZero: false},
               splitLine: {
                 "show": false

@@ -67,49 +67,49 @@
 
               <!--总市值--->
               <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">总市值</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                <p style="float: left;">总市值</p>
+                <div style="float: left;width: 10%;align-content: center;margin-left:5%;margin-right: 7%;font-size:14px;margin-top: 4.5%">
                   {{ this.maxMinData.minTotalMarketCapitalization }}
                   <!--<el-input v-model="this.maxMinData.maxTotalMarketCapitalization"-->
                   <!--style="width: 55%;float: left"></el-input>-->
                 </div>
 
-                <div style="float: left;width: 50%;align-content: center">
+                <div style="float: left;width: 40%;align-content: center">
                   <el-slider
                     v-model="TotalMarketCapitalizationValue"
                     range
                     step="0.01"
                     :min=this.maxMinData.minTotalMarketCapitalization
                     :max=this.maxMinData.maxTotalMarketCapitalization
-                    style="margin-top: 2%">
+                    style="margin-top: 5.5%">
                   </el-slider>
                 </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
-                  {{this.maxMinData.maxTotalMarketCapitalization }}
+                <div style="float: left;width: 20%;align-content: center;margin-left: 3%;font-size:14px;margin-top: 4.5%">
+                  {{this.maxMinData.maxTotalMarketCapitalization.toFixed(1) }}
                   <!--<el-input v-model="this.maxMinData.minTotalMarketCapitalization"-->
                   <!--style="width: 55%;float: left"></el-input>-->
                 </div>
               </div>
 
               <!---成交额--->
-              <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">成交额</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+              <div style="width: 50%;height: 80%;float: left;">
+                <p style="float: left;">成交额</p>
+                <div style="float: left;width: 10%;align-content: center;margin-right: 8%;font-size:14px;margin-left:5%;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.maxTradeAmount" style="width: 55%;float: left"></el-input>-->
                   {{ this.maxMinData.minTradeAmount}}
                 </div>
 
-                <div style="float: left;width: 50%;align-content: center">
+                <div style="float: left;width: 40%;align-content: center">
                   <el-slider
                     v-model="TradeAmountValue"
                     range
                     step="0.01"
                     :min=this.maxMinData.minTradeAmount
                     :max=this.maxMinData.maxTradeAmount
-                    style="margin-top: 2%">
+                    style="margin-top: 5.5%">
                   </el-slider>
                 </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;font-size:14px;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.minTradeAmount" style="width: 55%;float: left"></el-input>-->
                   {{this.maxMinData.maxTradeAmount}}
                 </div>
@@ -117,23 +117,23 @@
 
               <!---市盈率--->
               <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">市盈率</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                <p style="float: left;">市盈率</p>
+                <div style="float: left;width: 10%;align-content: center;margin-right: 8%;font-size:14px;margin-left:5%;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.maxPeRatio" style="width: 55%;float: left"></el-input>-->
                   {{this.maxMinData.minPeRatio}}
                 </div>
 
-                <div style="float: left;width: 50%;align-content: center">
+                <div style="float: left;width: 40%;align-content: center">
                   <el-slider
                     v-model="PeRatioValue"
                     range
                     step="0.01"
                     :min=this.maxMinData.minPeRatio
                     :max=this.maxMinData.maxPeRatio
-                    style="margin-top: 2%">
+                    style="margin-top: 5.5%">
                   </el-slider>
                 </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                <div style="float: left;width: 10%;align-content: center;margin-left: 6%;font-size:14px;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.minPeRatio" style="width: 55%;float: left"></el-input>-->
                   {{this.maxMinData.maxPeRatio }}
                 </div>
@@ -142,23 +142,23 @@
 
               <!---涨跌幅  --->
               <div style="width: 50%;height: 80%;float: left">
-                <p style="float: left">涨跌幅</p>
-                <div style="float: left;width: 10%;align-content: center;margin-right: 5%;margin-top: 3%">
+                <p style="float: left;">涨跌幅</p>
+                <div style="float: left;width: 10%;align-content: center;margin-right: 8%;font-size:14px;margin-left:5%;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.maxIncrease" style="width: 55%;float: left"></el-input>-->
                   {{ this.maxMinData.minIncrease }}
                 </div>
 
-                <div style="float: left;width: 50%;align-content: center">
+                <div style="float: left;width: 40%;align-content: center">
                   <el-slider
                     v-model="IncreaseValue"
                     range
                     step="0.01"
                     :min=this.maxMinData.minIncrease
                     :max=this.maxMinData.maxIncrease
-                    style="margin-top: 2%">
+                    style="margin-top: 5.5%">
                   </el-slider>
                 </div>
-                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;margin-top: 3%">
+                <div style="float: left;width: 10%;align-content: center;margin-left: 5%;font-size:14px;margin-top: 4.5%">
                   <!--<el-input v-model="this.maxMinData.minIncrease" style="width: 55%;float: left"></el-input>-->
                   {{this.maxMinData.maxIncrease}}
                 </div>

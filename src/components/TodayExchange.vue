@@ -185,11 +185,9 @@
       this.setTodayExchangeApi();
     },
     beforeMount() {
-      let isLogin = this.$store.getters.isLogin
+      let isLogin = this.$store.getters.isLogin;
       if (!isLogin) {
-        this.$alert('请先登录！', {
-          confirmButtonText: '确定',
-        });
+        this.$message('请先登录');
         this.$router.push('/')
       }
     },

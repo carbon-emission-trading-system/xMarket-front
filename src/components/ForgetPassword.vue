@@ -165,12 +165,6 @@ import qs from 'qs'
         this.$router.push('/')
       },
 
-      warning() {
-        this.$alert('请先登录！', {
-          confirmButtonText: '确定',
-        });
-      },
-
       /**
        * @Description: 注册按钮
        * @Param:
