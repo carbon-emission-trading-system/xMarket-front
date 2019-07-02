@@ -156,6 +156,7 @@
           }
         })
       },
+
       toRouterOrAlert(index) {
         if (this.$store.getters.isLogin) {
           this.$router.push(index)

@@ -726,7 +726,7 @@
     height: 23px;
     line-height: 23px;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 6px;
     border: 0.5px solid #E6EAEE;
   }
 

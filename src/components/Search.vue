@@ -93,9 +93,7 @@
             this.$store.commit('changeRout', 0);
             this.$router.push('StockDisplay')
           } else { //不存在则提示
-            this.$alert('该股票不存在，请重新输入', '搜索失败', {
-              confirmButtonText: '确定',
-            });
+            this.$message('该股票不存在，请重新输入！');
           }
         } else {//如果用户按搜索建议
           let stockId = this.input.split(":")[0]

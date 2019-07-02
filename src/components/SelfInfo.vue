@@ -265,6 +265,13 @@
         this.$message.error(error.message)
       })
     },
+    beforeMount() {
+      let isLogin = this.$store.getters.isLogin;
+      if (!isLogin) {
+        this.$message('请先登录');
+        this.$router.push('/')
+      }
+    },
     methods: {
       a() {
         this.$forceUpdate();
