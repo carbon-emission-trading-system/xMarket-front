@@ -313,6 +313,7 @@
                 self.$router.push('/afterLogin');
               })
               .catch((response) => {
+                this.refreshCode();//需要触发的函数
                 self.$message.error(response.message)
               })
           }
