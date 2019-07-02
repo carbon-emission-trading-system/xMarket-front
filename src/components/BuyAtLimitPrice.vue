@@ -322,9 +322,10 @@
        * 跌幅
        */
       LimitPrice(rule, value, callback) {
-        console.log('Limit')
+        console.log('Limit');
         this.$forceUpdate();
         if (!value) {
+
           callback(new Error('请输入买入金额'));
           console.log('请输入买入金额')
         } else {
@@ -336,7 +337,10 @@
               callback(new Error('低于跌停价'))
             } else if (value < 0) {
               callback(new Error('请输入合适价格'))
-            } else {
+            } else if((value*100-Math.floor(value*100))!==0) {
+              callback(new Error('请输入二位小数'));
+            }else {
+              console.log(Math.floor(value*100)!==0)
               callback();
               this.stockTrading.canorderAmount = this.CalculatingTax(this.stockTrading.balance, value);
               // Vue.set(this.stockTrading, this.stockTrading.canorderAmount, this.CalculatingTax(this.stockTrading.balance, value));
@@ -542,11 +546,10 @@
             orderPrice: this.stockTrading.orderPrice,
             tradeStraregy: 0,
           };
-          console.log('2')
-          console.log(SentstockTrading)
+          console.log('2');
+          console.log(SentstockTrading);
           api.http('post', "/api/buyOrSale", SentstockTrading).then(res => {
-
-            this.$message.success('提交成功')
+            this.$message.success('提交成功');
             this.firstReturnStockRealtimeInformation()
           }).catch((res) => {
             this.$message.error(res.message)
@@ -554,7 +557,6 @@
         }
       }
       ,
-
       //0.25/0.5/0.75计算
       change1() {
         // this.$set(this.stockTrading, 'orderAmount', 9);

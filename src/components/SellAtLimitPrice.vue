@@ -321,7 +321,9 @@
               callback(new Error('低于跌停价'))
             } else if (value < 0) {
               callback(new Error('请输入合适价格'))
-            } else {
+            } else if((value*100-Math.floor(value*100))!==0) {
+              callback(new Error('请输入二位小数'));
+            }else {
               callback()
               if (value > this.stockTrading.openPrice) {
                 document.getElementById('input').style.color = "#ff3434";
