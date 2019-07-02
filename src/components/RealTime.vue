@@ -893,7 +893,7 @@
     border: 1px solid #E6EAEE;
     line-height: 35px;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 6px;
     width: 25%;
     height: 20px;
   }
