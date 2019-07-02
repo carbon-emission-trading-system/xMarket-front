@@ -382,7 +382,7 @@
               type: 'category',
               boundaryGap: true,
               axisLine: {onZero: false},
-              max: 330,
+              max: 720,
 
               data: this.timeData
             },
@@ -391,7 +391,7 @@
               show: false,
               type: 'category',
               boundaryGap: true,
-              max: 330,
+              max: 720,
               axisLine: {onZero: false},
               splitLine: {
                 "show": false
