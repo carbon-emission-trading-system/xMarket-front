@@ -152,7 +152,7 @@
               <el-table-column
                 prop="orderId"
                 label="合同编号"
-                width="120"
+                width="150"
                 align="center">
               </el-table-column>
               <el-table-column
@@ -303,6 +303,15 @@
               }
             }
           }
+          for (let i = 0; i < data.length; i++) {
+            if(data[i].type==='买入'){
+              data[i].actualAmount = '-'+data[i].actualAmount
+            }
+            else{
+              data[i].actualAmount = '+'+data[i].actualAmount
+            }
+          }
+
           this.originTableData = data
           this.tableData = this.originTableData
         }).catch((error) => {
