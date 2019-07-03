@@ -338,7 +338,7 @@
       setFirstTimeApi: function () {
         let params = {
           stockId: this.$store.getters.getStockId
-        }
+        };
         this.$api.http('get', '/api/firstTimeSharingDisplay', params).then(res => {
           let data = res.data
           for (let i = 0; i < data.length; i++) {

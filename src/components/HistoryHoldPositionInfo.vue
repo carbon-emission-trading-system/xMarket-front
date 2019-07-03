@@ -163,36 +163,32 @@
         //数据预处理
         this.beginDate = data[0]
         this.endDate = data[1]
-        console.log(this.beginDate)
-        let date1 = new Date(this.beginDate)
-        let begin, year1, month1, day1
-        year1 = date1.getFullYear()
-        month1 = date1.getMonth() + 1
-        day1 = date1.getDate()
-        begin = year1.toString() + (month1 > 9 ? month1 : '0' + month1) + (day1 > 9 ? day1 : '0' + day1)
-        begin = parseInt(begin)
-        console.log(begin)
 
-        console.log(this.endDate)
-        let date2 = new Date(this.endDate)
-        let end, year2, month2, day2
-        year2 = date2.getFullYear()
-        month2 = date2.getMonth() + 1
-        day2 = date2.getDate()
-        end = year2.toString() + (month2 > 9 ? month2 : '0' + month2) + (day2 > 9 ? day2 : '0' + day2)
-        end = parseInt(end)
-        console.log(end)
+        let date1 = new Date(this.beginDate);
+        let begin, year1, month1, day1;
+        year1 = date1.getFullYear();
+        month1 = date1.getMonth() + 1;
+        day1 = date1.getDate();
+        begin = year1.toString() + (month1 > 9 ? month1 : '0' + month1) + (day1 > 9 ? day1 : '0' + day1);
+        begin = parseInt(begin);
 
-        let list = []
+        let date2 = new Date(this.endDate);
+        let end, year2, month2, day2;
+        year2 = date2.getFullYear();
+        month2 = date2.getMonth() + 1;
+        day2 = date2.getDate();
+        end = year2.toString() + (month2 > 9 ? month2 : '0' + month2) + (day2 > 9 ? day2 : '0' + day2);
+        end = parseInt(end);
+
+        let list = [];
         for (let i = 0; i < this.originTableData.length; i++) {
-          let date = new Date(this.originTableData[i].buildPositionDate)
-          //   console.log(date)
-          let theDate, year, month, day
-          year = date.getFullYear()
-          month = date.getMonth() + 1
-          day = date.getDate()
-          theDate = year.toString() + (month > 9 ? month : '0' + month) + (day > 9 ? day : '0' + day)
-          theDate = parseInt(theDate)
+          let date = new Date(this.originTableData[i].buildPositionDate);
+          let theDate, year, month, day;
+          year = date.getFullYear();
+          month = date.getMonth() + 1;
+          day = date.getDate();
+          theDate = year.toString() + (month > 9 ? month : '0' + month) + (day > 9 ? day : '0' + day);
+          theDate = parseInt(theDate);
 
           //日期范围筛选
           if (theDate >= begin && theDate <= end) {

@@ -158,7 +158,7 @@
               align="center"
             >
               <template slot-scope="scope">
-                <el-button v-if="scope.row.state!=='未成交'" @click="cancel(scope.row.orderId)" type="text" size="small"
+                <el-button v-if="(scope.row.state!=='未成交')&&(scope.row.state!=='部分成交')" @click="cancel(scope.row.orderId)" type="text" size="small"
                            disabled>撤单
                 </el-button>
                 <el-button v-else @click="cancel(scope.row.orderId)" type="text" size="small">撤单</el-button>
@@ -266,7 +266,7 @@
               data[i].state = "全部撤单"
             }
             else {
-              data[i].tradeMarket = "部分成交"
+              data[i].state = "部分成交"
             }
 
             if (data[i].tradeStraregy === 0) {

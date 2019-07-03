@@ -321,8 +321,8 @@
         })
       },
       changeIntoFloat(value) {
-        value = value.toFixed(2)
-        let value1 = value.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g
+        value = value.toFixed(2);
+        let value1 = value.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
         return value.replace(value1, "$1,")
       },
 
