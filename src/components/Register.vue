@@ -371,16 +371,14 @@ import qs from 'qs'
 
 <style lang="scss">
   #register {
-    width: 50%;
+    width: 30%;
     height: 80%;
     margin: auto;
-    margin-left: 25%;
-    margin-top: 5%;
+    display: inline-block;
   }
 
   .box-card {
-
-    width: 60%;
+    width: 100%;
     margin: auto;
     padding: 6%;
   }
