@@ -371,7 +371,7 @@ import qs from 'qs'
 
 <style lang="scss">
   #register {
-    width: 30%;
+    width: 40%;
     height: 80%;
     margin: auto;
     display: inline-block;

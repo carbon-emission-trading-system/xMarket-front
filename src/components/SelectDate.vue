@@ -35,8 +35,8 @@
     },
     methods: {
       select() {
-        this.beginDate = this.value[0]
-        this.endDate = this.value[1]
+        this.beginDate = this.value[0];
+        this.endDate = this.value[1];
         this.$emit("select", [this.beginDate, this.endDate])
       }
     }
