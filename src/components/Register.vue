@@ -62,7 +62,7 @@
               <el-col class="line" :span="2">-</el-col>
               <el-col :span="6">
                 <el-button v-show="show" class="submit-btn" type="primary" @click="getMailCode(this)">获取验证码</el-button>
-                <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}S</el-button>
+                <el-button v-show="!show" class="submit-btn" type="primary">{{ count }}秒后重新发送</el-button>
               </el-col>
             </el-form-item>
             <el-form-item label="用户名"
