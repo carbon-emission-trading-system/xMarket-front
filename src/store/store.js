@@ -71,6 +71,12 @@ export default new Vuex.Store({
       }
       return state.stockName
     },
+    getRout(state){
+      if (!state.rout) {
+        state.rout = sessionStorage.getItem('rout')
+      }
+      return state.rout
+    },
     getUsername(state) {
       if (!state.user.username) {
         state.user.username = sessionStorage.getItem('username')
@@ -148,6 +154,7 @@ export default new Vuex.Store({
     },
     changeRout:(state,payload)=>{
       state.rout = payload
+      sessionStorage.setItem("rout", payload)
     }
   },
   //在actions中提交mutations的方法达到改变state的目的 .commit()

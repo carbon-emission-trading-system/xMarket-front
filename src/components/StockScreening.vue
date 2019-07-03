@@ -115,13 +115,13 @@
               yAxisIndex: 0,
               min: 'dataMin',
               max: 'dataMax',
-
             },
             {
               name: '百分比',
               yAxisIndex: 1,
-              max: 1,
-              min: -1,
+              splitLine: {
+                "show": false
+              },
               type: 'value',
             }
           ],
@@ -130,12 +130,13 @@
               name: '总资产',
               type: 'line',
               data: this.totalFunds,
+              smooth:0.2,
             },
             {
               name: '持仓盈亏',
               type: 'line',
               yAxisIndex: 1,
-
+              smooth:0.2,
               data: this.fundIncrease,
             },
             {

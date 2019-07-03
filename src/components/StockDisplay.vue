@@ -40,33 +40,33 @@
     <div style="z-index: 1;position:relative;" >
     <div id="bread">
       <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 14px">
-        <el-breadcrumb-item v-if="this.$store.state.rout===0" :to="{ path:'/StockList' }">股票列表
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==0" :to="{ path:'/StockList' }">股票列表
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===1" :to="{ path:'/BuyAtLimitPrice' }">限价买入
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==1" :to="{ path:'/BuyAtLimitPrice' }">限价买入
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===2" :to="{ path:'/BuyAtMarketPrice' }">市价买入
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==2" :to="{ path:'/BuyAtMarketPrice' }">市价买入
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===3" :to="{ path:'/SellAtLimitPrice' }">限价卖出
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==3" :to="{ path:'/SellAtLimitPrice' }">限价卖出
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===4" :to="{ path:'/SellAtMarketPrice'}">市价卖出
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==4" :to="{ path:'/SellAtMarketPrice'}">市价卖出
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===5" :to="{ path:'/AfterLogin' }">首页
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==5" :to="{ path:'/AfterLogin' }">首页
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===6" :to="{ path:'/HistoryExchangeInfo' }">历史成交
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==6" :to="{ path:'/HistoryExchangeInfo' }">历史成交
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===7" :to="{ path:'/HistoryHoldPosition' }">历史持仓
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==7" :to="{ path:'/HistoryHoldPosition' }">历史持仓
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===8" :to="{ path:'/OneRank' }">股票排行
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==8" :to="{ path:'/OneRank' }">股票排行
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===9" :to="{ path:'/PositionStock' }">持仓股
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==9" :to="{ path:'/PositionStock' }">持仓股
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===10" :to="{ path:'/Rank' }">排行榜
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==10" :to="{ path:'/Rank' }">排行榜
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===11" :to="{ path:'/SelfSelectedStock' }">自选股
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==11" :to="{ path:'/SelfSelectedStock' }">自选股
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===12" :to="{ path:'/TodayExchange' }">当日成交
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==12" :to="{ path:'/TodayExchange' }">当日成交
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-if="this.$store.state.rout===13" :to="{ path:'/TodayOrder' }">当日委托
+        <el-breadcrumb-item v-if="this.$store.getters.getRout==13" :to="{ path:'/TodayOrder' }">当日委托
         </el-breadcrumb-item>
 
         <!--<el-breadcrumb-item v-else :to="{ path:'/StockList' }">股票列表</el-breadcrumb-item>-->

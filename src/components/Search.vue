@@ -66,22 +66,23 @@
           console.log(stockNames)
           //判断是否存在该股票
           if (stockIds.indexOf(input) !== -1 || stockPinyins.indexOf(input.toUpperCase()) !== -1 || stockNames.indexOf(input) !== -1) {
+
+            //如果用户输入的是股票代码
+            if (input.length === 6) {
+              this.$store.commit('stockId', input)
+              let index = stockIds.indexOf(input)
+              let stockName = stockNames[index]
+              this.$store.commit('stockName', stockName)
+              console.log("id")
+            }
             //如果用户输入的是股票拼音
-            console.log("进来了吗")
-            if (input.replace(/[\u0391-\uFFE5]/g, "aa").length <8 ) {
+            else if (input.replace(/[\u0391-\uFFE5]/g, "aa").length <8 ) {
               let index = stockPinyins.indexOf(input.toUpperCase())
               let stockId = stockIds[index]
               let stockName = stockNames[index]
               this.$store.commit('stockId', stockId)
               this.$store.commit('stockName', stockName)
               console.log("pinyin")
-            }//如果用户输入的是股票代码
-            else if (input.length === 6) {
-              this.$store.commit('stockId', input)
-              let index = stockIds.indexOf(input)
-              let stockName = stockNames[index]
-              this.$store.commit('stockName', stockName)
-              console.log("id")
             }//如果用户输入的是股票名称
             else {
               this.$store.commit('stockName', input)
