@@ -180,6 +180,7 @@
           orderPrice: [],
           orderAmount: []
         },
+        newOrder:0,
       }
     },
     components: {
@@ -401,14 +402,25 @@
         } else {
           DT = "未选择成交方案"
         }
+        let prom = {
+          stockId: this.stockTrading.stockId,
+          // userId: store.state.user.userId
+          userId: this.$store.getters.getUserId
+        };
+        this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+          this.newOrder = res.data.orderPrice;
+        }).catch((error)=>{
+          this.$message.error(res.message)
+        });
+
         this.$msgbox({
           title: '市价卖出订单',
           message: h('div', {style: "margin-left:30%;margin-bottom:5%;width:100%;"}, [
             h('p', null, '证券代码:  ' + this.stockTrading.stockId),
             h('p', null, '证券名称:  ' + this.stockTrading.stockName),
             h('p', null, '卖出策略:  ' + DT),
+            h('p', null, '最新价格:  ' + this.newOrder),
             h('p', null, '卖出数量:  ' + this.stockTrading.orderAmount),
-            h('p', null, '预估金额:  ' + this.stockTrading.orderPrice * 1.1 * this.stockTrading.orderAmount),
           ]),
           showCancelButton: true,
           confirmButtonText: '确定',
@@ -455,6 +467,7 @@
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           console.log(res);
           this.rout = true;
+          this.newOrder = res.data.orderPrice;
           this.stockTrading = res.data;
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.tradeMarket = res.data.tradeMarket;
