@@ -166,6 +166,7 @@
           return{
             url:'../../../static/images/xMarket.png',
             tableData:[],
+            activeIndex: 'Rank',
           }
       },
       created(){

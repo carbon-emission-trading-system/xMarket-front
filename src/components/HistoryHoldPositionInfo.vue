@@ -216,6 +216,13 @@
         this.$api.http('get', '/api/historyHoldPositionInfo', params).then(res => {
           console.log(res);
           this.originTableData = res.data;
+          for (let i = 0; i < this.originTableData.length; i++) {
+            for (let key in this.originTableData[i]) {
+              if (key === 'totalProfitAndLoss' || key === 'profitAndLossRatio') {
+                this.originTableData[i][key] = this.originTableData[i][key].toFixed(2)
+              }
+            }
+          }
           this.tableData = this.originTableData
         }).catch((error) => {
           this.$message.error(error.message)

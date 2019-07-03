@@ -101,12 +101,12 @@
           <div>
             <el-tabs v-model="activeName">
               <el-tab-pane label="日K" name="first">
-                <ve-candle :data="kChartData" width="770px" height="470px" :settings="kChartSettings"
+                <ve-candle :data="kChartData" width="770px" height="435px" :settings="kChartSettings"
                            :colors="kColor"  ></ve-candle>
               </el-tab-pane>
 
               <el-tab-pane label="分时" name="second" >
-                <div id="myChart" style="width: 770px;height: 470px"></div>
+                <div id="myChart" style="width: 770px;height: 435px"></div>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -141,7 +141,6 @@
           symbol: 'none',
           showMA: true,
           showVol: true,
-          //
           showDataZoom: true,
           upColor: 'mediumseagreen',
           downColor: 'crimson',
@@ -152,7 +151,7 @@
             lowestPrice: '最低价',
             Volume: '成交量'
           },
-        }
+        };
 
       this.kColor = ['#c23531', '#2f4554', '#61a0a8', '#d48265']
       return {
@@ -328,7 +327,7 @@
       setKlineApi: function () {
         let params = {
           stockId: this.$store.getters.getStockId
-        }
+        };
         this.$api.http('get', '/api/KlineDiagramDisplay', params).then(res => {
           this.kChartData.rows = res.data;
         }).catch((error) => {
