@@ -9,7 +9,6 @@
                text-color="#000000"
                active-text-color="#ffd04b"
                v-bind:router=true
-
                style=" background:rgba(0, 0, 0, 0); width: 60%;float: right;">
 
         <el-menu-item index="AfterLogin">首页</el-menu-item>
@@ -195,6 +194,7 @@
           orderPrice: [],
           orderAmount: []
         },
+        newOrder:0,
       }
     },
     components: {
@@ -410,6 +410,17 @@
         } else {
           DT = "未选择成交方案"
         }
+        let prom = {
+          stockId: this.stockTrading.stockId,
+          // userId: store.state.user.userId
+          userId: this.$store.getters.getUserId
+        };
+        this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
+         this.newOrder = res.data.orderPrice;
+         console.log(newOrder)
+        }).catch((error)=>{
+          this.$message.error(res.message)
+        });
 
         this.$msgbox({
           title: '市价买入订单',
@@ -417,8 +428,8 @@
             h('p', null, '证券代码:  ' + this.stockTrading.stockId),
             h('p', null, '证券名称:  ' + this.stockTrading.stockName),
             h('p', null, '买入策略:  ' + DT),
+            h('p', null, '最新价格:  ' + this.newOrder),
             h('p', null, '买入数量:  ' + this.stockTrading.orderAmount),
-            h('p', null, '预估金额:  ' + this.stockTrading.orderPrice * 1.1 * this.stockTrading.orderAmount),
           ]),
           showCancelButton: true,
           confirmButtonText: '确定',
@@ -453,6 +464,7 @@
         this.$api.http('get', "/api/QueryStockInformation", prom).then(res => {
           this.rout = true;
           this.stockTrading = res.data;
+          this.newOrder = res.data.orderPrice;
           this.stockTrading.openPrice = res.data.yesterdayClosePrice;
           this.stockTrading.balance = res.data.balance;
           this.$set(this.stockTrading, 'canorderAmount', this.CalculatingTax(this.stockTrading.balance, this.stockTrading.openPrice * 1.1));
