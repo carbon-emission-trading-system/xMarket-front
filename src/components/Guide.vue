@@ -47,7 +47,7 @@
 
                  pin="true">
           <!--<div style="width: 20%;height: 20%">-->
-          <el-tab-pane label="交易规则" class="leftBox">
+          <el-tab-pane label="交易简章" class="leftBox">
             <div class="rightCard">
               <span style="font-size:30px" sortable>虚市交易规则简章</span>
               <el-divider content-position="right" style="width: 100%"></el-divider>
