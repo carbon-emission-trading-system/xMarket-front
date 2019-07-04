@@ -51,7 +51,7 @@
                 :data="rankByIncrease"
                 @row-dblclick="handleStock"
 
-                style="width: 100%;font-size: 6px;cursor: pointer">
+                style="width: 100%;font-size: 6px;cursor: pointer;height: 300px;">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
@@ -112,7 +112,7 @@
               <el-table
                 :data="rankByDecrease"
                 @row-dblclick="handleStock"
-                style="width: 100%;font-size: 6px;cursor: pointer">
+                style="width: 100%;font-size: 6px;cursor: pointer;height: 300px;">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
@@ -175,7 +175,7 @@
               <el-table
                 :data="rankByTradeAmount"
                 @row-dblclick="handleStock"
-                style="width: 100%;font-size: 6px;cursor: pointer">
+                style="width: 100%;font-size: 6px;cursor: pointer;height: 300px;">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
@@ -186,13 +186,13 @@
                   prop="stockName"
                   label="股票简称"
                   align="center"
-                  width="75">
+                  width="70">
                 </el-table-column>
                 <el-table-column
                   prop="tradeAmount"
                   label="成交额"
                   align="center"
-                  width="80">
+                  width="95">
                 </el-table-column>
                 <el-table-column
                   prop="lastTradePrice"
@@ -209,13 +209,13 @@
                   prop="highestPrice"
                   label="最高价"
                   align="center"
-                  width="70">
+                  width="65">
                 </el-table-column>
                 <el-table-column
                   prop="lowestPrice"
                   label="最低价"
                   align="center"
-                  width="70">
+                  width="65">
                 </el-table-column>
               </el-table>
             </el-card>
@@ -230,7 +230,7 @@
               <el-table
                 :data="rankByConversionHand"
                 @row-dblclick="handleStock"
-                style="width: 100%;font-size: 6px;cursor: pointer">
+                style="width: 100%;font-size: 6px;cursor: pointer;height: 300px;">
                 <el-table-column
                   prop="stockId"
                   label="股票代码"
